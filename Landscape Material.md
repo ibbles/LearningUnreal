@@ -1,3 +1,6 @@
+#Landscape
+#Material
+
 A Landscape Material is a [[Material]] intended for use on a Landscape.
 In particular, a Landscape Material is a Material that contains one or more Landscape Layer Blend nodes.
 

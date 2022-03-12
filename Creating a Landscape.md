@@ -1,11 +1,13 @@
+#Landscape
+
 In the [[Landscape Mode]], make sure the Manage tab is selected, and the New tool within the Manage Tool Bar.
 
-![[Images/Landscape Mode Manage Tab New Tool.png]]
+![[Images/Landscape_Mode_Manage_Tab_New_Tool.png]]
 
 
 The Landscape Mode Panel shows the settings for the new Landscape we are about to create.
 
-![](Images/New Landscape Settings.png)
+![](Images/New_Landscape_Settings.png)
 
 
 The [[Landscape Material|Material]] is what decide what the Landscape will look like, its colors and such.

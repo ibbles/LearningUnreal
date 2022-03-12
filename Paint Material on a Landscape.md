@@ -1,6 +1,10 @@
+[[Landscape Material]]
+[[Material]]
+
+
 When in the [[Landscape Mode]], select the Paint tab and then the Paint tool.
 
-![[Landscape Mode Paint Tab Paint Tool.png]]
+![[Landscape_Mode_Paint_Tab_Paint_Tool.png]]
 
 
 A Landscape consists of layers where each layer has its own appearance.

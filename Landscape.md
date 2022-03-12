@@ -1,3 +1,5 @@
+#Landscape
+
 A Landscape is how we create the ground in our environment.
 It is a height field, which means that we can do hills and valleys but not caves or overhangs.
 
@@ -10,7 +12,7 @@ Each Section consists of a number of Quads.
 [[Creating a Landscape]]
 [[Landscape Material]]
 
-[[Quixel MegaScan Materials on Landscape]]
+[[Quixel Megascans Materials on Landscape]]
 
 [[Create a Photorealistic world in UE4]]
 
