@@ -1,0 +1,1 @@
+Notes about Quixel Megascans assets.
