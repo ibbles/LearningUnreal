@@ -9,6 +9,7 @@ References to [[Blueprint Variables]] can be created either from the right-click
 Upon release we get to chose if we want a get node or a set node.
 By holding CTRL while dragging we create a get node immediately.
 By holding Alt while dragging we create a set node immediately.
+By releasing on top of a node pin we directly connect the variable to that pin.
 
 # Connecting nodes
 Nodes are connected at their input and output pins with wires.
