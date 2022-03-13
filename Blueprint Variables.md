@@ -9,6 +9,11 @@ Or duplicate an already existing variable by selecting it and pressing Ctrl+W.
 - Dragging it from the Variables list into the [[Blueprint Visual Script Editor]]
 - By right-click in the node graph and searching for the name.
 
+A Variable has a Category.
+The Category is set in the Details panel.
+The Category is set when dragging a Variable into a Category in Variables category of the My Blueprint panel.
+The Category is used when right-clicking in the [[Blueprint Visual Script Editor]] and in the Details panel of a selected [[Blueprint Instance]].
+
 Variables exists in a **hierarchy of templates and instances** where values are inherited.
 [[Variables Templates And Instances]]
 
