@@ -1,0 +1,28 @@
+A Widget is a GUI element.
+A Widget Blueprint is a Widget designed and implemented as a [[Blueprint Class]] .
+
+A Widget Blueprint contains a collection of sub-Widgets that define the contents of the Widget.
+The sub-Widgets are organized in a hierarchy.
+Container Widgets can contain other Widgets.
+Common container Widgets include Canvas Panel, Horizontal Box, Vertical Box, ...
+
+# Creating And Showing Widgets
+Widgets are created with the Create Widget node.
+The Create Widget node has an input pin of type Class that is the type of Widget to create.
+For a Widget to be rendered it must be added to a Viewport.
+Add a Widget to a Viewport with the Add To Viewport member function.
+It is common to store a reference to the created Widget so it can be updated later.
+
+Widgets can be created from a Pawn's [[Begin Play Event]].
+
+
+# Live Updates
+Widgets may contain dynamic content, i.e. content that changes over time.
+One example is the Progress Bar Widget.
+One way to update the state of such a Widget is with a Binding.
+A Binding is a function that is called every tick.
+This has a high performance cost if there are many Bindings.
+This cost is especially unnecessary for widgets that don't change often.
+
+An alternative to Bindings is a [[Custom Events|Custom Event]] in the Widget's Event Graph.
+The [[Custom Events|Custom Event]] can have a Parameter that is the new state the Widget should display.
