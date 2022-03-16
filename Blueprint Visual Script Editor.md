@@ -11,9 +11,11 @@ By holding CTRL while dragging we create a get node immediately.
 By holding Alt while dragging we create a set node immediately.
 By releasing on top of a node pin we directly connect the variable to that pin.
 
-# Connecting nodes
+# Connecting and disconnecting nodes
 Nodes are connected at their input and output pins with wires.
 An input pin can be connected to an output pin by dragging from one to the other.
+The Target input pin can be connected to multiple Object References, the function will be called on all of them.
+A wire can be disconnected from a pin by right-clicking and selecting Break Link To ... or holding Alt and left-click.
 
 # Organizing nodes and wires
 Reroute nodes can be created by double-clicking on a wire.
