@@ -14,3 +14,4 @@ Pick a parent class from the menu that appears.
 
 An alternative way is to find the parent Blueprint Class in the Content Browser, right-click that and select Create Child Blueprint Class.
 
+An alternative way is to find a Blueprint Class that is a child of the wanted Parent Class and duplicate that.
