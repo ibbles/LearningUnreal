@@ -9,6 +9,9 @@ Or duplicate an already existing variable by selecting it and pressing Ctrl+W.
 - Dragging it from the Variables list into the [[Blueprint Visual Script Editor]]
 - By right-click in the node graph and searching for the name.
 
+A Variable can be **Instance Editable**.
+An Instance Editable variable will show up in the Details panel when an instance of the [[Blueprint Class]] is selected in the [[Level Editor]].
+
 A Variable has a Category.
 The Category is set in the Details panel.
 The Category is set when dragging a Variable into a Category in Variables category of the My Blueprint panel.
