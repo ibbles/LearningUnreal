@@ -20,5 +20,5 @@ The error:
 ```
 LogInit: Error: Timed out waiting for the recipient (TimeWaitingSec = 60.011036)
 CurrentThread == GetCurrentThread() [File:/media/s800/UnrealEngine_4.25/Engine/Source/Runtime/Core/Private/Async/TaskGraph.cpp] [Line: 1417]
-LogContentCommandlet: Error: [REPORT] Failed building lighting for /Game/TutorialHallways/Levels/Wire
+LogContentCommandlet: Error: [REPORT] Failed building lighting for /Game/Levels/MyLevel
 ```
