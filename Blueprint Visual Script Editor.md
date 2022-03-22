@@ -16,6 +16,7 @@ Nodes are connected at their input and output pins with wires.
 An input pin can be connected to an output pin by dragging from one to the other.
 The Target input pin can be connected to multiple Object References, the function will be called on all of them.
 A wire can be disconnected from a pin by right-clicking and selecting Break Link To ... or holding Alt and left-click.
+Execution wires can be merged at input pins, meaning that shared functionality can be placed at the end of two wires of execution.
 
 # Organizing nodes and wires
 Reroute nodes can be created by double-clicking on a wire.
