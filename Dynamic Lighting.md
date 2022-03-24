@@ -28,3 +28,6 @@ The Details panel > Light Function > Fade Distance is important for performance.
 Older real time Global Illumination system.
 Not recommended for production use.
 
+# Raytraced Global Illumination
+High performance cost.
+Replaced by Lumen.
