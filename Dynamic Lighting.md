@@ -23,3 +23,8 @@ It may be possible to add other Material Outputs as well. Not sure.
 )
 Used for fire flickering, water caustics, or shadows from clouds.
 The Details panel > Light Function > Fade Distance is important for performance.
+
+# Light Propagation
+Older real time Global Illumination system.
+Not recommended for production use.
+
