@@ -1,3 +1,7 @@
+Bake lighting with Main Tool Bar > Build > Build Lighting Only .
+
+[[Baked Lighting]]
+
 
 # Command line
 
