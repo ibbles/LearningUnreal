@@ -61,3 +61,15 @@ For a mesh you can enable Details panel > Lighting > Dynamic Inset Shadow.
 Fine detail shadows for two objects that are close to each other.
 Cases where the other shadow methods are to imprecise.
 Screen-space post-process method.
+
+# Raytraced Ambient Occlusion
+Looks good and fast.
+
+# Distance Field Ambient Occlusion
+Needs a stationary or movable (not static) Sky Light.
+Uses the geometry distance fields in the level to compute ambient occlusion.
+Configured in Sky Light > Details panel > Distance Field Ambient Occlusion.
+Used for large-scale ambient occlusion, mainly outdoor environments.
+For example to make the inside of an opening to a cave dark even if there is no shadow active there.
+Not precise, not for tiny objects/crevices.
+Keep the Scale of all geometries using distance fields close to 1.0 along all axes.
