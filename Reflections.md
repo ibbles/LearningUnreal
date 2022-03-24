@@ -17,8 +17,13 @@ Does not work well for mirror-like reflections.
 
 # Planar Reflections
 Very accurate for flat reflective surfaces, like polished floors.
+Added manually.
 Only works on flat surfaces.
 Enable with Planar Reflection > Details panel > Rendering > Planar Reflection Component > Visible.
 Can capture the surroundings every frame, but very costly for performance.
 
 # Screen Space Reflections
+Render reflections by reading other pixels that has already been rendered.
+Can not read things that are not rendered, i.e. are out of view.
+Always available, does not need to add anything to the level.
+Tweak the quality of the Screen Space Reflections with a [[Post Process Volume]] or console commands.
