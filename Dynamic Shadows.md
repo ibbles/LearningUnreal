@@ -38,3 +38,12 @@ Can be used for 20k or so units.
 The distance fields can be visualized with Viewport > Show > Visualize > Mesh Distance Fields.
 To use Distance Field Shadows you must enable Mesh Distance Fields in the Project Settings.
 Comes with a memory cost. I assume VRAM.
+
+# Inset Shadows
+Also called Per Object Shadows.
+A way to improve shadow quality for a particular thing.
+Often used for characters.
+Enabled by setting a Light to Stationary.
+Renders a Per Object shadow on top of the baked shadow.
+
+For a mesh you can enable Details panel > Lighting > Dynamic Inset Shadow.
