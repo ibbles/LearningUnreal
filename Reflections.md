@@ -1,4 +1,4 @@
-Three types.
+Three main types, and raytraced as a separate thing.
 Stacked/chained so that if a cheaper method has already rendered a pixel then the more expensive methods won't run.
 
 The reflections can be visualized with Viewport > Lit > Reflections.
@@ -27,3 +27,8 @@ Render reflections by reading other pixels that has already been rendered.
 Can not read things that are not rendered, i.e. are out of view.
 Always available, does not need to add anything to the level.
 Tweak the quality of the Screen Space Reflections with a [[Post Process Volume]] or console commands.
+
+# Raytraced Reflections
+Layered on top.
+Not sure if still available in Unreal Engine 5.
+
