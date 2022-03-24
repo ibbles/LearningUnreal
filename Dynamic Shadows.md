@@ -29,4 +29,12 @@ Set on [[Directional Light]], in Details panel > Cascaded Shadow Maps.
 
 Still quite costly in terms of render times.
 
-# Distance Fields Shadows
+# Distance Field Shadows
+Cache the shape of a geometry into a texture as a distance field.
+The distance field has lower resolution/precision than the geometry.
+Used mainly for distance shadows, far from the camera, where high precision isn't necessary.
+Takes over after the last Cascaded Shadow Map.
+Can be used for 20k or so units.
+The distance fields can be visualized with Viewport > Show > Visualize > Mesh Distance Fields.
+To use Distance Field Shadows you must enable Mesh Distance Fields in the Project Settings.
+Comes with a memory cost. I assume VRAM.
