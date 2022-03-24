@@ -29,6 +29,15 @@ Set on [[Directional Light]], in Details panel > Cascaded Shadow Maps.
 
 Still quite costly in terms of render times.
 
+# Capsule Shadows
+Simplified version of some geometry to gain performance.
+Only for skeletal meshes.
+Skeletal meshes have simplified collisions approximating its shape.
+That volume approximation can be used for shadowing instead of the triangles.
+Enabled on a Skeletal Mesh > Details panel > Lighting > Capsule {Direct, Indirect} Shadow.
+
+Useful when there are many small entities or where there aren't any intense lights.
+
 # Distance Field Shadows
 Cache the shape of a geometry into a texture as a distance field.
 The distance field has lower resolution/precision than the geometry.
