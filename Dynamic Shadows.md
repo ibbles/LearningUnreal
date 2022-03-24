@@ -47,3 +47,8 @@ Enabled by setting a Light to Stationary.
 Renders a Per Object shadow on top of the baked shadow.
 
 For a mesh you can enable Details panel > Lighting > Dynamic Inset Shadow.
+
+# Contact Shadows
+Fine detail shadows for two objects that are close to each other.
+Cases where the other shadow methods are to imprecise.
+Screen-space post-process method.
