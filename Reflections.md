@@ -29,6 +29,5 @@ Always available, does not need to add anything to the level.
 Tweak the quality of the Screen Space Reflections with a [[Post Process Volume]] or console commands.
 
 # Raytraced Reflections
-Layered on top.
-Not sure if still available in Unreal Engine 5.
-
+Layered on top of everything else.
+Not sure if still available in Unreal Engine 5, they have changed and deprecated quite a bit of the Raytracing code.
