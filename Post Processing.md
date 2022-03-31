@@ -1,5 +1,3 @@
-#PostProcess
-
 Change the look of your scene.
 There can only be one Post Process active at the time.
 If there are multiple Post Process that want to be active at the same time then the one with the highest Priority is used.
