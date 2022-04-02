@@ -4,13 +4,26 @@ A Blueprint variable has a type that is one of the [[Blueprint Datatypes]].
 
 Create a **new variable** by clicking the `+` next no Variables in the My Blueprint panel.
 Or duplicate an already existing variable by selecting it and pressing Ctrl+W.
+The Blueprint should be compiled after adding a variable to make it possible to set a default value.
 
 **Use a variable** by either
 - Dragging it from the Variables list into the [[Blueprint Visual Script Editor]]
+  Hold Ctrl to get a read node, hold Alt to get a write node.
 - By right-click in the node graph and searching for the name.
 
 A Variable can be **Instance Editable**.
 An Instance Editable variable will show up in the Details panel when an instance of the [[Blueprint Class]] is selected in the [[Level Editor]].
+The Instance Editable flag is also shown as an eye next to the variable in the My Blueprint panel.
+The eye is
+- closed for non Instance Editable variables.
+- open yellow for Instance Editable variables without a Tooltip.
+- open green for Instance Editable variables with a tooltip.
+
+
+A Variable can be **Private**.
+Private variables can not be seen or edited by child classes.
+Non-private variables are accessible by child classes.
+To see inherited variables in a child class check My Blueprint panel > Eye icon > Show Inherited Variables.
 
 A Variable has a Category.
 The Category is set in the Details panel.
