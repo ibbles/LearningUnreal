@@ -33,3 +33,5 @@ The Category is used when right-clicking in the [[Blueprint Visual Script Editor
 Variables exists in a **hierarchy of templates and instances** where values are inherited.
 [[Variables Templates And Instances]]
 
+A Blueprint Variable can be local to a [[Blueprint Function]].
+Local variables are only accessible while executing that function.
