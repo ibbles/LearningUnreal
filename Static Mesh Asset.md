@@ -15,3 +15,8 @@ Can it have 0?
 )
 A Material Slot is a mapping from a [[Material]] to a set of triangles that use that Material.
 From the Material Slot Widget Row we can select which Material to use for that slot, open the [[Material Editor]] for the selected Material, and find the Material Asset in the Content Drawer.
+
+A Static Mesh Asset can contain vertex colors.
+This is a color assigned to each vertex.
+While the vertex color can be rendered as-is, it is more common to use it to control some other aspect of the rendering through the [[Material]], such as which texture to sample from.
+
