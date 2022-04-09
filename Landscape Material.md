@@ -4,7 +4,7 @@
 A Landscape Material is a [[Material]] intended for use on a Landscape.
 In particular, a Landscape Material is a Material that contains one or more Landscape Layer Blend nodes.
 
-Landscape Materials are created just like a regular [Material].
+Landscape Materials are created just like a regular [[Material]].
 Content Browser > Right-click > Material.
 
 A Landscape Material can use Texture Sample nodes.
