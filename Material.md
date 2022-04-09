@@ -28,3 +28,10 @@ Depending on the settings set in the Details panel different input pins are avai
 - Pixel Depth Offset:
 - Shading Model:
 
+# Details panel
+The following properties are available in the Details panel of the [[Material Editor]].
+
+## Material
+- Fully Rough: boolean
+  Max out roughness, remove any glossiness from the materials.
+  Not sure how this relates to the Roughness output, which is still enabled even after setting Fully Rough to true.
