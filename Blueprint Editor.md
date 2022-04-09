@@ -1,4 +1,8 @@
 The Blueprint Editor is where we edit our Blueprint Classes.
+The main parts are the Viewport, the Event Graph, the Components, My Blueprint, and Details panels.
+There are also additional windows such as the Class Defaults, Class Settings, and Construction Script.
+
+The Details panel display the properties of the currently selected Component, variable, function, or macro.
 
 # My Blueprint Panel
 The Blueprint Editor contains the My Blueprint panel.
