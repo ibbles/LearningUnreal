@@ -9,6 +9,8 @@ The Landscape consists of Landscape Components.
 Each Landscape Component consists of a number of Sections.
 Each Section consists of a number of Quads.
 
+Most of the operations we can perform on a Landscape are accessed from the [[Landscape Mode]].
+
 [[Creating a Landscape]]
 [[Landscape Material]]
 
