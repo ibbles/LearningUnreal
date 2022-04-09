@@ -32,6 +32,12 @@ Depending on the settings set in the Details panel different input pins are avai
 The following properties are available in the Details panel of the [[Material Editor]].
 
 ## Material
-- Fully Rough: boolean
+- Blend Mode
+  Control how this Material with interact with other objects being rendered behind it.
+  **Opaque** means that this material will not blend, the pixel value is used as-is regardless of what's behind it.
+  **Masked** means that a pixel will either be opaque or discarded. Used to creates shapes smaller than the triangles. Common with foliage.
+  **Translucent**: We get gradual opacity, can set it 0..1 per pixel.
+- Advanced > Fully Rough: boolean
   Max out roughness, remove any glossiness from the materials.
   Not sure how this relates to the Roughness output, which is still enabled even after setting Fully Rough to true.
+  The pin value seems to be ignored.
