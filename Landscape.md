@@ -12,7 +12,11 @@ Each Section consists of a number of Quads.
 Most of the operations we can perform on a Landscape are accessed from the [[Landscape Mode]].
 
 [[Creating a Landscape]]
-[[Landscape Material]]
+
+From a Landscape's Details panel we can set a [[Landscape Material]].
+There is not special [[Landscape Material]] type or Used With Landscapes flag, any [[Material]] will work.
+Though there are some Landscape specific nodes the Material can use, such as Landscape Layer Blend.
+Layers are assigned to specific patches of the Landscape with [[Landscape Painting]].
 
 [[Quixel Megascans Materials on Landscape]]
 
