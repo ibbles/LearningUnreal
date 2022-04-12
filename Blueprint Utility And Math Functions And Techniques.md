@@ -11,3 +11,6 @@ Round a Vector to an arbitrary grid size.
 This is useful when placing Actors or Components in a regular grid.
 Unfortunately the grid cells must have the same size in all dimensions, i.e, they must be cubes.
 
+# Get Unit Direction
+Given two Locations, From and To, return a unit vector pointing from From to To.
+Useful to pass to Add Movement Input.
