@@ -10,3 +10,5 @@ You can use different mask settings to get different projection directions.
 Possibly also combine with **VertexNormalWS**, WS stands for World Space, to pick or blend between projection directions.
 There is also the  **World Aligned Normal** node, which seems related.
 One can also mask out only the Z component of Vertex Normal WS and use that to lerp between two textures.
+
+We can make **color variations** by having a gray-scale texture for patterns and using a **Blend Overlay** node along with a color parameter to chose a hue.
