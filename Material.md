@@ -3,6 +3,10 @@
 A Material defines the look-and-feel of an objects.
 The function of a Material is defined by its Material Graph, which is constructed in the [[Material Editor]].
 
+A Material can have parameters and we can create a [[Dynamic Material Instance]] that set these parameters to particular values.
+Parameters are created by adding a Constant node, created by holding 1 to 4 and clicking in the Material Graph, right-click the Constant node and select Convert To Parameter.
+Give the parameter a name.
+
 The main part of a Material is the output node.
 The values passed to the input pins of the output node define the function of the Material.
 Depending on the settings set in the Details panel different input pins are available.
