@@ -1,6 +1,8 @@
-A Character is a type/sublcass of [[Pawn]] designed for bipedal animated models.
+A Character is a type/subclass of [[Pawn]] designed for bipedal animated models.
 The Character is the player's or AI's avatar, the body that is running around the level.
 This is separate from the brain or mind, which is represented by a Controller, either an [[AI Controller]] or a [[Player Controller]].
+
+Create a new Character class by [[Content Browser]] > right-click > Blueprint Class > Character > click Select.
 
 A Character contains
 - A Capsule Component for collision detection.
@@ -9,7 +11,7 @@ A Character contains
 - A [[Skeletal Mesh Component]].
 - A [[Character Movement Component]].
 
-The Cpasule is typically sized to match the size of the Skeletal Mesh.
+The Capsule is typically sized to match the size of the Skeletal Mesh.
 
 The Character controlled by the current player, if any, can be fetched with the Get Player Character function.
 
