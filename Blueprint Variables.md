@@ -1,9 +1,10 @@
 A [[Blueprint Class]] may contain variables.
 The variables are listed in the Variables category of the My Blueprint panel in the Blueprint Editor.
+Variables inherited from the parent Blueprint, if any, can be included by enabling My Blueprint > Eye (UE4) or Gear (UE5) > Show Inherited Variables.
 A Blueprint variable has a type that is one of the [[Blueprint Datatypes]].
 
-Create a **new variable** by clicking the `+` next no Variables in the My Blueprint panel.
-Or duplicate an already existing variable by selecting it and pressing Ctrl+W.
+Create a **new variable** by clicking the `+` next to Variables in the My Blueprint panel.
+Or duplicate an already existing variable by selecting it and pressing Ctrl+W (UE4) or Ctrl+D (UE5).
 The Blueprint should be compiled after adding a variable to make it possible to set a default value.
 
 **Use a variable** by either
@@ -33,5 +34,8 @@ The Category is used when right-clicking in the [[Blueprint Visual Script Editor
 Variables exists in a **hierarchy of templates and instances** where values are inherited.
 [[Variables Templates And Instances]]
 
-A Blueprint Variable can be local to a [[Blueprint Function]].
+A Blueprint Variable can be **local** to a [[Blueprint Function]] or the [[Construction Script]].
 Local variables are only accessible while executing that function.
+Local variables have a Category in the My Blueprint panel.
+This Category is not shown when the [[Event Graph]] is open since the [[Event Graph]] cannot have local variables.
+Create a new local variable by either clicking the `+` in the Local Variables Category in the My Blueprint panel or right-click an output pin and select Promote To Local Variable.
