@@ -9,6 +9,9 @@ It controls
 
 The class to use for each of these is set in the Details panel of the Game Mode.
 
+Create a new Game Mode by Content Browser > right-click > Blueprint Class > Game Mode Base > Select.
+Game Modes are often named with the `GM_` prefix.
+
 The Game Mode to use can be set either in the Project Settings or the World Settings for a particular level.
 So either
 Project Settings > Project > Maps & Modes > Default Game Mode
