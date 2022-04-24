@@ -6,9 +6,11 @@ Input Bindings are created in [[Project Settings]] > Engine > Input > Bindings.
 # Action Mappings
 Action Mappings binds low-level **keyboard key** and **mouse button** events to [[Action Events]].
 Actions are binary events, they are either not active or fully active.
-The [[Action Events]] node has a Pressed execution wire and a Released execution wire.
+An [[Actor]] that listens for an [[Action Events|Action Event]] has a [[Blueprint Event]] node in its [[Event Graph]].
+The [[Blueprint Event]] node for an [[Action Event]] has a Pressed execution wire and a Released execution wire.
 Add a new Axis Mapping by clicking the `+` next to the Axis Mappings category header.
 Each Action Mapping has a **name**, a **key or button** that should trigger the action, a set of **modifiers** that should be held.
+Chose a key or button either from the drop-down list or by clicking the Select button and type or press the key or button to create a mapping for.
 
 # Axis Mappings
 Axis Mappings bind low-level **gamepad** and **mouse axis** events to [[Axis Events]].
@@ -21,6 +23,7 @@ Can have multiple keys with different axis values, for example for forwards or b
 The logic to execute in response to an [[Action Events|Action Event]] or [[Axis Events|Axis Event]]  may take the form of a [[Blueprint Visual Script]] node graph rooted at a [[Blueprint Events|Blueprint Event]] node or C++ code.
 
 A [[Blueprint Event]] node created by right-click in the Blueprint's [[Event Graph]] and finding the name of the action or axis mapping in the list.
+They will be under Input > {Action, Axis} Events.
 This will add a root execution node to the graph.
 
 Many Actors may be listening for [[Input Events]] but only one will receive it.
