@@ -225,6 +225,7 @@ A decent setup is
 - Options > Geometry Type > Convex Hulls.
 - Options > Input Mode > Per Mesh Component.
 - Output Options > Append To Existing > Enable.
+	- Not sure about this one.
 
 # Uncertainties And Questions
 What is the similarities and differences between
