@@ -6,4 +6,4 @@ The modes are:
 - [[Landscape Mode]]
 - [[Foliage Mode]]
 - [[Modeling Mode]]
-- 
+
