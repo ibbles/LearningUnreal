@@ -13,7 +13,7 @@ The outputs appear as input pins on the function's Return Node.
 
 If your [[Blueprint Class]] overrides a function defined in the parent class then you can add a call to the parent class' implementation in your function implementation by right-clicking the functions start node and selecting Add Call To Parent Function.
 
-A Blueprint Function can contain **local [[Blueprint Variables]]**.
+A Blueprint Function can contain **local [[Blueprint Variable]]**.
 Local variables are only accessible while executing the function.
 Local variables are listed in My Blueprint > Local Variables.
 This category is only shown if a Blueprint Function is open.

@@ -6,7 +6,7 @@ The Details panel display the properties of the currently selected Component, va
 
 # My Blueprint Panel
 The Blueprint Editor contains the My Blueprint panel.
-The My Blueprint panel contains the [[Blueprint Variables]] that the class contains.
+The My Blueprint panel contains the [[Blueprint Variable]] that the class contains.
 To see inherited variables you must click the eye at the top of the My Blueprint panel and check Show Inherited Variables.
 
 # Event Graph

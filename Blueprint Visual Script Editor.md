@@ -5,7 +5,7 @@ The logic is defined by [[Execution Nodes]] that are linked together via their e
 New nodes are added to the Visual Script by right-clicking and then selecting the wanted node from the list that appears.
 The node list can be filtered.
 
-References to **[[Blueprint Variables]]** can be created either from the right-click menu or by dragging the variable into the graph from the Variables category in the My Blueprint panel.
+References to **[[Blueprint Variable]]** can be created either from the right-click menu or by dragging the variable into the graph from the Variables category in the My Blueprint panel.
 We can also create references to **Components** in a [[Blueprint Class]] by dragging the Component from the Components panel to the graph.
 Upon release we get to chose if we want a get node or a set node.
 By holding Ctrl while dragging we create a get node immediately.
