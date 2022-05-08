@@ -25,6 +25,7 @@ The logic to execute in response to an [[Action Events|Action Event]] or [[Axis 
 A [[Blueprint Event]] node created by right-click in the Blueprint's [[Event Graph]] and finding the name of the action or axis mapping in the list.
 They will be under Input > {Action, Axis} Events.
 This will add a root execution node to the graph.
+For a [[Pawn]] it is common to simply forward the Event outputs to the inputs of a Add Movement Input or Add Controller {Yaw, Pitch, Roll} Input node.
 
 Many Actors may be listening for [[Input Events]] but only one will receive it.
 The [[Player Controller]] is always in the list of candidates, but so is any other Actor that has had the [[Enable Input]] function called on it.
