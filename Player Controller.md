@@ -1,7 +1,10 @@
-A Player Controller is a type of Controller.
+A Player Controller is a type of [[Controller]].
 It may be possessing, i.e. controlling, a [[Pawn]].
-We can get access to that Pawn with the Get Controlled Pawn node.
+We can get access to that [[Pawn]] with the Get Controlled Pawn node.
 We can check if a particular [[Pawn]] is controlled by a Player Controller with the Is Player Controlled node.
+Inside a [[Pawn]] we get find the current Player Controller with the Get Controller node and a [[Cast|cast]].
+We can get a Player Controller from anywhere with the Get Player Controller node.
+In that case we must know the index of the Player Controller we want.
 
 A Player Controller has a [[HUD]] that we can access with the Get HUD node.
 
