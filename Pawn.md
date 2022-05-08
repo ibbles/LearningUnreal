@@ -8,8 +8,10 @@ The [[Class Defaults]] contains Pawn > Use Controller Rotation {Pitch, Yaw, Roll
 
 # Control
 One way to control a Pawn is to call the **Add Movement Input** function on it.
+Or to one of the **Add Controller {Yaw, Pitch, Roll} Input** functions.
 This forwards the movement input to the Pawn's Movement Component. (I think.)
-Add Movement Input takes a World Direction that is the direction to move.
+
+Add **Movement Input** takes a World Direction that is the direction to move.
 We can base the direction either on the Pawn itself or its Controller.
 To base it on the Pawn itself, pass in **Get Forward Vector, Get Right Vector**, or similar.
 To base it on the Controller, call Get Forward Vector, Get Right Vector, or similar on **Get Controller**.
