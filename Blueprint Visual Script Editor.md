@@ -24,6 +24,7 @@ There cannot be multiple execution wires going out of an execution output pin.
 Data pins for struct datatypes can be split to show their members by right-click and select **Split Struct Pin**.
 This can be done recursively for nested structs.
 The struct pins can be merged back together again with **Recombine Struct Pin**.
+An alternative is a **Break STRUCT node**, which does the same but can hide unused pins.
 
 # Organizing nodes and wires
 **Reroute** nodes can be created by double-clicking on a wire.
