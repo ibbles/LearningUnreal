@@ -11,7 +11,7 @@ The Animation Blueprint Editor contains
 - a Viewport.
 - a My Blueprint panel.
   Contains variables that can be set in the Event Graph.
-- a Detalis panel.
+- a Details panel.
 - an Anim Preview E...
 - an Animation Graph.
   Where we define which pose the skeleton should have in this frame.
