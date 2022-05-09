@@ -1,4 +1,4 @@
-Nanite is a per-triangle [[LOD]] system for [[Static Mesh|Static Meshes]].
+Nanite is a per-triangle [[LOD - Level Of Detail|LOD]] system for [[Static Mesh|Static Meshes]].
 Instead of swapping an entire mesh between different LOD levels it groups triangles into patches and does LOD selection per patch.
 
 Enable Nanite for a particular [[Static Mesh Asset]] by checking Static Mesh Editor > Details > Nanite Settings > Enable Nanite Support.
