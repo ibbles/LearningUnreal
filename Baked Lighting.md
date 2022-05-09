@@ -1,15 +1,23 @@
-The output of lighting building is a set of [[Lightmap|lightmaps]].
+The **output** of lighting building is a set of [[Lightmap|lightmaps]].
 The actual building is performed by an application called [[Lightmass]].
 Launching the lighting building will run a Swarm Agent.
 Lightmass is a distributed application with a server and potentially many agents.
 
-Input to the light baking is static lights and Lightmass Importance Volume.
+**Input** to the light baking are static lights and Lightmass Importance Volume.
 The baking is done using a radiosity algorithm.
 
-The output from the light baking is Volumetric Lightmaps and Volume Lighting Samples.
+The **output** from the light baking is Volumetric Lightmaps and Volume Lighting Samples.
 Volume Lighting Samples is a less accurate older system still maintained for lower-end hardware.
 Volume Lighting Samples captures a single color per sample.
 Volumetric Lightmaps captures lighting from multiple directions.
+
+The time it takes to build baked lighting depend on
+- The [[Lightmap]] resolution of all meshes that receive baked lighting.
+  - (Is that all meshes? How can I turn it off for a mesh?)
+- The number of static (and stationary?) lights.
+- The number of meshes that receive baked lighting.
+- The Radius and Source Radius of the lights.
+  - Not sure what this is. There is a Source Radius in the Details panel of a [[Point Light]]. Is Radius the [[Light Source Properties|Attenuation Radius]]?
 
 They can be visualized with Viewport > Show > Visualize > {Volume Lighting Samples, Volumetric Lightmap}.
 Shows up as spheres aligned in a grid pattern in the world, in and around Lightmap Importance Volumes.
