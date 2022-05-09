@@ -97,3 +97,15 @@ Used for large-scale ambient occlusion, mainly outdoor environments.
 For example to make the inside of an opening to a cave dark even if there is no shadow active there.
 Not precise, not for tiny objects/crevices.
 Keep the Scale of all geometries using distance fields close to 1.0 along all axes.
+
+
+# Cascaded Shadow Maps VS Distance Field Shadows
+
+Cascaded Shadow Maps typically end 3'000-4'000 units from the camera.
+Distance Field Shadows take over until 20'000 to 30'000 units or so.
+
+
+# References
+
+- [Rendering Kickstart - Rendering - Advice @ learn.unrealengine.com](https://learn.unrealengine.com/course/3537481/module/6853946)
+
