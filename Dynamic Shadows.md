@@ -62,6 +62,16 @@ The distance fields can be visualized with Viewport > Show > Visualize > Mesh Di
 To use Distance Field Shadows you must enable Mesh Distance Fields in the Project Settings.
 Comes with a memory cost. I assume VRAM.
 
+Should be turned off for tiny meshes because Distance Field Shadows are intended for distant objects and the shadow of small distant objects will be too small to be seen.
+[[Static Mesh]] > Details panel > Lighting > Advanced > Affect Distance Field Lighting.
+This should be set on the [[Static Mesh Asset]], not individual instances since it is very easy to miss one.
+On the [[Static Mesh Asset]] set Distance Field Resolution Scale to 0.0 to completely disable Distance Field Shadow for it.
+There are two Distance Field Resolution Scale, on under LOD 0 > Build Settings and one under Import Settings > Mesh.
+Not sure how they differ.
+(
+Is there a way to set a size threshold globally?
+)
+
 # Inset Shadows
 Also called Per Object Shadows.
 A way to improve shadow quality for a particular thing.
