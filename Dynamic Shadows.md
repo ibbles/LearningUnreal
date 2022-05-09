@@ -29,6 +29,20 @@ Set on [[Directional Light]], in Details panel > Cascaded Shadow Maps.
 
 Still quite costly in terms of render times.
 
+
+## Far Shadows
+
+A second set of cascaded shadow maps for distant objects, beyond the range of the Signed Distance Field Shadows.
+(
+Not sure on the relationship between Far Shadows and Signed Distance Field Shadows.
+In [Rendering Kickstart - Rendering - Advice @ learn.unrealengine.com](https://learn.unrealengine.com/course/3537481/module/6853946) they say that Far Shadows are outdated and replace by Signed Distance Field Shadows.
+)
+Enabled on a [[Directional Light]] and on [[Static Mesh|Static Meshes]].
+Enable Directional Light > Details panel > Cascaded Shadow Maps > Far Shadow Cascade Count and Far Shadow Distance.
+Far Shadows are active between Dynamic Shadow Distance and Far Shadow Distance.
+Enable Static Mesh > Details panel > Lighting > Advanced > Far Shadow.
+
+
 # Capsule Shadows
 Simplified version of some geometry to gain performance.
 Only for skeletal meshes.
