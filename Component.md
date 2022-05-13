@@ -1,0 +1,1 @@
+Short for [[Actor Component]].
