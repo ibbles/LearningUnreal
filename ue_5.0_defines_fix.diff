@@ -1,0 +1,66 @@
+diff --git a/Engine/Source/Programs/UnrealBuildTool/Configuration/UEBuildModuleCPP.cs b/Engine/Source/Programs/UnrealBuildTool/Configuration/UEBuildModuleCPP.cs
+index 309c435df..18bf34514 100644
+--- a/Engine/Source/Programs/UnrealBuildTool/Configuration/UEBuildModuleCPP.cs
++++ b/Engine/Source/Programs/UnrealBuildTool/Configuration/UEBuildModuleCPP.cs
+@@ -503,6 +503,12 @@ namespace UnrealBuildTool
+ 			// Write all the definitions to a separate file
+ 			CreateHeaderForDefinitions(CompileEnvironment, IntermediateDirectory, null, Graph);
+ 
++			// Defines patch.
++			if (CompileEnvironment.Definitions.Count > 0)
++			{
++				CompileEnvironment.Definitions.Clear();
++			}
++
+ 			// Mapping of source file to unity file. We output this to intermediate directories for other tools (eg. live coding) to use.
+ 			Dictionary<FileItem, FileItem> SourceFileToUnityFile = new Dictionary<FileItem, FileItem>();
+ 
+@@ -1011,6 +1017,12 @@ namespace UnrealBuildTool
+ 			// Write all the definitions out to a separate file
+ 			CreateHeaderForDefinitions(CompileEnvironment, IntermediateDirectory, "Adaptive", Graph);
+ 
++			// Defines patch.
++			if (CompileEnvironment.Definitions.Count > 0)
++			{
++				CompileEnvironment.Definitions.Clear();
++			}
++
+ 			// Compile the files
+ 			return ToolChain.CompileCPPFiles(CompileEnvironment, Files, IntermediateDirectory, ModuleName, Graph);
+ 		}
+@@ -1023,6 +1035,11 @@ namespace UnrealBuildTool
+ 			// Write all the definitions out to a separate file
+ 			CreateHeaderForDefinitions(CompileEnvironment, IntermediateDirectory, "Adaptive", Graph);
+ 
++			// Defines patch.
++			if (CompileEnvironment.Definitions.Count > 0){
++				CompileEnvironment.Definitions.Clear();
++			}
++
+ 			// Compile the files
+ 			return ToolChain.CompileCPPFiles(CompileEnvironment, Files, IntermediateDirectory, ModuleName, Graph);
+ 		}
+@@ -1099,7 +1116,10 @@ namespace UnrealBuildTool
+ 					PrecompiledHeaderInstance Instance = CreatePrivatePCH(ToolChain, FileItem.GetItemByFileReference(FileReference.Combine(ModuleDirectory, Rules.PrivatePCHHeaderFile)), CompileEnvironment, Graph);
+ 
+ 					CompileEnvironment = new CppCompileEnvironment(CompileEnvironment);
+-					CompileEnvironment.Definitions.Clear();
++
++					// Defines patch.
++					// CompileEnvironment.Definitions.Clear();
++
+ 					CompileEnvironment.PrecompiledHeaderAction = PrecompiledHeaderAction.Include;
+ 					CompileEnvironment.PrecompiledHeaderIncludeFilename = Instance.HeaderFile.Location;
+ 					CompileEnvironment.PrecompiledHeaderFile = Instance.Output.PrecompiledHeaderFile;
+@@ -1143,7 +1163,10 @@ namespace UnrealBuildTool
+ 						}
+ 
+ 						CompileEnvironment = new CppCompileEnvironment(CompileEnvironment);
+-						CompileEnvironment.Definitions.Clear();
++
++						// Defines patch.
++						// CompileEnvironment.Definitions.Clear();
++
+ 						CompileEnvironment.ForceIncludeFiles.Add(PrivateDefinitionsFileItem);
+ 						CompileEnvironment.PrecompiledHeaderAction = PrecompiledHeaderAction.Include;
+ 						CompileEnvironment.PrecompiledHeaderIncludeFilename = Instance.HeaderFile.Location;
