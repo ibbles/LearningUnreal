@@ -28,5 +28,7 @@ Layers are assigned to specific patches of the Landscape with [[Landscape Painti
 
 [[Getting Started with Landscapes]]
 
-[UE4: Step-by-Step to Your First Landscape for Complete Beginners (Day 1/3: 3-Day Tutorial Series @ youtube.com by WorldofLevelDesign)](https://www.youtube.com/watch?v=CWHV8-cVYTA)
+# References
+
+- [UE4: Step-by-Step to Your First Landscape for Complete Beginners (Day 1/3: 3-Day Tutorial Series @ youtube.com by WorldofLevelDesign)](https://www.youtube.com/watch?v=CWHV8-cVYTA)
 
