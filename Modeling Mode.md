@@ -51,8 +51,8 @@ Each created object will also create an [[Asset]] to hold the data for that obje
 The asset is either created relative to the currently open [[Level]], in a single folder for all Levels, or in the current folder.
 There are settings one can set related to this in Project Settings > Plugins > Modeling Mode.
 By setting
-- asset Generation Location to Auto Generated Global Asset Path
-- auto Generated Asset Path to a path relative to the Content folder
+- Asset Generation Location to Auto Generated Global Asset Path,
+- Auto Generated Asset Path to a path relative to the Content folder, and
 - disabling Use Per User Autogen Subfolder
 we get a single folder where all created assets are placed.
 
