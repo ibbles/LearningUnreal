@@ -119,7 +119,7 @@ index 4c0428ad373..6a6d4f71397 100644
 
 # Unreal Engine 4.26
 
-This change set based on https://gist.github.com/jerobarraco/92839db6e6305fb04a04bab415ec8ae4. I can't use that as is due to
+This change set based on https://gist.github.com/jerobarraco/92839db6e6305fb04a04bab415ec8ae4. I can't use that as-is due to
 ```shell
 /media/s2000/UnrealEngine/git/UnrealEngine_4.26
 ⎇  4.26.2-release➤ git apply --check ue4_26-defines-fix.patch
@@ -344,5 +344,37 @@ index 309c435df..18bf34514 100644
  						CompileEnvironment.ForceIncludeFiles.Add(PrivateDefinitionsFileItem);
  						CompileEnvironment.PrecompiledHeaderAction = PrecompiledHeaderAction.Include;
  						CompileEnvironment.PrecompiledHeaderIncludeFilename = Instance.HeaderFile.Location;
+```
+
+
+# Address Sanitizer
+
+Address Sanitizer is a compiler option that instruments the compiled binary with extra checks around memory operations.
+Helps find mismatched free/delete, double deletes, and some out-of-bounds accesses.
+
+Unreal Engine can be built with Address Sanitizer support.
+```bash
+UE_ROOT$ make UnrealEditor ARGS=-EnableASan
+```
+
+Then build your project with the Address Sanitizer enabled engine.
+```bash
+PROJECT_ROOT$ ./Engine/Build/BatchFiles/Linux/Build.sh
+	Development
+	Linux
+	*.uproject
+	-TargetType=Editor
+	-EnableASan
+```
+
+Then open your project
+```bash
+$ $UE_ROOT/Engine/Binaries/Linux/UnrealEditor $PROJECT_ROOT/*.uproject
+```
+
+May need a system install of LLVM and a symbolizer path.
+```bash
+$ sudo apt install llvm
+$ export ASAN_SYMBOLIZER_PATH=/usr/lib/llvm-9/bin/llvm-symbolizer  # Path may be different.
 ```
 
