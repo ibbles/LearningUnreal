@@ -14,6 +14,9 @@ Most of the operations we can perform on a Landscape are accessed from the [[Lan
 
 [[Creating a Landscape]]
 
+The height map can be exported to a PNG using [[Landscape Mode]] > Sculpt tab > Sculpt tool > Landscape panel > Target Layers > right-click a layer > Export To File.
+The resulting PNG can be used when [[Creating a Landscape]].
+
 From a Landscape's Details panel we can set a [[Landscape Material]].
 There is not special [[Landscape Material]] type or Used With Landscapes flag, any [[Material]] will work.
 Though there are some Landscape specific nodes the Material can use, such as Landscape Layer Blend.
