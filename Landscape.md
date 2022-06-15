@@ -2,6 +2,7 @@
 
 A Landscape is how we create the ground in our environment.
 It is a height field, which means that we can do hills and valleys but not caves or overhangs.
+A Landscape is either sculpted using paintbrush-like tools or with the [[Landmass]] tool.
 
 A Landscape is a hierarchical structure.
 The top level is the Landscape itself.
