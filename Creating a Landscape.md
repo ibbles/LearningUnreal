@@ -9,6 +9,7 @@ The Landscape Mode Panel shows the settings for the new Landscape we are about t
 
 ![](Images/New_Landscape_Settings.png)
 
+If you have a height map file then select Import From File.
 
 The [[Landscape Material|Material]] is what decide what the Landscape will look like, its colors and such.
 This can be changed later.
