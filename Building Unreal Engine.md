@@ -378,3 +378,15 @@ $ sudo apt install llvm
 $ export ASAN_SYMBOLIZER_PATH=/usr/lib/llvm-9/bin/llvm-symbolizer  # Path may be different.
 ```
 
+# Git Deps
+
+`Setup.sh` downloads a bunch of stuff that is stored in `.git/ue4-gitdeps`.
+These files can be shared among multiple Unreal Engine builds.
+To store the Git Deps in another directory, set the `UE4_GITDEPS` environment variable to a path.
+Not sure if it should be `UE5_GITDEPS` for Unreal Engine 5, or if this is a legacy thing that isn't updated.
+```bash
+$ export UE4_GITDEPS=/media/some_dist/UE4_GitDeps
+$ ./Setup.sh
+```
+
+A symlink at `$UE_ROOT/.git/ue4-gitdeps` pointing to a shared directory might also work.
