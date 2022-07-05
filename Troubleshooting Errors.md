@@ -1,3 +1,28 @@
+# DotNet SDK SSL connection
+
+Affects Unreal Engine 5.0 and newer, as of early 2022, Linux distributions.
+I think problem is that Unreal Engine knowingly and unintentionally used a system library and when the distribution updated it Unreal Engine could no longer find the old old. The fix below tells it where to find the new one.
+
+```
+$ ./GenerateProjectFiles.sh
+# Snip.
+Setting up bundled DotNet SDK
+NuGet.targets(255,5): error : Unable to load the service index for source https://api.nuget.org/v3/index.json. [/home/zlare/src/UnrealEngine/Engine/Source/Programs/UnrealBuildTool/UnrealBuildTool.csproj]
+NuGet.targets(255,5): error :   The SSL connection could not be established, see inner exception. [/home/zlare/src/UnrealEngine/Engine/Source/Programs/UnrealBuildTool/UnrealBuildTool.csproj]
+NuGet.targets(255,5): error :   The remote certificate is invalid according to the validation procedure. [/home/zlare/src/UnrealEngine/Engine/Source/Programs/UnrealBuildTool/UnrealBuildTool.csproj]
+GenerateProjectFiles ERROR: Failed to build UnrealBuildTool
+```
+
+To fix, install `libicu50`, I assume this is a system package, and define a pair of environment variables.
+Maybe try without the install first, you may have the package, or a corresponding one, already.
+
+```
+export SSL_CERT_FILE=/etc/ssl/certs/ca-certificates.crt
+export SSL_CERT_DIR=/dev/null
+```
+
+https://discord.com/channels/187217643009212416/375022233875382274/985662642129620992
+
 
 # GPU process launch failed
 
