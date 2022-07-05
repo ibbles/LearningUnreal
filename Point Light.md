@@ -6,6 +6,10 @@ Similar to a light bulb, when views from some distance.
 A Point Light's intensity is measures in candela, which is a measure of how strong each ray of light emitted from the light source is.
 A candle flame is about 1 candela.
 
+We can set a Point Light's color.
+
+[[Light Source Properties]]
+
 
 # References
 
