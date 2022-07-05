@@ -24,6 +24,13 @@ export SSL_CERT_DIR=/dev/null
 https://discord.com/channels/187217643009212416/375022233875382274/985662642129620992
 
 
+# Tamil text in dialog boxes
+
+Install some combination of the following system packages, depending on which Linux distribution you are on.
+- `xorg-fonts-misc`
+- `xorg-x11-fonts`
+- `xorg-x11-fonts-misc`
+
 # GPU process launch failed
 
 This is caused by the Chromium Embedded Framework, which is used for the Web Browser Plugin.
