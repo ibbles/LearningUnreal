@@ -8,6 +8,8 @@ Examples of light Actor or Components:
 - [[Spotlight]]: Like a Point Light but with a limited arc where it emanates light.
 - [[Sky Light]]: A light source simulating light coming from a sky dome. Can either use a cube map or do real time scene capture.
 
+Light sources can be created from the Place Actors panel, the Add Component menu on an [[Actor]] or from the [[Environment Light Mixer]].
+
 A Light Source has a bunch of [[Light Source Properties]].
 
 A scene often consists of multiple light sources.
