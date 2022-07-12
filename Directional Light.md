@@ -8,7 +8,6 @@ Often used for exterior environment or indoor environments with sunlight through
 
 Create a new Directional Light by dragging it in from the Place Actors panel, or using the [[Environment Light Mixer]].
 
-
 The direction of the Directional Light in a level can be changed by pressing Ctrl+L and moving the mouse.
 Not sure how it chooses which Directional Light to change the direction of.
 
