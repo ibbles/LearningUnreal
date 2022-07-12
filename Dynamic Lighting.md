@@ -5,6 +5,9 @@ Dynamic Lighting is consists of Direct Lighting and Indirect Lighting.
 Direct Lighting is when  light move directly from a light source to an illuminated surface.
 Indirect Lighting is when light bounce off of a surface, taking on some of the properties of that surface, and then illuminate a surface.
 Indirect Lighting may bounce multiple times.
+In Unreal Engine 5 indirect lighting can be computed by [[Lumen]].
+
+We can force all light to be dynamic, i.e. not precomputed, by enabling World Settings > Lightmass > Advanced > Force No Precomputed Ligthing.
 
 # IES Profiles
 Adds a bit of structure to the light, the different patterns of weak and strong light.
