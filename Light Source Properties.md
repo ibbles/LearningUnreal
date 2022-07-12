@@ -14,6 +14,8 @@ Not all [[Light Sources]] have all of these properties.
 - Use Inverse Squared Falloff.
   - On is the more physically correct mode. Off is better for fill lights. The main difference is that with Use Inverse Squared Falloff disabled one can control the Light Falloff Exponent which makes it possible to control the shape of the light attenuation, making it possible to have light sources with an Attenuation Radius that closely follows the point where the falloff makes the light contribution invisible. With User Inverse Squared Falloff enabled, the default, the radius will often be larger than the visible contribution from the light, especially for strong light sources with long attenuation radius.
 - Indirect Lighting Intensity: How much the light from this light source bounces around the scene.
+	- It is often better to control this with the Base Color of the [[Material|Materials]] of the objects in the scene, in particular large objects such as floors and walls.
+- Volumetric Scattering Intensity: Control the intensity of [[God Rays Light Shafts]] from this light.
 
 
 # References
