@@ -4,6 +4,8 @@ More limited than [[Dynamic Lighting]] but also more performant at runtime.
 Setting up Static Lighting is more complicated than [[Dynamic Lighting]], there are more settings to get right and more of a process to go through.
 [[Dynamic Lighting]] is also typically easier to use during level design since we can see the end result immediately.
 
+Static lighting can be disabled completely with World Settings > Lightmass > Advanced > Force No Precomputed Lightin.
+
 A [[Light Sources]] produces Static Lighting if its [[Mobility]] ([[Light Mobility]]) is set to Static or Stationary.
 Setting the [[Mobility]] to Movable turns the light into a dynamic light.
 
