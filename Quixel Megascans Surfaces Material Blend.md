@@ -19,7 +19,7 @@ To create a material blend:
 This creates a folder named `BlendMaterials` in the root Content folder.
 Inside that folder is a newly created [[Material Instance]].
 Assign that material to a [[Static Mesh]] by dragging it from the Content Browser onto the mesh in the viewport.
-Activate the [[Mesh Paint Editing Editor Mode]].
+Activate the [[Mesh Paint Editing Editor Mode Vertex Color]].
 In the Mesh Paint panel select the Colors tab and then the Paint tool.
 Paint with red to increase the strength of the first material, green for the second material, and blue for the third material.
 (
