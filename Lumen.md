@@ -23,6 +23,18 @@ Not sure if the settings above are suitable for real-time rendering or more for 
 )
 
 
+# Flickering / Jittering / Crawling Indirect Lighting
+
+Sometimes Lumen causes flickering / jittering / crawling light in indirectly illuminated parts of the level.
+This happens because Lumen is an approximate light propagation simulation algorithm.
+We can reduce it by increasing the Lumen quality settings.
+In a Post Process Volume, increase Global Illumination > Lumen Global Illumination >
+- Lumen Scene Lighting Quality
+- Final Gather Quality
+- Advanced > Final Gather Lighting Update Speed
+
 # References
 
-- [_Lighting in Unreal Engine 5 for Beginners_ by William Faucher @ youtube.com](https://www.youtube.com/watch?v=fSbBsXbjxPo)
+- [_Lighting in Unreal Engine 5 for Beginners_, by William Faucher @ youtube.com](https://www.youtube.com/watch?v=fSbBsXbjxPo)
+- [_Lighting in Unreal Engine 5 for Beginners_ - Fixing crawling indirect lighting, by William Faucher @ youtube.com](https://youtu.be/fSbBsXbjxPo?t=2185)
+
