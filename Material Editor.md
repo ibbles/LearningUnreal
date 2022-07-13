@@ -41,3 +41,5 @@ Named reroute nodes can have a color, making them easier to tell apart.
 
 You can **zoom** in an out of the Material Graph with the scroll wheel.
 Hold Ctrl to zoom closer than 1:1.
+
+The **Material Defaults** panel lists all the parameters in the [[Material]] and their default values.
