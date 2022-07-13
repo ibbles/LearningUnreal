@@ -14,5 +14,5 @@ This is an art direction setting.
 
 # References
 
-- [_Lighting in Unreal Engine 5 for Beginners_ by William Faucher @ youtube.com](https://youtu.be/fSbBsXbjxPo?t=2037)
+- [_Lighting in Unreal Engine 5 for Beginners_ - God Rays, by William Faucher @ youtube.com](https://youtu.be/fSbBsXbjxPo?t=2037)
 
