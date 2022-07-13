@@ -11,6 +11,10 @@ By default Unreal Engine uses auto exposure to make dark scenes brighter and bri
 This is often good during gameplay, but not helpful during level design.
 Use a [[Post Process Volume]] to set a fixed expose level.
 
+Sometimes baked lighting remain in the scene despite removing all the light sources.
+You can clear the baked lighting data with [[World Settings]] > Lightmass > Advanced > Force No Precomputed Lighting.
+Must build lighting once with Top Menu Bar > Build > Build Lighting Only to update everything.
+
 # Calibration Objects Spheres
 It is good to have a few known objects in the scene when setting up lighting.
 To have a known frame of reference.
