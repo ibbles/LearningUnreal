@@ -35,7 +35,16 @@ To have a known frame of reference.
 	- Metalness: 1
 	- Roughness: 0.05
 
+If we can clearly tell the shape of each of the spheres in a scene then that tells us that the scene is well exposed.
+If the scene is under exposed then the black sphere will disappear in the shadows.
+Increase Post Process Volume > Details panel > Exposure > Exposure Compensation or Min|Max Brightness.
+If the scene is over exposed then detail is lost in the white sphere, it becomes a flat circle instead of a sphere.
+Decrease Post Process Volume > Details panel > Exposure > Exposure Compensation or Min|Max Brightness.
+This is not an exact science, but we want to be able to see details both in the white and the black.
+
+The chrome ball should feel well integrated into the scene, and should accurately reflect whatever is around it.
+
 # References
 
-- [_Lighting in Unreal Engine 5 for Beginners_ Light Calibration Spheres by William Faucher @ youtube.com](https://youtu.be/fSbBsXbjxPo?t=968)
-
+- [_Lighting in Unreal Engine 5 for Beginners_ - Creating Light Calibration Spheres, by William Faucher @ youtube.com](https://youtu.be/fSbBsXbjxPo?t=968)
+- [_Lighting in Unreal Engine 5 for Beginners_ - Using Light Calibration Spheres, by William Faucher @ youtube.com](https://youtu.be/fSbBsXbjxPo?t=2251)
