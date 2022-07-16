@@ -22,6 +22,9 @@ Can be used to set a distance multiplier for all LODs, pushing the low-quality t
 Can be used to set a foliage density multiplier to reduce the amount of grass.
 
 Unreal Engine can estimate the computational power of the machine it is running on and automatically set some of these settings.
+(
+How do I make it do that?
+)
 
 Changes made in the console are not persistent.
 Restarting Unreal Editor will reset them to their `.ini` configured values, or the default.
@@ -33,3 +36,11 @@ Not sure what this does.
 
 Type `help` to generate a HTML help file.
 Lists all the available rendering commands, including descriptions.
+
+
+# Interesting CVars
+
+## Rendering Features
+
+## Textures
+- `r.Streaming.PoolSize`: The size in MiB to allocate for streaming textures. Increase this if you get blurry textures and a warning the in the viewport about the texture streaming pool being over budget. If you have VRAM to spare.
