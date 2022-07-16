@@ -2,6 +2,11 @@
 
 A Material defines the look-and-feel of an objects.
 The function of a Material is defined by its Material Graph, which is constructed in the [[Material Editor]].
+The Material has a bunch of inputs.
+Some, such as texture coordinates and vertex colors, come from the mesh being rendered.
+Some, such as camera position and time, come from the engine itself.
+Some, the [[Material Parameter|Material Parameters]] are user provided.
+The author of the Material creates the parameters and implement their semantics through the Material Graph.
 
 A Material can have parameters and we can create a [[Dynamic Material Instance]] that set these parameters to particular values.
 Parameters are created by adding a Constant node, created by holding 1 to 4 and clicking in the Material Graph, right-click the Constant node and select Convert To Parameter.
