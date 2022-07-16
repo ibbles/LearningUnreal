@@ -20,6 +20,8 @@ Disable Auto Exposure with the following settings in Details panel > Exposure
 - Disable Apply Physical Camera Expose.
 - Tweak the Exposure Compensation slider.
 
+See also [[Brightness Auto Exposure]].
+
 # References
-- [_Lighting in Unreal Engine 5 for Beginners_ by William Faucher @ youtube.com](https://youtu.be/fSbBsXbjxPo?t=1785)
+- [_Lighting in Unreal Engine 5 for Beginners_ - Post Process Volume by William Faucher @ youtube.com](https://youtu.be/fSbBsXbjxPo?t=1785)
 
