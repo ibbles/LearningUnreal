@@ -23,6 +23,25 @@ Not sure if the settings above are suitable for real-time rendering or more for 
 )
 
 
+# Hardware Ray Tracing
+
+Lumen can use hardware ray tracing, if supported by the hardware.
+Ray tracing is supported by NVIDIA RTX card, AMD Radeon 6000 series and up, and Intel ARC.
+Hardware ray tracing support for Lumen is enabled with [[Project Settings]] > Engine > Rendering > Lumen > User Hardware Ray Tracing When Available.
+
+With hardware ray tracing enabled Lumen reflections will include off-screen Mobility = Movable objects.
+(
+I think mobility is the determining factor.
+)
+Make sure [[Project Settings]] > Engine > Rendering > Reflections > Reflection Method is set to Lumen.
+
+There are a bunch of other Ray Tracing related settings in [[Project Settings]] > Engine > Rendering > Hardware Ray Tracing.
+I don't think they are related to Lumen.
+Not sure under what conditions they apply.
+
+On a [[Post Process Volume]] we can tweak some more Lumen settings.
+
+
 # Flickering / Jittering / Crawling Indirect Lighting
 
 Sometimes Lumen causes flickering / jittering / crawling light in indirectly illuminated parts of the level.
@@ -37,4 +56,4 @@ In a Post Process Volume, increase Global Illumination > Lumen Global Illuminati
 
 - [_Lighting in Unreal Engine 5 for Beginners_, by William Faucher @ youtube.com](https://www.youtube.com/watch?v=fSbBsXbjxPo)
 - [_Lighting in Unreal Engine 5 for Beginners_ - Fixing crawling indirect lighting, by William Faucher @ youtube.com](https://youtu.be/fSbBsXbjxPo?t=2185)
-
+- [_Unreal Engine 5 New Lumen Hardware Ray tracing Reflections_, by JSFILMZ @ youtube.com](https://www.youtube.com/watch?v=rQ0zJFgdqHE)
