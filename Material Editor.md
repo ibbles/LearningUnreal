@@ -7,11 +7,12 @@ Click **Apply** in the toolbar to **publish the changes** made to the Material t
 
 The Material Graph ends in an **output node**.
 The values we pass to the input pins on the output node define the look of the objects that use this material.
-Which input pins are active depends on the settings set in the Details panel.
+Which input pins are active depends on the settings set in the Details panel when the output node is selected.
 
 When rendering the Material Graph is executed on the GPU.
 It is run multiple times for every object.
 Some output node input pins are evaluated per pixel, others per vertex.
+I don't know which are per pixel and which are per vertex.
 
 The Material graph is different from the Blueprint Visual Script graph in that it only has expression nodes, no execution nodes.
 Another way of looking at it is that the only execution node is the output node.
@@ -20,7 +21,7 @@ Each branch ends with a **value node**, also called an **input node**.
 (
 "Input node" may have a more specific meaning.
 )
-A value node can be a literal node, a parameter node, a texture sample node, and probably more.
+A value node can be a literal node, a [[Material Parameter|Parameter node]], a texture sample node, and probably more.
 
 Nodes are created by right-clicking in the Material Graph editor and searching for the name of the node.
 Some nodes have shortcuts.
