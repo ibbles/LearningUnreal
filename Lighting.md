@@ -18,6 +18,10 @@ Must build lighting once with Top Menu Bar > Build > Build Lighting Only to upda
 # Calibration Objects Spheres
 It is good to have a few known objects in the scene when setting up lighting.
 To have a known frame of reference.
+The Engine Content, or Starter Pack not sure, contains `SM_ColorCalibrator`.
+This is a [[Static Mesh]] with a bunch of spheres in different colors and a cube with differently colored squares.
+
+We can also create a few spheres of our own.
 - Black
 	- Base color: 0.04
 	- Metalness: 0
