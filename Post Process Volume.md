@@ -13,6 +13,7 @@ For it to do anything a setting in the Details must first be enabled, and then t
 
 I think we can have overlapping Post Process Volumes and set a priority to control which on wins.
 
+
 # Auto Exposure
 
 Disable Auto Exposure with the following settings in Details panel > Exposure
@@ -21,6 +22,19 @@ Disable Auto Exposure with the following settings in Details panel > Exposure
 - Tweak the Exposure Compensation slider.
 
 See also [[Brightness Auto Exposure]].
+
+
+# Lumen
+
+There are [[Lumen]] related settings in multiple categories of the Post Process Volume Details panel.
+Under Reflections you can set the Method to Lumen.
+Under Lumen Reflections you can set Quality from 1 (or 0?) to 4.
+Ray Lighting Mode controls what hardware traced reflection rays trace against.
+This can be either Surface Cache or Hit Lighting.
+(What follows is speculation.)
+Surface Cache means that only things in the Lumen scene is shown in reflections.
+The Lumen scene is a low-resolution version of the scene that is fast to trace against.
+Hit Lighting means that the reflection rays are traced against the actual geometry.
 
 # References
 - [_Lighting in Unreal Engine 5 for Beginners_ - Post Process Volume by William Faucher @ youtube.com](https://youtu.be/fSbBsXbjxPo?t=1785)
