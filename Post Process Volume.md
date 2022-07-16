@@ -24,6 +24,21 @@ Disable Auto Exposure with the following settings in Details panel > Exposure
 See also [[Brightness Auto Exposure]].
 
 
+# Color Grading
+
+Color grading is used to modify the look and feel of the scene.
+Editing within the Global category will affect the entire spectrum.
+The other options are Shadows, Midtones, and Highlights.
+
+## Gamma
+
+Controls the gamma curve.
+Reducing this value makes dark areas darker and bright areas brighter.
+(
+I think.
+)
+Moving the small circle within the larger color circle increases the amount of that color in the scene.
+
 # Lumen
 
 There are [[Lumen]] related settings in multiple categories of the Post Process Volume Details panel.
