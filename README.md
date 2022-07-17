@@ -19,7 +19,7 @@ I do this by only creating strong links (``[[Link Target]]`` ) for related notes
 I do not create strong links to good-to-know information.
 I use weak links (`[Link Target](Link Target.md)`) for good-to-know information.
 Prerequisites, if you will, for the current note.
-Weak links to do appear in the Graph View, while strong links do.
+Weak links do not appear in the Graph View, while strong links do.
 (
 Turns out I was wrong, weak links do show up in the Graph View. Dammit.
 Now I don't know what to do.
