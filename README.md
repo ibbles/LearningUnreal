@@ -2,7 +2,9 @@
 A bunch of notes and code snippets that I write while figuring out how to use the Unreal Engine.
 
 These notes have been written as part of evaluation moving from Zettlr to Tangent Notes and Obsidian for my note taking.
-The Zettlr notes are named LearningUnrealEngine.
+The old Zettlr notes in the [LearningUnrealEngine](https://github.com/ibbles/LearningUnrealEngine) GitHub repository.
+If you find these notes useful then perhaps you will find something useful there as well.
+I have not yet moved all the notes over since I don't yet know which format I'll be using long-term once the Tangent Notes / Obsidian evaluation is over.
 
 I use a Zettelkasten-like method for my note taking.
 Notes are typically small-ish but not atomic.
