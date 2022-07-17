@@ -1,3 +1,4 @@
+See also [[Editor Scalability Settings]].
 
 # Statistics Window
 
