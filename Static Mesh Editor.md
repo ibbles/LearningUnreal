@@ -1,17 +1,9 @@
-Shadows can be either [[Dynamic Shadows|Dynamic]] or [[Static Shadows|Static]], which is determined by the [[Light Mobility]] of the [[Light]] source that produces the shadow.
-
-There are a few different shadowing methods, or algorithms / implementations, such as [[Virtual Shadow Maps]] and [[Cascaded Shadow Maps]].
-Chose one in [[Project Settings]] > Engine > Rendering > Shadows > Shadow Map Method.
-There are also [[Distance Field Shadows]], which is enabled per [[Light]].
-There are also [[Ray Traced Shadows]], which is enabled per [[Light]].
-
-There are [[Soft Shadows]] that don't have hard edges.
-This is not a shadowing method but an effect produced by some of the shadowing methods listed above.
-
-[[Lighting And Shadow Performance]]
+The Static Mesh Editor is where we can configure settings for our [[Static Mesh Asset]].
+It is not an editor for the triangles itself, the topology of the mesh.
+It is an editor for how Unreal Engine uses and renders the mesh.
 
 
-# Static Mesh
+# Shadows
 
 Shadows can be enabled or disabled per [[Static Mesh Asset]] LOD-level in the [[Static Mesh Editor]].
 Open your foliage [[Static Mesh Asset]] in the [[Static Mesh Editor]].
