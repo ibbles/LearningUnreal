@@ -9,31 +9,8 @@ Content Browser > Right-click > Material.
 
 A Landscape Material can use Texture Sample nodes.
 A Landscape Material can include [[Landscape Foliage]].
-
-# Layer Blending
-Landscape Materials can blend between different layers.
-This is done with the Landscape Layer Blend node.
-Selecting Landscape Layer Blend from the Add Node list will add a node named Layer Blend.
-
-The assignment of weights of the different layers of a Landscape Material to a particular coordinate on the Landscape is done with [[Paint Material on a Landscape|Landscape Painting]].
-The available layers will appear in the Paint tab of the [[Landscape Mode]].
-Each layer must have a Layer Info for a particular [[Landscape]] before it can be used.
-Create a Layer Info by clicking the `+` next to the layer in the Layers category in the Landscape panel.
-
-The Details Panel of the Landscape Layer Blend node has an array named Layers.
-Each entry in this array allows for one more layer in the blending.
-Each entry has the following properties:
-- `Layer Name`: The name of the layer.
-Something to help you identify which layer is which.
-- `Blend Type`: Control what decide how strong this layer is at a particular coordinate.
-One of `Weight`, `Alpha`, and `Height`.
-- `Preview Weight`: Is only used for the preview in the [[Material Editor]].
-
-The Layer Blend node takes one input per layer and will blend between them according to the blend rules set for that Layer Blend node.
-The input can, for example, be a color or a normal from a Texture Sample node, or an entire material setup created with Make Material Attributes.
-
-It is common to have multiple Layer Blend nodes in a Landscape Material.
-I assume it is common to want to have the same Layer Blend properties on multiple Layer Blend nodes, but I do not know how to have parameter collections that are applied to all of them.
+A Landscape Material can access the layer weights to produce a [[Landscape Blend Layers Material]].
+A Landscape Material can get the height of the Landscape at the current point with the Absolute World Position node and a Component Mask node only returning the B (Z) component.
 
 # Texture coordinates
 Tiling of textures is controlled with a Landscape Layer Coords node.
