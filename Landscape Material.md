@@ -11,6 +11,7 @@ A Landscape Material can use Texture Sample nodes.
 A Landscape Material can include [[Landscape Foliage]].
 A Landscape Material can access the layer weights to produce a [[Landscape Blend Layers Material]].
 A Landscape Material can get the height of the Landscape at the current point with the Absolute World Position node and a Component Mask node only returning the B (Z) component.
+A Landscape Material can write to a [[Runtime Virtual Texture]].
 
 # Texture coordinates
 Tiling of textures is controlled with a Landscape Layer Coords node.
