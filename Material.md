@@ -50,3 +50,5 @@ The following properties are available in the Details panel of the [[Material Ed
   Max out roughness, remove any glossiness from the materials.
   Not sure how this relates to the Roughness output, which is still enabled even after setting Fully Rough to true.
   The pin value seems to be ignored.
+- Use Material Attributes
+  Collapse all the input pins on the [[Material Output Node]] to a single pin. This is useful when you are passing entire material setups around through [[Material Function|Material Functions]], mixing layers and such.
