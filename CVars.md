@@ -59,3 +59,5 @@ The new value will persist through the [[Play In Editor]] session and remain aft
 
 ## Textures
 - `r.Streaming.PoolSize`: The size in MiB to allocate for streaming textures. Increase this if you get blurry textures and a warning the in the viewport about the texture streaming pool being over budget. If you have VRAM to spare.
+- `r.VT.Borders`: Render borders around [[Virtual Texture]] tiles.
+
