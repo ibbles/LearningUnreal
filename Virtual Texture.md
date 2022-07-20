@@ -13,7 +13,8 @@ This will update all [[Material|Materials]] that use that [[Texture]].
 It will also find all other [[Texture|Textures]] sampled by those [[Material|Materials]] and convert those to Virtual Textures in the same way, which may find additional [[Material|Materials]] top update, which may find additional Textures to convert, and so on recursively.
 The conversion tool can be run with multiple [[Texture|Textures]] selected in the [[Content Browser]].
 
-# Sampling a Virtual Texture
+
+# Sampling A Virtual Texture
 
 Virtual Textures are used in the same way as regular textures in a [[Material]], create a Texture Sample node and assign a [[Texture]] with Virtual Texture Streaming enabled to Texture Sample > Details panel > Material Expression Texture Base > Texture.
 A VT icon will be displayed in the texture preview to show that this is a Virtual Texture.
@@ -25,6 +26,13 @@ The number of Virtual Texture Stacks is shown in the Stats panel in the [[Materi
 
 If you create a [[Material Instance]] from a [[Material]] that samples a Virtual Texture and in the [[Material Instance]] replace the [[Texture]] with another, then the new [[Texture]] must also be a Virtual Texture.
 The reverse is also true, if the parent [[Material]] uses a regular [[Texture]] then the [[Material Instance]] must also use a regular [[Texture]], not a Virtual Texture.
+
+
+# Writing A Virtual Texture
+
+It is possible to write to a Virtual Texture, but not to a regular Virtual Texture [[Asset]].
+A writable Virtual Texture is called [[Runtime Virtual Texture]].
+
 
 # Console Variables
 
