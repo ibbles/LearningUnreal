@@ -1,4 +1,4 @@
-A Runtime Virtual Texture is a [[Texture]] that can be written to from a [[Material]].
+A Runtime Virtual Texture is a [[Virtual Texture]] that can be written to from a [[Material]].
 (
 There must be more to it.
 We can write to a [[Render Target]] as well.
