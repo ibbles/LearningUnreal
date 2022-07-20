@@ -19,3 +19,13 @@ Increase `Mapping Scale` to make the texture bigger. (I think)
 
 [UE4: Step-by-Step to Your First Landscape Material for Beginners (Day 2/3: 3-Day Tutorial Series) @ youtube.com by WorldofLevelDesign](https://www.youtube.com/watch?v=cWOlIvq0Etg)
 
+
+# Distance Based Quality
+
+It is common to use a Far Blend Distance parameter to control [[Material]] complexity based on distance from the camera.
+Change
+- Texture Tiling.
+- (Fill in more here.)
+
+[_Virtual Texturing | Live from HQ | Inside Unreal_ - Far Blend Distance Parameter, by Unreal Engine @ youtube.com. 2019](https://youtu.be/fhoZ2qMAfa4?t=1927)
+
