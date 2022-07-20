@@ -23,6 +23,8 @@ The available passes are
 
 I believe Virtual Texture is the context where the Runtime Virtual Texture is written.
 I believe Main Pass is where the [[Material Output Node]] is written.
+I believe Virtual Texture OR Main Pass means that if Runtime Virtual Textures is enabled (in the [[Project Settings]], or is there a more granular way to control this?) then the object will be rendered to the Runtime Virtual Texture only, not to the frame buffers, and if Runtime Virtual Textures is not enabled then the object will render normally, without any Runtime Virtual Texture at all.
+If Runtime Virtual Textures is enabled then something else must render based on the Runtime Virtual Texture for the object to be visible.
 (
 Though I'm not sure, and there are some AND / OR going on here as well which I don't understand, so this part need a bit more studying.
 )
@@ -175,6 +177,73 @@ LOD 0 is usually the highest-quality LOD, why would allowing more coarse / less 
 What does LOD levels even mean for a [[Landscape]]?
 What is the meaning of 6 vs 3 vs 24? What is the maximum?
 )
+
+
+## Sample The Landscape Runtime Virtual Texture From Other Materials
+
+[Live stream @ 41:46](https://youtu.be/fhoZ2qMAfa4?t=2506)
+We can add a Runtime Virtual Texture Sample node to a [[Material]] used to render other objects, such as a [[Static Mesh]], as well, not just the [[Landscape]].
+The sample node will handle texture coordinates properly, meaning that it will read the Runtime Virtual Texture data that is at the same world XY coordinate as the corresponding point on the [[Landscape]].
+It's sampling in a top-down projection.
+This means that vertical faces on the [[Static Mesh]] will have severe material stretching.
+
+In Runtime Virtual Texture Sample node > Details panel > Virtual Texture select the Runtime Virtual Texture [[Asset]] that the [[Landscape Material]] writes to.
+Feed the output of the sample node to a Make Material Attributes node.
+Use a Blend Material Attributes node to blend between the regular [[Static Mesh]] [[Material]] attributes and the sampled [[Material]] attributes.
+There are many ways to compute the Alpha for the blend node.
+One way is to use the Z component of Vertex Normal WS, which is the world space normal at the fragment.
+This will produce a blend that uses the Landscape material on top of the [[Static Mesh]], and the mesh's own material on its sides.
+I assume another way would be to somehow find the height of the [[Landscape]] compared to the fragment and blend in the [[Landscape]] material only close to its surface.
+Don't know how to determine the distance from the [[Landscape]] though.
+
+# Material Domain Set To Virtual Texture
+
+[Live stream @ 45:23](https://youtu.be/fhoZ2qMAfa4?t=2723)
+Set [[Material Editor]] > Details panel > Material > Material Domain to Virtual Texture.
+This makes the [[Material]] able to write to the Runtime Virtual Texture.
+Can be used for [[Landscape]] splines, such as roads.
+
+In the [[Landscape Mode]] select a spline and click Details panel > Select All Connected Segments.
+You should turn off Details panel > Landscape Spline Meshes > Cast Shadow when rendering a [[Landscape]] spline to a Runtime Virtual Texture.
+(
+Why? Should the same be done for other types of objects being rendered to a Runtime Virtual Texture as well?
+They didn't for the [[Landscape]].
+What if we want the shadow when doing the regular rendering? I.e. we want the object to have a shadow.
+)
+
+In Spline > Details panel > Virtual Texture add the [[Landscape]]'s Runtime Virtual Texture asset to Render To Virtual Textures.
+The demo has Virtual Texture Pass Type set to Virtual Texture OR Main Pass.
+This means that if Virtual Textures are enabled in the [[Project Settings]] then the spline will only be rendered to the Runtime Virtual Texture, it will not produce any fragments.
+There must be something else that samples the Runtime Virtual Texture to produce fragments that are then turned into pixels that we can see on screen.
+In the demo that "something" is the [[Landscape]]'s Main Pass, where it samples the Runtime Virtual Texture to fill in the [[Material Output Node]].
+
+The road [[Material]] used to have a mask texture to define the outer bounds of the pavement.
+The [[Material]]'s Details panel > Material > Blend Mode was set to Masked.
+When we render the spline to a Runtime Virtual Texture we are allowed to set the Blend Mode to Translucent.
+(
+Were we not allowed to change the Blend Mode before?
+Why not?
+)
+When we switch the Blend Mode from Masked to Translucent the Opacity Mask input pin on the [[Material Output Node]] is disabled and the Opacity input pin is enabled instead.
+This will produce a much better transition between the spline and the surrounding [[Landscape]].
+
+
+## Foliage Writing To A Runtime Virtual Texture
+
+[Live stream @ 48:59](https://youtu.be/fhoZ2qMAfa4?t=2939)
+The screen sharing froze a bit here, but I think the foliage mesh's [[Material]] was opened and Details panel > Material > Material Domain was set to Virtual Texture.
+In the [[Foliage Mode]] select the Paint tab, select one or more [[Foliage Type]] and in Details > Virtual Texture set Render To Virtual Texture to the [[Landscape]]'s Runtime Virtual Texture [[Asset]].
+Set Virtual Texture Pass Type to Virtual Texture OR Main Pass.
+Disable Instance Settings > Cast Shadow.
+Set Details > ??? > Translucency Sort Priority to 3.
+Translucency Sort Priority control the order in which things are blended into the Runtime Virtual Texture.
+The [[Landscape]] is -1 (Is it always the [[Landscape]] that is -1 or can e.g. a [[Static Mesh]] be the base object as well?).
+In the example the spline was 0 which means that it is blended on top of the [[Landscape]].
+By setting the Translucency Sort Priority of the [[Foliage]] to something larger than that for the spline the [[Foliage]] meshes are rendered on top of the spline.
+
+The effect of rendering [[Foliage]] like this is that they don't create actual geometry in the final image.
+We render actual geometry in the Virtual Texture pass into the Runtime Virtual Texture, but from that point on they are just a texture.
+This means that the [[Foliage]] appear as a flat surface on the [[Landscape]], much like a decal.
 
 
 # References
