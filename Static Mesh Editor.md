@@ -3,6 +3,11 @@ It is not an editor for the triangles itself, the topology of the mesh.
 It is an editor for how Unreal Engine uses and renders the mesh.
 
 
+# LOD Settings
+
+Where the settings for [[Mesh LOD]] is set.
+
+
 # Shadows
 
 Shadows can be enabled or disabled per [[Static Mesh Asset]] LOD-level in the [[Static Mesh Editor]].
