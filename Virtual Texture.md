@@ -1,7 +1,7 @@
 A Virtual Texture is a [[Texture]] that supports a type of texture streaming added in Unreal Engine 4.23.
 Splits the texture data into fixed-sized tiles, such as 128x128 pixels (Or texels? Are these in texture space or screen space?).
 What tiles to stream in is based on what is visible on screen and what tiles are required to texture those on-screen elements.
-Has mip-maps for each tile so different quality levels can be loaded for different parts of the textured objects.
+Has a mip-map-like structure using a  page table for each tile so different quality levels can be loaded for different parts of the textured objects.
 As you move closer to the object more and more higher-resolution tiles are streamed in, replacing the lower-resolution tiles.
 Tiles outside of the view frustum or occluded by other geometry is not loaded.
 
