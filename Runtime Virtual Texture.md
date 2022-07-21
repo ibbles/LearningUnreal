@@ -13,6 +13,15 @@ For an expensive [[Material]] that doesn't change from frame to frame and isn't 
 It is really a single [[Material]] [[Asset]], but it is compiled and run in two different contexts.
 See Using A Runtime Virtual Texture As A Landscape Material Cache below for an example.
 
+(
+I still don't understand when the Virtual Texture part of the [[Material]] is run.
+I don't think it's every frame since Runtime Virtual Textures are supposed to provide a performance gain.
+Is it only the first frame that the object is visible?
+Will that produce a gigantic render time the first frame when a whole bunch of things want to render to their Runtime Virtual Texture all at the same time?
+Does [[LOD - Level Of Detail|LOD]] level switching trigger a new render?
+Things going in and out of view?
+)
+
 Must be enabled with [[Project Settings]] > Engine > Rendering > Virtual Textures > Enable Virtual Texture Support.
 
 Any rendered object, such as a [[Landscape]], that writes to one or more Runtime Virtual Textures must declare which Runtime Virtual Textures it writes to in Details panel > Virtual Texture > Render To Virtual Textures.
@@ -195,8 +204,12 @@ One way is to use the Z component of Vertex Normal WS, which is the world space 
 This will produce a blend that uses the Landscape material on top of the [[Static Mesh]], and the mesh's own material on its sides.
 I assume another way would be to somehow find the height of the [[Landscape]] compared to the fragment and blend in the [[Landscape]] material only close to its surface.
 Don't know how to determine the distance from the [[Landscape]] though.
+(
+Some Unreal Engine version newer that 4.23 got the World Height Runtime Virtual Texture layout.
+With this we can trivially compare the Z component of the fragment's World Position and the World Height to determine elevation over the [[Landscape]].
+)
 
-# Material Domain Set To Virtual Texture
+## Material Domain Set To Virtual Texture
 
 [Live stream @ 45:23](https://youtu.be/fhoZ2qMAfa4?t=2723)
 Set [[Material Editor]] > Details panel > Material > Material Domain to Virtual Texture.
@@ -244,6 +257,22 @@ By setting the Translucency Sort Priority of the [[Foliage]] to something larger
 The effect of rendering [[Foliage]] like this is that they don't create actual geometry in the final image.
 We render actual geometry in the Virtual Texture pass into the Runtime Virtual Texture, but from that point on they are just a texture.
 This means that the [[Foliage]] appear as a flat surface on the [[Landscape]], much like a decal.
+
+
+## Flat Infinite LOD
+
+[Live stream @ 53:27](https://youtu.be/fhoZ2qMAfa4?t=3207)
+Render some geometry into a [[Landscape]]'s Runtime Virtual Texture, for example using the [[Foliage]] technique outlined above, and then also render the actual geometry on top of if.
+Have a culling distance for the geometry so that it is removed when far away.
+That's what I call "infinite LOD", a LOD level with zero triangles remaining.
+A flat version of the object will still be visible on the [[Landscape]].
+(
+Not sure I understand this correctly.
+The presenter talked about the geometry's [[Material]] sampling from the Runtime Virtual Texture.
+I don't see why it would need to do that.
+As a speed thing? No need to run the object's expensive shader when we can just sample the Runtime Virtual Texture?
+That doesn't work all that well for many mesh shapes, because of the vertical triangle problem demonstrated in the _Sample The Landscape Runtime Virtual Texture From Other Materials_ section above.
+)
 
 
 # References
