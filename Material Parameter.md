@@ -7,6 +7,10 @@ Parameters can be scalars, vectors, textures, ...
 Anything else?
 )
 
+Create a new parameter by
+- creating a Make ??? node, right-click > Convert To Parameter.
+- right-click an input pin > Promote To Parameter.
+
 Parameters can grouped.
 Assign a group at Details panel > Material Expression > Group.
 By setting a Sort Priority we decide where within that group a particular parameter is placed.
