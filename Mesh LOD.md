@@ -21,6 +21,8 @@ This is useful to improve performance at the cost of some geometry quality.
 
 We can force a particular [[Static Mesh Component]] to use a particular LOD level with Details panel > LOD > Forced LOD Model.
 
+There is a [[View Mode]] named Level Of Detail Coloration > Mesh LOD Coloration, that shows the currently selected LOD level for each [[Static Mesh]] in the level.
+
 
 # LOD Preview
 
