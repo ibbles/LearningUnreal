@@ -14,6 +14,16 @@ r.Streaming.PoolSize 3000
 ```
 
 
+# The Total Lightmap Size Of This InstancedStaticMeshComponent Is Large
+
+This can appear in the Message Log panel when [[Building Lighting]] for a level with foliage.
+The [[Lightmap]] size for foliage is reduced in [[Foliage Mode]] > Foliage panel > select one or more [[Foliage Type]]s > Details > Instance Settings > Light Map Resolution.
+By enabling the override checkbox and reducing the value we reduce the [[Lightmap]] size for our foliage instances.
+This should fix the warning, possibly improve performance, and reduce memory usage.
+
+[_Use Fix and optimize foliage in unreal_ - Light Map Resolution, by Batnobie X @ youtube.com. 2021](https://youtu.be/jcZ5V8qFwgE?t=100)
+
+
 # DotNet SDK SSL connection
 
 Affects Unreal Engine 5.0 and newer, as of early 2022, Linux distributions.
