@@ -11,3 +11,7 @@ In the [[Light Source Properties]] and [[Static Mesh]] Details panel:
 TODO: Learn more about shadows, their settings, and how they affect performance.
 )
 
+# Landscape
+
+[[Landscape]] has a [[Lightmap]] resolution setting at Details panel > Lighting > Static Light Resolution.
+This is the per-quad-side resolution of the [[Lightmap]].
