@@ -3,10 +3,10 @@ See also [[Editor Scalability Settings]].
 
 # Optimization Viewmodes
 
-The [[Level Viewport]] supports various View Modes.
+The [[Level Viewport]] supports various [[View Mode|View Modes]].
 These are different things that can be rendered instead of the regular view of the scene.
-Each View Mode visualizes a particular feature or aspect of the rendering pipeline.
-
+Each [[View Mode]] visualizes a particular feature or aspect of the rendering pipeline.
+The [[View Mode|View Modes]] listed below are grouped under Optimization Viewmodes in the [[View Mode]] list.
 
 ## Optimization Viewmodes > Quad Overdraw
 
@@ -15,6 +15,21 @@ One way to reduce overdraw is to create [[LOD - Level Of Detail]] for your [[Sta
 With fewer triangles we get fewer triangles per screen area and thus less overdraw.
 
 [_5 Tips to Optimize Environments in Unreal Engine 4_ - Overdraw, by Jakub Haluszczak @ youtube.com 2021](https://youtu.be/gZkKcaF4Ifk?t=74)
+
+## Required Texture Resolution
+
+Shows the ratio between the currently streamed texture resolution and the resolution wanted by the GPU.
+To use you must select a [[Static Mesh]] in the [[Level Viewport]] and a texture from the new button that appeared at the top of the [[Level Viewport]] when the Required Texture Resolution [[View Mode]] was enabled.
+A color indicate whether or not there is sufficient texture data to render the current view of the [[Static Mesh]].
+Move the camera closer to make the color go towards red, move the camera further away to move the color towards green.
+You want to have the texture in a size that makes it render in white when at a typical viewing distance.
+If the [[Static Mesh]] is highlighted in green even when small / far away then you can safely reduce the size of the texture.
+(
+How?
+)
+
+[_5 Tips to Optimize Environments in Unreal Engine 4_ - Texture Size, by Jakub Haluszczak @ youtube.com 2021](https://youtu.be/gZkKcaF4Ifk?t=461)
+
 
 # Statistics Window
 
