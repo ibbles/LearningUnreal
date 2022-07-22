@@ -37,6 +37,12 @@ Color-code each pixel based on how expensive lighting calculation was performed 
 Blue is good, red is bad, white is really bad.
 See [[Lighting And Shadow Performance]] for tips on how to improve lighting performance.
 
+Not sure what goes into Light Complexity and what goes into Shader Complexity.
+
+## Shader Complexity
+
+Not sure what goes into Shader Complexity and what goes into Light Complexity.
+
 
 # Statistics Window
 
