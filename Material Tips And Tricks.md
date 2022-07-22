@@ -12,3 +12,13 @@ There is also the  **World Aligned Normal** node, which seems related.
 One can also mask out only the Z component of Vertex Normal WS and use that to lerp between two textures.
 
 We can make **color variations** by having a gray-scale texture for patterns and using a **Blend Overlay** node along with a color parameter to chose a hue.
+
+
+**Material Attributes** is a pack / struct of everything that a [[Material]] can output.
+They are a way to pass around and operate on material data.
+Useful for things like layers and blending.
+Given a Material Attributes instance we can read individual members of that instance with a Get Material Attributes node.
+List the things you need to read in Details panel > Material Attributes > Attribute Get Types.
+There is an analogous node for setting, named Set Material Attributes.
+
+Sometimes the **Object Bounds** is useful in [[Material]] calculations.
