@@ -8,9 +8,10 @@ These are different things that can be rendered instead of the regular view of t
 Each [[View Mode]] visualizes a particular feature or aspect of the rendering pipeline.
 The [[View Mode|View Modes]] listed below are grouped under Optimization Viewmodes in the [[View Mode]] list.
 
-## Optimization Viewmodes > Quad Overdraw
+## Quad Overdraw
 
 Shows how many times each pixel is rendered by the GPU.
+Blue is good, red is bad, white is really bad.
 One way to reduce overdraw is to create [[LOD - Level Of Detail]] for your [[Static Mesh|Static Meshes]].
 With fewer triangles we get fewer triangles per screen area and thus less overdraw.
 
@@ -29,6 +30,12 @@ How?
 )
 
 [_5 Tips to Optimize Environments in Unreal Engine 4_ - Texture Size, by Jakub Haluszczak @ youtube.com 2021](https://youtu.be/gZkKcaF4Ifk?t=461)
+
+## Light Complexity
+
+Color-code each pixel based on how expensive lighting calculation was performed for that pixel. (I think.)
+Blue is good, red is bad, white is really bad.
+See [[Lighting And Shadow Performance]] for tips on how to improve lighting performance.
 
 
 # Statistics Window
