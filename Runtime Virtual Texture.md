@@ -39,80 +39,179 @@ Though I'm not sure, and there are some AND / OR going on here as well which I d
 )
 
 
+# Quick Usage Summary
+
+- Create one or more Runtime Virtual Texture assets in the Content Browser.
+- Set a size and a layout for each Runtime Virtual Texture.
+- For each Runtime Virtual Texture, create and place a Runtime Virtual Texture Volume and set Details panel > Virtual Texture to one of the Virtual Texture assets.
+- On the object ([[Static Mesh]], [[Skeletal Mesh]], [[Landscape]], [[Foliage Type]]) that should write to the Runtime Virtual Texture add the Virtual Texture asset to Details panel > Virtual Texture > Draw In Virtual Textures.
+- In the [[Material]] used by the object that should write to the Runtime Virtual Texture add a Runtime Virtual Texture Output node.
+- Connect something to each of the input pins on the Runtime Virtual Texture Output node for each of the pins for which there exists a Runtime Virtual Texture in the rendered object's Draw In Virtual Textures array that includes that data in its layout.
+- In the [[Material]] for the object that should read from the Runtime Virtual Texture add a Runtime Virtual Texture Sample node, or a Runtime Virtual Texture Sample Parameter node.
+- Set which Runtime Virtual Texture the sample node should read from, either on the node directly (for the non-parameter node) or on a [[Material Instance]] (for the parameter node).
+- Set Runtime Virtual Texture Sample (Parameter) > Details panel > Virtual Texture > Virtual Texture Content to the same layout as on the Runtime Virtual Texture asset.
+- Pass the outputs of the Runtime Virtual Texture Sample node to the [[Material Output Node]], possibly with some alterations, such as blending with other material computations.
+
+
+
 # Creating A Runtime Virtual Texture
+
+## Asset
 
 A Runtime Virtual Texture is an [[Asset]] that lives in the [[Content Browser]].
 Create a new Runtime Virtual Texture by [[Content Browser]] > right-click > Textures > Runtime Virtual Texture.
 
 A Runtime Virtual Texture has a size.
+The size is expressed in tiles, and we can also set the size of each tile (In texels, I assume).
+The size seems to be expressed in powers-of-two, so setting size to 8 gives 256 tiles and a size of 10 gives 1024.
+So is the size the side length, and the number shown the total number of tiles over the entire area?
+
 I'm not sure if we pay a memory cost for the entire size of the texture in some way.
 The point of the "virtual" part of the name is that only parts of the texture need to be loaded, but does the other parts need to exists at all in some way?
 Maybe just as a set of entries in a page table or something?
 
 A Runtime Virtual Texture can have various types of content, also called its Layout.
+> TODO Write path to the setting here.
 - Base Color
-- Base Color, Normal, Roughness
-- Base Color, Normal , Roughness, Specular
+- Base Color + Normal + Roughness + Specular
 - World Height
 
+The list of available layouts varies between Unreal Engine versions.
+
+With a [[Landscape]] it is common to create a Base Color + Normal + Roughness + Specular Runtime Virtual Texture and a World Height Runtime Virtual Texture.
+This makes it possible to blend the [[Landscape]] into other rendered object in the other object's [[Material]].
+
+
+## Volume
+
 A Runtime Virtual Texture exists within a volume of the [[Level]].
-That volume is defined by placing and Runtime Virtual Texture Volume [[Actor]].
+The volume defines what is being captured by the Runtime Virtual Texture.
+That volume is defined by placing a Runtime Virtual Texture Volume [[Actor]].
 Set the Location and Scale of the Runtime Virtual Texture Volume to cover what you need it to.
-There is a Details panel > Transform From Bounds > Copy Bounds button that sets the Runtime Virtual Texture Volume's Location and Scale to contain the bounding volume of some other [[Actor]].
+There is a Details panel > Transform From Bounds > (Copy|Set) Bounds button that sets the Runtime Virtual Texture Volume's Location and Scale to contain the bounding volume of some other [[Actor]].
+
 The Runtime Texture Volume must know which Runtime Virtual Texture it belongs to.
-Set with Details panel > Virtual Texture > Virtual Texture, point to the Runtime Virtual Texture asset.
+Set with Runtime Virtual Texture Volume > Details panel > Virtual Texture > Virtual Texture, point to the Runtime Virtual Texture asset.
+
+We cannot reuse the same Runtime Virtual Texture Volume for many Runtime Virtual Texture assets, unfortunately.
 
 
 # Writing To A Runtime Virtual Texture In A Material
 
+
+## Rendered Object Configuration
+
+A write will only take place if the object begin rendered, such as a [[Static Mesh]], [[Landscape]], or [[Foliage]], has a Runtime Virtual Texture assigned and that Runtime Virtual Texture has a layout that includes the thing being written.
+Assign which Runtime Virtual Texture an object should write to with [[World Outliner]] > select the object > Details panel > Virtual Texture > Render To Virtual Textures.
+The object must also have Details panel > Virtual Texture > Virtual Texture Pass Type set to something that includes Virtual Texture.
+When rendering an object using a [[Material]] the writes to a Runtime Virtual Texture, list those Runtime Virtual Textures in Landscape > Details panel > Virtual Texture > Draw In Virtual Textures.
+
+
+## Runtime Virtual Texture Output Node
+
 To write to a Runtime Virtual Texture from a [[Material]] add a Runtime Virtual Texture Output node to the [[Material]].
 The Runtime Virtual Texture Output node has input pins for all that that can be stored in a Runtime Virtual Texture.
 - Base Color
+- Specular
 - Roughness
 - Normal
 - World Height
+- Opacity
+- Mask
 - (More?)
 
-When rendering a [[Landscape]] using a [[Material]] the writes to a Runtime Virtual Texture, list those Runtime Virtual Textures in Landscape > Details panel > Virtual Texture > Draw In virtual Textures.
+Most of the input pins on the Runtime Virtual Texture Output node can be moved from the [[Material Output Node]].
 
+**World Height** is not computed by most [[Material]]s. Use an Absolute World Position node (called WorldPosition in the node list) and a Component Mask node to extract just the B (Z) component, and connect that to Runtime Virtual Texture Output > World Height.
+
+The **Normal** passed to Runtime Virtual Texture output should be in [[World Space]], while the Normal passed to the [[Material Output Node]] is in [[Tangent Space]].
+Convert from [[Tangent Space]] to [[World Space]] with a Transform Vector node, called Vector Ops > Transform in the list.
 (
-Are Landscapes the only thing that can write to a Runtime Virtual Texture?
+Does the normal have to be in World Space?
+What happens if we keep it in Tangent Space?
+What happens if we store a normal from a [[Landscape]] in Tangent Space and then use it unchanged also in Tangent Space in the [[Material]] on another object?
+The [[Landscape]] triangle probably isn't aligned in the same orientation as the triangle on the other object.
+World Space is a sort of mutual communication medium, both the [[Landscape]] and the other object can interpret a normal in World Space.
+So by converting Landscape's Tangent Space > World Space > other object's tangent space we get a vector that has the same direction, but in the format the the rendering pipeline needs.
 )
+
+If everything is working then the result of the write is visible in the Runtime Virtual Texture preview in the Details panel > Virtual Texture > Draw In Virtual Textures array.
 
 
 # Reading From A Runtime Virtual Texture In A Material
 
-Reading a Runtime Virtual Texture in a [[Material]] is done with the Runtime Virtual Texture Sample node.
-In the Details panel for the Sample node set Virtual Texture to the Virtual Texture [[Asset]] to read from.
+Reading a Runtime Virtual Texture in a [[Material]] is done with either the Runtime Virtual Texture Sample node or the Runtime Virtual Texture Sample Parameter node.
+In the Details panel for the Runtime Virtual Texture Sample node set Virtual Texture to the Virtual Texture [[Asset]] to read from.
+Alternatively, if using a Runtime Virtual Texture Sample Parameter node, assign a Runtime Virtual Texture asset in a [[Material Instance]].
+In Sample node >  Details panel > Virtual Texture > Virtual Texture Content select the same layout as the Runtime Virtual Texture asset has.
 The Sample node has output pins for the regular Runtime Virtual Texture stuff.
+You may only read from pins that match the Virtual Texture Content setting of the Sample node and the
 Not sure what happens if we read attributes that the Runtime Virtual Texture [[Asset]] doesn't contain.
+I assume we get zeros.
+
+The **Normal** read from a Runtime Virtual Texture is typically in [[World Space]].
+Unless the [[Material]] has Tangent Space Normal disabled in the Details panel we must transform it to Tangent Space.
+You can use a Vector Ops > Transform node to do that.
+If you intend to blend the normal from the Runtime Virtual Texture with the rendered objects normal, be it from a normal map or the mesh data, you must do this blend using World Space normals.
+
+
+# Blending A Landscape Material Into Other Objects
+
+This example is based on [_How to Blend Objects with Your Landscape - UE4 Runtime Virtual Texturing (RVT) Tutorial_ by Unreal Sensei @ youtube.com 2021](https://www.youtube.com/watch?v=xYuIDFzKaF4).
+
+The goal is to use a Runtime Virtual Texture to blend a [[Landscape]]'s [[Material]] into another object's [[Material]] for the parts of the object that is very close to the [[Landscape]].
+The intention is to make the object feel more grounded, as if sand or dust or other fine particles of the ground surface has migrated up onto the object.
+
+[11:18 - Read Landscape Height To Generate Blend Alpha](https://youtu.be/xYuIDFzKaF4?t=678)
+Create a Runtime Virtual Texture Sample node, named , and bind it to the World Height Runtime Virtual Texture.
+Set Details panel > Virtual Texture > Virtual Texture Content to World Height.
+The World Height read from the Runtime Virtual Texture, i.e. the [[Landscape]]'s height at this point, will be compared with the height of the fragment of the object that is being rendered.
+If the fragment is close to the [[Landmass]] then more of the [[Landscape]]'s [[Material]] will be blended in.
+To get the world position of the fragment use the Coordinates > World Position node, called Absolute World Position once created.
+Use a Component Mask, just Mask in the graph, node to get only the B (Z) component, i.e. the height.
+Subtract the [[Landscape]] height from the fragment height to find the distance between the two. i.e. how high above the [[Landscape]] that the fragment is.
+This value should be scaled since we don't always want the blend interval / distance to be 1 cm.
+It is advisable to include Object Bounds in the calculation, so that larger objects get a larger blend interval.
+At least that's what I think the example is doing, I'm not sure. The math makes no sense to me.
+The end result is a [0.0, 1.0] value, using a Saturate node, that is fed to the Alpha input pin of a Blend Material Attributes node.
+
+[17:09 - Read Landscape Material To Blend Materials](https://youtu.be/xYuIDFzKaF4?t=1029)
+Create a Runtime Virtual Texture Sample Parameter node, named `VT_Mat`.
+
+
+[24:00 - Avoiding Texture Stretching On Vertical Surfaces](https://youtu.be/xYuIDFzKaF4?t=1440)
+Since Runtime Virtual Texturing is a vertical projection (Does it have to be that? Does it depend on the rotation of the Runtime Virtual Texture Volume? Does it depend on the rotation of the [[Landscape]]? What if the [[Landscape]] and the Runtime Virtual Texture Volume have different rotations?) any near-vertical surface on the object will all sample from the same Runtime Virtual Texture coordinate, leading to bad stretching. We can avoid this by not including as much, or anything, of the [[Landscape]] [[Material]] contribution in the blending when the normal, in [[World Space]] is nearly vertical.
+
+We can get the World Space normal at the currently rendered fragment with the Vertex Normal WS node and by masking to only the B (Z) channel we get the vertical component.
+When this is close to 1.0 then use much of the [[Landscape]] [[Material]] in the blend,
+when this is close to 0.0 then use very little of the [[Landscape]] [[Material]] in the blend.
 
 
 # Using A Runtime Virtual Texture As A Landscape Material Cache
 
 This example is based on the [Virtual Texturing live stream](https://youtu.be/fhoZ2qMAfa4?t=1153) by Epic Games, which in turn is based on the [Landscape Mountain Sample](https://www.unrealengine.com/marketplace/en-US/product/landscape-mountains) that is available on the Unreal Marketplace.
 
-[Live stream @ 22:38](https://youtu.be/fhoZ2qMAfa4?t=1358)
+[Live stream @ 22:38 - Project Settings](https://youtu.be/fhoZ2qMAfa4?t=1358)
 Enable [[Project Settings]] > Engine > Rendering > Virtual Textures > Enable Virtual Texture Support.
 Make a duplicate of the `M_Landscape_Master` [[Material]] and assign to the [[Landscape]].
 
-[Live stream @ 22:54](https://youtu.be/fhoZ2qMAfa4?t=1374)
+[Live stream @ 22:54 - Shader Complexity View Mode](https://youtu.be/fhoZ2qMAfa4?t=1374)
 A [[Landscape]] is often expensive because it often samples from many textures due to it blending many layers, and often cover a large fraction of the pixels on screen.
 You can use the Shader Complexity [[View Mode]] to determine if you [[Landscape]] is expensive to render.
 
-[Live stream @ 23:13](https://youtu.be/fhoZ2qMAfa4?t=1393)
+[Live stream @ 23:13 - Asset And Volume](https://youtu.be/fhoZ2qMAfa4?t=1393)
 Create a new Runtime Virtual Texture with [[Content Browser]] > right-click > Materials & Textures > Runtime Virtual Texture.
 Set Size Of The Virtual Texture to something that gives a reasonable resolution for the scale of your [[Landscape]].
 Set Virtual Texture Content to Base Color, Normal, Roughness, Specular.
 Create a Runtime Virtual Texture Volume in the [[Level]] and set the Location and Scale to match the [[Landscape]], optionally using the Copy Bounds button.
 
-[Live stream @ 26:49](https://youtu.be/fhoZ2qMAfa4?t=1609)
+[Live stream @ 26:49 - Read VS Write Contexts](https://youtu.be/fhoZ2qMAfa4?t=1609)
 The [[Landscape Material]] will exists in two contexts, one to fill in the Runtime Virtual Texture data and one to shade pixels.
 
 
 ## Writing To The Runtime Virtual Texture
 
-[Live stream @ 27:29](https://youtu.be/fhoZ2qMAfa4?t=1649)
+[Live stream @ 27:29 Runtime Virtual Texture Output Node](https://youtu.be/fhoZ2qMAfa4?t=1649)
 To write to a Runtime Virtual Texture create a Runtime Virtual Texture Output node.
 This node has input pins for
 - Base Color
@@ -126,7 +225,7 @@ Pass the values you regularly would pass to the [[Material Output Node]] to this
 
 ## Reading From The Runtime Virtual Texture
 
-[Live stream @ 29:15](https://youtu.be/fhoZ2qMAfa4?t=1755)
+[Live stream @ 29:15 - Runtime Virtual Texture Sample Node](https://youtu.be/fhoZ2qMAfa4?t=1755)
 To read from a Runtime Virtual Texture create a Runtime Virtual Texture Sample node.
 Has output pins matching the input pins of the Runtime Virtual Texture Output node, except for Opacity.
 The Runtime Virtual Texture Sample node must be bound to a Virtual Texture, which is done in the Details panel.
@@ -279,4 +378,6 @@ That doesn't work all that well for many mesh shapes, because of the vertical tr
 
 - [_Using Virtual Heightfield Mesh For Landscape Displacement In Unreal Engine 5 (Updated)_, by BuildGamesWithJon @ youtube.com](https://www.youtube.com/watch?v=H4jzMsiBkYg)
 - [_Virtual Texturing | Live from HQ | Inside Unreal_ - Runtime Virtual Textures, by Unreal Engine @ youtube.com. 2019](https://youtu.be/fhoZ2qMAfa4?t=1153)
+- [_How to Blend Objects with Your Landscape - UE4 Runtime Virtual Texturing (RVT) Tutorial_ by Unreal Sensei @ youtube.com 2021](https://www.youtube.com/watch?v=xYuIDFzKaF4)
+
 
