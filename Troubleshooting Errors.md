@@ -24,6 +24,19 @@ This should fix the warning, possibly improve performance, and reduce memory usa
 [_Use Fix and optimize foliage in unreal_ - Light Map Resolution, by Batnobie X @ youtube.com. 2021](https://youtu.be/jcZ5V8qFwgE?t=100)
 
 
+# Blurry Quixel Megascans 3D Assets
+
+[[Static Mesh]]es imported from the Quixel Library sometimes become blurry in the [[Viewport]].
+It looks like the textures aren't being loaded properly.
+One possible cause is that a [[Texture]] that should not be [[Virtual Texture]] accidentally has become marked as such.
+You can verify if this is the case by the presence of the VT decorator on the texture's icon in the [[Content Browser]].
+To find the texture, open the [[Material]] used for the Quixel Megascans [[Static Mesh]].
+In the Textures section of the parameter list, click the Browse To Asset button next to any texture, the folder opened in the Content Browser usually hold all textures.
+If any of the textures has the VT decorator, then open it in the [[Texture Editor]] and disable Details panel > Texture > Virtual Texture Streaming.
+
+[_Unreal Engine 5: Fix for blurry highres megascans textures (RVT) !CHECK PINNED COMMENT FOR UPDATE!_ by hcaq @ youtube.com 2022](https://www.youtube.com/watch?v=e19e6XKk6Wc)
+-
+
 # DotNet SDK SSL connection
 
 Affects Unreal Engine 5.0 and newer, as of early 2022, Linux distributions.
