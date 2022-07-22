@@ -10,6 +10,8 @@ Anything else?
 Create a new parameter by
 - creating a Make ??? node, right-click > Convert To Parameter.
 - right-click an input pin > Promote To Parameter.
+- Holding `s` and clicking to get a scalar parameter.
+	- Is there a button to hold for a 2,3,4 component vector parameter?
 
 Parameters can grouped.
 Assign a group at Details panel > Material Expression > Group.
