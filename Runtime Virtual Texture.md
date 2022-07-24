@@ -145,9 +145,8 @@ In the Details panel for the Runtime Virtual Texture Sample node set Virtual Tex
 Alternatively, if using a Runtime Virtual Texture Sample Parameter node, assign a Runtime Virtual Texture asset in a [[Material Instance]].
 In Sample node >  Details panel > Virtual Texture > Virtual Texture Content select the same layout as the Runtime Virtual Texture asset has.
 The Sample node has output pins for the regular Runtime Virtual Texture stuff.
-You may only read from pins that match the Virtual Texture Content setting of the Sample node and the
-Not sure what happens if we read attributes that the Runtime Virtual Texture [[Asset]] doesn't contain.
-I assume we get zeros.
+You may only read from pins that match the Virtual Texture Content setting of the Sample node and the layout of the Runtime Virtual Texture asset.
+Not sure what happens if we read attributes that the Runtime Virtual Texture [[Asset]] doesn't contain, I assume we get zeros.
 
 The **Normal** read from a Runtime Virtual Texture is typically in [[World Space]].
 Unless the [[Material]] has Tangent Space Normal disabled in the Details panel we must transform it to Tangent Space.
@@ -178,13 +177,34 @@ The end result is a [0.0, 1.0] value, using a Saturate node, that is fed to the 
 [17:09 - Read Landscape Material To Blend Materials](https://youtu.be/xYuIDFzKaF4?t=1029)
 Create a Runtime Virtual Texture Sample Parameter node, named `VT_Mat`.
 
+[19:49 - Convert Normal Coordinate From World Space To Tangent Space In Reader Material](https://youtu.be/xYuIDFzKaF4?t=1189)
+The normal written by the [[Landscape Material]] to the Runtime Virtual Texture is in [[World Space]].
+The normal passed to the [[Material Output Node]] should be in [[Tangent Space]].
+(Though there is a [[Material]] setting to change this to take a [[World Space]] normal instead, see below.)
+However, if you are blending two materials then the two normals should both be in [[World Space]].
+(
+Why? Why can't two [[Tangent Space]] normals be blended?
+We are in the same [[Tangent Space]], i.e. we are in a single [[Material]] for a single object shading a single fragment.
+Should be compatible.
+)
+Transform back to [[Tangent Space]] once you have the final blended normal that is passed to the [[Material Output Node]].
+Or disable [[Material]] > Details panel > Material > Advanced > Tangent Space Normal.
 
 [24:00 - Avoiding Texture Stretching On Vertical Surfaces](https://youtu.be/xYuIDFzKaF4?t=1440)
-Since Runtime Virtual Texturing is a vertical projection (Does it have to be that? Does it depend on the rotation of the Runtime Virtual Texture Volume? Does it depend on the rotation of the [[Landscape]]? What if the [[Landscape]] and the Runtime Virtual Texture Volume have different rotations?) any near-vertical surface on the object will all sample from the same Runtime Virtual Texture coordinate, leading to bad stretching. We can avoid this by not including as much, or anything, of the [[Landscape]] [[Material]] contribution in the blending when the normal, in [[World Space]] is nearly vertical.
+Since Runtime Virtual Texturing is a vertical projection
+(
+Does it have to be that?
+Does it depend on the rotation of the Runtime Virtual Texture Volume?
+Does it depend on the rotation of the [[Landscape]]?
+What if the [[Landscape]] and the Runtime Virtual Texture Volume have different rotations?
+)
+any near-vertical surface on the object will all sample from the same Runtime Virtual Texture coordinate, leading to bad stretching. We can avoid this by not including as much, or anything, of the [[Landscape]] [[Material]] contribution in the blending when the normal, in [[World Space]], is nearly vertical.
 
 We can get the World Space normal at the currently rendered fragment with the Vertex Normal WS node and by masking to only the B (Z) channel we get the vertical component.
 When this is close to 1.0 then use much of the [[Landscape]] [[Material]] in the blend,
 when this is close to 0.0 then use very little of the [[Landscape]] [[Material]] in the blend.
+To combine this blend level with the height blend amount from [11:18 - Read Landscape Height To Generate Blend Alpha](https://youtu.be/xYuIDFzKaF4?t=678) simply multiply them.
+May need a `1-x` node to get the directions the same.
 
 
 # Using A Runtime Virtual Texture As A Landscape Material Cache
