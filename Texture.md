@@ -30,14 +30,14 @@ The **Flip Book** node helps with this.
 
 
 (
-TODO: Write about sRGB. Once I understand it.
+[[TODO]] Write about sRGB. Once I understand it.
 )
 
 
 # Texture size
 
 Each texture has a size expressed as a two-dimensional value, such as 1024x1024 or 2048x4096.
-The size is often a power of two, for performance reasons.
+The size is often a power of two, for performance reasons and for mip-map generation.
 It the texture is not a power of two then you can ask Unreal to pad it in [[Texture Editor]] > Details panel > Texture > Power Of Two Mode.
 
 A single texture often contains different versions of itself at different sizes.
@@ -50,6 +50,7 @@ A newer variant of mip-map is [[Virtual Texture]].
 
 
 # Texture Streaming
+
 
 [[Texture Streaming]]
 
