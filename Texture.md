@@ -49,21 +49,9 @@ The number of mips generated for a Texture can be seen in the [[Texture Editor]]
 A newer variant of mip-map is [[Virtual Texture]].
 
 
+# Texture Streaming
 
-# Texture Streaming Pool
-
-Unreal Engine allocates a limited amount of VRAM for texture streaming.
-If we add too many different texture-using assets to our scene then we will fill that amount.
-There is a [[CVars|CVar]] to control the size of the pool.
-```
-r.Streaming.PoolSize
-```
-This measures the size of the texture streaming pool in MiB.
-By default it is 1024 (I think).
-If you have VRAM to spare then you can increase it.
-```
-r.Streaming.PoolSize 3000
-```
+[[Texture Streaming]]
 
 
 # References
