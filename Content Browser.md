@@ -10,3 +10,13 @@ Sometimes the preview isn't loaded, to force it right-click on the problematic a
 
 We can move an [[Asset]] by selecting it and dragging it to the folder where we want it to be.
 Unreal Engine tracks all asset references all will update them to point to the new location.
+
+
+# Thumbnail Edit Mode
+
+Some [[Asset|Assets]], such as  [[Texture]], [[Static Mesh Asset]], and [[Material]], will show a preview of the [[Asset]] in the Content Browser.
+Some of those assets support customizing the preview.
+For example, for a [[Static Mesh Asset]] we can control the point-of-view.
+To enable Thumbnail Editing Mode do Content Browser > Settings > Thumbnail Edit Mode.
+Click-and-drag on an [[Asset]] to orbit the camera.
+Click Done Editing when done.
