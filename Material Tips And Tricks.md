@@ -22,3 +22,42 @@ List the things you need to read in Details panel > Material Attributes > Attrib
 There is an analogous node for setting, named Set Material Attributes.
 
 Sometimes the **Object Bounds** is useful in [[Material]] calculations.
+
+
+# Normal Intensity
+
+The normal intensity trick let us control the scale of the normals on our objects.
+We get a slider where we can control the smoothness of the surface.
+We are basically interpolating between the source normal, such as from a normal map, and the neutral Z normal.
+Use a Lerp node to do the interpolation and a scalar [[Material Parameter]] (Hold S on the keyboard and click.) and connect to Lerp.Alpha to control the intensity.
+(
+Is this really it?
+This this actually work?
+Lerp won't do a rotation, will it? This will just sort of squish the normal?
+)
+
+
+# Color Tint
+
+We create a color tint by multiplying the Base Color of the [[Material]] with another color.
+Create a constant 3 vector (Hold 3 on the keyboard and click.) and multiply (Hold M on the keyboard and click.) it with the Base Color.
+Convert the constant 3 vector to a parameter.
+Make the default value white, (1.0, 1.0, 1.0), that will make the multiply a no-op.
+
+
+# Saturation
+
+A saturation control is created by Lerp-ing the Base Color with a black-and-white version of itself.
+Create a Lerp node and a scalar [[Material Parameter]] node (Hold S on the keyboard and click.) and connect the parameter to Lerp.Alpha.
+Connect the color to saturate to Lerp.B.
+There are several ways to create a black-and-white version of the input color.
+One is to take a representative color channel and just ignore the other two.
+
+
+# Brightness
+
+A brightness control is created by multiplying the Base Color with a scalar [[Material Parameter]] (Hold S on the keyboard and click.).
+If you want to take this one step further then you can start piping the color into [[Emissive Materials|Emissive]] once the brightness parameter goes above 1.0.
+
+![](./Images/MaterialTips_BrightnessAndEmissive.png)
+
