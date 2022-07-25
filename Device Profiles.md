@@ -1,6 +1,6 @@
 Edited from Top Menu Bar > Window > Developer Tools > Device Profiles.
 A long list of devices.
-Click the wrench to bring up a long list o f settings, such as [[CVars]], that should be set for this device.
+Click the wrench to bring up a long list of settings, such as [[Console Variable|Console Variables]], that should be set for this device.
 Click the `+` to add a new value configuration.
 Devices are organized in a hierarchy when children can override the values of their parents.
 

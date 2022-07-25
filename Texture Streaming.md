@@ -39,7 +39,7 @@ The camera orientation and view frustum does not appear the influence the choice
 I assume this is because a player can turn faster than they can move.
 
 The texture streaming pool has a maximum size.
-We can **set this size** with the `r.Streaming.PoolSize` [[CVars|Console Variable]].
+We can **set this size** with the `r.Streaming.PoolSize` [[Console Variable]].
 Setting an appropriate value for your project and target hardware is probably complicated.
 I assume this value should be different for different quality settings set by the end user.
 You can get some hints to what you need to set it to using the _Statistics_ and _Optimization View Modes_ described below.
@@ -53,7 +53,7 @@ If it is not possible to fit all needed mip levels in the streaming pool then th
 TEXTURE STREAMIN GPOOL OVER <AMOUNT> BUDGET
 ```
 
-The size of the texture streaming pool can be set with the `r.Streaming.PoolSize` [[CVars|Console Variable]].
+The size of the texture streaming pool can be set with the `r.Streaming.PoolSize` [[Console Variable]].
 If you set this higher than what the video cards VRAM can hold then you application may crash with an out-of-memory error.
 
 # Reducing Texture Memory Requirement
@@ -136,7 +136,7 @@ Sounds like a terrible waste of time.
 
 Unreal Engine allocates a limited amount of VRAM for texture streaming.
 If we add too many different texture-using assets to our scene then we will fill that amount.
-There is a [[CVars|CVar]] to control the size of the pool.
+There is a [[Console Variable]] to control the size of the pool.
 ```
 r.Streaming.PoolSize
 ```

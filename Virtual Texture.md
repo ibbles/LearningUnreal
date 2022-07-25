@@ -36,7 +36,7 @@ A writable Virtual Texture is called [[Runtime Virtual Texture]].
 
 # Console Variables
 
-There is a family of [[CVars]] related to virtual textures, all prefixed with `r.VT`.
+There is a family of [[Console Variable|Console Variables]] related to virtual textures, all prefixed with `r.VT`.
 - `r.VT.Flush`: Not sure yet.
 - `r.VT.Borders`: Render the tile borders in the viewport. Move closer to the textured object see more and more tiles being loaded in.
 

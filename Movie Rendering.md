@@ -25,7 +25,7 @@ Click the⋮next to Sequencer panel > tool bar > clap board button and select Mo
 Clicking the clap board button after will open the Movie Render Queue panel.
 The Movie Render Queue has a bunch of settings.
 These can be saved and loaded as presets.
-The preset can include [[CVars]].
+The preset can include [[Console Variable|Console Variables]].
 
 ## Settings
 

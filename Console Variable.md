@@ -1,4 +1,4 @@
-Short for Console Variables.
+Also called CVar for short.
 Set from the console, which is opened with `~`.
 Or Top Menu Bar > Windows > Developer Tools > Output Log > Input box at the bottom.
 

@@ -2,7 +2,7 @@
 
 Unreal Engine allocates a limited amount of VRAM for texture streaming.
 If we add too many different texture-using assets to our scene then we will fill that amount.
-There is a [[CVars|CVar]] to control the size of the pool.
+There is a [[Console Variable]] to control the size of the pool.
 ```
 r.Streaming.PoolSize
 ```

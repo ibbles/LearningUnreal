@@ -21,7 +21,7 @@ I assume either a [[Light]] or a [[Skeletal Mesh|Skeletal]] or [[Static Mesh]]. 
 
 # Console Variables
 
-There are a bunch of [[CVars]] that control Virtual Shadow Maps.
+There are a bunch of [[Console Variable|Console Variables]] that control Virtual Shadow Maps.
 They are grouped under the `r.Shadow.Virtual` prefix.
 
 - `ShowStats`
@@ -46,13 +46,13 @@ There are a few ways to improve performance.
 ## Invalidated Virtual Shadow Map Cache
 Foliage is often animated to simulate wind, which causes the shadow map cache to be invalidated every frame.
 You can see this with the Viewport > top left > Lit > Virtual Shadow Maps > Cached Pages view mode.
-Foliage is typically non-Nanite, at least in Unreal Engine 5.0 since it doesn't support World Position Offset in [[Material|Materials]], so we can exclude them with by setting the `r.Shadow.Virtual.NonNanite.IncludeInCoarsePages` [[CVars|CVar]] to 0.
+Foliage is typically non-Nanite, at least in Unreal Engine 5.0 since it doesn't support World Position Offset in [[Material|Materials]], so we can exclude them with by setting the `r.Shadow.Virtual.NonNanite.IncludeInCoarsePages` [[Console Variable]] to 0.
 This will improve performance.
 I don't know what the trade-off is, what exactly does this enable and what is the effect on the visuals? What does it break?
 It still shows up in red in the Virtual Shadow Map > Cached Pages view mode.
 
 ## Far Shadow Culling
-Another [[CVars|CVar]] we can disable is `r.Shadow.Virtual.UseFarShadowCulling`.
+Another [[Console Variable]] we can disable is `r.Shadow.Virtual.UseFarShadowCulling`.
 This makes a difference when there is foliage in the background / distance.
 I don't know what it does though, what the trade-off is.
 Culling usually improves performance, why would we get better performance when we disable it?
