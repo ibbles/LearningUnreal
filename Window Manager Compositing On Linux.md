@@ -47,7 +47,7 @@ $ UnrealEditor
 ## Unreal Engine source
 
 I'm in no way certain that this is the proper way to do this.
-It would be nice to have an [[Editor Setting]] instead of always letting the compositor be enabled, but I don't know how to do that.
+It would be nice to have an [[Editor Preferences]] instead of always letting the compositor be enabled, but I don't know how to do that.
 The editor would need to be restarted for the settings change to take effect, since the SDL hint is read at startup.
 (
 I don't think SDL will detect a change in the hint during runtime and re-enable the compositor.
