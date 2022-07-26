@@ -56,6 +56,7 @@ The new value will persist through the [[Play In Editor]] session and remain aft
 # Interesting CVars
 
 ## Rendering Features
+- `r.screenPercentage <NUMBER>`: Do up- or down scaling. 100% means native, the rendered image matches the screen pixels in the viewport. Above 100% renders more pixels than are in the viewport, i.e. super-sampling. This increases the visual quality at the cost of a higher rendering time. Below 100% renders fewer pixels than are in the viewport, i.e. up-scaling. This increases rendering performance at the cost of image quality.
 
 ## Textures
 - `r.Streaming.PoolSize`: The size in MiB to allocate for streaming textures. Increase this if you get blurry textures and a warning the in the viewport about the texture streaming pool being over budget. If you have VRAM to spare.

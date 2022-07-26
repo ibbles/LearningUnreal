@@ -29,13 +29,27 @@ The preset can include [[Console Variable|Console Variables]].
 
 ## Settings
 
+### Anti-Aliasing
+
 There are two anti aliasing settings.
 Spatial Sample Count renders each pixel multiple times slightly shifted on the screen and averages the result.
 Temporal Sample Count renders each pixel multiple times slightly shifted in time and averages the result.
 So if you set Spatial Sample Count to `m` and Temporal Sample Count to `n` then each pixel is rendered `m*n` times.
+
+A high Spatial Sample Count gives crisp detailed images without aliasing, flickering, and other noise.
+A high Temporal Sample Count gives better motion blur.
+(
+Is this really true?
+)
+
 The Override Anti Aliasing setting means that the Anti Aliasing Method setting takes precedence over the [[Project Settings]] setting. (I guess.)
 Not sure how the Anti Aliasing Method setting interacts with the Spatial Sample Count and Temporal Sample Count settings.
 If they are independent, or if the count settings are passed to the chosen anti aliasing method.
+
+In addition, one can add the `r.screenPercentage <NUMBER>` [[Console Variable]] to Move Render Queue > Settings > Settings (green button) > Console Variables.
+I think that is in addition to Spatial Sample Count, not sure though.
+
+[_Troubleshooting FOLIAGE issues in Unreal Engine_ - Screen Percentage, by William Faucher @ youtube.com](https://youtu.be/Ar3vvygirLU?t=759)
 
 # References
 
