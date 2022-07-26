@@ -30,6 +30,12 @@ Color grading is used to modify the look and feel of the scene.
 Editing within the Global category will affect the entire spectrum.
 The other options are Shadows, Midtones, and Highlights.
 
+## Saturation
+
+Can be used to remove color from the scene.
+Reduce the RGB Y component.
+Not sure what that means.
+
 ## Gamma
 
 Controls the gamma curve.
@@ -53,4 +59,6 @@ Hit Lighting means that the reflection rays are traced against the actual geomet
 
 # References
 - [_Lighting in Unreal Engine 5 for Beginners_ - Post Process Volume by William Faucher @ youtube.com](https://youtu.be/fSbBsXbjxPo?t=1785)
+- [_# UE5 Hints & Tips - Foliage and Trees_ - Saturation, by UnrealityBites @ youtube.com](https://youtu.be/dxofebT02VI?t=1476)
+
 
