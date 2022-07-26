@@ -2,6 +2,9 @@ God Rays is the effect of partially-occluded light illuminating fog, mist, dust,
 The fog in the air can be provided by an [[Exponential Height Fog]] with the Volumetric Fog setting enabled.
 The [[Light Sources|Light Source]] can, for example, be a [[Directional Light]].
 
+On the Light enable Details panel > Light Shafts > Light Shaft Occlusion and Light Shaft Bloom.
+Set Bloom Scale to taste.
+
 To increase the God Rays effect produce by a light source, increase the Light > Volumetric Scattering Intensity in the Light's Details panel.
 
 There is probably a density setting somewhere in the [[Exponential Height Fog]] Details panel.
