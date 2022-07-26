@@ -33,6 +33,14 @@ This should fix the warning, possibly improve performance, and reduce memory usa
 [_Use Fix and optimize foliage in unreal_ - Light Map Resolution, by Batnobie X @ youtube.com. 2021](https://youtu.be/jcZ5V8qFwgE?t=100)
 
 
+# Console Variables
+
+There are a few [[Console Variable|Console Variables]] that affect foliage.
+
+- `foliage.ForceLOD <NUMBER>`: Force a specific LOD for all [[Static Mesh Foliage]].
+	- The [[Movie Render Queue]] does this automatically, but it can be disabled by disabling Game Overrides > Force LOD 0 in the [[Movie Render Queue]] settings.
+
+
 # References
 
 - [_UE5 Hints & Tips - Foliage and Trees_, by UnrealityBits @ youtube.com](https://www.youtube.com/watch?v=dxofebT02VI)
