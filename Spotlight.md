@@ -1,6 +1,7 @@
-A [[Light Source]] that has both a location and a rotation.
+A [[Light Source]] that has both a location and a rotation, think of the rotation as a direction.
 It emits light in a cone around the light's local X axis.
 Kinda like a flashlight.
+
 The Details panel has Inner Cone Angle and Outer Cone Angle.
 The Inner Cone Angle is the angle of the full-light cone.
 This area get the full intensity of the light.
