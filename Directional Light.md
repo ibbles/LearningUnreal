@@ -1,4 +1,4 @@
-A Directional Light is one of the available [[Light Sources]] in Unreal Engine.
+A Directional Light is a type of [[Light Source]].
 A Directional Light is a light source that only has a direction.
 The position doesn't matter.
 The direction is controlled with the light's Rotation.

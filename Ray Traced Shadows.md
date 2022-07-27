@@ -1,4 +1,4 @@
-Must be enabled per [[Light Sources|Light Source]] in Details panel > Light > Cast Ray Tracing Shadows.
+Must be enabled per [[Light Source]] in Details panel > Light > Cast Ray Tracing Shadows.
 
 # Culling Distant Instanced Geometry And Foliage
 
@@ -12,7 +12,7 @@ This will come with a performance cost.
 # Weird Shadows On Wind-Affected Foliage
 
 The [[Quixel Megascans]] foliage assets come with a wind effect.
-Enabling this in combination with [[Light Sources|Light Source]] > Details panel > Light > Cast Ray Tracing Shadows can cause shadowing artifacts where the wind itself becomes a shadow.
+Enabling this in combination with [[Light Source|Light Source]] > Details panel > Light > Cast Ray Tracing Shadows can cause shadowing artifacts where the wind itself becomes a shadow.
 It looks like darker blobs moving across the grass or showing up on tree trunks.
 
 On a regular [[Static Mesh]] this can be fixed by enabling Details panel > Rendering > Ray Tracing > Evaluate World Position Offset.

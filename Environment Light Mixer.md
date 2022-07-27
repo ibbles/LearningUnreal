@@ -1,6 +1,6 @@
 A tool / wizard for creating common [[Lighting]] setups in a scene.
 Opened with Top Menu Bar > Window > Env. Light Mixer.
-The Environment Light Mixer contains buttons for each type of [[Light Sources|Light Source]] it supports.
+The Environment Light Mixer contains buttons for each type of [[Light Source]] it supports.
 Settings for those lights show up beneath the create buttons.
 Commons light sources to create are
 - [[Sky Light]]

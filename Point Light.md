@@ -1,4 +1,4 @@
-A [[Light Sources|Light Source]] that emits light from a single point.
+A [[Light Source|Light Source]] that emits light from a single point.
 Emits light in all directions.
 The Point Light's rotation doesn't matter.
 Similar to a light bulb, when views from some distance.

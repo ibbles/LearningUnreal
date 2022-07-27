@@ -26,9 +26,9 @@ What is a good value?
 What are the memory and performance implications?
 Is this a [[Lightmap]] resolution?
 The unit of the value is texels per quad side, i.e. there will be `StaticLightingResolution^2` texels per quad.
-This setting might be unused if the [[Light Sources|Light Source]] is using [[Cascaded Shadow Maps]].
+This setting might be unused if the [[Light Source]] is using [[Cascaded Shadow Maps]].
 
 [_How to fix Shadows.. And large resolution on foliage UE4_ - Static Light Resolution, by Batnobie X @ youtube.com 2021](https://youtu.be/w2FKHkW1XL8?t=43)
 
-Shadows on [[Landscape]] is also affected by the [[Cascaded Shadow Maps]] settings on the [[Light Sources|Light Source]].
+Shadows on [[Landscape]] is also affected by the [[Cascaded Shadow Maps]] settings on the [[Light Source|Light Source]].
 Perhaps it must be a [[Directional Light]], not sure.

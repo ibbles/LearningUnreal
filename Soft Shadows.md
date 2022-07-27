@@ -1,4 +1,4 @@
-For many [[Light Sources]] the shadows are very hard-edged by default.
+For many [[Light Source|Light Sources]] the shadows are very hard-edged by default.
 They can be made soft by increasing the Light's Details panel > Light > Source Radius.
 On a [[Directional Light]] this is called Source Angle instead.
 For this to work the light must be using a shadow method that supports soft shadows.

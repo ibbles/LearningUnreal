@@ -3,7 +3,7 @@ Obscuring light causes shadows on the objects that would have been lit if the li
 We have [[Static Lighting]] and [[Dynamic Lighting]].
 Static means that the lighting calculations are done at build time, before the application is shipped to end-users.
 Dynamic means that the lighting calculations are done at run-time, on the end-user's hardware.
-Static lighting is limited in what can be changed at runtime, [[Light Sources]] can't be moved, for example.
+Static lighting is limited in what can be changed at runtime, a [[Light Source]] can't be moved, for example.
 With dynamic lighting any setting can be changed at runtime.
-Light is produces by [[Light Sources]].
+Light is produces by one or more [[Light Source|Light Sources]].
 

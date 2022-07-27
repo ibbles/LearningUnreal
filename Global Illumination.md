@@ -16,7 +16,7 @@ There are multiple implementations of global illumination in Unreal Engine:
 
 The amount of indirect lighting is controlled in three different ways:
 - Material base color.
-- The Details panel > Intensity of the [[Light Sources|Light Source]].
+- The Details panel > Intensity of the [[Light Source]].
 - The Details panel > Indirect Lighting Intensity of the light source.
 
 

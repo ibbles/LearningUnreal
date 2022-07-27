@@ -1,6 +1,6 @@
 Lighting, the process of adding [[Light]], is what makes it possible to see the objects in our level.
 Lighting can be either [[Dynamic Lighting|Dynamic]], which is computed at runtime, or [[Static Lighting|Static]], which is [[Baked Lighting|Baked]] at buildtime.
-Lighting is provided by one or more [[Light Sources]].
+Lighting is provided by one or more [[Light Source|Light Sources]].
 
 The Global Illumination method used for dynamic lighting is set in Project Settings > Engine > Rendering > Global Illumination > Dynamic Global Illumination Method.
 This is where [[Lumen]] is enabled.
@@ -14,6 +14,7 @@ Use a [[Post Process Volume]] to set a fixed expose level.
 Sometimes baked lighting remain in the scene despite removing all the light sources.
 You can clear the baked lighting data with [[World Settings]] > Lightmass > Advanced > Force No Precomputed Lighting.
 Must build lighting once with Top Menu Bar > Build > Build Lighting Only to update everything.
+
 
 # Calibration Objects Spheres
 It is good to have a few known objects in the scene when setting up lighting.

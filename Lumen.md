@@ -1,6 +1,6 @@
 Lumen is Unreal Engine 5's new dynamic global illumination lighting system.
 
-A [[Light Sources]] may have a Indirect Lighting Intensity setting in the Details panel.
+A [[Light Source]] may have a Indirect Lighting Intensity setting in the Details panel.
 This setting controls how much that light source contribute to the global illumination around objects directly illuminated by the light source.
 
 # Requirements

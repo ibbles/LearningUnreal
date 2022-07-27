@@ -7,7 +7,7 @@ Setting up Static Lighting is more complicated than [[Dynamic Lighting]], there 
 Static lighting can be disabled completely with [[World Settings]] > Lightmass > Advanced > Force No Precomputed Lighting.
 Must build lighting once with Top Menu Bar > Build > Build Lighting Only to update everything.
 
-A [[Light Sources]] produces Static Lighting if its [[Mobility]] ([[Light Mobility]]) is set to Static or Stationary.
+A [[Light Source]] produces Static Lighting if its [[Mobility]] ([[Light Mobility]]) is set to Static or Stationary.
 Setting the [[Mobility]] to Movable turns the light into a dynamic light.
 
 The scene lighting needs to be rebuilt every time a static or stationary light or object is changed in the scene.

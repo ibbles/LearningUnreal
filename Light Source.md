@@ -1,6 +1,6 @@
-Light sources produce [[Light]], which adds [[Lighting]] to the scene.
+A light source is something that produces [[Light]], which adds [[Lighting]] to the scene.
 
-A light source can either be a light Actor or Component, or an object with an emissive [[Material]]
+A light source can either be a light [[Actor]] or [[Component]], or an object with an [[Emissive Materials]]
 Examples of light Actor or Components:
 
 - [[Point Light]]: A light source that emanate light in equal amount in all directions, like a sphere.
