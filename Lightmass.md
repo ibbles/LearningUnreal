@@ -1,5 +1,5 @@
 An implementation of baked lightmaps for [[Global Illumination]].
-Only works for [[Light Sources]] with static or stationary [[Mobility]] and [[Actor|Actors]] with static [[Mobility]].
+Only works for [[Light Source]] with static or stationary [[Mobility]] and [[Actor|Actors]] with static [[Mobility]].
 Gives better performance than dynamic [[Global Illumination]] techniques such as [[Light Propagation Volume]]
 
 The Lightmass tool is a stand-alone application that is run as part of the project packaging, or from the Build menu, and results in [[Lightmap|Lightmaps]] used during rendering.
@@ -16,7 +16,7 @@ Set [[Actor]] > Details panel > Transform > [[Mobility]] to Static.
 
 ## Static or Stationary Light Sources
 
-Set the [[Light Mobility]] of all [[Light Sources]] to static.
+Set the [[Light Mobility]] of all [[Light Source]] to static.
 This means that the light from that light will be fully baked.
 With stationary light sources some of the lighting information, such as [[Global Illumination]], will be baked, but not direct light and shadows.
 
@@ -40,6 +40,76 @@ Min Lightmap Resolution should match [[Static Mesh Editor]] > General Settings >
 Not sure what the difference between those two are, why we need two, during what circumstances they should be different, what which one should be larger when they are different.
 
 
+# Configuration
+
+## Lightmass Importance Volume
+
+A volume that tell Lightmass where to focus the calculations.
+Improves the quality in that area of the level.
+Can reduce the light baking time since less computation need to be expended on other parts of the level.
+
+
+## Lightmass Portal
+
+Should be added to openings in interior scenes, i.e doors and windows.
+This will help Lightmass prioritize areas where light is likely to appear.
+Appear as a volume that should be placed and scaled to match the opening.
+Can reduce the light baking time since the more important areas are prioritized.
+
+
+## Lighting Quality
+
+Set from
+- Unreal Engine 4: Main Tool Bar > Build > Lighting Quality.
+- Unreal Engine 5: Main Menu Bar > Build > Lighting Quality.
+
+Can be one of
+- Production:
+- High:
+- Medium:
+- Preview: Fast to build but low quality.
+
+Higher levels produces more accurate lighting with fewer artifacts, but takes more time.
+I don't know what is changed between each quality level.
+
+
+## World Settings
+
+There are a number of Lightmass related settings in > [[World Settings]] > Lightmass.
+
+### Indirect Lighting Quality
+
+Increasing this value increases indirect lighting quality but makes light bake times increase.
+One suggestion is to set it to 5.0.
+I have no idea what this means, what it changes, or how one can know what a good value is for a particular level and use-case.
+
+### Num (Indirect|Sky) Lighting Bounces
+
+The number of times light from a [[Light Source|Light Source]] can bounce.
+Increase this if you have dark corners that you believe should receive more bounce/indirect light.
+There are different settings for [[Sky Light]] and all other types of light.
+Don't know why Sky Light needs a separate setting.
+Is the bounce count typically higher or lower for the Sky Light compared to other types of light?
+I assume higher.
+
+### Static Light Level Scale
+
+Decrease this value to bring out small contact shadows.
+A suggestion is 0.5.
+May produce more noise, so may need to increase Indirect Lighting Quality to compensate.
+
+
+# Light Source Mesh
+
+It is possible to turn a [[Mesh]] into a light source.
+For example a plane, representing the panel, in front of a TV to make it appear as-if the TV is turned on.
+Create a [[Material]] for the panel, add a [[Texture]] Sample node sampling a texture with the image that the TV should show, and connect to the [[Emissive Materials|Emissive]] input pin of the [[Material Output Node]].
+Set [[Material]] > Details panel > Material > Shading Model  to Unlit.
+Apply the new [[Material]] to the panel plane.
+
+Enable plane mesh [[Actor]] > Details panel > Lighting > Lightmass Settings > Use Emissive For Static Lighting.
+Set Emissive Boost in the same category to control the intensity of the light.
+
 # Building Lighting
 
 To build lighting, i.e. to fill in the [[Lightmap|Lightmaps]] with data, we need to trigger the Lightmass tool.
@@ -53,6 +123,12 @@ When done the results will be visible in the [[Level Viewport]] and the Preview 
 
 # Visualization
 
+When working with Lightmass it can help to switch the [[View Mode]] to Lighting Only.
+This is especially helpful when there are objects with an [[Emissive Materials|Emissive Material]] and Use Emissive For Static Lighting enabled.
+And to disable [[Level Viewport]] > Show > Lighting Features > Screen Space Ambient Occlusion.
+And to disable [[Level Viewport]] > [[View Mode]] > Post Processing > Bloom.
+And to set [[Level Viewport]] > [[View Mode]] > Exposure > Fixed At some value.
+This makes it easier to see the contributions from [[Static Lighting]] only.
 
 
 
