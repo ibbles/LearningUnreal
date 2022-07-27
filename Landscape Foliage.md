@@ -2,7 +2,7 @@ A [[Landscape Material]] can trigger the spawning of [[Foliage]].
 This is done by adding a **Landscape Grass Output** node to the [[Material]].
 The Landscape Grass Output node show up as a Grass node.
 The Details Panel of the Grass node has a **Grass Types** array.
-This array contains instances of the Landscape Grass Type asset.
+This array contains instances of the [[Landscape Grass Type]] asset.
 
 **Landscape Grass Type** is an asset type.
 A new Landscape Grass Type is created with Content Drawer > right-click > Foliage > Landscape Grass Type.
