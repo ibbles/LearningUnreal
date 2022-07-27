@@ -7,8 +7,10 @@ This is problematic because the mouse is captured by Unreal Editor while the cli
 This makes it impossible to use the mouse in other applications, mouse clicks are ignored.
 
 
+# Ungrab Uncapture Release
+
 In some Window Managers it is possible to uncapture the mouse cursor again.
-In KDE, try Alt+Space, which should open KRunner and give it focus.
+In KDE, try Alt+Space or Alt+F2, which should open KRunner and give it focus.
 In Gnome, try Super+Tab.
 In Gnome, it may also help to enable Gnome Tweaks > Windows > Window Focus > Focus on Hover.
 
