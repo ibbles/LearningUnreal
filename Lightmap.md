@@ -1,4 +1,19 @@
+A lightmap is a type of texture that contains [[Lighting]] information.
+It is a type of acceleration structure that makes runtime lighting calculations faster.
+The lightmap is generated, also called baked, ahead of time, for example while a project is being packaged.
+[[Lighting]] making use of a Lightmap is called [[Static Lighting]] or baked lighting.
+In Unreal Engine the tool that generates lightmaps is called [[Lightmass]].
+
+Each [[Mesh]] that should receive [[Static Lighting]] need a lightmap UV channel.
+This is a type of texture coordinate that guarantees that every point on the mesh map to a unique point on the lightmap.
+There can be no overlaps.
+
+When working with lightmaps it can help to switch the [[View Mode]] to Lighting Only.
+And to disable [[Level Viewport]] > Show > Lighting Features > Screen Space Ambient Occlusion.
+This makes it easier to see the contributions from [[Static Lighting]] only.
+
 # Volumetric Lightmap
+
 The Volumetric Lightmap can be visualized with Viewport > Show > Visualize > Volumetric Lightmap.
 Will show up as spheres arranged in a regular grid in the world where there is a Lightmass Importance Volume.
 (
@@ -23,3 +38,9 @@ Not sure what this means exactly.
 [[Static Mesh Editor]] > Details panel > General Settings > Light Map Resolution?
 [[Static Mesh Component]] > Details panel > Lighting > Overriden Light Map Resolution?
 Something else?
+
+
+# References
+
+- [_Introduction To Global Illumiation_, by Epic Games @ dev.epicgames.com, UE-4.20](https://dev.epicgames.com/community/learning/courses/yon/introducing-global-illumination/yo8/introduction-to-global-illumination)
+
