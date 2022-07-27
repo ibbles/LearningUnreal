@@ -5,7 +5,7 @@ Lighting is provided by one or more [[Light Sources]].
 The Global Illumination method used for dynamic lighting is set in Project Settings > Engine > Rendering > Global Illumination > Dynamic Global Illumination Method.
 This is where [[Lumen]] is enabled.
 
-[[Global Illumination And Indirect Lighting]].
+[[Global Illumination]].
 
 By default Unreal Engine uses auto exposure to make dark scenes brighter and bright scenes darker.
 This is often good during gameplay, but not helpful during level design.
