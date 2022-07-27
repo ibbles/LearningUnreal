@@ -43,7 +43,7 @@ Makes me question whether it is safe to copy these numbers from the Windows inst
 The Docker images uses the Comaptible Changelist also for the Changelist.
 
 
-# Preprocessor defined, `UEBuildModuleCPP.cs`
+# Preprocessor defines, `UEBuildModuleCPP.cs`
 
 `GenerateProjectFiles.sh` generates a bunch of information needed by the IDE to interpret the project properly.
 This code has bugs in it that causes some of that information to be lost, causing massive amounts of errors when the IDE tries to parse the Unreal Engine code.
@@ -346,6 +346,15 @@ index 309c435df..18bf34514 100644
  						CompileEnvironment.PrecompiledHeaderIncludeFilename = Instance.HeaderFile.Location;
 ```
 
+
+
+# Switching Version
+
+If you did a single-branch checkout, i.e. passed `--depth 1 -b <BRANCH>` then a regular `git switch` to the new tag won't work.
+```bash
+$ git remote set-branches --add origin <VERSION_3>-release
+$ git fetch origin <VERSION_3>-release:<VERSION_3>-release
+```
 
 # Address Sanitizer
 
