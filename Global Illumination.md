@@ -1,10 +1,19 @@
 Global illumination, also called indirect lighting, is the effect that light can bound multiple times, and with each bounce it is affected by the object it bounces off of.
 Light that bounces off of a red object turns red, and thus causes other objects it hits to be illuminated by red light.
-You can say that every object hit by light becomes a light source.
+You can say that every object hit by light becomes a light source where the light emitted is a combination of the color of the incoming light and the color of the object.
 
-Since Unreal Engine 5 the global illumination implementation is [[Lumen]].
+This is a computationally expensive process that is often baked in real-time applications.
+Dynamic global illumination techniques are becoming more sophisticated and feasible in high-quality applications.
+The evolution of [[Ray Tracing]]  hardware in GPUs is helping.
+
+There are multiple implementations of global illumination in Unreal Engine:
+- [[Lightmass]]: A baked implementation that only works for static lights and objects.
+- [[Light Propagation Volume]]: A dynamic implementation that works for both static and dynamic lights and objects.
+- [[Lumen]]: A alternative to [[Light Propagation Volume]] introduced in Unreal Engine 5.
+
 
 # Controlling Global Illumination
+
 The amount of indirect lighting is controlled in three different ways:
 - Material base color.
 - The Details panel > Intensity of the [[Light Sources|Light Source]].
