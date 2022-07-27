@@ -110,6 +110,8 @@ When rendering an object using a [[Material]] the writes to a Runtime Virtual Te
 ## Runtime Virtual Texture Output Node
 
 To write to a Runtime Virtual Texture from a [[Material]] add a Runtime Virtual Texture Output node to the [[Material]].
+There can only be a single Runtime Virtual Output node in  a [[Material]].
+Or rather, there cannot be two writes to the same Runtime Virtual Texture member, but different members can be written in different Runtime Virtual Texture Output nodes.
 The Runtime Virtual Texture Output node has input pins for all that that can be stored in a Runtime Virtual Texture.
 - Base Color
 - Specular
@@ -399,5 +401,7 @@ That doesn't work all that well for many mesh shapes, because of the vertical tr
 - [_Using Virtual Heightfield Mesh For Landscape Displacement In Unreal Engine 5 (Updated)_, by BuildGamesWithJon @ youtube.com](https://www.youtube.com/watch?v=H4jzMsiBkYg)
 - [_Virtual Texturing | Live from HQ | Inside Unreal_ - Runtime Virtual Textures, by Unreal Engine @ youtube.com. 2019](https://youtu.be/fhoZ2qMAfa4?t=1153)
 - [_How to Blend Objects with Your Landscape - UE4 Runtime Virtual Texturing (RVT) Tutorial_ by Unreal Sensei @ youtube.com 2021](https://www.youtube.com/watch?v=xYuIDFzKaF4)
+- [_How to colour and blend Stylized Grass in UE4 (Read Description for updates!)_, by PrismaticaDev @ youtube.com](https://www.youtube.com/watch?v=iaIDnz88Xbo)
+- [_Landscape Communication in UE4 (Automatic Snow/Desert Foliage!)_, by PrismaticaDev @ youtube.com](https://www.youtube.com/watch?v=rW4zCzuGZvs)
 
 
