@@ -39,11 +39,11 @@ Rules for linking:
 - Prefer "up-links", i.e. more specific topics link to the general concept they are part of.
 - Prefer "down-links", i.e. general topics link to more specific use cases.
 - Which one of the two above should I advocate for?
-- 
+
 What is the purpose of a link?
 - To group related things, making pattern emerge implicitly over time.
 - To aid reading, letting the user jump from note to note in the search for knowledge.
-- 
+
 The primary reason for my note taking is the latter of the two.
 The former helps with finding information among the notes.
 The reason why I switched from Zettlr to Tangent and then to Obsidian was to get the overview that the Graph View provides.
