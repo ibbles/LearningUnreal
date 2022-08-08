@@ -3,7 +3,7 @@ Not all [[Light Source|Light Sources]] have all of these properties.
 
 - [[Light Mobility]]:
 - Intensity: The strength of the light, how bright it is. I think different light source types have different units.
-- Intensity Units: The unit scale used for the light source. The outcome is the same, it is just a conversion factor.
+- Intensity Units: The unit scale used for the light source. The outcome is the same, it is just a conversion factor. No impact on performance.
 	- Unitless: No idea.
 	- Lux: Used for [[Directional Light]]. Defined as the amount of light per unit area, wavelength weighted by the human eye sensitivity to that wavelength.  A value that by default goes from 0 to 10.
 	- Candela, cd: Used for [[Point Light]] and [[Directional Light]]. Defined as the amount of light emitted in a single direction from a light source, wavelength weighted by the human eye sensitivity to that wavelength. A value that by default goes from 0 to 160.
@@ -18,7 +18,7 @@ Not all [[Light Source|Light Sources]] have all of these properties.
 - Max Distance Fade Range: The thickness of the hull inside the Max Draw Distance in which the light's intensity will decrease towards zero as the distance from the camera to the light increases towards Max Draw Distance.
 - Use Inverse Squared Falloff.
   - On is the more physically correct mode. Off is better for fill lights. The main difference is that with Use Inverse Squared Falloff disabled one can control the Light Falloff Exponent which makes it possible to control the shape of the light attenuation, making it possible to have light sources with an Attenuation Radius that closely follows the point where the falloff makes the light contribution invisible. With User Inverse Squared Falloff enabled, the default, the radius will often be larger than the visible contribution from the light, especially for strong light sources with long attenuation radius.
-- Affects World: Exactly the same thing as Rendering > Visible. Disabling this checkbox disables the light completely.
+- Affects World: Exactly the same thing as Details panel > Rendering > Visible. Disabling this checkbox disables the light completely.
 - Cast Shadows: Whether or not this light can cast [[Shadows]] of any kind. Must also enable some combination of Cast Static Shadows and Cast Dynamic Shadows.
 - Indirect Lighting Intensity: How much the light from this light source bounces around the scene.
 	- It is often better to control this with the Base Color of the [[Material|Materials]] of the objects in the scene, in particular large objects such as floors and walls.
