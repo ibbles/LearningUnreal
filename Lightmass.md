@@ -59,12 +59,14 @@ Can reduce the light baking time since less computation need to be expended on o
 
 ## Lightmass Portal
 
-Should be added to openings in interior scenes, i.e doors and windows.
+Should be added to outdoor-to-indoor openings in interior scenes, e.g doors, windows, holes, and so on.
 This will help Lightmass prioritize areas where light is likely to enter the interior from the outside sky.
 It tells Lightmass to try and find ways to bounce light through that portal.
+Especially important in buildings with very small / narrow windows, such as a medieval castle.
 Appear as a volume that should be placed and scaled to match the opening.
 Can reduce the light baking time since the more important areas are prioritized.
 
+It may be that Lightmass Portals are only considered by [[Sky Light]] and possibly [[Directional Light]].
 
 ## Lighting Quality
 
