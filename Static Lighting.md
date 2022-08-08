@@ -1,17 +1,33 @@
 Static Lighting is also called Baked Lighting.
 Lighting that is calculated at build-time by a tool built into Unreal Engine named [[Lightmass]].
-More limited than [[Dynamic Lighting]] but also more performant at runtime and higher quality.
+Static lights can not be changed at runtime, once baked it's fixed.
+The light baking process can take a long time.
+Dynamic objects cannot receive static lighting.
+(I assume.)
+Static lighting is more limited than [[Dynamic Lighting]] but also more performant at runtime and higher quality.
 Supports [[Global Illumination]].
+For the best possible lighting quality used static lighting.
 
-At runtime it doesn't matter how many static lights you have to illuminate an object, all that light is precomputed into the [[Lightmap]] for that object and after that only the texture matter, how much computation went into creating that texture is irrelevant.
+[[Lumen]], a dynamic lighting method implemented in Unreal Engine 5.0, make the trade-off between static and dynamic lighting less clear-cut.
+[[Lumen]] provide many of the advantages that static lighting provides without baking and with fully dynamic lights.
+
+
+# Runtime Performance
+
+At runtime it doesn't matter how many static lights you have illuminating an object, all that light is precomputed into the [[Lightmap]] for that object and after that only the texture remain, how much computation went into creating that texture is irrelevant.
 Doing the baking, i.e. running [[Lightmass]], will take more time if there are more light sources.
-It also matters what resolution we use for each object's [[Lightmap]].
+
+The resolution we use for each object's [[Lightmap]] does impact runtime performance.
 High-resolution lightmaps will be more computationally heavy both during baking and rendering.
+
+
+# Setup
 
 Setting up Static Lighting is more complicated than [[Dynamic Lighting]], there are more settings to get right and more of a process to go through.
 [[Dynamic Lighting]] is also typically easier to use during level design since we can see the end result immediately.
 Static Lighting must be built before we can see the final results, so there is a lot of guessing going on.
 We can see a preview of the static lighting, but it will change, potentially drastically, once baking has finished.
+If we have baked the lighting once but later change something in the scene that affects the [[Lightmap|Lightmaps]] then a red message telling us that lighting must be rebuilt is displayed in the upper-left corner of the [[Level Viewport]].
 We can recognize preview lighting by the Preview label that is printed on the shadows.
 
 Must build lighting once with Top Menu Bar > Build > Build Lighting Only to update everything.
@@ -30,6 +46,8 @@ If there are at least one static light in the scene and the scene is modified wi
 
 Unreal Engine can build lighting at different levels of quality.
 These are controlled in Build > Lighting Quality.
+Range from Preview to Production.
+No idea what these actually do.
 
 There are also even more settings, independent from the Build > Lighting Quality setting, in the [[World Settings]] > Lightmass > Lightmass Settings group.
 The most important ones are
