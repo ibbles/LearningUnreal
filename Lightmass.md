@@ -1,9 +1,10 @@
-An implementation of baked lightmaps for [[Global Illumination]].
+A stand-alone application shipped with Unreal Engine that builds baked lightmaps for [[Static Lighting]] and [[Global Illumination]].
 Only works for [[Light Source]] with static or stationary [[Mobility]] and [[Actor|Actors]] with static [[Mobility]].
 Gives better performance than dynamic [[Global Illumination]] techniques such as [[Light Propagation Volume]]
 
-The Lightmass tool is a stand-alone application that is run as part of the project packaging, or from the Build menu, and results in [[Lightmap|Lightmaps]] used during rendering.
+The Lightmass tool is a stand-alone application that is run as part of the project packaging, or from the Build menu, and results in [[Lightmap|Lightmaps]] used during rendering of static objects.
 
+Lightmass can work in a distributed mode where multiple machines cooperate to build lighting for a level.
 
 # Requirements
 
@@ -45,14 +46,22 @@ Not sure what the difference between those two are, why we need two, during what
 ## Lightmass Importance Volume
 
 A volume that tell Lightmass where to focus the calculations.
+It is a type of [[Actor]].
+There should always be a Lightmass Importance Volume in the level since it does more than what is described here.
+
+Set Location and Scale and/or Brush Settings > X|Y|Z to cover your level, or the bits where you want the best quality lighting.
+Where you expect the camera to be.
+Don't have to be extremely precise.
 Improves the quality in that area of the level.
 Can reduce the light baking time since less computation need to be expended on other parts of the level.
+
 
 
 ## Lightmass Portal
 
 Should be added to openings in interior scenes, i.e doors and windows.
-This will help Lightmass prioritize areas where light is likely to appear.
+This will help Lightmass prioritize areas where light is likely to enter the interior from the outside sky.
+It tells Lightmass to try and find ways to bounce light through that portal.
 Appear as a volume that should be placed and scaled to match the opening.
 Can reduce the light baking time since the more important areas are prioritized.
 
@@ -103,7 +112,7 @@ May produce more noise, so may need to increase Indirect Lighting Quality to com
 
 It is possible to turn a [[Mesh]] into a light source.
 For example a plane, representing the panel, in front of a TV to make it appear as-if the TV is turned on.
-Create a [[Material]] for the panel, add a [[Texture]] Sample node sampling a texture with the image that the TV should show, and connect to the [[Emissive Materials|Emissive]] input pin of the [[Material Output Node]].
+Create a [[Material]] for the panel, add a [[Texture]] Sample node sampling a texture with the image that the TV should show, and connect to the [[Emissive Material|Emissive]] input pin of the [[Material Output Node]].
 Set [[Material]] > Details panel > Material > Shading Model  to Unlit.
 Apply the new [[Material]] to the panel plane.
 
@@ -124,7 +133,7 @@ When done the results will be visible in the [[Level Viewport]] and the Preview 
 # Visualization
 
 When working with Lightmass it can help to switch the [[View Mode]] to Lighting Only.
-This is especially helpful when there are objects with an [[Emissive Materials|Emissive Material]] and Use Emissive For Static Lighting enabled.
+This is especially helpful when there are objects with an [[Emissive Material|Emissive Material]] and Use Emissive For Static Lighting enabled.
 And to disable [[Level Viewport]] > Show > Lighting Features > Screen Space Ambient Occlusion.
 And to disable [[Level Viewport]] > [[View Mode]] > Post Processing > Bloom.
 And to set [[Level Viewport]] > [[View Mode]] > Exposure > Fixed At some value.
@@ -135,4 +144,4 @@ This makes it easier to see the contributions from [[Static Lighting]] only.
 # References
 
 - [_Introducing Global Illumination_, by Epic Games @ dev.epicgames.com, UE-4.20](https://dev.epicgames.com/community/learning/courses/yon/introducing-global-illumination/yo8/introduction-to-global-illumination)
-
+- [_Lighting Essential Concepts and Effects_ - Baked Lighting - Lightmass, by Epic Games @ dev.epicgames.com, UE-4.27](https://dev.epicgames.com/community/learning/courses/Xwp/lighting-essential-concepts-and-effects/229/baked-lighting-lightmass)
