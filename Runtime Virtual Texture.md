@@ -254,7 +254,7 @@ The Runtime Virtual Texture Sample node must be bound to a Virtual Texture, whic
 It must know the Virtual Texture Content of the Virtual Texture, which we set to Base Color, Normal, Roughness, Specular.
 The output of the Runtime Virtual Texture Sample goes to the inputs of the [[Material Output Node]].
 
-If there are [[Material Output Node]] input pins that can't be read from the Runtime Virtual Texture, such as [[Emissive Materials|Emissive Color]], then those pins can be filled in by regular [[Material]] nodes.
+If there are [[Material Output Node]] input pins that can't be read from the Runtime Virtual Texture, such as [[Emissive Material|Emissive Color]], then those pins can be filled in by regular [[Material]] nodes.
 It is OK to mix Runtime Virtual Texture sampling and regular shader code in the shading context of the [[Material]].
 
 

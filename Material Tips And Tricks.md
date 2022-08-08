@@ -57,7 +57,7 @@ One is to take a representative color channel and just ignore the other two.
 # Brightness
 
 A brightness control is created by multiplying the Base Color with a scalar [[Material Parameter]] (Hold S on the keyboard and click.).
-If you want to take this one step further then you can start piping the color into [[Emissive Materials|Emissive]] once the brightness parameter goes above 1.0.
+If you want to take this one step further then you can start piping the color into [[Emissive Material|Emissive]] once the brightness parameter goes above 1.0.
 
 ![](./Images/MaterialTips_BrightnessAndEmissive.png)
 
