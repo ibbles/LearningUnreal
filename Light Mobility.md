@@ -1,4 +1,6 @@
 The mobility of a light source control whether the light is [[Static Lighting|Static]] or [[Dynamic Lighting|Dynamic]].
+Static lighting is faster at runtime but require baking and can't be changed at runtime.
+Dynamic lighting is more computationally demanding at runtime but doesn't require baking and can be changed at runtime.
 
 
 # Movable
@@ -16,6 +18,7 @@ If at least one of Cast Dynamic Shadows and Cast Static Shadows is enabled in th
 
 # Stationary
 
+A hybrid blend between movable and static, trying to have a bit of the advantages of both while minimizing the drawbacks of them.
 Means that the light won't move, but there are some properties, such as intensity and color, that can change at runtime.
 Not sure if there are other parameters that can change as well.
 Will result in partially baked lighting.
