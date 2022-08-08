@@ -1,7 +1,8 @@
 The mobility of a light source control whether the light is [[Static Lighting|Static]] or [[Dynamic Lighting|Dynamic]].
 Static lighting is faster at runtime but require baking and can't be changed at runtime.
 Dynamic lighting is more computationally demanding at runtime but doesn't require baking and can be changed at runtime.
-
+There is also a hybrid blend between static and dynamic, tries to be the best of both worlds.
+A scene can contain [[Light Source|Light Sources]] in any combination of the three.
 
 # Movable
 
