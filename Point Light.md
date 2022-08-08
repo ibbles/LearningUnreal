@@ -1,5 +1,5 @@
-A [[Light Source|Light Source]] that emits light from a single point.
-Emits light in all directions.
+Also called an omnidirectional light.
+A [[Light Source]] that emits light from a single point in all directions.
 The Point Light's rotation doesn't matter.
 Similar to a light bulb, when views from some distance.
 
