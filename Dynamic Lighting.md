@@ -1,8 +1,10 @@
 Dynamic Lighting is [[Lighting]] that is computed every frame.
 This means that all [[Light Source Properties]] of the [[Light Source]] can be altered at runtime by game logic.
 It is also possible to spawn and destroy lights at runtime.
-There is no [[Baked Lighting|baking]] process.
+Dynamic lights will produce shadows that move together with mesh animation, both [[Skeletal Mesh]] and [[Static Mesh]] with a [[Material]] that makes use of [[World Position Offset]].
 A [[Light Source]] is made dynamic by setting its [[Mobility]] to Movable.
+
+There is no [[Baked Lighting|baking]] process.
 
 A Dynamic light will be rendered in Unreal Editor the same way as it will in-game.
 
