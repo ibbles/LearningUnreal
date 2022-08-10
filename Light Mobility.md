@@ -1,3 +1,8 @@
+I don't know what in this note changes when using [[Lumen]] instead of the legacy lighting engine.
+(
+Does the non-Lumen lighting engine have a name?
+)
+
 The mobility of a light source control whether the light is [[Static Lighting|Static]] or [[Dynamic Lighting|Dynamic]].
 Static lighting is faster at runtime but require baking and can't be changed at runtime.
 Dynamic lighting is more computationally demanding at runtime but doesn't require baking and can be changed at runtime.
@@ -7,14 +12,31 @@ A scene can contain [[Light Source|Light Sources]] in any combination of the thr
 # Movable
 
 When a [[Light]]'s mobility is set to Movable then its light is fully dynamic, both direct and indirect lighting.
-It is computed at runtime.
-This includes [[Shadows]] and [[Shading]].
+Indirect lighting, also called [[Global Illumination]], is only supported with [[Lumen]], not with the legacy lighting system.
+Without [[Global Illumination]] any part of the level that is in shadow from all lights will be completely dark,
+except possibly for [[Sky Light]].
 
-This is useful if the light will be moved or if parameters other than color or intensity is changed at runtime.
+Dynamic light is computed at runtime.
+This includes [[Shadows]] and [[Shading]].
+Produces very sharp and well-defined shadows.
+Maybe too sharp, unless [[Ray Traced Shadows]] or [[Distance Field Shadows]] are used.
+Very large objects that cast very long shadows may get precision errors when viewed from a distance.
+Don't know in what way those precision errors manifests.
+There is no [[Lightmap]] involved, so [[Mesh|Meshes]] don't need Lightmap UVs.
+
+Increasing the number of dynamic light sources will increase the computational cost of the scene dramatically.
+Especially if they have overlapping attenuation radius, see [[Light Source Properties]].
+The cost of a dynamic light can be reduced significantly by disabling Details panel > Light > Cast Shadows.
+[[Dynamic Shadows]] is one of the most computationally expensive things in the engine.
+
+A movable light is required if the light will be moved or if parameters other than color or intensity is changed at runtime.
+If the light will stay still by may change color or intensity then its mobility can be set to stationary.
 
 It will not influence baked lighting such as [[Lightmass]].
 It will cast [[Dynamic Shadows]] if Details panel > Light > Cast Shadows is enabled.
 If at least one of Cast Dynamic Shadows and Cast Static Shadows is enabled in the same category.
+
+Uses a different [[Shadows|Shadows]] method than stationary lights.
 
 
 # Stationary
@@ -26,19 +48,40 @@ Will result in partially baked lighting.
 Direct lighting and direct shadows will be computed at runtime.
 Indirect, [[Global Illumination]], lighting will be baked.
 
+Increasing the number of stationary lights will come with a computation cost both during baking and at runtime.
+
+A stationary light will bake its shadows into a [[Lightmap]].
+All stationary light sources share the same [[Lightmap]] texture and that texture only has four channels.
+That means that you can only have four stationary lights illuminating the same objects.
+When there is too many then some of them will get a red cross in the [[Level Viewport]].
+Fix this by either moving the lights farther apart or by reducing the attenuation radius, see [[Light Source Properties]].
+The attenuation radius fix is a guess from my side, haven't tested yet.
+The limitation is only for shadows, so the problem can also be fixed by disabling Details panel > Light > Cast Shadows on some of the light sources.
+Or switch the light to Static or Movable, since the four shadow channel limitation only applies to stationary light sources.
+
+
+Uses a different [[Shadows|Shadows]] method than movable lights.
+
 
 # Static
 
 The [[Light]] may not change in any way.
-Can be fully baked using [[Lightmass]], producing [[Baked Lighting]] for both direct and indirect lighting.
+Can be fully baked using [[Lightmass]], producing [[Baked Lighting]] with a [[Lightmap]] for each static [[Static Mesh]] and Volumetric Lightmap for everything else.
+Produces both direct and indirect lighting.
+Shadows can become blurry or blocky since they are limited to the [[Lightmap]] resolution of the illuminated mesh, and also depending on the [[Lightmass]] settings.
+
+Increasing the number of static light sources will increase the time it takes to bake the lighting,
+but will not increase the computational cost at runtime.
+The light from all light sources is baked into the same set of textures regardless of how many lights there are.
 
 Whenever something is changed in the scene that affects the baked [[Lightmap|Lightmaps]] a Preview text will be shown on the objects that receive baked lighting.
 This means that what is shown in the [[Level Viewport]] isn't representative of what the final package project will look like.
 
 
+
 # References
 - [_Lighting in Unreal Engine 5 for Beginners_ by William Faucher @ youtube.com](https://youtu.be/fSbBsXbjxPo?t=318)
 - [_Understanding Lightmass - Baking Checklist_, by Epic Games @ dev.epicgames.com](https://dev.epicgames.com/community/learning/courses/yon/introducing-global-illumination/kn8/understanding-lightmass-baking-checklist)
-
+- [_Lighting Essential Concepts and Effects - Dynamic Lighting - Indoor and Basics_, by Epic Games @ dev.epicgames.com, 2018](https://dev.epicgames.com/community/learning/courses/Xwp/lighting-essential-concepts-and-effects/mX9k/dynamic-lighting-indoor-and-basics)
 
 
