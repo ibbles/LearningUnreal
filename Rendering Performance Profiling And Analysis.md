@@ -12,7 +12,7 @@ The [[View Mode|View Modes]] listed below are grouped under Optimization Viewmod
 
 Shows how many times each pixel is rendered by the GPU.
 Blue is good, red is bad, white is really bad.
-One way to reduce overdraw is to create [[LOD - Level Of Detail]] for your [[Static Mesh|Static Meshes]].
+One way to reduce overdraw is to create [[LOD]] for your [[Static Mesh|Static Meshes]].
 With fewer triangles we get fewer triangles per screen area and thus less overdraw.
 
 [_5 Tips to Optimize Environments in Unreal Engine 4_ - Overdraw, by Jakub Haluszczak @ youtube.com 2021](https://youtu.be/gZkKcaF4Ifk?t=74)

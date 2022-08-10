@@ -3,7 +3,7 @@ Many Skeletal Meshes can use the same skeleton.
 A skeleton is a hierarchy of bones.
 The shape of the triangle mesh is influenced by the position of these bones.
 
-The Skeletal Mesh contains [[Material Slot|Material Slots]], [[LOD - Level Of Detail|LOD]] settings, post-process animation Blueprints, and more. 
+The Skeletal Mesh contains [[Material Slot|Material Slots]], [[LOD]] settings, post-process animation Blueprints, and more.
 
 
 # Importing

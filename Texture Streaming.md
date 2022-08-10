@@ -4,7 +4,7 @@ Texture streaming is the act of dynamically loading and unloading [[Texture|Text
 
 # Mip-Map Chain
 
-A [[Texture]] contains multiple [[LOD - Level Of Detail|LODs]], different versions of the same texture at different quality levels.
+A [[Texture]] contains multiple [[LOD|LODs]], different versions of the same texture at different quality levels.
 These are called mip levels, or a mip-map chain.
 Each level of the chain is half the size of the previous level, with the top level, level 0, being the source texture.
 The mip-map chain is generated when the [[Texture]] is imported.

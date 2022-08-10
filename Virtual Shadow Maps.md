@@ -67,7 +67,7 @@ Makes no sense to me.
 
 ## Disable Shadows On Far LODs
 
-Another way to improve performance of distance foliage is to disable shadows all together on far [[LOD - Level Of Detail|LODs]] of the foliage mesh.
+Another way to improve performance of distance foliage is to disable shadows all together on far [[LOD|LODs]] of the foliage mesh.
 Open your foliage [[Static Mesh Asset]] in the [[Static Mesh Editor]].
 In the Details panel there is a LOD Picker category where we can chose to display settings for the LOD levels available in the mesh.
 Pick the largest number / farthest LOD from the list.
@@ -81,7 +81,7 @@ A bug in Unreal Engine 5.0 makes all instances of that [[Static Mesh Asset]] in 
 
 ## Disable Shadows Completely
 
-Instead of disabling shadows in a particular [[LOD - Level Of Detail|LOD]] on the [[Static Mesh Asset]], we can disable shadows completely on the [[Landscape Grass Type]] using the mesh.
+Instead of disabling shadows in a particular [[LOD]] on the [[Static Mesh Asset]], we can disable shadows completely on the [[Landscape Grass Type]] using the mesh.
 At least [[Dynamic Shadows]], not sure how to disable [[Static Shadows]].
 Open you [[Landscape Grass Type]] asset and disable Cast Dynamic Shadow.
 

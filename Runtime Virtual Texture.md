@@ -18,7 +18,7 @@ I still don't understand when the Virtual Texture part of the [[Material]] is ru
 I don't think it's every frame since Runtime Virtual Textures are supposed to provide a performance gain.
 Is it only the first frame that the object is visible?
 Will that produce a gigantic render time the first frame when a whole bunch of things want to render to their Runtime Virtual Texture all at the same time?
-Does [[LOD - Level Of Detail|LOD]] level switching trigger a new render?
+Does [[LOD]] level switching trigger a new render?
 Things going in and out of view?
 )
 
