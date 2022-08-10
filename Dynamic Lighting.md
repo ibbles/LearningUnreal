@@ -1,3 +1,11 @@
+Dynamic Lighting is [[Lighting]] that is computed every frame.
+This means that all [[Light Source Properties]] of the [[Light Source]] can be altered at runtime by game logic.
+It is also possible to spawn and destroy lights at runtime.
+There is no [[Baked Lighting|baking]] process.
+A [[Light Source]] is made dynamic by setting its [[Mobility]] to Movable.
+
+A Dynamic light will be rendered in Unreal Editor the same way as it will in-game.
+
 Each feature, such as [[Dynamic Shadows]], is made up of many parts, sometimes separate, sometimes coordinated.
 Different solutions doing very specific things.
 
@@ -34,3 +42,10 @@ Not recommended for production use.
 # Raytraced Global Illumination
 High performance cost.
 Replaced by Lumen.
+
+
+# References
+
+- [_Lighting Essential Concepts and Effects - Dynamic Lighting - Indoor and Basics_, by Epic Games @ dev.epicgames.com](https://dev.epicgames.com/community/learning/courses/Xwp/lighting-essential-concepts-and-effects/mX9k/dynamic-lighting-indoor-and-basics)
+
+
