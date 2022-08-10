@@ -6,6 +6,7 @@ Chose one in [[Project Settings]] > Engine > Rendering > Shadows > Shadow Map Me
 
 There are also [[Distance Field Shadows]], which is enabled per [[Light]].
 There are also [[Ray Traced Shadows]], which is enabled per [[Light]].
+I'm not sure how these shadow methods interact with the Shadow Map Method setting in the [[Project Settings]].
 
 There are [[Soft Shadows]] that don't have hard edges.
 This is not a shadowing method but an effect produced by some of the shadowing methods listed above.
