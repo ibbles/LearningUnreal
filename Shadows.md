@@ -1,8 +1,18 @@
-Shadows can be either [[Dynamic Shadows|Dynamic]] or [[Static Shadows|Static]], which is determined by the [[Light Mobility]] of the [[Light]] source that produces the shadow.
-And there are multiple types of both dynamic and static shadows.
+Shadows can be either [[Dynamic Shadows|Dynamic]] or [[Static Shadows|Static]], which is determined by the [[Light Mobility]] of the [[Light]] source that produces the shadow, the object that is blocking the light, and the object that is receiving the shadow.
 
-There are a few different shadowing methods, or algorithms / implementations, such as [[Virtual Shadow Maps]] and [[Cascaded Shadow Maps]].
-Chose one in [[Project Settings]] > Engine > Rendering > Shadows > Shadow Map Method.
+There are multiple types of both dynamic and static shadows.
+- [[Virtual Shadow Maps]] - Dynamic
+- [[Cascaded Shadow Maps]] - Dynamic
+- [[Distance Field Shadows]] - Dynamic but does not support shadow caster animation, e.g. [[Skeletal Mesh]] or [[World Position Offset]].
+- [[Ray Traced Shadows]] - Dynamic.
+- (Some kind of [[Baked Lighting]] shadow? Does it have a name? Are there multiple types here?)
+
+The main shadowing method is selected at [[Project Settings]] > Engine > Rendering > Shadows > Shadow Map Method.
+Can be either [[Virtual Shadow Maps]] or [[Cascaded Shadow Maps]].
+The other types of shadows either take over when the main shadow method goes out of range,
+such as when we run out of [[Cascaded Shadow Maps]] and [[Distance Field Shadows]] take over,
+or when a particular [[Light Source]] override the shadow method,
+such as when enabling [[Ray Traced Shadows]] on a light.
 
 There are also [[Distance Field Shadows]], which is enabled per [[Light]].
 There are also [[Ray Traced Shadows]], which is enabled per [[Light]].
