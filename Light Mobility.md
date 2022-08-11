@@ -46,7 +46,10 @@ Means that the light won't move, but there are some properties, such as intensit
 Not sure if there are other parameters that can change as well.
 Will result in partially baked lighting.
 Direct lighting and direct shadows will be computed at runtime.
-Indirect, [[Global Illumination]], lighting will be baked.
+Indirect lighting, also called [[Global Illumination]], will be baked.
+
+This means that we get dynamic shadows that support both [[Skeletal Mesh]] and [[World Position Offset]] animation
+using [[Cascaded Shadow Maps]] and optionally [[Distance Field Shadows]], or [[Virtual Shadow Maps]] if that has been enabled in the project.
 
 Increasing the number of stationary lights will come with a computation cost both during baking and at runtime.
 
@@ -59,8 +62,9 @@ The attenuation radius fix is a guess from my side, haven't tested yet.
 The limitation is only for shadows, so the problem can also be fixed by disabling Details panel > Light > Cast Shadows on some of the light sources.
 Or switch the light to Static or Movable, since the four shadow channel limitation only applies to stationary light sources.
 
-
 Uses a different [[Shadows|Shadows]] method than movable lights.
+
+Sunlight is often set to stationary.
 
 
 # Static
