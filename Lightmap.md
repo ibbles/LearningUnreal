@@ -10,13 +10,28 @@ Each [[Mesh]] that should receive [[Static Lighting]] need a lightmap UV channel
 This is a type of texture coordinate that guarantees that every point on the mesh map to a unique point on the lightmap.
 There can be no overlaps.
 
+
+# Lightmap Size
+
 Each [[Mesh]] that should receive [[Static Lighting]] will be given a Lightmap texture.
 The size of this texture is specified in [[Static Mesh Editor]] > Details panel > LOD 0 (Or #? Does every [[LOD]] level have its own Lightmap?) > Build Settings > Min Lightmap Resolution.
 This is the side length in texels, i.e. entering 64 will give you a 64x64 texel texture.
-Or in [[Static Mesh Editor]] > Details panel > General Settings > Light Map Resolution.
+The size is also set in [[Static Mesh Editor]] > Details panel > General Settings > Light Map Resolution.
 I don't know what the relationship between Min Lightmap Resolution and Light Map Resolution is.
-Reasonable numbers are 64 for kinda small things, 1024 for medium sized things, and 4096 for large things.
+I think the latter, General Settings > Light Map Resolution, is the one to use.
+Reasonable numbers are 32 for things small enough to be placed on a table, 64 for kinda small things, 1024 for medium sized things (furniture?), and 2048 for large things, such as buildings.
 I think, I'm making up numbers here. Experiment and see what happens.
+
+If you set the size too small then you get too blurry and possibly even blocky shadows.
+If you set the size too large then
+- Light baking will take a very long time.
+- The shadow maps will not fit in VRAM during runtime.
+- Runtime performance will be very poor.
+
+The Lightmap size can be visualized with [[View Mode]] > Optimization Viewmodes > Lightmap Density.
+This is one of the [[Lighting View Modes]].
+This can help you determine which lightmaps should be bigger, which should be smaller, and which are just right.
+
 
 When working with lightmaps it can help to switch the [[View Mode]] to Lighting Only.
 And to disable [[Level Viewport]] > Show > Lighting Features > Screen Space Ambient Occlusion.
