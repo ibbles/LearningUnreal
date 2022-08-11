@@ -7,3 +7,10 @@ and tweak the related settings.
 No idea how these settings should be set.
 
 A dynamic form of [[Ambient Occlusion]] is [[Distance Field Ambient Occlusion]].
+
+
+# References
+
+- [_Lighting Essential Concepts and Effects - Combining Static and Dynamic Lighting_, by Epic Games @ dev.epicgames.com, 2018](https://dev.epicgames.com/community/learning/courses/Xwp/lighting-essential-concepts-and-effects/P0R/combining-static-and-dynamic-lighting)
+
+
