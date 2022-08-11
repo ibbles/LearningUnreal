@@ -26,6 +26,7 @@ You can use the [[HDRI Backdrop]] Actor, which is a combination of a Sky Light a
 By default a Sky Light only uses the upper hemisphere of the HDRI texture, it is a SKY light after all.
 We can enable the lower hemisphere as well with Sky Light > Details panel > Light > Advanced > Lower Hemisphere Is Solid Color > Disable. 
 
+A Sky Light with its [[Light Mobility]] set to movable will create [[Distance Field Ambient Occlusion]].
 
 # References
 
