@@ -19,6 +19,12 @@ Without Distance Field Shadows the object would become shadow-less when past the
 Distance Field Shadows do not support animation since the distance field is generated at build time.
 This means that the swaying of branches and the like won't be seen in the shadows.
 
+Distance Field Shadows does not have the aliasing problem that [[Shadow Maps]] have.
+That is, a Distance Field Shadow doesn't get blocky where there isn't enough shadow map resolution because there is not shadow map.
+
+I do not know what the relationship is between Distance Field Shadows and [[Virtual Shadow Maps]].
+It does not seem to do the [[Virtual Shadow Maps]] first and Distance Field Shadows switch when moving the camera away from the shadow-casting object.
+It seems Distance Field Shadows completely replace [[Virtual Shadow Maps]] for the [[Light Source]] when enabled.
 
 # References
 
