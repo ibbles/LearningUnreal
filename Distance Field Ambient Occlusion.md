@@ -11,3 +11,5 @@ The settings for this is in [[Sky Light]] > Details panel > Distance Field Ambie
 
 When configuring Distance Field Ambient Occlusion on a [[Sky Light]] it can help to turn off all other [[Light Source|Light Sources]].
 
+
+Another form of [[Ambient Occlusion]] is [[Baked Ambient Occlusion]].
