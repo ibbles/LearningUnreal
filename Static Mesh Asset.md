@@ -1,9 +1,11 @@
-A Static Mesh Asset is a type of [[Asset]] that contains a triangle mesh model.
+A Static Mesh Asset is a type of [[Asset]] that contains a triangle mesh model, called a [[Static Mesh]].
 The static part means that the triangles can't move relative to each other.
 The mesh in its entirety may move through the level, but it always moves as a single unit.
 The alternative is a [[Skeletal Mesh Asset]], which can deform.
 
-Opening a Static Mesh Asset opens the Static Mesh Editor.
+A Static Mesh Asset is brought into the [[Level]] through a [[Static Mesh Component]].
+
+Opening a Static Mesh Asset opens the [[Static Mesh Editor]].
 It contains a Viewport showing the mesh, a Details panel where we can edit the properties of the mesh, and a Socket Manager where we can define attachment points on the mesh.
 
 The Viewport has many of the same visualization modes and tools available to the main level [[Viewport]].
