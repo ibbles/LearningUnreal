@@ -1,9 +1,22 @@
 Virtual Shadow Maps is a method for generating [[Shadows]].
 Virtual Shadow Maps is a project wide setting.
 It is enabled by setting [[Project Settings]] > Engine > Rendering > Shadows > Shadow Map Method to Virtual Shadow Maps.
+When enabled it replaces [[Cascaded Shadow Maps]].
 It is not possible to control this setting from a Post Process Volume. (I think.)
 It typically produces higher quality shadows compared to regular [[Shadow Maps]] and [[Cascaded Shadow Maps]].
-In some scenes it comes with a large performance cost
+(
+Though I have seen some very blocky / jagged shades when using Virtual Shadow Maps.
+Why? How improve quality?
+)
+In some scenes it comes with a large performance cost.
+In particular when there are many moving or animated ([[Skeletal Mesh]] or [[World Position Offset]]) objects.
+Enabling [[Nanite]] on each [[Static Mesh]] is supposed to reduce the performance cost of Virtual Shadow Maps.
+Does this apply to the light occluder, the shadow receiver, or both?
+
+When Details panel > Distance Field Shadows > [[Distance Field Shadows]] is enabled on a [[Light Source]]
+it seems Distance Field Shadows completely replace Virtual Shadow Maps.
+This is different from when [[Cascaded Shadow Maps]] is the project default.
+In that case the [[Distance Field Shadows]] doesn't kick in until the object is farther away from the camera than the Dynamic Shadow Distance set under [[Cascaded Shadow Maps]] on the [[Light Source]].
 
 
 # Editor Viewport Visualization Modes
