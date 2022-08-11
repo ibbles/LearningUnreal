@@ -29,6 +29,8 @@ Black number don't correspond to any particular LOD level.
 The color of the line show which of the LOD levels is active then the object has the size that corresponds to that point along the number line.
 You will have to excuse, or at least look past, the non-linear scale of the number line.
 ![](./Images/Mesh_LOD_Transition_Ranges.png)
+
+
 # Shadows
 
 Shadows can be enabled or disabled per [[Static Mesh Asset]] LOD-level in the [[Static Mesh Editor]].
@@ -42,3 +44,6 @@ Repeat for as many LOD levels up the list as you need.
 
 A bug in Unreal Engine 5.0 makes all instances of that [[Static Mesh Asset]] in the level to be not rendered, reload the level to get them back again.
 
+For lights using [[Shadow Maps]], the [[Lightmap]] settings will effect those shadows.
+In particular the Lightmap size.
+For more information see [[Lightmap]].
