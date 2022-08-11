@@ -114,5 +114,5 @@ Something else?
 # References
 
 - [_Introduction To Global Illumiation_, by Epic Games @ dev.epicgames.com, UE-4.20](https://dev.epicgames.com/community/learning/courses/yon/introducing-global-illumination/yo8/introduction-to-global-illumination)
-- [_Lighting Essential Concepts and Effects - Baked Lighting - Lightmaps_, by Epic Games @ dev.epicgames.com](https://dev.epicgames.com/community/learning/courses/Xwp/lighting-essential-concepts-and-effects/zVO/baked-lighting-lightmaps)
-
+- [_Lighting Essential Concepts and Effects - Baked Lighting - Lightmaps_, by Epic Games @ dev.epicgames.com, 2018](https://dev.epicgames.com/community/learning/courses/Xwp/lighting-essential-concepts-and-effects/zVO/baked-lighting-lightmaps)
+- [_Lighting Essential Concepts and Effects - Combining Static and Dynamic Lighting_, by Epic Games @ dev.epicgames.com, 2018](https://dev.epicgames.com/community/learning/courses/Xwp/lighting-essential-concepts-and-effects/P0R/combining-static-and-dynamic-lighting)
