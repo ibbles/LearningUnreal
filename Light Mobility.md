@@ -72,7 +72,11 @@ Sunlight is often set to stationary.
 The [[Light]] may not change in any way.
 Can be fully baked using [[Lightmass]], producing [[Baked Lighting]] with a [[Lightmap]] for each static [[Static Mesh]] and Volumetric Lightmap for everything else.
 Produces both direct and indirect lighting.
+
 Shadows can become blurry or blocky since they are limited to the [[Lightmap]] resolution of the illuminated mesh, and also depending on the [[Lightmass]] settings.
+For high-quality shadows consider changing to stationary,
+which gives you both [[Global Illumination]] and high-quality dynamics animated shadows,
+at the cost of reduced runtime performance.
 
 Increasing the number of static light sources will increase the time it takes to bake the lighting,
 but will not increase the computational cost at runtime.
