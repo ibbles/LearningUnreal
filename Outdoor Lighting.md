@@ -1,4 +1,7 @@
 Outdoor environments are often illuminated by a [[Directional Light]] simulating sun light.
+The sun light [[Light Source]] often has its [[Light Mobility]] set to stationary so that it get both baked [[Global Illumination]] and high-quality dynamic shadows computed with [[Cascaded Shadow Maps]] and optionally [[Distance Field Shadows]].
+If you are using [[Lumen]] and [[Virtual Shadow Maps]] then I'm not sure what the [[Light Mobility]] should be set to,
+or what the trade-offs are for the three options.
 
 
 # Shadows
@@ -18,4 +21,10 @@ This shadowing method is much faster than triangle-based shadowing methods, but 
 The shadow will not move when the object is animated.
 If the object moves, i.e. its Location changes, then the shadow will follow.
 But an animated [[Skeletal Mesh]] or a [[Static Mesh]] with a material using [[World Position Offset]] will not have an animated shadow.
+
+
+
+# References
+
+- [_Lighting Essential Concepts and Effects - Dynamic Lighting - Outdoor_, by Epic Games @ dev.epicgames.com, 2018](https://dev.epicgames.com/community/learning/courses/Xwp/lighting-essential-concepts-and-effects/V0M/dynamic-lighting-outdoor)
 
