@@ -5,3 +5,5 @@ It is configured from [[World Settings]] > Lightmass.
 Enable [[World Settings]] > Lightmass > Use Ambient Occlusion,
 and tweak the related settings.
 No idea how these settings should be set.
+
+A dynamic form of [[Ambient Occlusion]] is [[Distance Field Ambient Occlusion]].
