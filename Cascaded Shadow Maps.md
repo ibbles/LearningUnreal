@@ -54,6 +54,8 @@ So:
 - Low: High quality shadows, good performance, but only a few close-by objects will have any shadow.
 - High: Low-quality shadows, poor performance, shadows on many objects even far away.
 
+If the [[Light Source]] has [[Distance Field Shadows]] enabled then that shadow type will take over once past Dynamic Shadow Distance for the Cascaded Shadow Maps.
+If the [[Light Source]] has [[Distance Field Shadows]] disabled then the object will be shadow-less once past Dynamic Shadow Distance for the Cascaded Shadow Maps.
 
 ## Num Dynamic Shadow Cascades
 
