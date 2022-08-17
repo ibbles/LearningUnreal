@@ -54,6 +54,46 @@ r.Shadow.Virtual.NonNanite.IncludeInCoarsePages 0
 ```
 
 
+# Virtual Shadow Map Page Pool
+
+The shadow maps are stored in a pool of pages.
+The more lights (and objects?) you have the more pages will be stored.
+This pool can become full.
+When it does you will get missing shadows and/or incomplete shadows where rectangular blocks are missing.
+The following message is printed to the [[Level Viewport]]:
+```
+Virtual Shadow Map Page Pool overflow detected
+```
+and the following is printed to the log:
+```
+Virtual Shadow Map Page Pool overflow (381 page allocations were not served),
+this will produce visual artifacts (missing shadow),
+increase the page pool limit or reduce resolution bias to avoid.
+
+See
+r.Shadow.Virtual.MaxPhysicalPages (8192),
+r.Shadow.Virtual.ResolutionLodBiasLocal (0.00), and
+r.Shadow.Virtual.ResolutionLodBiasDirectional (-1.50)
+```
+The size of the pool, in number of pages, is controlled with the `r.Shadow.Virtual.MaxPhysicalPages` [[Console Variable]].
+I think it defaults to 4096.
+
+It sounds like decreasing [[Light Source]] > Details panel > Light > Advanced > Shadow Resolution Scale less than one would reduce the Virtual Shadow Map Page Pool usages, but even setting it to 0.0001 doesn't removes the `overflow detected` message in a scene I tested with.
+Setting Shadow Resolution Scale to zero does remove the `overflow detected` message.
+The following note in [_Virtual Shadow Maps_ by Epic Games @ docs.unrealengine.com](https://docs.unrealengine.com/5.0/en-US/virtual-shadow-maps-in-unreal-engine/) may be the explanation:
+```
+Per-light resolution controls are not available but may be added in a future release.
+```
+
+
+# Light Settings
+
+A few per-[[Light Source]] settings that affect Virtual Shadow Maps.
+- Light > Cast Shadows: Disable to not cast any shadows.
+- Light > Advanced > Shadow Resolution Scale: Set to zero to disable shadows.
+	- It sounds like setting this less than 1 should reduce memory usage and improve performance, but it doesn't seem to do much of a difference. Other than making the shadows look worse.
+
+
 # Foliage
 
 Virtual Shadow Maps can have a very high computation cost on foliage-heavy scenes.
@@ -102,5 +142,7 @@ Open you [[Landscape Grass Type]] asset and disable Cast Dynamic Shadow.
 # References
 
 - [_UE5: Virtual Shadow Map Performance with Foliage_, by UnrealityBites @ youtube.com](https://www.youtube.com/watch?v=AobyMegpUMg)
+- [_Virtual Shadow Maps_, by Epic Games @ docs.unrealengine.com](https://docs.unrealengine.com/5.0/en-US/virtual-shadow-maps-in-unreal-engine/)
+
 
 
