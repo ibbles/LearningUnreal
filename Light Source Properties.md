@@ -20,6 +20,7 @@ Not all [[Light Source|Light Sources]] have all of these properties.
   - On is the more physically correct mode. Off is better for fill lights. The main difference is that with Use Inverse Squared Falloff disabled one can control the Light Falloff Exponent which makes it possible to control the shape of the light attenuation, making it possible to have light sources with an Attenuation Radius that closely follows the point where the falloff makes the light contribution invisible. With User Inverse Squared Falloff enabled, the default, the radius will often be larger than the visible contribution from the light, especially for strong light sources with long attenuation radius.
 - Affects World: Exactly the same thing as Details panel > Rendering > Visible. Disabling this checkbox disables the light completely.
 - Cast Shadows: Whether or not this light can cast [[Shadows]] of any kind. Must also enable some combination of Cast Static Shadows and Cast Dynamic Shadows.
+- Shadow Resolution Scale: Set to less than one to reduce the shadow quality for this light. Set to zero to disable shadows completely.
 - Indirect Lighting Intensity: How much the light from this light source bounces around the scene.
 	- It is often better to control this with the Base Color of the [[Material|Materials]] of the objects in the scene, in particular large objects such as floors and walls.
 - Volumetric Scattering Intensity: Control the intensity of [[God Rays Light Shafts]] from this light.
