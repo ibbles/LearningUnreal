@@ -8,9 +8,8 @@ It cannot render a complete material because Unreal Engine uses a deferred rende
 The output of the Base Pass is the [[GBuffer]].
 
 RenderDoc is an application with an Unreal Engine plugin that can be used to visualize the draw calls in a frame.
+
 There is also the Unreal GPU Visualizer that lists the things the renderer does.
 It lists the objects that are rendered and how long each one takes, in ms.
-(
-How does one open the GPU Visualizer?
-)
+The GPU Visualizer is opened by running the `ProfileGPU` in the [[Console]].
 
