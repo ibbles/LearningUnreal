@@ -29,7 +29,7 @@ A scene can contain a mix of streaming textures and [[Virtual Texture|Virtual Te
 # Texture Streaming Pool
 
 There is a set of video memory that holds these textures called the texture streaming pool.
-Unreal Engine uses the texel size and the world bounds (Of each rendered object?) to determine an appropriate texel to pixel ratio for each displayed texture.
+Unreal Engine uses the texel size and the world bounds (of each rendered object?) to determine an appropriate texel to pixel ratio for each displayed texture.
 (
 What is that target ratio?
 Can it be configured?
@@ -46,15 +46,31 @@ You can get some hints to what you need to set it to using the _Statistics_ and 
 
 If the texture streaming pool is full then a texture mip level that should be loaded may be rejected and we may get a blurry object.
 The system may also decide to unload a previously loaded mip level, falling back to a lower mip level for that texture, to make room for a larger mip level of another texture.
-The system will prioritize unloading mip levels where the smaller mip level still fulfills the texel to pixel target.
+The system will prioritize unloading mip levels where the smaller mip level still fulfills the texel to pixel ratio target.
 
 If it is not possible to fit all needed mip levels in the streaming pool then the following message is printed to the top-left corner of the [[Level Viewport]]:
 ```
-TEXTURE STREAMIN GPOOL OVER <AMOUNT> BUDGET
+TEXTURE STREAMING POOL OVER <AMOUNT> BUDGET
 ```
 
 The size of the texture streaming pool can be set with the `r.Streaming.PoolSize` [[Console Variable]].
 If you set this higher than what the video cards VRAM can hold then you application may crash with an out-of-memory error.
+
+You can list all textures currently in the streaming pool by running
+```
+ListStreamingTextures
+```
+in the [[Console Commands|Console]].
+This will print a listing of all textures including their size, currently loaded size, and wanted size.
+Example:
+```
+LogContentStreaming: Texture [106] : Texture2D /Game/Megascans/3D_Assets/Cardboard_Box_vh1hehj/T_Cardboard_Box_vh1hehj_8K_D.T_Cardboard_Box_vh1hehj_8K_D
+LogContentStreaming:     Current=4096x4096  Wanted=4096x4096 MaxAllowed=4096x4096 LastRenderTime=226.074 BudgetBias=0 Group=TEXTUREGROUP_World
+```
+
+Notice that all sizes are 4K even though the texture data is 8K.
+This is because [[Texture Editor]] > Details panel > Compression > Advanced > Maximum Texture Size has been set to 4096.
+
 
 # Reducing Texture Memory Requirement
 
