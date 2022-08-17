@@ -36,3 +36,13 @@ This will make that specific LOD not cast any shadow.
 Repeat for as many LOD levels up the list as you need.
 
 A bug in Unreal Engine 5.0 makes all instances of that [[Static Mesh Asset]] in the level to be not rendered, reload the level to get them back again.
+
+
+# Missing Shadows
+
+A few things to check if one or more shadows are missing.
+- The [[Light Source]] must have Details panel > Light > Cast Shadows enabled.
+	- And either Cast Dynamic Shadows or Cast Static Shadows enabled depending on if the occluder is Static or Dynamic. (Mobility Static/Stationary vs Movable.
+- The [[Light Source]] must have a non-zero Shadow Resolution Scale.
+
+
