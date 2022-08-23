@@ -45,6 +45,13 @@ I think.
 )
 Moving the small circle within the larger color circle increases the amount of that color in the scene.
 
+# Rendering Features
+
+## Ambient Occlusion
+
+Disable [[Ambient Occlusion]] by setting Intensity to 0.0.
+
+
 # Lumen
 
 There are [[Lumen]] related settings in multiple categories of the Post Process Volume Details panel.
