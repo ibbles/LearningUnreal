@@ -1,6 +1,6 @@
 A stand-alone application shipped with Unreal Engine that builds baked lightmaps for [[Static Lighting]] and [[Global Illumination]].
 Only works for [[Light Source]] with static or stationary [[Mobility]] and [[Actor|Actors]] with static [[Mobility]].
-Gives better performance than dynamic [[Global Illumination]] techniques such as [[Light Propagation Volume]]
+Gives better performance than dynamic [[Global Illumination]] techniques such as [[Light Propagation Volume]] or [[Lumen]].
 
 The Lightmass tool is a stand-alone application that is run as part of the project packaging, or from the Build menu, and results in [[Lightmap|Lightmaps]] used during rendering of static objects.
 
@@ -39,6 +39,24 @@ There are a few settings to control the generation in the same Details panel cat
 Destination Lightmap Index control which UV channel the lightmap UVs will be stored to, make sure you don't overwrite the material texture UVs.
 Min Lightmap Resolution should match [[Static Mesh Editor]] > General Settings > Light Map Resolution, for padding between triangles in the map to match.
 Not sure what the difference between those two are, why we need two, during what circumstances they should be different, what which one should be larger when they are different.
+
+
+## GPU Lightmass
+
+GPU Lightmass is a GPU accelerated version of Lightmass.
+This has some extra requirements:
+- Ray Tracing capable GPU, i.e. an RTX card from NVIDIA. Not sure if AMD cards are supported.
+- Ray Tracing enabled at [[Project Settings]] > Engine > Rendering > Hardware Ray Tracing > Support Hardware Ray Tracing.
+- Virtual Texturing enabled at [[Project Settings]] > Engine Rendering > Virtual Textures > Enable Virtual Texture Support.
+	- Also Enable Virtual Texture Lightmaps in the same category.
+- Enable the GPU Lightmass plugin.
+- Temporarily disable all ray tracing effects in the [[Viewport]].
+	- `r.RayTracing.ForceAllRayTracingEffects 0`
+	- I think this is only while running the bake, once done I think we can enable ray tracing again.
+
+There is supposed to be a GPU Lightmass entry in the Main Tool Bar > Build menu, but I don't see it.
+Something is wrong.
+See _Not Getting Indirect Lighting From Baked Lighting_ in [[Troubleshooting Errors]].
 
 
 # Configuration
