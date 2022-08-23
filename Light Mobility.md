@@ -3,7 +3,7 @@ I don't know what in this note changes when using [[Lumen]] instead of the legac
 Does the non-Lumen lighting engine have a name?
 )
 
-The mobility of a light source control whether the light is [[Static Lighting|Static]] or [[Dynamic Lighting|Dynamic]].
+The [[Mobility]] of a light source control whether the light is [[Static Lighting|Static]] or [[Dynamic Lighting|Dynamic]].
 Static lighting is faster at runtime but require baking and can't be changed at runtime.
 Dynamic lighting is more computationally demanding at runtime but doesn't require baking and can be changed at runtime.
 There is also a hybrid blend between static and dynamic, tries to be the best of both worlds.
