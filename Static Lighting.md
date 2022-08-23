@@ -65,6 +65,8 @@ See [[Lightmass]] for more information on those.
 
 - [_Lighting in Unreal Engine 5 for Beginners_ by William Faucher @ youtube.com](https://youtu.be/fSbBsXbjxPo?t=309)
 - [_Lighting Essential Concepts and Effects_ - Baked Lighting - Lightmass, by Epic Games @ dev.epicgames.com, UE-4.27](https://dev.epicgames.com/community/learning/courses/Xwp/lighting-essential-concepts-and-effects/229/baked-lighting-lightmass)
+- [_Bake Lighting FASTER with GPU Lightmass - Unreal Engine 4.26_ by William Faucher @ youtube.com](https://youtu.be/hq1WFFF6iD0)
+- [_Lighting with GPU Lightmass | Tips & Tricks | Unreal Engine_ by Epic Games @ youtube.com](https://www.youtube.com/watch?v=RBY82TSLjFA)
 
 
 
