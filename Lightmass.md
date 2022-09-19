@@ -49,6 +49,7 @@ This has some extra requirements:
 - Ray Tracing enabled at [[Project Settings]] > Engine > Rendering > Hardware Ray Tracing > Support Hardware Ray Tracing.
 - Virtual Texturing enabled at [[Project Settings]] > Engine Rendering > Virtual Textures > Enable Virtual Texture Support.
 	- Also Enable Virtual Texture Lightmaps in the same category.
+	- Virtual Texturing and Virtual Texture Lightmaps are optional. Not sure what the advantages and disadvantages are. One advantage is that it enables progressive rendering in the viewport.
 - Enable the GPU Lightmass plugin.
 - Temporarily disable all ray tracing effects in the [[Viewport]].
 	- `r.RayTracing.ForceAllRayTracingEffects 0`
@@ -58,6 +59,27 @@ There is supposed to be a GPU Lightmass entry in the Main Tool Bar > Build menu,
 Something is wrong.
 See _Not Getting Indirect Lighting From Baked Lighting_ in [[Troubleshooting Errors]].
 
+GPU Lightmap can run in a slow / interactive mode or a fast / offline mode.
+This is controlled from the Realtime [[Viewport]] setting available in the top-left drop-down.
+In the interactive mode intermediate results are displayed in the [[Viewport]],
+both a preview of the result and a per-lightmap texture progress bar.
+In the fast mode the is no live / realtime update of the viewport and the computation can therefore finish faster.
+The interactive more require that [[Runtime Virtual Texture]] and Virtual Texture Lightmaps are enabled in the [[Project Settings]].
+
+
+### GPU Lightmass Settings
+
+The GPU Lightmass panel contains a number of settings.
+
+- Global Illumination
+	- GI Samples: The number of rays to trace per [[Lightmap]] texel (I think.). Controls the quality of the the global illumination. Higher value means higher quality but longer baking time. 2048 is high, and will likely take a long time to bake.
+	- Stationary Light Shadow Samples: Increase to reduce artifacts in shadows. No idea what this actually means.
+	- Use Irradiance Caching: Not sure. An alternative algorithm for indirect lighting? No idea when and for what reasons this should be enabled or disabled.
+	- Use First Bounce Ray Guiding: Run a few extra samples, called trial samples, so the subsequent samples can be more smartly directed. If weights the rest of the samples closer to the brightest trial samples. Enabling this can help guide light to spots that turn out to dark with Use First Bounce Ray Guiding disabled. No idea what the compute cost for this feature is.
+- Irradiance Caching.
+	- Quality: A ray count, I guess. Keep it 25% of Global Illumination > GI Samples.
+- First Bounce Ray Guiding
+	- Trial Samples: The number of trial samples to take before starting the lighting calculations for real. Keep it at 25% of Global Illumination > GI Samples.
 
 # Configuration
 
