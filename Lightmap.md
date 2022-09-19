@@ -10,6 +10,9 @@ Each [[Mesh]] that should receive [[Static Lighting]] need a lightmap UV channel
 This is a type of texture coordinate that guarantees that every point on the mesh map to a unique point on the lightmap.
 There can be no overlaps.
 
+For light baking into Lightmaps to be possible both the [[Light Source]] and the [[Mesh]] must have its [[Mobility]] set to non-movable, i.e. either Static or Stationary.
+Static allows for more baking than Stationary.
+See [[Static Lighting]] for more details.
 
 # Lightmap Size
 
