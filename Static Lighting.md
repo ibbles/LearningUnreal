@@ -1,6 +1,8 @@
 Static Lighting is also called Baked Lighting.
 Lighting that is calculated at build-time by a tool built into Unreal Engine named [[Lightmass]].
 Static lights can not be changed at runtime, once baked it's fixed.
+This means that it only works when both the [[Light Source]] and the [[Mesh]] is non-movable, i.e. [[Mobility]] is either Static or Stationary.
+If either the [[Light Source]] or the [[Mesh]] has [[Mobility]] set to Movable then we will only get [[Dynamic Lighting]].
 The light baking process can take a long time.
 Dynamic objects cannot receive static lighting.
 (I assume.)
