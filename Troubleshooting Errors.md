@@ -1,3 +1,55 @@
+# No suitable version of `libssl` was found
+
+Happens when generating project files, either through `GenerateProjectFiles.sh`, or when creating a new C++ project.
+I assume the latter uses the former.
+Error that happens on Ubuntu 22.04 because system `libssl` was updated.
+It happens even with official 5.0.3 binaries downloaded from https://www.unrealengine.com/en-US/linux.
+Discussed in the Unreal Slackers Discord Linux channel at https://discord.com/channels/187217643009212416/375022233875382274/1009436112084811816.
+Known by Epic Games, but not fixed in time for 5.0.3. 5.1 should be fine.
+The solution may be to install an older version of `libssl` manually.
+```
+wget http://archive.ubuntu.com/ubuntu/pool/main/o/openssl/libssl1.1_1.1.0g-2ubuntu4_amd64.deb
+sudo dpkg -i libssl1.1_1.1.0g-2ubuntu4_amd64.deb
+```
+
+Similar suggestion for Fedora from https://forums.unrealengine.com/t/generateprojectfiles-sh-fails-when-building-from-source-on-fedora-36-linux/519324 suggests we install `compat-openssl10` with `dnf`.
+
+
+This is a DotNet problem, and there is a related GitLab issue for that project as well: https://github.com/dotnet/core/issues/4749
+Suggest we download,  build and install `libssl 1.1.1` ourselves.
+```
+wget https://www.openssl.org/source/openssl-1.1.1c.tar.gz
+tar -xzvf openssl-1.1.1c.tar.gz
+cd openssl-1.1.1c
+./config
+make
+sudo make install # It puts it into /usr/local/lib so it doesn't mess with the rest of your system)
+LD_LIBRARY_PATH="/usr/local/lib" dotnet
+```
+
+
+# Ionic.Zip.Reduced
+
+Installed builds of Unreal Engine 5.0, including the official 5.0.3 available at https://www.unrealengine.com/en-US/linux, need `Ionic.Zip.Reduced` in a few places but doesn't place it everywhere it's needed.
+Copy it to
+- `Engine/Binaries/DotNET/`
+- `Engine/Binaries/DotNET/AutomationTools`
+- `Engine/Binaries/DotNET/BuildTools`
+either from one of  the places above, if any exist, or from a working copy of the git repository in which `Setup.sh` has been run.
+```
+$ cp $UE_ROOT/Engine/Binaries/DotNET/AutomationTool/Ionic.Zip.Reduced.dll $UE_ROOT/Engine/Binaries/DotNET/
+```
+
+
+# Broken Viewport Camera Controls Remote Desktop VNC
+
+Not sure why it happens, but fixed by passing `-NoRelativeMouseMode` on the command line when starting Unreal Editor.
+It's and SDL thing.
+See
+- https://forums.unrealengine.com/t/work-from-home-how-to-use-unreal-through-remote-desktop/141157
+- https://wiki.libsdl.org/SDL_SetRelativeMouseMode
+
+
 # Texture Streaming Pool # GB Over Budget
 
 Unreal Engine allocates a limited amount of VRAM for texture streaming.
@@ -22,6 +74,23 @@ By enabling the override checkbox and reducing the value we reduce the [[Lightma
 This should fix the warning, possibly improve performance, and reduce memory usage.
 
 [_Use Fix and optimize foliage in unreal_ - Light Map Resolution, by Batnobie X @ youtube.com. 2021](https://youtu.be/jcZ5V8qFwgE?t=100)
+
+
+# Unable to find plugin 'Bridge'
+
+While Unreal Engine 5 does include the Quixel Bridge plugin Epic Games chose to remove it from Linux builds, even the official 5.0.3 available at https://www.unrealengine.com/en-US/linux.
+It is explicitly excluded here: https://github.com/EpicGames/UnrealEngine/blob/5.0.3-release/Engine/Build/InstalledEngineFilters.xml#L208
+See Unreal Slackers Discord discussion: https://discord.com/channels/187217643009212416/375022233875382274/985976633376780358
+Another about how to build it locally from a git working copy of the engine: https://discord.com/channels/187217643009212416/375022233875382274/1001741396048347157
+Here we have two Unreal Engine installs, one with the official binaries in `/official` and one git working copy in `/git`.
+The `git` one can be a clean working copy, we don't need to build it.
+```bash
+/official$ ./Engine/Build/BatchFiles/RunUAT.sh \
+	BuildPlugin \
+	-Plugin=/git/Engine/Plugins/Bridge/Bridge.uplugin \
+	-Package=/tmp/Bridge  # Is it safe to send directly to ./Engine/Plugins/Bridge/?
+/official$ mv /tmp/Bridge ./Engine/Plugins/Bridge/
+```
 
 
 # Blurry Quixel Megascans 3D Assets
