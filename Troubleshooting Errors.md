@@ -50,6 +50,18 @@ See
 - https://wiki.libsdl.org/SDL_SetRelativeMouseMode
 
 
+# Not Getting Indirect Lighting From Baked Lighting
+
+This problem appeared with Unreal Engine 5.0.
+Only seems to affect Linux/Vulkan, a scene that is broken works on Windows.
+A forum discussion on the topic, including a Windows user:
+https://forums.unrealengine.com/t/baked-global-illumination-in-ue5/514487
+Though that may be a separate problem, I see a lot of Mac users in the thread.
+
+I haven't yet found a solution to this problem.
+Baked lighting does not produce any indirect light.
+
+
 # Texture Streaming Pool # GB Over Budget
 
 Unreal Engine allocates a limited amount of VRAM for texture streaming.

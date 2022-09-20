@@ -1,6 +1,8 @@
 Static Lighting is also called Baked Lighting.
 Lighting that is calculated at build-time by a tool built into Unreal Engine named [[Lightmass]].
 Static lights can not be changed at runtime, once baked it's fixed.
+This means that it only works when both the [[Light Source]] and the [[Mesh]] is non-movable, i.e. [[Mobility]] is either Static or Stationary.
+If either the [[Light Source]] or the [[Mesh]] has [[Mobility]] set to Movable then we will only get [[Dynamic Lighting]].
 The light baking process can take a long time.
 Dynamic objects cannot receive static lighting.
 (I assume.)
@@ -41,6 +43,36 @@ Setting the [[Mobility]] to Movable turns the light into a dynamic light.
 The scene lighting needs to be rebuilt every time a static or stationary light or object is changed in the scene.
 If there are at least one static light in the scene and the scene is modified within that lights influence volume then a message saying "LIGHTING NEEDS TO BE REBUILT" is typically printed to the  top-right corner of the viewport.
 
+A recommendation is to disable [[Ambient Occlusion]] by setting [[Post Process Volume]] > Rendering Features > Ambient Occlusion > Intensity to 0.0.
+This is because the baked lighting get [[Ambient Occlusion]] "for free".
+Then also having it be part of the regular rendering pipeline kind of doubles the effect, making corners very dark.
+
+See [[Lightmass]] for more details.
+
+
+# Material Color
+
+The color, and in particular the brightness (Magnitude of the color values, not talking about emissive here.), of the objects (walls, floor, furniture, etc) and materials in the scene have a big influence on static lighting.
+If the objects are dark then you will get very little indirect lighting since so much of the light is absorbed by the objects.
+So use bright materials if you want a lot of indirect lighting.
+A trick is to temporarily up the brightness of the materials while baking and then bring them back down again.
+Then you will get an nonphysical amount of bounce light, but if that's what you want then that's one way of getting it.
+Another is to increase the Indirect Lighting Intensity on your [[Post Process Volume]], but if the amount of light in the [[Lightmap]] is really low then this will lead to posterization since we are in effect upscaling a low resolution signal.
+
+
+# Troubleshooting
+
+A few things to check if static lighting isn't working the way you expect.
+- Make sure the [[Light Source]] has its [[Light Mobility]] set to Static or Stationary.
+- Make sure the [[Mesh]] has its [[Mobility]] set to Static or Stationary.
+- Make sure [[Project Settings]] > Engine > Rendering > Global Illumination Method is set to None.
+- Make sure [[Project Settings]] > Engine > Rendering > Misc Lighting > Allow Static Lighting is enabled.
+- Make sure [[Project Settings]] > Engine Rendering > Virtual Textures > Enable Virtual Texture Support is (Disabled)|(Enabled).
+	- I'm a bit confused here. Some say that Virtual Texturing should be enabled and activated for [[Lightmap|Lightmaps]] while other say that enabling Virtual Texturing broke light building. I'm not sure what to believe.
+- Make sure [[World Settings]] > Lightmass > Force No Precomputed Lighting is disabled.
+- Make sure [[Post Process Volume]] > Global Illumination > Advanced > Indirect Lighting Intensity is set high enough.
+
+
 
 # Lighting Quality
 
@@ -67,6 +99,6 @@ See [[Lightmass]] for more information on those.
 - [_Lighting Essential Concepts and Effects_ - Baked Lighting - Lightmass, by Epic Games @ dev.epicgames.com, UE-4.27](https://dev.epicgames.com/community/learning/courses/Xwp/lighting-essential-concepts-and-effects/229/baked-lighting-lightmass)
 - [_Bake Lighting FASTER with GPU Lightmass - Unreal Engine 4.26_ by William Faucher @ youtube.com](https://youtu.be/hq1WFFF6iD0)
 - [_Lighting with GPU Lightmass | Tips & Tricks | Unreal Engine_ by Epic Games @ youtube.com](https://www.youtube.com/watch?v=RBY82TSLjFA)
-
+- [_Baked global illumination in UE5_, forum thread @ forums.unrealengine.com](https://forums.unrealengine.com/t/baked-global-illumination-in-ue5/514487/13)
 
 

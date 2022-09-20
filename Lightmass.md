@@ -1,6 +1,6 @@
 A stand-alone application shipped with Unreal Engine that builds baked lightmaps for [[Static Lighting]] and [[Global Illumination]].
 Only works for [[Light Source]] with static or stationary [[Mobility]] and [[Actor|Actors]] with static [[Mobility]].
-Gives better performance than dynamic [[Global Illumination]] techniques such as [[Light Propagation Volume]]
+Gives better performance than dynamic [[Global Illumination]] techniques such as [[Light Propagation Volume]] or [[Lumen]].
 
 The Lightmass tool is a stand-alone application that is run as part of the project packaging, or from the Build menu, and results in [[Lightmap|Lightmaps]] used during rendering of static objects.
 
@@ -40,6 +40,46 @@ Destination Lightmap Index control which UV channel the lightmap UVs will be sto
 Min Lightmap Resolution should match [[Static Mesh Editor]] > General Settings > Light Map Resolution, for padding between triangles in the map to match.
 Not sure what the difference between those two are, why we need two, during what circumstances they should be different, what which one should be larger when they are different.
 
+
+## GPU Lightmass
+
+GPU Lightmass is a GPU accelerated version of Lightmass.
+This has some extra requirements:
+- Ray Tracing capable GPU, i.e. an RTX card from NVIDIA. Not sure if AMD cards are supported.
+- Ray Tracing enabled at [[Project Settings]] > Engine > Rendering > Hardware Ray Tracing > Support Hardware Ray Tracing.
+- Virtual Texturing enabled at [[Project Settings]] > Engine Rendering > Virtual Textures > Enable Virtual Texture Support.
+	- Also Enable Virtual Texture Lightmaps in the same category.
+	- Virtual Texturing and Virtual Texture Lightmaps are optional. Not sure what the advantages and disadvantages are. One advantage is that it enables progressive rendering in the viewport.
+- Enable the GPU Lightmass plugin.
+- Temporarily disable all ray tracing effects in the [[Viewport]].
+	- `r.RayTracing.ForceAllRayTracingEffects 0`
+	- I think this is only while running the bake, once done I think we can enable ray tracing again.
+
+There is supposed to be a GPU Lightmass entry in the Main Tool Bar > Build menu, but I don't see it.
+Something is wrong.
+See _Not Getting Indirect Lighting From Baked Lighting_ in [[Troubleshooting Errors]].
+
+GPU Lightmap can run in a slow / interactive mode or a fast / offline mode.
+This is controlled from the Realtime [[Viewport]] setting available in the top-left drop-down.
+In the interactive mode intermediate results are displayed in the [[Viewport]],
+both a preview of the result and a per-lightmap texture progress bar.
+In the fast mode the is no live / realtime update of the viewport and the computation can therefore finish faster.
+The interactive more require that [[Runtime Virtual Texture]] and Virtual Texture Lightmaps are enabled in the [[Project Settings]].
+
+
+### GPU Lightmass Settings
+
+The GPU Lightmass panel contains a number of settings.
+
+- Global Illumination
+	- GI Samples: The number of rays to trace per [[Lightmap]] texel (I think.). Controls the quality of the the global illumination. Higher value means higher quality but longer baking time. 2048 is high, and will likely take a long time to bake.
+	- Stationary Light Shadow Samples: Increase to reduce artifacts in shadows. No idea what this actually means.
+	- Use Irradiance Caching: Not sure. An alternative algorithm for indirect lighting? No idea when and for what reasons this should be enabled or disabled.
+	- Use First Bounce Ray Guiding: Run a few extra samples, called trial samples, so the subsequent samples can be more smartly directed. If weights the rest of the samples closer to the brightest trial samples. Enabling this can help guide light to spots that turn out to dark with Use First Bounce Ray Guiding disabled. No idea what the compute cost for this feature is.
+- Irradiance Caching.
+	- Quality: A ray count, I guess. Keep it 25% of Global Illumination > GI Samples.
+- First Bounce Ray Guiding
+	- Trial Samples: The number of trial samples to take before starting the lighting calculations for real. Keep it at 25% of Global Illumination > GI Samples.
 
 # Configuration
 
