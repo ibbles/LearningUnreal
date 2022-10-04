@@ -1,3 +1,32 @@
+# Crash When Starting Dedicated Server
+
+CEF - Chromium Embedded Framework
+
+Unreal Engine 5.0, maybe also 5.1.
+
+Crash when launching a dedicated server.
+```
+CEF GPU acceleration enabled
+The GPU process has crashed
+Network service crashed, restarting service.
+```
+
+Try passing `-nocef` when starting the server.
+
+https://discord.com/channels/187217643009212416/375022233875382274/1024835595865964574
+Also
+https://discord.com/channels/187217643009212416/375022233875382274/1025171533863342110
+for a possible (complicated) workaround for 5.0.3.
+
+The problem may be that files aren't copied when the server is packaged.
+Compare
+https://github.com/EpicGames/UnrealEngine/blob/5.0.3-release/Engine/Source/ThirdParty/CEF3/CEF3.build.cs#L63-L68
+end
+https://github.com/EpicGames/UnrealEngine/blob/5.0.3-release/Engine/Source/ThirdParty/CEF3/CEF3.build.cs#L127-L130
+
+If the crash also happens when playing in the editor then the problem is something else.
+
+
 # No suitable version of `libssl` was found
 
 Happens when generating project files, either through `GenerateProjectFiles.sh`, or when creating a new C++ project.
