@@ -16,4 +16,4 @@ The basis for [[Niagara Fluids]], a fluid simulation package in Unreal Engine.
 # References
 
 - [_Creating Fluid Simulation in UE5 | Inside Unreal_ by Epic Games, 2022 @ youtube.com](https://www.youtube.com/watch?v=k7WLE2kM4po)
-
+- [_Creating Visual Effects_ @ docs.unrealengine.com](https://docs.unrealengine.com/5.0/en-US/creating-visual-effects-in-niagara-for-unreal-engine/)
