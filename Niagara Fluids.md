@@ -1,6 +1,7 @@
 A plugin developed by Epic Games to simulate fluids using the [[Niagara]] particle system.
 Both liquids and gasses.
 Both 2D and 3D.
+Not sure if grid-only, or if there are neighbor based particle methods as well.
 Beta in Unreal Engine 5.0, must be enabled from the [[Plugins]] menu.
 
 Everything implemented using the Niagara building blocks.
