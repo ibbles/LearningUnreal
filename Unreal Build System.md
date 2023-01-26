@@ -12,10 +12,20 @@ To make working with the code base easier.
 The build system ignore the project files, they are for the IDE only.
 Hitting Compile in the IDE will run the Unreal Build System, not whatever build system the IDE uses.
 
-# Build cycle
+# Build Cycle
 
+This is what the Unreal Engine build system does when building a project:  
 Hit compile > Scan modules > Ignore unchanged > Detect Unreal Macros > Code generation > Call compiler > Macro expansion > Compilation > Linking
 
+
+# Running A Build
+
+On Linux the build script is `Engine/Build/BatchFiles/Linux/Build.sh`.
+It takes the target to build a target platform, and a [[Build Configurations|Build Configuration]].
+For example, the following build the web helper for Linux in Shipping mode:
+```bash
+$ Engine/Build/BatchFiles/Linux/Build.sh EpicWebHelper Linux Shipping
+```
 
 # Unreal Header Tool and Unreal Macros
 
