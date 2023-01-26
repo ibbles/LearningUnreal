@@ -12,6 +12,9 @@ To make working with the code base easier.
 The build system ignore the project files, they are for the IDE only.
 Hitting Compile in the IDE will run the Unreal Build System, not whatever build system the IDE uses.
 
+See also [[Building Unreal Engine]].
+
+
 # Build Cycle
 
 This is what the Unreal Engine build system does when building a project:  
@@ -42,6 +45,20 @@ For some function declarations, such as those with the `Server` [[Function Speci
 
 Avoid `#ifdef` macros in headers parsed by Unreal Header Tool.
 Can lead to mismatch between the generated code and the preprocessed code.
+
+
+# Compiler Flags
+
+We can add additional compiler flags by editing `ClangToolChain.cs`.
+In the function named `GetCompileArguments_WarningsAndErrors`.
+There are a bunch of `Arguments.Add("...`.
+Add whatever compiler flags you want.
+This is a common way to disable compiler warnings.
+
+Should not be used to enable the address sanitizer, there is a separate setting for that.
+See _Address Sanitizer_ in [[Building Unreal Engine]].
+
+See also [[Building Unreal Engine]].
 
 
 # References
