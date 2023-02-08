@@ -69,6 +69,11 @@ Unreal Editor contains a single-frame profiler called GPU Visualiser.
 It is opened by running `ProfileGPU` in the [[Console]].
 The GPU Visualizers displays a timeline of the frame render and a tree view of the task hierarchy.
 
+# Unreal Insights
+
+[[Unreal Insights]]
+
+
 
 # References
 - [_Unreal* Engine 4 Optimization Tutorial, Part 1 - GPU Visualizer_, by intel @ intel.com. UE4.19](https://www.intel.com/content/www/us/en/developer/articles/training/unreal-engine-4-optimization-tutorial-part-1.html#gpu-visualizer)

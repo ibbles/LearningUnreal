@@ -16,7 +16,23 @@ The basic steps for building Unreal Engine on Linux are as follows, where
 - Optionally create an [[Installed Build]].
 
 
-# Asset version compatibility, `Build.version`
+See also [[Unreal Build System]].
+
+
+# Compiler Flags
+
+## Linux
+
+We can add additional compiler flags by editing `ClangToolChain.cs`.
+In the function named `GetCompileArguments_WarningsAndErrors`.
+There are a bunch of `Arguments.Add("...`.
+Add whatever compiler flags you want.
+This is a common way to disable compiler warnings.
+
+Should not be used to enable the address sanitizer, there is a separate setting for that.
+See _Address Sanitizer_ below.
+
+# Asset Version Compatibility, `Build.version`
 
 Unreal Engine differentiates between official binary releases and custom source builds.
 When we build ourselves we are creating a custom source build even if we haven't made any changes to the engine.
@@ -42,6 +58,59 @@ For some reason the Changelist numbers I see in official Windows binary releases
 Makes me question whether it is safe to copy these numbers from the Windows installations.
 The Docker images uses the Comaptible Changelist also for the Changelist.
 
+
+
+# Switching Version
+
+If you did a single-branch checkout, i.e. passed `--depth 1 -b <BRANCH>` then a regular `git switch` to the new tag won't work.
+```bash
+$ git remote set-branches --add origin <VERSION_3>-release
+$ git fetch origin <VERSION_3>-release:<VERSION_3>-release
+```
+
+# Address Sanitizer
+
+Address Sanitizer is a compiler option that instruments the compiled binary with extra checks around memory operations.
+Helps find mismatched free/delete, double deletes, and some out-of-bounds accesses.
+
+Unreal Engine can be built with Address Sanitizer support.
+```bash
+UE_ROOT$ make UnrealEditor ARGS=-EnableASan
+```
+
+Then build your project with the Address Sanitizer enabled engine.
+```bash
+PROJECT_ROOT$ ./Engine/Build/BatchFiles/Linux/Build.sh
+	Development
+	Linux
+	*.uproject
+	-TargetType=Editor
+	-EnableASan
+```
+
+Then open your project
+```bash
+$ $UE_ROOT/Engine/Binaries/Linux/UnrealEditor $PROJECT_ROOT/*.uproject
+```
+
+May need a system install of LLVM and a symbolizer path.
+```bash
+$ sudo apt install llvm
+$ export ASAN_SYMBOLIZER_PATH=/usr/lib/llvm-9/bin/llvm-symbolizer  # Path may be different.
+```
+
+# Git Deps
+
+`Setup.sh` downloads a bunch of stuff that is stored in `.git/ue4-gitdeps`.
+These files can be shared among multiple Unreal Engine builds.
+To store the Git Deps in another directory, set the `UE4_GITDEPS` environment variable to a path.
+Not sure if it should be `UE5_GITDEPS` for Unreal Engine 5, or if this is a legacy thing that isn't updated.
+```bash
+$ export UE4_GITDEPS=/media/some_dist/UE4_GitDeps
+$ ./Setup.sh
+```
+
+A symlink at `$UE_ROOT/.git/ue4-gitdeps` pointing to a shared directory might also work.
 
 # Preprocessor defines, `UEBuildModuleCPP.cs`
 
@@ -117,7 +186,7 @@ index 4c0428ad373..6a6d4f71397 100644
 ```
 
 
-# Unreal Engine 4.26
+## Unreal Engine 4.26
 
 This change set based on https://gist.github.com/jerobarraco/92839db6e6305fb04a04bab415ec8ae4. I can't use that as-is due to
 ```shell
@@ -346,56 +415,3 @@ index 309c435df..18bf34514 100644
  						CompileEnvironment.PrecompiledHeaderIncludeFilename = Instance.HeaderFile.Location;
 ```
 
-
-
-# Switching Version
-
-If you did a single-branch checkout, i.e. passed `--depth 1 -b <BRANCH>` then a regular `git switch` to the new tag won't work.
-```bash
-$ git remote set-branches --add origin <VERSION_3>-release
-$ git fetch origin <VERSION_3>-release:<VERSION_3>-release
-```
-
-# Address Sanitizer
-
-Address Sanitizer is a compiler option that instruments the compiled binary with extra checks around memory operations.
-Helps find mismatched free/delete, double deletes, and some out-of-bounds accesses.
-
-Unreal Engine can be built with Address Sanitizer support.
-```bash
-UE_ROOT$ make UnrealEditor ARGS=-EnableASan
-```
-
-Then build your project with the Address Sanitizer enabled engine.
-```bash
-PROJECT_ROOT$ ./Engine/Build/BatchFiles/Linux/Build.sh
-	Development
-	Linux
-	*.uproject
-	-TargetType=Editor
-	-EnableASan
-```
-
-Then open your project
-```bash
-$ $UE_ROOT/Engine/Binaries/Linux/UnrealEditor $PROJECT_ROOT/*.uproject
-```
-
-May need a system install of LLVM and a symbolizer path.
-```bash
-$ sudo apt install llvm
-$ export ASAN_SYMBOLIZER_PATH=/usr/lib/llvm-9/bin/llvm-symbolizer  # Path may be different.
-```
-
-# Git Deps
-
-`Setup.sh` downloads a bunch of stuff that is stored in `.git/ue4-gitdeps`.
-These files can be shared among multiple Unreal Engine builds.
-To store the Git Deps in another directory, set the `UE4_GITDEPS` environment variable to a path.
-Not sure if it should be `UE5_GITDEPS` for Unreal Engine 5, or if this is a legacy thing that isn't updated.
-```bash
-$ export UE4_GITDEPS=/media/some_dist/UE4_GitDeps
-$ ./Setup.sh
-```
-
-A symlink at `$UE_ROOT/.git/ue4-gitdeps` pointing to a shared directory might also work.
