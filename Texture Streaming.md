@@ -28,7 +28,7 @@ A scene can contain a mix of streaming textures and [[Virtual Texture|Virtual Te
 
 # Texture Streaming Pool
 
-There is a set of video memory that holds these textures called the texture streaming pool.
+There is a set of video memory that holds streaming textures called the texture streaming pool.
 Unreal Engine uses the texel size and the world bounds (of each rendered object?) to determine an appropriate texel to pixel ratio for each displayed texture.
 (
 What is that target ratio?
@@ -40,9 +40,24 @@ I assume this is because a player can turn faster than they can move.
 
 The texture streaming pool has a maximum size.
 We can **set this size** with the `r.Streaming.PoolSize` [[Console Variable]].
+Another way is to set the value in one of the Scalability `.ini` files.
+For example the `BasicScalability.ini` file in the engine installation.
+(
+I don't think we should be messing around with the engine's `.ini` files, feels wrong.
+)
+There are different texture quality levels, marked with `@#` in the category name, where `#` is a number.
+For example `[TextureQuality@1]` or `[TextureQuality@3]`.
+Use the [[Output Log]] to find the Texture Quality level you are currently at by searching for `TextureQuality` and set `r.Streaming.PoolSize` in that category in `BasicScalability.ini`.
+
 Setting an appropriate value for your project and target hardware is probably complicated.
 I assume this value should be different for different quality settings set by the end user.
 You can get some hints to what you need to set it to using the _Statistics_ and _Optimization View Modes_ described below.
+
+A quick-and-dirty trick is to set `r.Streaming.PoolSize` to 1, i.e. 1 MiB.
+This will pretty much disable streaming all together, only loading the smallest available mip for each texture.
+The `TEXTURE STREAMING POOL OVER # MiB BUDGET` message will appear in the viewport.
+Take not of the number and set `r.Streaming.PoolSize` to something a bit larger.
+Not sure how big the safety margin should be.
 
 If the texture streaming pool is full then a texture mip level that should be loaded may be rejected and we may get a blurry object.
 The system may also decide to unload a previously loaded mip level, falling back to a lower mip level for that texture, to make room for a larger mip level of another texture.
@@ -173,4 +188,4 @@ Not sure what this actually means.
 
 - [_Managing the Texture Streaming Pool | Tips & Tricks | Unreal Engine_ by Unreal Engine @ youtube.com, 2022](https://youtu.be/uk3W8Zhahdg)
 - [_Texture Streaming_ by Epic Games @ docs.unrealengine.com](https://docs.unrealengine.com/5.0/en-US/texture-streaming-in-unreal-engine/)
-
+- [_UE4 - TEXTURE STREAMING POOL - PERMANENT FIX TUTORIAL_ by OneUp Game Dev @ youtube.com 2021](https://www.youtube.com/watch?v=9qPcAW5obg0)
