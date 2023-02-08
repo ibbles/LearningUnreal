@@ -10,7 +10,32 @@ Foliage can be added with
 To make a realistic looking scene it if often necessary to add [[Foliage Wind]].
 
 The LOD transition can be made smoother by enabling Dithered LOD Transition in the Foliage's [[Material]].
+With Unreal Engine 5.1 we got some support for [[Nanite Foliage]].
+[Unreal Engine 5.1 Release Notes - Nanite Improvements](https://docs.unrealengine.com/5.1/en-US/unreal-engine-5.1-release-notes/#naniteimprovements)
 
+
+# Rendering Artifacts
+
+## Smeary / trailing pixels in swaying branches
+
+I believe this is caused by temporal upsampling, i.e. when the renderer tries to improve the image by reusing data from previous frames.
+If the renderer can't track how objects have moved then it will get confused and produce ghostly after-images from objects that has since moved.
+It is especially visible on tree branches swaying in the wind.
+
+Possible ways to mitigate:
+- Change anti-aliasing mode from Temporal Super Resolution (TSR) to some other method such as FXAA or MSAA.
+- Change [[Project Settings]] > Rendering > Optimizations > Velocity Pass to Write During Base Pass.
+	- [WPO issue in UE 5.0 on all materials, severe smear/dither @ forums.unrealengine.com](https://forums.unrealengine.com/t/wpo-issue-in-ue-5-0-on-all-materials-severe-smear-dither/515780)
+
+
+Write During Depth Pass (default):
+![[Images/Smeary_foliage_depth_pass.png]]
+
+Write During Base Pass (Slower?):
+![[Images/Smeary_foliage_base_pass.png]]
+
+With Word Position Offset pin disconnected on the Master Material:
+![[Images/Smeary_foliage_no_wpo.png]]
 
 # Collisions
 
