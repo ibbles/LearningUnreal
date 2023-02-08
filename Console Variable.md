@@ -47,11 +47,17 @@ r.Streaming.PoolSize 4096
 ```
 This way creates a temporary setting that only exists for the current run of the editor or game, i.e. for this process only.
 
+CVars can be set in `.ini` files.
+There are different `.ini` files for different categories of CVars.
+If you know the section name for the CVar you are after then you can search for that in the output log.
+Will show which `.ini` file the engine has loaded CVars from.
+
 CVars can also be driven by game play logic, for example through [[Blueprint Visual Script]].
 Use the node Execute Console Command and type the CVar name and new value just like you would in the regular console.
 In this way we can turn engine features on and off dynamically, and we can tie specific settings to specific levels through the Level Blueprint and the Begin Play [[Blueprint Event]].
 CVars set in Begin Play will only be set once the level is played, not when only opened in the editor.
 The new value will persist through the [[Play In Editor]] session and remain afterwards.
+
 
 # Interesting CVars
 
