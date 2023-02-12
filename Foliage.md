@@ -24,8 +24,12 @@ It is especially visible on tree branches swaying in the wind.
 
 Possible ways to mitigate:
 - Change anti-aliasing mode from Temporal Super Resolution (TSR) to some other method such as FXAA or MSAA.
-- Change [[Project Settings]] > Rendering > Optimizations > Velocity Pass to Write During Base Pass.
-	- [WPO issue in UE 5.0 on all materials, severe smear/dither @ forums.unrealengine.com](https://forums.unrealengine.com/t/wpo-issue-in-ue-5-0-on-all-materials-severe-smear-dither/515780)
+- Change [[Mobility]] of all problematic Actors from Static to Movable.
+- Change [[Project Settings]] > Rendering > Optimizations >
+	- Velocity Pass to Write During Base Pass.
+		- [_Motion Blur Setting Fix Unreal Engine 5.1_ by Glass Hand Studios @ youtube.com. 2023](https://www.youtube.com/watch?v=WjA4hBLUivQ)
+	- Output Velocities Due To Vertex Deformation to Enabled.
+		- [_WPO issue in UE 5.0 on all materials, severe smear/dither_ @ forums.unrealengine.com](https://forums.unrealengine.com/t/wpo-issue-in-ue-5-0-on-all-materials-severe-smear-dither/515780)
 
 
 Write During Depth Pass (default):
