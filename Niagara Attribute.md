@@ -8,7 +8,7 @@ Whenevera Map Set node has an input pin named `(PARTICLES) Position` then it mea
 Modules are typically executed per-particle, i.e. each execution are associated with a particular particle.
 
 It is possible to read Attributes for other particles as well.
-This is done with a [[Niagara Particle Attribute Reader]] in a [[Niagara Simulation Stages|Niagara Simulation Stage]].
+This is done with a [[Niagara Particle Attribute Reader]] in a [[Niagara Simulation Stage|Niagara Simulation Stage]].
 The Attribute Reader is a parameter on the Module and should be bound to an Attribute Reader variable on the [[Niagara System]].
 The Attribute Reader variable should be bound to the [[Niagara Emitter]] that the Attribute Reader should read from.
 Inside the Module use e.g. a Get Vector By ID node to read a particular Attribute.

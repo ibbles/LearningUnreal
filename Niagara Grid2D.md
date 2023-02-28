@@ -2,7 +2,7 @@ A Grid2D Collection is an array of 2D buffers, kinda like a [[Render Target]] bu
 Each buffer contains "attributes".
 The buffers can be iterated over.
 This lets us implement grid based algorithms.
-Often used together with [[Niagara Simulation Stages]].
+Often used together with [[Niagara Simulation Stage]].
 
 With a Grid2D the [[Niagara Module]] can decide which index to write to, we are not locked to a 1:1 relationship between threads and pixels as we are with [[Material]] and [[Render Target]].
 
