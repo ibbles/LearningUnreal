@@ -8,6 +8,13 @@ There are various ways to disable this.
 
 [[View Mode]] > Exposure > Fixed at some value.
 
+# Show
+
+[[Show]] > Exposure > untick Game Settings.
+
+[[Show]] is the button in the upper-left corner of the Level Viewport next to [[View Mode]].
+
+This is only for the editor, has no effect on exported applications.
 
 # Post Process Volume
 

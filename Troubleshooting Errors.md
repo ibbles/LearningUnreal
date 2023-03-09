@@ -1,3 +1,10 @@
+# Cannot create a Vulkan device. Try updating your video driver to a more recent version
+
+[Reported](https://discord.com/channels/187217643009212416/375022233875382274/1073323950651756745) on Ubuntu 22.04 with an NVIDIA GPU and the 525 driver when launching Unreal Engine 5.1.1 for the first time.
+One suggestion is to install the `libvulkan1` package, which contains the Vulkan loader library.
+One user report that reinstalling it fixed the problem. Unsure what "it" refers to.
+
+
 # Crash When Starting Dedicated Server
 
 CEF - Chromium Embedded Framework
