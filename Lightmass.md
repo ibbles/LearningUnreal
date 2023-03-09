@@ -6,6 +6,18 @@ The Lightmass tool is a stand-alone application that is run as part of the proje
 
 Lightmass can work in a distributed mode where multiple machines cooperate to build lighting for a level.
 
+
+# Linux
+
+I've had some issues getting light building to work on Linux, around the 4.25 - 5.1 time frame.
+One [suggestion](https://discord.com/channels/187217643009212416/375022233875382274/1076284173951705149) on the Unreal Slackers Discord channel is to enable the UDP Messaging plugin.
+(
+I believe that plugin is enabled by default, more testing needed.
+)
+There is also, in the same Discord thread, [mentions](https://discord.com/channels/187217643009212416/375022233875382274/1076166929116577882) of separate building the UnrealLightmass build target separate.
+
+
+
 # Requirements
 
 ## Static Actors
