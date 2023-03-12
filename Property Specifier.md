@@ -18,6 +18,10 @@ public:
 };
 ```
 
+There is a special type of Property Specifier called the [[Meta Property Specifier]].
+
 `EditCondition`: A C++ expression, using the other [[Property|Properties]] in the class, that determines if this [[Property]] should be editable or grayed out in [[Details Panel|Details Panels]].
+For more details see _Dynamic Edit Condition Based On Other Properties_ in [[Property Visibility And Editability]].
 
 `EditConditionHide`: A C++ expression, using the other [[Property|Properties]] in the class, that determines if this [Property]] should be visible in [[Details Panel|Details Panels]].
+
