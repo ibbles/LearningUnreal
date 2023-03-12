@@ -11,12 +11,22 @@ There is also an `Engine` folder for assets that came with the Unreal Engine ins
 
 Assets that has a visible representation, such as [[Static Mesh Asset]], [[Texture]], and [[Sound]] get an icon when the Content Browser > Settings > View Type has been set to Tiles.
 Sometimes the preview isn't loaded, to force it right-click on the problematic asset.
+Each asset type is associated with a color that is shown on the asset icon regardless of View Type.
 
 We can move an [[Asset]] by selecting it and dragging it to the folder where we want it to be.
 Unreal Engine tracks all asset references all will update them to point to the new location.
 
 Called Content Drawer in Unreal Engine 5. Kinda. The Content Drawer is a type of auto-hiding Content Browser.
 We can open the Content Drawer with Ctrl+Space.
+
+
+# Asset Filtering
+
+The Content Browser can be filtered, i.e. made to show only certain types of assets.
+At the top of the Content Browser, click the dashed triangle to the left of the search bar.
+This opens the filter list, which is a list of asset types along with a check box next to each.
+Select a few check boxes and only asset of the selected types will be shown.
+
 
 
 # Thumbnail Edit Mode
