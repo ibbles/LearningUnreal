@@ -84,7 +84,13 @@ One way to fix the feet placement is to access RVT Height in your Character Blue
 I don't know how to do that.
 
 
+# C++
+
+TODO: Figure out how to update a runtime virtual texture from C++.
+
+
 # References
 
 - [_Using Virtual Heightfield Mesh For Landscape Displacement In Unreal Engine 5 (Updated)_, by BuildGamesWithJon @ youtube.com](https://www.youtube.com/watch?v=H4jzMsiBkYg)
-
+- [_Displacements on Unreal Engine 5(UE5) Landscapes with Virtual Heightfield Mesh_ by GDi4K @ youtube.com. 2021, UE 5.0](https://youtu.be/JzYVeIF89V0)
+	- More of an overview than a tutorial, doesn't show all steps or describe all parts. Uses a plugin named Open Land, or something like that.
