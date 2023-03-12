@@ -61,3 +61,45 @@ Unless I'm misunderstanding something.
 |              Hidden     | VisibleDefaultsOnly | EditDefaultsOnly | (default)            |
 +-------------------------+---------------------+------------------+----------------------+
 ```
+
+
+# Dynamic Edit Condition Based On Other Properties
+
+We can make a [[Property]] be either editable or not depending on the value of some other [[Property]].
+This is called `EditCondition` and is a [[Meta Property Specifier]].
+
+Example:
+```cpp
+class MYPROJECT_API UMyObject : public UObject
+{
+	GENERATED_BODY()
+public:
+	UPROPERTY(EditAnywhere, Category = "My Object", Meta = (EditCondition = "bMyPropertyEditable"))
+	double MyProperty = 0.0;
+
+	UPROPERTY(EditAnywhere, Category = "Overrides", Meta = (PinHiddenByDefault, InlineEditConditionTogle))
+	bool bMyPropertyEditable = false;
+};
+```
+
+(
+Experiment with the above, see what each part does and if all of them are necessary.
+)
+
+The `EditCondition` can be a more complicated expression, with `!`, `&&`, and `||`.
+Not sure if function calls are allowed.
+
+If there are many such Booleans then they they may be merged into a bitfield:
+```cpp
+UPROPERTY(...)
+uint8 bFirstPropertyEditable : 1 = false;
+UPROPERTY(...)
+uint8 bSecondPropertyEditable : 1 = false;
+UPROPERTY(...)
+uint8 bThirdPropertyEditable : 1 = false;
+// And so on.
+// Inline initialization of bit field members may require C++20,
+// initialize them in the constructor if you have an older C++ compiler.
+```
+
+[_FYI, I just discovered how to make an "override" checkbox in C++, like the ones you see on PostProcessVolume and other built-in components._ by heyheyhey27 @ reddit.com. 2019](https://www.reddit.com/r/unrealengine/comments/ctbiy8/fyi_i_just_discovered_how_to_make_an_override/)
