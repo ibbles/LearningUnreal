@@ -1,10 +1,23 @@
-See also [[UPROPERTY]].
+A Property Specifier is a piece of meta-data attached to a [[Property]] using the [[UPROPERTY]] macro.
+It is read by Unreal Header Tool and controls the behind-the-scenes C++ code it generates.
 
+Some common Property Specifiers:
 - `Blueprint(ReadWrite|ReadOnly)`
-- `(Edit|Visible)(DefaultsOnly|InstanceOnly|Anywhere)`
+- `(Edit|Visible)(DefaultsOnly|InstanceOnly|Anywhere)` [[Property Visibility]]
 - `Category = "MyCategory"`
 
+Example:
+```cpp
+UCLASS()
+class MYPROJECT_API UMyClass : public UObject
+{
+	GENERATED_BODY()
+public:
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "MyCategory")
+	double MyProperty = 0.0;
+};
+```
 
-`EditCondition`: A C++ expression, using the other UProperties in the class, that determines if this UProperty should be editable or grayed out in Details Panels.
+`EditCondition`: A C++ expression, using the other [[Property|Properties]] in the class, that determines if this [[Property]] should be editable or grayed out in [[Details Panel|Details Panels]].
 
-`EditConditionHide`: A C++ expression, using the other UProperties in the class, that determines if this UProperty should be visible in Details Panels.
+`EditConditionHide`: A C++ expression, using the other [[Property|Properties]] in the class, that determines if this [Property]] should be visible in [[Details Panel|Details Panels]].
