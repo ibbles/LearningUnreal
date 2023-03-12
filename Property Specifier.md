@@ -3,7 +3,7 @@ It is read by Unreal Header Tool and controls the behind-the-scenes C++ code it 
 
 Some common Property Specifiers:
 - `Blueprint(ReadWrite|ReadOnly)`
-- `(Edit|Visible)(DefaultsOnly|InstanceOnly|Anywhere)` [[Property Visibility]]
+- `(Edit|Visible)(DefaultsOnly|InstanceOnly|Anywhere)` [[Property Visibility And Editability]]
 - `Category = "MyCategory"`
 
 Example:
