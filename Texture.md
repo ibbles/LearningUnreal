@@ -74,3 +74,4 @@ RuntimeTexture->UpdateResource();
 # References
 
 - [_5 Tips to Optimize Environments in Unreal Engine 4_ - Texture Size by Jakub Haluszczak @ youtube.com 2021](https://youtu.be/gZkKcaF4Ifk?t=386)
+
