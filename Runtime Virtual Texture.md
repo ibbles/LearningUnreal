@@ -11,7 +11,7 @@ In the sense that it is a texture that we can write to it from the GPU.
 It can be considered a shading cache.
 For an expensive [[Material]] that doesn't change from frame to frame and isn't camera dependent we can have the expensive [[Material]] fill in a Runtime Virtual Texture with cached material data and then have a second [[Material]] that samples that cache and performs only the final shading calculations.
 It is really a single [[Material]] [[Asset]], but it is compiled and run in two different contexts.
-See Using A Runtime Virtual Texture As A Landscape Material Cache below for an example.
+See _Using A Runtime Virtual Texture As A Landscape Material Cache_ below for an example.
 
 (
 I still don't understand when the Virtual Texture part of the [[Material]] is run.
@@ -24,7 +24,7 @@ Things going in and out of view?
 
 Must be enabled with [[Project Settings]] > Engine > Rendering > Virtual Textures > Enable Virtual Texture Support.
 
-Any rendered object, such as a [[Landscape]], that writes to one or more Runtime Virtual Textures must declare which Runtime Virtual Textures it writes to in Details panel > Virtual Texture > Render To Virtual Textures.
+Any rendered object, such as a [[Landscape]] or a [[Static Mesh]], that writes to one or more Runtime Virtual Textures must declare which Runtime Virtual Textures it writes to in Details panel > Virtual Texture > Render To Virtual Textures.
 The rendered object must also specify which passes it should be active in.
 The available passes are
 - Virtual Texture
@@ -36,6 +36,17 @@ I believe Virtual Texture OR Main Pass means that if Runtime Virtual Textures is
 If Runtime Virtual Textures is enabled then something else must render based on the Runtime Virtual Texture for the object to be visible.
 (
 Though I'm not sure, and there are some AND / OR going on here as well which I don't understand, so this part need a bit more studying.
+
+UE 5.1: There is now also From Virtual Texture.
+By Virtual Texture I don't think they mean the Runtime Virtual Texture asset referenced in the Draw In Virtual Textures array.
+It doesn't have any property that it makes sens to affect this.
+Instead I think it means the Runtime Virtual Texture Volume [[Actor]] in the level that has that has its Virtual Texture [[Property]] set to the same Runtime Virtual Texture [[Asset]].
+The Runtime Virtual Texture Volume [[Actor]] has a Boolean [[Property]] named Hide Primitives.
+
+My theory is that setting the renderer to From Virtual Texture  and the Runtime Virtual Texture Volume's Hide Primitives to `true` should make the renderer only render to the Runtime Virtual Texture and therefore not show up as a regular mesh in the [[Viewport]].
+Setting the Boolean to `false` should make the mesh render to both the [[Viewport]] and the Runtime Virtual Texture.
+However, in testing with Hide Primitives set to `false` I still don't see the renderer during Play In Editor.
+Hide Primitives does hide/unhide the render as expected in regular edit mode.
 )
 
 
@@ -46,7 +57,7 @@ Though I'm not sure, and there are some AND / OR going on here as well which I d
 - For each Runtime Virtual Texture, create and place a Runtime Virtual Texture Volume and set Details panel > Virtual Texture to one of the Virtual Texture assets.
 - On the object ([[Static Mesh]], [[Skeletal Mesh]], [[Landscape]], [[Foliage Type]]) that should write to the Runtime Virtual Texture add the Virtual Texture asset to Details panel > Virtual Texture > Draw In Virtual Textures.
 - In the [[Material]] used by the object that should write to the Runtime Virtual Texture add a Runtime Virtual Texture Output node.
-- Connect something to each of the input pins on the Runtime Virtual Texture Output node for each of the pins for which there exists a Runtime Virtual Texture in the rendered object's Draw In Virtual Textures array that includes that data in its layout.
+- Connect something to each of the input pins on the Runtime Virtual Texture Output node for which there exists a Runtime Virtual Texture channel in the rendered object's Draw In Virtual Textures array, i.e. a Runtime Virtual Texture that includes that data in its layout.
 - In the [[Material]] for the object that should read from the Runtime Virtual Texture add a Runtime Virtual Texture Sample node, or a Runtime Virtual Texture Sample Parameter node.
 - Set which Runtime Virtual Texture the sample node should read from, either on the node directly (for the non-parameter node) or on a [[Material Instance]] (for the parameter node).
 - Set Runtime Virtual Texture Sample (Parameter) > Details panel > Virtual Texture > Virtual Texture Content to the same layout as on the Runtime Virtual Texture asset.
