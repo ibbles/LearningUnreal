@@ -91,6 +91,10 @@ TODO: Figure out how to update a runtime virtual texture from C++.
 
 # References
 
-- [_Using Virtual Heightfield Mesh For Landscape Displacement In Unreal Engine 5 (Updated)_, by BuildGamesWithJon @ youtube.com](https://www.youtube.com/watch?v=H4jzMsiBkYg)
+- [_Using Virtual Heightfield Mesh For Landscape Displacement In Unreal Engine 5 (Updated)_, by BuildGamesWithJon. 2022-05-19, UE 5 @ youtube.com](https://www.youtube.com/watch?v=H4jzMsiBkYg)
+- [_Landscape Displacement Using Virtual Height Mesh In Unreal Engine 5_, by BuildGamesWithJon. 2021-12-29, UE 5.0 @ youtube.com](https://www.youtube.com/watch?v=cV2YhjAiogY)
 - [_Displacements on Unreal Engine 5(UE5) Landscapes with Virtual Heightfield Mesh_ by GDi4K @ youtube.com. 2021, UE 5.0](https://youtu.be/JzYVeIF89V0)
 	- More of an overview than a tutorial, doesn't show all steps or describe all parts. Uses a plugin named Open Land, or something like that.
+
+
+
