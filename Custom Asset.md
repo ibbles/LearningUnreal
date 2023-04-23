@@ -275,3 +275,9 @@ You can find examples of how to create Styles in  `Engine/Source/Editor/EditorSt
 [Writing a Custom Asset Editor for Unreal Engine 4](http://cairansteverink.nl/cairansteverink/blog/writing-a-custom-asset-editor-for-unreal-engine-4-part-1/)  
 [Asset Editor - Development of asset editor in Unreal Engine](https://easycomplex-tech.com/blog/Unreal-AssetEditor/)  
 [How to make tools in UE4](https://lxjk.github.io/2019/10/01/How-to-Make-Tools-in-U-E.html)  
+
+
+# References
+ 
+- [_Creating a Custom Asset Type with its own Editor in C++_ by JanKXSKI @ dev.epicgames.com. July 7, 2022](https://dev.epicgames.com/community/learning/tutorials/vyKB/unreal-engine-creating-a-custom-asset-type-with-its-own-editor-in-c)
+
