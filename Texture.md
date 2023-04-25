@@ -55,6 +55,23 @@ A newer variant of mip-map is [[Virtual Texture]].
 [[Texture Streaming]]
 
 
+# Creating A Texture In C++
+
+```cpp
+UTexture2D RuntimeTexture = UTexture2D::CreateTransient(1024, 1024);
+FTexture2DMipMap* MipMap = &RuntimeTexture->PlatformData->Mips[0];
+FByteBulkData* ImageData = &MipMap->BulkData;
+uint8* RawImageData = (uint8*)ImageData->Lock(LOCK_READ_WRITE);
+
+// Edit RawImageData
+// RawImageData is formatted as such:
+// [Pixel1 B][Pixel1 G][Pixel1 R][Pixel1 A][Pixel2 B][Pixel2 G][Pixel2 R][Pixel2 A] …
+
+ImageData->Unlock();
+RuntimeTexture->UpdateResource();
+```
+
 # References
 
 - [_5 Tips to Optimize Environments in Unreal Engine 4_ - Texture Size by Jakub Haluszczak @ youtube.com 2021](https://youtu.be/gZkKcaF4Ifk?t=386)
+

@@ -1,5 +1,6 @@
 Every object that has a position in the world has a transformation.
 The transformation describe an object's location, rotation, and scale.
+These act in the Unreal Engine [[Coordinate System]].
 Transformations can be chained, one being applied on the result of the one before it.
 We call this a **transformation hierarchy**, since each step can branch into many child transforms.
 The Scene Components of an Actor is an example of a transformation hierarchy.
@@ -16,6 +17,7 @@ An object that has the **identity transformation**, i.e. a no-op transformation,
 An Actor's origin is marked by a white sphere icon.
 If you ask for an [[Actor]]'s location then you will get the position of the Actor's [[Root Component]] origin in world space.
 
+
 # Helpful Functions
 There may be more useful stuff in [[Blueprint Utility And Math Functions And Techniques]].
 
@@ -25,4 +27,7 @@ There may be more useful stuff in [[Blueprint Utility And Math Functions And Tec
   - Return the location in world space of the [[Root Component]] of the [[Actor]].
 - Restrict a [[Rotator]] to only only axis by splitting it and only passing one of Roll, Pitch, Yaw to a Make Rotator node.
 - We can call Get Forward Vector, Get Right Vector, and Get Up Vector on many things.
+	- Returns the requested vector in the object's local space, expressed in the world coordinate frame.
+
+
 

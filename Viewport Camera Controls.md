@@ -13,7 +13,7 @@ In the [[Level Viewport]], any many other [[Viewport|Viewports]], allow you  mov
 	- In this mode mouse movements move the camera in the projection plane, up-down, left-right.
 - `LMB`+`RMB`: Hold to activate view plane move mode.
 	- Identical to `MMB`.
-- `f`: Focus the selected object.
+- `F`: Focus the selected object.
 	- Move the camera to look at the selected object, and at a distance where the object fill most of the viewport.
 - `[LRM]MD`+`[wasdqe]`: Move forward (w), backward (s), left (a), right (d), up (e), or down (q).
 - `[LRM]MD`+`[zc]`: Temporary zoom in (c) or zoom out (z).

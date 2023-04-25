@@ -97,6 +97,8 @@ Though that may be a separate problem, I see a lot of Mac users in the thread.
 I haven't yet found a solution to this problem.
 Baked lighting does not produce any indirect light.
 
+One [suggestion](https://discord.com/channels/187217643009212416/375022233875382274/1076284173951705149) is to enable the UDP Messaging plugin.
+
 
 # Texture Streaming Pool # GB Over Budget
 
