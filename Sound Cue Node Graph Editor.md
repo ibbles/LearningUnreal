@@ -81,7 +81,7 @@ Has a bunch of `WITH_EDITOR` functions dealing with the `UEdGraph` and `ISoundCu
 Defined in `SoundCueFactoryNew.h`.
 An Editor class.
 Inherits from `UFactory`.
-Create new `USoundCue` instances using `NewObject<USoundCue>`.
+Create new `USoundCue` instances in `FactoryCreateNew` using `NewObject<USoundCue>`.
 
 
 ## `FAssetTypeActions_SoundCue`
@@ -100,9 +100,12 @@ Allocates a new `FSoundCueEditor`.
 Defined in `SoundNode.h`.
 A Runtime class.
 Inherits from `UObject`.
-Has a list of `USoundNode` children.
+Has a list of `USoundNode` subclasses.
 Has an `UEdGraphNode`, which only points to `USoundCueGraphNode`. (I assume.)
 Declares a bunch of virtual functions.
+
+Has a maximum number of child nodes.
+Is there a 1:1 relationship between child nodes and output pins,  or can multiple child nodes be connected to a single output pin?
 
 The sound effects that can be added to a `USoundCue` are all subclasses of `USoundNode`.
 For example `USoundNodeDoppler` and `USoundNodeDelay`.
@@ -113,6 +116,7 @@ For example `USoundNodeDoppler` and `USoundNodeDelay`.
 Defined in `SoundCue.h`.
 A Runtime class.
 Contains a bunch of pure-virtual functions for manipulating sound and graph nodes.
+I would like to have this class be named `ISoundCueGraphEditor`.
 
 
 ## `USoundCueGraph`
@@ -164,18 +168,7 @@ An Editor class.
 Inherits from `UEdGraphSchema`.
 Has a bunch of link related functions.
 Manages a bunch of actions, subclasses of `FEdGraphSchemaAction`.
-
-
-## `FSoundCueEditor`
-
-Defined in `SoundCueEditor.h`.
-An Editor class.
-Inherits from `ISoundCueEditor` and a few utility classes.
-Has a bunch of node related functions.
-Has a `USoundCue`, `SGraphEditor`, and tabs with Details panel and Palette.
-This is the main editor window for a sound cue asset.
-Is created by `FAssetTypeActions_SoundCue::OpenAssetEditor`,
-with some help from `IAudioEditorModule::CreateSoundCueEditor`.
+The `FEdGraphSchemaAction` subclasses are used by `FSoundCueEditor`.
 
 
 ## `FSoundCueGraphNodeFactory`
@@ -195,6 +188,8 @@ An Editor class.
 Inherits from `TCommands`.
 Contains a bunch of `FUICommandInfo` for a number of things that the user can do.
 
+It is not clear to me what types of actions/commands goes into `FSoundCueEditorCommands` and what types goes into `FEdGraphSchemaAction`.
+
 
 ## `FSoundCueEditorUtilities`
 
@@ -202,6 +197,76 @@ Defined in `SoundCueEditorUtilities.h`.
 An Editor class.
 Various helper functions.
 
+`GetSelectedNodes` is used by `FSoundCueGraphSchemaAction_NewNode::ConnectToSelectedNodes`.
+
+
+
+## `IAudioEditorModule`
+
+Defined in `AudioEditorModule.h`.
+An Editor class.
+Extends `IModuleInterface`.
+Declares a bunch of sound related functions.
+
+
+## `FAudioEditorModule`
+
+Defined in `AudioEditorModule.cpp`.
+An Editor class.
+Implements `IAudioEditorModule`.
+Passed to `IMPLEMENT_MODULE`.
+
+Has `CreateSoundCueEditor`, which creates an `FSoundCueEditor` for a particular `USoundCue`.
+
+
+## `FSoundCueEditor`
+
+Defined in `SoundCueEditor.h`.
+An Editor class.
+Inherits from `ISoundCueEditor` and a few utility classes.
+Has a bunch of node related functions.
+Has a `USoundCue`, `SGraphEditor`, and tabs with Details panel and Palette.
+This is the main editor window for a sound cue asset.
+Is created by `FAssetTypeActions_SoundCue::OpenAssetEditor`,
+with some help from `IAudioEditorModule::CreateSoundCueEditor`.
+
+
+## `ISoundCueEditor`
+
+Defined in `ISoundCueEditor.h`.
+Is an Editor class.
+Inherits from `FAssetEditorToolkit`.
+Weird that an `I-` class inherits from an `F-` class.
+
+The documentation for `FAssetEditorToolkit` says:
+
+> Base class for toolkits that are used for asset editing.
+
+
+## `SSdoundCuePalette`
+
+Defined in `SSoundCuePalette.h`.
+Is an Editor class.
+Inherits from `SGraphPalette`.
+Is a really small class, just a single function named `CollectActions`.
+
+
+## `FGraphNodeCreator`
+
+
+## `UEdGraphPin`
+
+## `SGraphNodeSoundBase`
+
+Defined in `SGraphNodeSoundResult.h`
+I don't see any child classes of this, so not sure why it's called `-Base`.
+
+This one does Slate stuff, as indicated by the `S` prefix on the class name.
+
+
+## `SGraphNodeSoundResult`
+
+Defined in `SGraphNodeSoundBase.h`.
 
 # Number Of Pins
 
@@ -327,3 +392,4 @@ A non-`virtual` member function of `USoundCueGraphNode`.
 ## Input Pin To Child Node Synchronization
 
 When the user modifies the graph in the graph editor the `USoundNode` instances' `ChildNodes` list are updated by `FSoundCueAudioEditor::CompileSoundNodesFromGraphNodes`.
+
