@@ -1,14 +1,55 @@
 An Actor Component, often just Component, is something that is added to an Actor to provide some functionality.
 A Component may have a transformation or not.
-Components with a transformation inherit from Scene Component.
+Components without a transformation inherit from Actor Component, `UActorComponent` in C++.
+Components with a transformation inherit from [[Scene Component]], `USceneComponent` in C++, a subclass of Actor Component.
 Scene Components exist in a hierarchy within the owning Actor.
 When a Scene Component is transformed all its children will transform with it.
-[[Transform]]
+See also [[Transform]].
 
 Components can be destroyed by calling the Destroy Component member function.
 Until the end of the frame (I think) the Component will still exist but the Is Component Being Destroyed member function will return `true`.
 (
 I'm not sure the above is true.
 )
-I'm not sure what happens if you access a Actor member Component after it has been destroyed.
+I'm not sure what happens if you access an Actor member Component after it has been destroyed.
 Is it still safe to call Is Valid on it?
+
+
+# Creating A New Actor Component Type
+
+## Blueprint
+
+Content Browser > right-click > New Blueprint Class > Actor Component or Scene Component.
+
+
+## C++
+
+Create a new class with the following content, where `MyComponent` is the name of the new Component type.
+
+See [[Module]], [[UPROPERTY]], [[UFUNCTION]] ... for details on some of the bits in the code below.
+
+`MyComponent.h`:
+```cpp
+#pragma once
+#include "MyComponent.generated.h"
+UCLASS(Meta = (BlueprintSpawnableComponent))
+class MYPROJECT_API UMyComponent : public UActorComponent /* Or USceneComponent. */
+{
+	GENERATED_BODY()
+public:
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "My Component")
+	double MyData {1.0};
+
+	UFUNCTION(BlueprintCallable, Category = "My Component")
+	void MyFunction();
+};
+```
+
+This will produce a Component that can be added to a [[Blueprint Class]] [[Actor]], be edited from the [[Details Panel]], and be manipulated from [[Blueprint Visual Script]].
+
+If the Component cannot be added to a [[Blueprint Class]], i.e. it doesn't show up in the Add Component list, then check the following;
+- Has `BlueprintSpawnableComponent` been added to the `Meta` [[Class Specifier]].
+	- Make sure it is spelled correctly, there is no error checking on these.
+	- Make sure `BlueprintSpawnableComponent` is inside `Meta` and not directly under `UCLASS`.
+- Has the `MYPROJECT_API` module export macro been added before the class name_
+
