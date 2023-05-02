@@ -47,6 +47,12 @@ The implementation consists of the following header files:
 	- Contains colors and wire thickness data.
 
 
+Stuff I don't know what it is yet:
+- `FGraphPanelPinConnectionFactory`
+	- Inherited from by `FSoundCueGraphConnectionDrawingPolicyFactory`
+- `FConnectionDrawingPolicy`
+	- Inherited from by `FSoundCueGraphConnectionDrawingPolicy`
+
 # Classes
 
 ## `USoundCue`
@@ -195,3 +201,129 @@ Contains a bunch of `FUICommandInfo` for a number of things that the user can do
 Defined in `SoundCueEditorUtilities.h`.
 An Editor class.
 Various helper functions.
+
+
+# Number Of Pins
+
+The various Sound Cue graph nodes support varying number of input pins.
+Here is a screenshot of some examples of zero, one, two, and three input pins.
+Some have an Add Input button, i.e. support variable number of input pins.
+
+There is always exactly one output pin, except for the output node that has no output pin.
+![](./Images/Sound_cue_nodes.png)
+
+## Input Pin Creation
+
+Pins are part of `USoundCueGraphNode_Base` inherited from `UEdGraphNode`, both Editor types.
+They mirror the `ChildNodes` or `USoundCueNode`, the Runtime type.
+
+Input pins are created when a new graph node is created.
+Graph nodes can be created from the graph right-click context menu, which lists all the node types.
+This context menu is filled in by the following callstack:
+- `EdGraphSchema`, or something that knows `UEdGraphSchema`, such as `UEdGraph`.
+- `USoundCueGraphSchema::GetGraphContextActions`, part of a base class interface.
+- `USoundCueGraphSchema::GetAllSoundNodeActions`
+- `new FSoundCueGraphSchemaAction_NewNode(SoundNodeClass)`, called in a loop.
+
+Then the user right-clicks the graph and selects one of the sound node types:
+- `FSoundCueGraphSchemaAction_NewNode::PerformAction`
+- `USoundCue::ConstructSoundNode(SoundNodeClass)`
+- `USoundCue::SetupSoundNode`
+- `FSoundCueAudioEditor::SetupSoundNode`
+- `FGraphNodeCreator::Finalize`, non-sound-specific editor code.
+- If no pins yet:
+	- `USoundCueGraphNode_Base::AllocateDefaultPins`
+	- `virtual CreateInputPins()`
+	- `USoundCueGraphNode::CreateInputPins`
+	- `for each USoundNode::ChildNodes:`  Will this ever be non-empty? [1]
+	- `CreateInputPin()`
+	- `UEdGraphNode::CreatePin(EGPD_Input, ...)`, non-sound-specific editor code.
+
+[1] I believe `USoundNode::ChildNodes` is filled in after `AllocateDefaultPins`.
+`AllocateDefaultPins` is called from `USoundCue::ConstructSoundNode`.
+`FSoundCueGraphSchemaAction_NewNode::PerformAction` has:
+```cpp
+USoundNode* NewNode =
+	SoundCue->ConstructSoundNode<USoundNode>(
+		SoundNodeClass, bSelectNewNode);
+if (NewNode->GetMaxChildNodes() > 0
+	&& NewNode->ChildNodes.Num() == 0)
+{
+	NewNode->CreateStartingConnectors();
+}
+```
+
+So there will, by default, be one input pin per child node.
+So what fills `ChildNodes`?
+`USoundNode` probably.
+`USoundNode::ChildNodes` is a list of `USoundNode`.
+There is a min and a max number of children.
+`USoundNode`, the base class, set these to 0 and 1, respectively.
+`USoundNode::ChildNodes` can contain `nullptr` elements.
+Child nodes are created at
+- `USoundNode::CreateStartingConnectors` creates `GetMinChildNodes` child nodes.
+- `USoundNode::InsertChildNode`
+- `TArray<USoundNode*> InsertZeroed`
+- `FSoundCueAudioEditor::CreateInputPin`
+- `USoundCueGraphNode::CreateInputPin`
+- `UEdGraphNode::CreatePin(EGPD_Input,...`
+
+What is the relationship between `AllocateDefaultPins` and `CreateStartingConnectors`?
+`FSoundCueGraphSchemaAction_NewNode::PerformAction` calls
+- `USoundCue::ConstructSoundNode`
+- `USoundNode::CreateStartingConnectors` if `USoundNode::ChildNodes` is empty.
+
+So we only get to `USoundNode::CreateStartingConnectors` if no children has been created so far.
+And I don't think any has.
+`AllocateDefaultPins` also loops over `USoundNode::ChildNodes`.
+`USoundNode::ChildNodes` is filled by `USoundNode::CreateStartingConnectors`.
+
+
+We can set a label on a pin with
+```cpp
+NewPin->PinName = CreateUniquePinName(TEXT("Input")); /* Not visible. */
+NewPin->PinFriendlyName = FText::FromString(TEXT(" ")); /* Visible. */
+```
+
+Let's see how a few nodes configure themselves.
+The control knobs they have are:
+- `virtual USoundNode::GetMaxChildNodes`
+	- Default: `1`
+- `virtual USoundNode::GetMinChildNodes`
+	- Default: `0`
+- `virtual USoundNode::CreateStartingConnectors`
+	- Default: Create `GetMinChildNodes` child nodes, but at last `1`, but never more than `GetMaxChildNodes`.
+
+
+### `USoundNodeDialoguePlayer`
+
+Overrides `GetMaxChildNodes`: `0`.
+
+So, since the default `CreateStartingConnectors` cap at max, no child nodes will be created.
+
+
+### `USoundNodeAttenuation`
+
+Does not override anything, so get `1` child node.
+
+
+### `USoundNodeConcatenator`
+
+Overrides `GetMaxChildNodes`: `MAX_ALLOWED_CHILD_NODES` (`32`)
+Overrides `CreateStartingConnectors`: Calls `USoundNode::InsertChildNode` twice.
+Overrides `(Insert|Remove)ChildNode`: To keep `InputVolume` in sync. Call base implementation.
+
+This one has an `Add Input` button.
+What creates that?
+It seems `SGraphNode` is aware of the `Add Input` button.
+`SGraphNodeSoundBase : SGraphNode` overrides `IsAddPinButtonVisible`.
+Asks `USoundCueGraphNode::CanAddInputPin`.
+A non-`virtual` member function of `USoundCueGraphNode`.
+`USoundCueGraphNode::CanAddInputPin` does
+- `USoundNode::ChildNodes::Num < SoundNode::GetMaxChildNodes`.
+
+
+
+## Input Pin To Child Node Synchronization
+
+When the user modifies the graph in the graph editor the `USoundNode` instances' `ChildNodes` list are updated by `FSoundCueAudioEditor::CompileSoundNodesFromGraphNodes`.
