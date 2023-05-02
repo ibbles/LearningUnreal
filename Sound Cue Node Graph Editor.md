@@ -268,6 +268,7 @@ This one does Slate stuff, as indicated by the `S` prefix on the class name.
 
 Defined in `SGraphNodeSoundBase.h`.
 
+
 # Number Of Pins
 
 The various Sound Cue graph nodes support varying number of input pins.
