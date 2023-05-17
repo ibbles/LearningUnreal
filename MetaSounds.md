@@ -63,7 +63,7 @@ Must have multiple Wave Player nodes for that.
 ### Envelope
 
 Produces a value that changes over time.
-Is it like a [[lerp]], but with ease-in and ease-out?
+Is it like a [[Lerp]], but with ease-in and ease-out?
 
 ### Trigger Repeat
 
