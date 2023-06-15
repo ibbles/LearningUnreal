@@ -57,8 +57,12 @@ Plugins can also be built explicitly.
 <PATH TO UE>/Engine/Build/BatchFiles/RunUAT.sh \
 	BuildPlugin \
 	-Plugin=<path to .uplugin> \
-	-Package=<output path for compiled plugin>
+	-Package=<output path for compiled plugin> \
+ 	-TargetPlatforms=Linux \
+	-Rocket  
 ```
+
+`-TargetPlatforms` is optional.
 
 This is a plugin export, this is used when  a plugin is developed in one project and is to be used in another.
 Then the `-Package` argument should be the path to the `Plugins/<PluginName>` directory in the user project.
