@@ -15,8 +15,9 @@ In the [[Level Viewport]], any many other [[Viewport|Viewports]], allow you  mov
 	- Identical to `MMB`.
 - `F`: Focus the selected object.
 	- Move the camera to look at the selected object, and at a distance where the object fill most of the viewport.
-- `[LRM]MD`+`[wasdqe]`: Move forward (w), backward (s), left (a), right (d), up (e), or down (q).
-- `[LRM]MD`+`[zc]`: Temporary zoom in (c) or zoom out (z).
+- `[LRM]MB`+`[wasdqe]`: Move forward (w), backward (s), left (a), right (d), up (e), or down (q).
+- `[LRM]MB`+`[zc]`: Temporary zoom in (c) or zoom out (z).
+- Scroll-wheel: Move camera forward or backward.
 - `Alt`+`LMB`: Orbit around the look-at point. This is not the same as the selected object.
 - `Alt`+`RMB`: Zoom.
 - `Ctrl`+`MMB` drag left: Switch to Back orthographic view.
