@@ -1,6 +1,17 @@
 The Level Editor is the main part of the [[Unreal Editor]] application.
 It is what is shown when Unreal Editor is opened.
-The Level Editor includes the [[Level Viewport]], the [[Outliner]], a [[Details Panel]], and the [[Content Browser]].
+The Level Editor includes
+- [[Top Menu Bar]], the one with File, Edit, Window, etc menus.
+	- The [[Actor]] menu is context-sensitive and only populated when an [[Actor]] is selected in the [[Level Viewport]].
+		- This menu is similar to the [[Level Viewport]] right-click menu, but have some additional actions.
+	- At the end of the Top Menu Bar the project name is shown.
+		- Hover over the project name to see version of the engine, graphics [[Rendering Hardware Interface]] (RHI) currently used.
+- [[Tool Bar]]
+- [[Level Viewport]], where we can see and modify the contents of the current level.
+- [[Outliner]], where we can see a list of the [[Actor|Actors]] in the current level.
+- [[Details Panel]], where we can see the [[Property|Properties]] of the currently selected [[Actor]] or [[Component]].
+- [[Content Browser]], where we can see the [[Asset|Assets]] available in our [[Project Structure|Project]].
+	- With Unreal Engine 5 we got the [[Content Drawer]], which is a quick-access panel containing a [[Content Browser]].
 Among many other optional panels.
 There is also a [[Top Menu Bar]] and a [[Tool Bar]].
 
