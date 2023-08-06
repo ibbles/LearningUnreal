@@ -17,13 +17,13 @@ Describe how this module is to be build and what module dependencies it has.
 
 The source code for a module is stored within the `Private` and `Public` subdirectories of the module subdirectory of the `Source` directory.
 
+
 # Dependencies
 
 Module can depend on each other, forming a directed acyclic graph.
 Dependencies are listed in `PublicDependencyModuleNames`, `PrivateDependencyModuleName`, and `DynamicallyLoadedModuleNames`.
 This give the current module access to the classes and other symbols in the dependee module.
 Adding another module to a module's `.Build.cs` will cause that other modules' public include directories to be passed to the compiler when compiling this module, and the shared library for that module passed to the linker when linking this module.
-
 
 
 # Primary Game Module
@@ -36,4 +36,4 @@ The center point of the project, the module that makes use of all the other modu
 
 - [_The Unreal Build System Explained | Inside Unreal_ at 38:58 by Unreal Engine @ youtube.com](https://youtu.be/GJZUV8homoo?t=2338)
 - [_Unreal Engine Modules_ by Epic Games @ docs.unrealengine.com](https://docs.unrealengine.com/5.0/en-US/unreal-engine-modules/)
-
+- [_Creating a Gameplay Module_ by Epic Games @ docs.unrealengine.com](https://docs.unrealengine.com/5.2/en-US/how-to-make-a-gameplay-module-in-unreal-engine/)
