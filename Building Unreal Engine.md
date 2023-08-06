@@ -7,7 +7,9 @@ The basic steps for building Unreal Engine on Linux are as follows, where
 
 - `mkdir UnrealEngine_$VERSION2
 - `cd UnrealEngine_$VERSION2`
-- `git clone --depth 1 https://github.com/EpicGames/UnrealEngine.git -b $VERSION3-release .`
+- Clone either with HTTPS or Git.
+	- `git clone --depth 1 https://github.com/EpicGames/UnrealEngine.git -b $VERSION3-release .`
+	- `git clone --depth 1 git@github.com:EpicGames/UnrealEngine.git -b $VERSION3-release .`
 - Fix `Build.version`. See below.
 - Fix `UEBuildModuleCPP.cs`. See below.
 - `./Setup.sh`
