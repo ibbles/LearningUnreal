@@ -43,3 +43,11 @@ This will cause the value to ... [[TODO]] (What does output do?)
 
 To change the name of the value in the Map Set node double-click the name and type the new name.
 
+
+# Troubleshooting
+
+## Compiler error: `Cannot set external constant`
+
+Happens when there is a user parameter, in the Parameters tab, with the same name as a built-in parameter.
+In my case it was `User.NumParticles` that conflicted with `Engine.Emitter.NumParticles`.
+Renamed the user parameter to `TargetNumParticles` and the error went away.
