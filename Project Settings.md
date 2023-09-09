@@ -6,6 +6,13 @@ Found in
 
 
 # Project
+
+## Description
+
+### Legal
+
+Copyright notice: The projects copyright and/or trademark notice. Will be included in all generated source code files.
+
 ## Maps & Modes
 
 Set the level that should be opened when the project is opened or a package started.
