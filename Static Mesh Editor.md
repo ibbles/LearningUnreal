@@ -28,7 +28,7 @@ Each LOD level is given a color and the color of the numbers indicate the config
 Black number don't correspond to any particular LOD level.
 The color of the line show which of the LOD levels is active then the object has the size that corresponds to that point along the number line.
 You will have to excuse, or at least look past, the non-linear scale of the number line.
-![](./Images/Mesh_LOD_Transition_Ranges.png)
+![](./Images/Mesh_LOD_Transition_Ranges.jpg)
 
 
 # Shadows

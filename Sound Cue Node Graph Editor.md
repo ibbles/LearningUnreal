@@ -276,7 +276,7 @@ Here is a screenshot of some examples of zero, one, two, and three input pins.
 Some have an Add Input button, i.e. support variable number of input pins.
 
 There is always exactly one output pin, except for the output node that has no output pin.
-![](./Images/Sound_cue_nodes.png)
+![](./Images/Sound_cue_nodes.jpg)
 
 ## Input Pin Creation
 

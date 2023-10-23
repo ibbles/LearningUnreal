@@ -7,7 +7,7 @@ In the [[Landscape Mode]], make sure the Manage tab is selected, and the New too
 
 The Landscape Mode Panel shows the settings for the new Landscape we are about to create.
 
-![](Images/New_Landscape_Settings.png)
+![](Images/New_Landscape_Settings.jpg)
 
 If you have a height map file then select Import From File.
 

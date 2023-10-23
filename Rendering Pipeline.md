@@ -1,6 +1,6 @@
 #Rendering
 
-![](Images/Rendering_Pipeline_Overview.png)
+![](Images/Rendering_Pipeline_Overview.jpg)
 
 
 The rendering pipeline is three frames deep, meaning that the pixels on screen is three frames old.

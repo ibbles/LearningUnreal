@@ -18,6 +18,6 @@ This something can be `Channel`, CONTINUE HERE
 To get the world location of a crosshair in a HUD pass the screen coordinate in pixels to Player Controller > Deproject Screen To World.
 If you have a third-person game then you may need to take the sprint arm length into account.
 In the following image Crosshair is a [[HUD]] Blueprint containing a `Crosshair X` and a `Crosshair Y` variable holding the screen coordinate, in pixels, of a crosshair.
-![](./Images/Crosshair_and_springarm_deproject.png)
+![](./Images/Crosshair_and_springarm_deproject.jpg)
 
 To get the mouse cursor position `CONTINUE HERE`

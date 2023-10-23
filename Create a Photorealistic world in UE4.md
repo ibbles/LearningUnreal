@@ -45,7 +45,7 @@ Sample roughness texture, using [[Sampler Type]] `Masks`, multiply by scalar par
 
 Sample normal texture, using [[Sampler Type]] `Normal`, scale red and green by a scalar parameter, append all channels back together.
 
-![](./Images/Create a photorealistic workd in UE4 opque master material.png)
+![](./Images/Create a photorealistic workd in UE4 opque master material.jpg)
 
 A trick is to add a Dither Temporal AA node, multiply it by a Scalar Parameter, and pass to Pixel Depth Offset.
 This will make the mesh blend into its surroundings.
@@ -67,7 +67,7 @@ Sample the opacity texture, multiply by a scalar parameter, and wire to Opacity 
 
 Sample the translucency texture , multiply by a scalar parameter, and wire to Subsurface Color.
 
-![](./Images/Create a photorealistic workd in UE4 foliage master material.png)
+![](./Images/Create a photorealistic workd in UE4 foliage master material.jpg)
 
 Recommends increasing the Normal Strength scalar parameter a bit, may 2.0.
 
