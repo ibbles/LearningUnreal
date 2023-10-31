@@ -1,3 +1,19 @@
+# Mouse Buttons
+
+(This text describe the old mappings-based input system. Unreal Engine 5 introduced a new system called [[Enhanced Input]].)
+Mouse button events are listened to in the same way as all other [[Input Events]].
+Each mouse button press and release generate an [[Action Event]].
+Set up an [[Action Event]] for a mouse button at [[Project Settings]] > Engine > Input > [[Input Bindings]] > [[Action Mappings|Action Mapping]].
+You can use an Axis Mapping if you want, but I think Action Mapping makes more sense since a click is an instantaneous discrete event.
+Click the `+` button next to Action Mappings.
+Enter a name for the Action Mapping, a short description of what should happen when the action is performed.
+By default there is no key binding for the newly created action, shown as None beneath the name.
+Either select one of the mouse buttons in the drop-down under the Mouse group, or click the keys icon to the left and then click the mouse button.
+Now we have a mapping from the mouse button to the new action.
+You can act on the event either in a [[Blueprint Event]] listener or using a [[Action Event In C++]].
+
+
+# Cursor Location In World Space
 In a [[Player Controller]] we can find the current location, in world space, of the mouse cursor using `DeprojectMousePositionToWorld`.
 It takes two output parameters:
 - `FVector WorldLocation`
@@ -14,4 +30,9 @@ FVector WorldDirection;
 DeprojectMousePositionToWorld(
 	WorldLocation, WorldDirection);
 ```
+
+
+# References
+- [_C++ For Unreal Engine (Part 1) | Learn C++ For Unreal Engine | C++ Tutorial For Unreal Engine_ 5:30:02 DeprojectMousePositionToWorld by Nerd's Academy. 2022](https://youtu.be/47z5sVbxmUo?list=PLkDceauvDXDy23KPR7tU2lkA9C69MzI0k&t=19802)
+- [_C++ For Unreal Engine (Part 1) | Learn C++ For Unreal Engine | C++ Tutorial For Unreal Engine_ 5:44:22 Mouse Button Action Mapping by Nerd's Academy. 2022](https://youtu.be/47z5sVbxmUo?list=PLkDceauvDXDy23KPR7tU2lkA9C69MzI0k&t=20672)
 
