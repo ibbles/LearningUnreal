@@ -52,8 +52,12 @@ Don't know why it was replaced, or when.
 An enum can be either scoped or unscoped.
 A scoped enum is also called a class enum.
 A scoped enum places its enum literals in a separate scope.
+If the enum is to be known by Unreal Engine, for example to be used in Blueprint or with the `StaticEnum` function, then it must be prefixed with the `UENUM` decorator.
+This made available by including `#include "UObject/ObjectMacros.h"`
 
 ```cpp
+#include "UObject/ObjectMacros.h"
+
 UENUM()
 enum EMyUnscopedEnum : uint8
 {
