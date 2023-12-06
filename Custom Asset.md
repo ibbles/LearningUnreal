@@ -1,4 +1,4 @@
-A custom asset is an [[Asset]] that is part of a project or [[Plugin]].
+A custom asset is an [[Asset]] type that is part of a project or [[Plugin]].
 Steps to create a new asset type:
 - Declare the asset type's C++ class.
 - Implement asset factories.
@@ -13,30 +13,34 @@ The asset's C++ class define the content of the asset.
 The class should inherit from `UObject`.
 There may be other non-Unreal Engine classes between `UObject` and the asset class.
 The class should be marked with the `*_API` macro for the module it is in.
-The class should be marked with the `UCLASS` macro.
+The class should be marked with the `UCLASS` macro,
+with the `BlueprintType` [[Class Specifier]] if the asset should be usable as a [[Blueprint Variable]] or in [[Blueprint Visual Script]].
+
 Need the following headers: 
 - `"CoreMinimal.h"`
 - `"UObject/Object.h"`
 - `"UObject/ObjectMacros.h"`.
 
 As with all generated classes, also need `"<CLASS_NAME>.generated.h"` last in the include list.
-Non-static data members that form the salient properties of the asset should be marked with `UPROPERTY`,
-with the `BlueprintType` [[Class Specifier]] if the asset should be usable as a [[Blueprint Variable]] or in [[Blueprint Visual Script]].
+Non-static data members that form the salient properties of the asset should be marked with `UPROPERTY`.
 
 `Source/MyProject/Public/MyAsset.h`:
 ```cpp
 #pragma once
 
+#include "CoreMinimal.h"
 #include "UObject/Object.h"
+#incldue "UObject/ObjectMacros.h"
 #include "MyAsset.generated.h"
 
 UCLASS(BlueprintType)
 class MYMODULE_API UMyAsset : public UObject
 {
     GENERATED_BODY()
+
 public:
     UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
-    float MyFloat;
+    double MyFloat;
 };
 ```
 
@@ -75,9 +79,9 @@ Example `MyAssetFactoryNew`, a factory that creates `MyAsset` instances from the
 #include "MyAssetFactoryNew.generated.h"
 
 UCLASS()
-class UMyAssetFactoryNew : public UFactory
+class MYEDITORMODULE_API UMyAssetFactoryNew : public UFactory
 {
-    GENERATED_UCLASS_BODY()
+    GENERATED_BODY()
 public:
     //~ Begin UFactory Interface
     virtual UObject* FactoryCreateNew(
@@ -135,12 +139,21 @@ bool UMyAssetFactoryNew::ShouldShowInNewMenu() const
 ```
 
 
-There is also `UActorFactory`, which is used when an asset is dragged from the Content Browser into the Level Viewport.
+There is also `UActorFactory`, which is used when an asset is dragged from the Content Browser into the [[Level Viewport]].
 
 There is also `IComponentAssetBroker`, which is used when an asset is dragged from the Content Browser into the Components Panel of a Blueprint class.
 
+To get the Asset to show up in the [[Content Browser]] right-click [[Asset]] creation menu we need to create an Editor Customization in the form of a `FAssetTypeActions_Base`.
 
-# Editor customization
+
+# Editor Customization
+
+## Asset Type Actions
+
+Create a class that inherties from `FAssetTypeActions_Base`.
+
+
+## Asset Customization
 
 The asset can have custom color, text, and icon in the Content Browser.
 The icon can be any UI widget, including a 3D viewport.
