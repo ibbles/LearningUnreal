@@ -18,6 +18,7 @@ With an [[Actor]] selected, type End to place it on whatever is beneath it.
 Collision shapes will be used if available, otherwise the origin of the object is placed on top of the thing below.
 
 Left-click an object in the Viewport to select it.
+If this doesn't work then check the Allow Translucent Selection option in [[Main Tool Bar]] > Gear.
 The selected object is highlighted in the [[Outliner]] panel and the [[Property|Properties]] for that object is shown in the [[Details Panel]].
 Hold Shift when clicking to select multiple objects.
 Hold Ctrl when clicking to toggle selection of the object.
@@ -51,3 +52,15 @@ One pane can be maximized.
 A grid button in the top-right of the Level Viewport unmaximizes the pane so that all panes become visible.
 When unmaximized the unmaximize button becomes a maximize button.
 Any pane can be maximized.
+
+
+# Multiple Viewport
+
+We can have multiple viewports  open at once.
+Enabled from Top Menu Bar > Viewports > Viewport \[1-4\].
+
+
+# References
+
+- [_Unreal Engine Editor Fundamentals > Viewport Widow_ by Epic Games @ dev.epicgames.com 2023](https://dev.epicgames.com/community/learning/courses/D95/unreal-engine-editor-fundamentals/XekP/unreal-engine-viewport-window)
+

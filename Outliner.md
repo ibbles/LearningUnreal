@@ -30,3 +30,10 @@ Searches can be saved by clicking the circle-plus button to the right.
 Filter by type lists using the triangle-lines drop-down menu to the left of the search box.
 Nested types appears as toggle buttons when a group-type is selected in the filter drop-down.
 The triangle-lines drop-down menu button get a red dot when type filtering is enabled.
+
+
+
+# References
+
+- [_Unreal engine Editor Fundamentals > World Outliner Panel_ by Epic Games @ dev.epicgames.com 2023](https://dev.epicgames.com/community/learning/courses/D95/unreal-engine-editor-fundamentals/4xpj/unreal-engine-world-outliner-panel)
+

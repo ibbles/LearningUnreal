@@ -46,6 +46,12 @@ Not sure why it does `-1` in the `for`-loop.
 `FindObject<UEnum>;` is the old way to do `StaticEnum`.
 Don't know why it was replaced, or when.
 
+In a Blueprint an enum can be converted to either a Name or a String.
+When converted to a name the name of the enum will be included.
+T.ex. `EMyEnum::MyValue`.
+When converted to a string only the name of the value is included.
+T.ex. `MyValue`.
+
 
 # Creating New Enum Types
 

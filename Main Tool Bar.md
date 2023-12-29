@@ -18,9 +18,13 @@ In the triple-dot drop-down menu we can control where the Play In Editor session
 
 The Platforms menu is used to package the project into an executable.
 
+# Settings
+
 At the end of the Main Tool Bar is the settings menu.
 Gives quick access to some of the [[Project Settings]].
 
+Allow Translucent Selection must be enabled in order to select translucent objects.
+It something can't be selected in the [[Level Viewport]] then check this setting.
 
 # References
 

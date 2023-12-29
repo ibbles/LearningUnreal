@@ -78,3 +78,9 @@ For example, for a [[Static Mesh Asset]] we can control the point-of-view.
 To enable Thumbnail Editing Mode do Content Browser > Settings > Thumbnail Edit Mode.
 Click-and-drag on an [[Asset]] to orbit the camera.
 Click Done Editing when done.
+
+
+# References
+
+- [_Unreal Engine Editor Fundamentals > Content Browser_ by Epic Games @ dev.epicgames.com 2023](https://dev.epicgames.com/community/learning/courses/D95/unreal-engine-editor-fundamentals/0Kpw/unreal-engine-content-browser)
+

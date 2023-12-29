@@ -8,6 +8,10 @@ When editing from the [[Level Editor]] Details panel we edit the selected instan
 Only the selected object(s) is(are) changed, nothing else.
 
 The Details panel is organized into two columns and the rows are grouped into sections called categories.
+The rows can be groups containing multiple sub-elements.
+For example an array with multiple elements or a [[Struct]] with multiple members.
+Click the triangle to the left to open or close such groups.
+Hold Shift when clicking to open or close entire subtrees.
 
 We can have multiple Details panels open at once.
 Open additional ones from [[Top Menu Bar]] > Window > Details > Details [1-4].
