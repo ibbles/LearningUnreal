@@ -1,9 +1,7 @@
-#Blueprint 
-
 A Blueprint class is a class, in the object oriented programming sense, implemented in a Blueprint.
 A Blueprint class can contain [[Blueprint Variable]] and logic in the form of [[Blueprint Visual Script]].
 A Blueprint class has a parent class that is either another Blueprint Class or a C++ [[UClass]].
-Common parent classes for Blueprint classes include Actor, Pawn, Character, Actor Component, Widget, ...
+Common parent classes for Blueprint classes include [[Actor]], [[Pawn]], [[Character]], [[Actor Component]], [[Widget]], [[Game Mode]], [[Game State]], and more.
 
 The intention is that common functionality can be placed in the parent classes, and more specific behavior in child classes.
 
