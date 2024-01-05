@@ -5,6 +5,6 @@
 - `BlueprintNativeEvent`
 	- Like `BlueprintImplementableEvent`, but with a C++ fallback.
 - `BlueprintPure`.
-	- Causes Visual Script nodes for this function to become expression nodes instead of execution nodes.
+	- Causes Visual Script nodes for this function to become an [[Expression Node]] instead of an [[Execution node]].
 - `CallInEditor`
 	- A button for this function is added to the [[Details Panel]].

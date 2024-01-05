@@ -14,7 +14,7 @@ It is run multiple times for every object.
 Some output node input pins are evaluated per pixel, others per vertex.
 I don't know which are per pixel and which are per vertex.
 
-The Material graph is different from the Blueprint Visual Script graph in that it only has expression nodes, no execution nodes.
+The Material graph is different from the Blueprint Visual Script graph in that it only has [[Expression node|Expression Nodes]], no [[Execution node|Execution Nodes]].
 Another way of looking at it is that the only execution node is the output node.
 Each input pin on the output node is connected to a network of nodes branching from that input pin.
 Each branch ends with a **value node**, also called an **input node**.

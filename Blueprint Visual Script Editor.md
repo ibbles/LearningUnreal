@@ -1,5 +1,5 @@
 The Blueprint Visual Script Editor is used to create logic and behavior for our [[Blueprint Class|Blueprint Classes]].
-The logic is defined by [[Execution Nodes]] that are linked together via their execution pins and [[Expression Nodes]] that control and configure the [[Execution Nodes]] for each execution, and [[Value Nodes]] that provide input to both the [[Execution Nodes]] and the [[Expression Nodes]].
+The logic is defined by [[Execution Nodes]] that are linked together via their execution pins and [[Expression Node|Expression Nodes]] that control and configure the [[Execution Nodes]] for each execution, and [[Value Nodes]] that provide input to both the [[Execution Nodes]] and the [[Expression Node|Expression Nodes]].
 
 # Creating nodes
 New nodes are added to the Visual Script by right-clicking and then selecting the wanted node from the list that appears.
@@ -33,7 +33,7 @@ Nodes can be moved so that the wires are **straightened** by selecting multiple 
 Nodes will only be moved up or down.
 Often the anchor node for the straightening is the last selected node.
 Not always though, not sure how to actually control the anchor node.
-I often organize a network of [[Expression Nodes]] that goes into an [[Execution Nodes|Execution Node]] by.
+I often organize a network of [[Expression Node|Expression Nodes]] that goes into an [[Execution Nodes|Execution Node]] by:
 - Select the Execution Node.
 - Hold Ctrl while selecting the Execution Node connected to the execution input pin of the first Execution Node.
 - Type `Q`. This will move the Execution Node in level with the Execution Node connected to the execution input pin.
