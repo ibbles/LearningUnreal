@@ -1,5 +1,12 @@
-A Level Blueprint is a Blueprint associated with a particular level.
+A Level Blueprint is a Blueprint associated with a particular [[Level]].
 It is not a [[Blueprint Class]], just an [[Event Graph]], [[Blueprint Function|Blueprint Functions]], and [[Blueprint Variable|Blueprint Variables]].
+It cannot have [[Component|Components]] since it is not an [[Actor]].
+
+The Level Blueprint can reference Actors inside the [[Level]].
+Have the [[Actor]] selected in the [[Level Viewport]] and right-click inside the Event Graph of the Level Blueprint.
+You will see Create A Reference To ACTOR_NAME.
+From the same menu we can also add event listeners for the [[Event|Events]] that the [[Actor]] exposes.
+For example Begin Overlap.
 
 The events within a Level Blueprint executes within the context of an instance of that level.
 This means that it has access to and can manipulate object instances in the level.
