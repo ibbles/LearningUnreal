@@ -1,4 +1,4 @@
-Input bindings are used to bind [[Input Events]] the player can trigger, such as pushing buttons and moving the mouse, to logic in the game.
+Input bindings are used to bind [[Input Event]] the player can trigger, such as pushing buttons and moving the mouse, to logic in the game.
 It is an abstraction, so that the implementing logic doesn't need to specify low-level input events such as "A was pressed" or "The third gamepad axis moved up", but instead bind to named events such as "Move Left" and "Look Up".
 
 Input Bindings are created in [[Project Settings]] > Engine > Input > Bindings.
@@ -27,5 +27,5 @@ They will be under Input > {Action, Axis} Events.
 This will add a root execution node to the graph.
 For a [[Pawn]] it is common to simply forward the Event outputs to the inputs of a Add Movement Input or Add Controller {Yaw, Pitch, Roll} Input node.
 
-Many Actors may be listening for [[Input Events]] but only one will receive it.
+Many Actors may be listening for [[Input Event]] but only one will receive it.
 The [[Player Controller]] is always in the list of candidates, but so is any other Actor that has had the [[Enable Input]] function called on it.

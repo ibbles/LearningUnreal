@@ -1,7 +1,7 @@
 # Mouse Buttons
 
 (This text describe the old mappings-based input system. Unreal Engine 5 introduced a new system called [[Enhanced Input]].)
-Mouse button events are listened to in the same way as all other [[Input Events]].
+Mouse button events are listened to in the same way as all other [[Input Event]].
 Each mouse button press and release generate an [[Action Event]].
 Set up an [[Action Event]] for a mouse button at [[Project Settings]] > Engine > Input > [[Input Bindings]] > [[Action Mappings|Action Mapping]].
 You can use an Axis Mapping if you want, but I think Action Mapping makes more sense since a click is an instantaneous discrete event.

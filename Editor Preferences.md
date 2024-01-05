@@ -15,7 +15,7 @@ Settings for themes and colors.
 ## Keyboard Shortcuts
 
 Check or set the keyboard shortcuts for the editor.
-This is not for the game, those shortcuts are controller with [[Input Events]] and [[Input Bindings]].
+This is not for the game, those shortcuts are controller with [[Input Event]] and [[Input Bindings]].
 
 ## Performance
 

@@ -1,4 +1,4 @@
-[[Input Events]] are triggered by [[Input Bindings]] set up in the [[Project Settings]].
+[[Input Event]] are triggered by [[Input Bindings]] set up in the [[Project Settings]].
 During runtime we can listen to those events in a C++ [[Player Controller]].
 To listen to an input event we need to register, or bind, the event in our [[Player Controller]] , which is done in the `SetupInputComponent` function.
 We bind the event to a callback function.

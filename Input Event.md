@@ -10,3 +10,8 @@ Last in the list is the current Player Controller.
 (
 Is the possessed Pawn in the list? I assume so.
 )
+
+
+If an [[Axis Event]] is not getting the axis value you expect, and instead always zero, it is possible that the [[Input Mode]] has been set to UI Only on the [[Player Controller]].
+This is often done when displaying a menu or other overlay UI element.
+To resume control over the [[Pawn]] remember to change the [[Input Mode]] back to Game Only.
