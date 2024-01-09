@@ -1,5 +1,7 @@
 See also [[Editor Scalability Settings]].
 
+By default the Unreal Editor reduces CPU usage, which reduces performance and framerate, when it loses focus.
+If you need full performance even when Unreal Editor does not have focus, is in the background, then disable [[Editor Preferences]] > Use Less CPU When In Background.
 
 # Optimization Viewmodes
 
