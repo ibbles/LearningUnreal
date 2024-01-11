@@ -21,6 +21,8 @@ This is not for the game, those shortcuts are controller with [[Input Event]] an
 
 Enable Show Frame Rate And Memory to have some performance statistics show up in the top-right corner of the main editor window.
 
+By default the editor reduces CPU usage when it does not have focus, which tanks the framerate and performance.
+Disable this behavior by disabling Use Less CPU When In Background.
 
 # Level Editor
 
