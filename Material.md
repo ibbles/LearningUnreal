@@ -1,10 +1,21 @@
 A Material defines the look-and-feel of an objects.
+Unreal Engine uses [[Physically Based Rendering]], so the purpose of a Material is to define values for the parameters used by that rendering model.
+See _Main Material Node_ below.
+
 The function of a Material is defined by its [[Material Graph]], which is constructed in the [[Material Editor]].
 The Material has a bunch of inputs.
 Some, such as texture coordinates and vertex colors, come from the mesh being rendered.
 Some, such as camera position and time, come from the engine itself.
 Some, the [[Material Parameter|Material Parameters]], are user provided.
 The author of the Material creates the parameters and implement their semantics through the [[Material Graph]].
+
+Material is a type of [[Asset]], new Materials are created from the [[Content Browser]].
+Right-click in the Content Browser and select Material.
+To assign a Material to a [[Static Mesh]]
+- drag it from the [[Content Browser]] and drop it on the [[Static Mesh]] in the [[Level Viewport]]
+- assign it to one of the Material > Element # slots in the Static Mesh's [[Details Panel]].
+
+There will be as many Material > Element # entries in the Static Mesh's [[Details Panel]] as there are [[Material Slot|Material Slots]] in the [[Static Mesh]].
 
 
 # Parameters And Material Instances
@@ -15,15 +26,23 @@ Can also be created by right-clicking any input pin on any node and select Promo
 Give the parameter a name.
 
 
-# Output Node
+# Main Material Node
 
-The main part of a Material is the [[Material Output Node]].
+The main part of a Material is the Main Material Node, also called the [[Material Output Node]].
 The values passed to the input pins of the output node define the function of the Material.
 Depending on the settings set in the Details panel different input pins are available.
+By default most values are zero, exceptions are shown in () below.
 
-- Base Color: The color of the material.
+- Base Color:
+	- The color of the material.
 - Metallic:
+	- How metallic the material is. I don't know what this means.
+	- Many recommend using this as a boolean, i.e. only ever pass 0.0 or 1.0. I don't know why.
+- Specular (0.5):
+	- In the majority of cases this can be left unconnected, using the default value.
 - Roughness:
+	- Values closer to 0.0 makes it more mirror-like, values closer to 1.0 makes it more diffuse.
+	- 1.0 means that light bounces off it in all directions.
 - Anisotropy:
 - Emissive Color:
 - Opacity:
@@ -38,6 +57,10 @@ Depending on the settings set in the Details panel different input pins are avai
 - Refraction:
 - Pixel Depth Offset:
 - Shading Model:
+
+
+If you are modeling a real-world material It is sometimes possible to find suitable ranges for many of these values on the internet.
+For example "PBR roughness plastic".
 
 
 ## Base Color: Vector
@@ -92,3 +115,8 @@ The following properties are available in the Details panel of the [[Material Ed
 - Dithered LOD Transition: Make the transition between LOD levels smoother.
 	- This might be for [[Foliage]] rendering only, not sure.
 	- Can be overridden in a [[Material Instance]].
+
+
+# References
+
+- [_Material Editor Fundamentals for Game Development_ > PBR Properties and the Material Editor by Epic Games, Lincoln Hughes @ dev.epicgames.com 2021](https://dev.epicgames.com/community/learning/courses/pm/unreal-engine-material-editor-fundamentals-for-game-development/PZb/unreal-engine-pbr-properties-and-the-material-editor)

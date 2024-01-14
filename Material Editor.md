@@ -1,15 +1,18 @@
-#Material 
-
 The Material Editor is where we define a [[Material]].
-It contains a Preview panel, a Details panel, and a Material Graph editor.
-The Preview panel shows what the material looks like on a sample mesh.
+It contains a Preview panel, a Details panel, and a [[Material Graph]] editor.
 Click **Apply** in the toolbar to **publish the changes** made to the Material to all meshes using it.
 
-The Material Graph ends in an **output node**.
-The values we pass to the input pins on the output node define the look of the objects that use this material.
-Which input pins are active depends on the settings set in the Details panel when the output node is selected.
 
-When rendering the Material Graph is executed on the GPU.
+# Main Material Node
+
+The Material Graph ends in an **output node** which is called the Main Material Node.
+The values we pass to the input pins on the output node define the look of the objects that use this material.
+Which input pins are active depends on the settings set in the [[Details Panel]] when the output node is selected.
+When a new [[Material]] is created the [[Material Graph]] will contain the Main Material Node only.
+
+# Material Graph
+
+When rendering the [[Material Graph]] is executed on the GPU.
 It is run multiple times for every object.
 Some output node input pins are evaluated per pixel, others per vertex.
 I don't know which are per pixel and which are per vertex.
@@ -25,8 +28,8 @@ A value node can be a literal node, a [[Material Parameter|Parameter node]], a t
 
 Nodes are created by right-clicking in the Material Graph editor and searching for the name of the node.
 Some nodes have shortcuts.
-A **literal node** can be created by holding one of the number keys from `1` to `4` on the keyboard and clicking.
-Double-click 3- or 4-component literal node to select a color.
+A **constrant vector node** can be created by holding one of the number keys from `1` to `4` on the keyboard and clicking.
+Double-click 3- or 4-component literal node to select a color, or edit from the [[Details Panel]].
 A **Texture Sample** node is created by dragging a texture from the Content Drawer into the Material Graph editor.
 Texture Sample nodes use the texture coordinates on the rendered mesh to know where on the texture to sample.
 Unless explicit UVs are passed to the Texture Sample node.
@@ -44,3 +47,30 @@ You can **zoom** in an out of the Material Graph with the scroll wheel.
 Hold Ctrl to zoom closer than 1:1.
 
 The **Material Defaults** panel lists all the parameters in the [[Material]] and their default values.
+
+
+# Details Panel
+
+This is where you control what type of material this is, what features it supports.
+
+
+# Preview Panel
+
+The Preview panel shows what the material looks like on a sample mesh.
+Click on of the buttons in the lower-right to select a mesh to preview the [[Material]] on.
+The tea-pot button uses the [[Static Mesh Asset]] that is currently selected in the [[Content Browser]].
+
+Hold L+LMB and move the mouse to change the direction of the incoming light.
+
+
+# Material Graph Editor
+
+Hold RMB and drag to pan the graph.
+Scroll-wheel to zoom.
+Click and drag between and input pin and and output pin, or vice versa, to connect them.
+Hold Alt and click on a pin to break all connections from that pin.
+
+
+# References
+
+- [_Material Editor Fundamentals for Game Development_ > PBR Properties and the Material Editor by Epic Games, Lincoln Hughes @ dev.epicgames.com 2021](https://dev.epicgames.com/community/learning/courses/pm/unreal-engine-material-editor-fundamentals-for-game-development/PZb/unreal-engine-pbr-properties-and-the-material-editor)
