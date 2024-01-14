@@ -67,7 +67,7 @@ These are enabled with a console command and are displayed as a table in the [[L
 
 ## GPU Visualizer ProfileGPU
 
-Unreal Editor contains a single-frame profiler called GPU Visualiser.
+Unreal Editor contains a single-frame profiler called [[GPU Profiler]] or GPU Visualiser.
 It is opened by running `ProfileGPU` in the [[Console]].
 The GPU Visualizers displays a timeline of the frame render and a tree view of the task hierarchy.
 

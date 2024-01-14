@@ -1,6 +1,6 @@
 Translucency means that a material is partially transparent, it has a non-binary opacity.
 It can also have a refraction index, meaning that it distorts the direction of light passing through it.
-Challenging to to in real time.
+Challenging to do in real time.
 Hardware [[Ray Tracing]] helps in the high quality / low frame rate use-cases.
 Unreal Engine has many variants.
 
@@ -23,7 +23,7 @@ Text missing here, where is that setting?
 
 ## Lighting Mode
 
-Under Details panel > Translucency.
+Under Details panel > Translucency > Lighting Mode.
 Affects both performance and render quality.
 
 - Volumetric NonDirectional
@@ -32,7 +32,10 @@ Affects both performance and render quality.
     - Similar to Volumetric NonDirectional.
 - Surface Forward Shading
   - Most computationally costly but best looking.
+  - Computes each light per-pixel.
 
+Different lighting mode algorithms have different inputs,
+which manifests as different input pins on the final material output node.
 
 # Material Output
 
