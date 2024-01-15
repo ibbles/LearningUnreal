@@ -1,13 +1,16 @@
 The usage of real-world material properties for rendering.
 Material properties that can be measured.
 An upgrade over older techniques such as [Phong shading](https://en.wikipedia.org/wiki/Phong_shading).
-The set of material properties used varies between different softwares.
-A common set, also used by Unreal Engine is:
+The set of material properties used varies between different software.
+A common set, also used by Unreal Engine, is:
 - Base color
 	- The overall color of the material.
+	- Sometimes provided by a [[Texture]] with `Albedo` in the name.
 - Metallic
 - Specular
 - Roughness
+
+These properties are often read from a [[Texture]] in the [[Material]].
 
 
 # References

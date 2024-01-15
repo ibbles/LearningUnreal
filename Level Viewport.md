@@ -14,6 +14,8 @@ Release Ctrl to accept the new light setup.
 
 Type G to toggle Game Mode, which when enabled hides icons for non-visible things such as [[Light Source|Light Sources]].
 
+Type F11 to maximize the viewport, type it again to unmaximize.
+
 With an [[Actor]] selected, type End to place it on whatever is beneath it.
 Collision shapes will be used if available, otherwise the origin of the object is placed on top of the thing below.
 

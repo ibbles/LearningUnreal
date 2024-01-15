@@ -12,6 +12,7 @@ View modes can visualize the various types of rendering methods being used in th
 
 You can read more about the performance related View Modes in [[Rendering Performance Profiling And Analysis]].
 You can read more about the lighting related View Modes in [[Lighting View Modes]].
+You can read more about material related View Modes in [[Material View Modes]].
 
 
 # References

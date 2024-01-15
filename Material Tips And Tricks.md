@@ -1,3 +1,5 @@
+# Texture Sampling
+
 Use a **TexCoord** node, called Texture Coordinate in the library, to zoom in or out of a texture.
 Set U- and V Tiling larger than 1 to zoom out, make the pattern smaller, repeat more.
 Set U- and V Tiling smaller than 1 to zoom in, make the pattern larger, fewer repetitions.
@@ -11,8 +13,8 @@ Possibly also combine with **VertexNormalWS**, WS stands for World Space, to pic
 There is also the  **World Aligned Normal** node, which seems related.
 One can also mask out only the Z component of Vertex Normal WS and use that to lerp between two textures.
 
-We can make **color variations** by having a gray-scale texture for patterns and using a **Blend Overlay** node along with a color parameter to chose a hue.
 
+# Material Attributes
 
 **Material Attributes** is a pack / struct of everything that a [[Material]] can output.
 They are a way to pass around and operate on material data.
@@ -44,6 +46,8 @@ Create a constant 3 vector (Hold 3 on the keyboard and click.) and multiply (Hol
 Convert the constant 3 vector to a parameter.
 Make the default value white, (1.0, 1.0, 1.0), that will make the multiply a no-op.
 
+We can make **color variations** by having a gray-scale texture for patterns and using a **Blend Overlay** node along with a color parameter to chose a hue.
+
 
 # Saturation
 
@@ -61,3 +65,17 @@ If you want to take this one step further then you can start piping the color in
 
 ![](./Images/MaterialTips_BrightnessAndEmissive.jpg)
 
+
+## Linear Interpolate (lerp)
+
+Create a Lerp node by holding L on the keyboard and clicking in the [[Material Graph]].
+Lerp is used to mix two values or colors.
+The Alpha value controls how much of each input to mix into the result.
+Alpha = 0 will use the A input value as-is.
+Alpha = 1 will use the B input value as-is.
+Alpha close to 0 will result in mostly the A value but some of the B value.
+Alpha close to 1 will result in mostly the B value but some of the A value.
+The value passed to Alpha must be a scalar value, not an RGB value.
+# References
+
+- [_Material Editor Fundamentals for Game Development_ by Epic Games, Lincoln Hughes @ dev.epicgames.com 2021](https://dev.epicgames.com/community/learning/courses/pm/unreal-engine-material-editor-fundamentals-for-game-development/)

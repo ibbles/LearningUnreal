@@ -30,7 +30,9 @@ Nodes are created by right-clicking in the Material Graph editor and searching f
 Some nodes have shortcuts.
 A **constrant vector node** can be created by holding one of the number keys from `1` to `4` on the keyboard and clicking.
 Double-click 3- or 4-component literal node to select a color, or edit from the [[Details Panel]].
-A **Texture Sample** node is created by dragging a texture from the Content Drawer into the Material Graph editor.
+A **Texture Sample** node is created by dragging a texture from the Content Drawer into the Material Graph editor,
+or by selecting Texture Sample from the right-click menu, or by holding T while left-clicking the [[Material Graph]].
+When created from the right-click menu the Texture Sample node will read from the [[Texture]] that is selected in the [[Content Browser]].
 Texture Sample nodes use the texture coordinates on the rendered mesh to know where on the texture to sample.
 Unless explicit UVs are passed to the Texture Sample node.
 A **Vertex Color** node reads the vertex color data from the Static Mesh being rendered.
@@ -51,7 +53,7 @@ The **Material Defaults** panel lists all the parameters in the [[Material]] and
 
 # Details Panel
 
-This is where you control what type of material this is, what features it supports.
+This is where you control what type of material this is, what features it supports, and such.
 
 
 # Preview Panel
@@ -62,6 +64,10 @@ The tea-pot button uses the [[Static Mesh Asset]] that is currently selected in 
 
 Hold L+LMB and move the mouse to change the direction of the incoming light.
 
+Instead of previewing the final material you can preview the output of any node in the graph.
+Right-click a node and select Start Previewing Node.
+The node will be colored Blue and the text Previewing will be displayed under the node's title.
+To stop previewing the node and show the final material again, right-click the node and select Stop Previewing Node.
 
 # Material Graph Editor
 
