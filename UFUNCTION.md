@@ -25,6 +25,7 @@ We can add [[Function Specifier|Function Specifiers]] to the `UFUNCTION` decorat
 
 - `BlueprintCallable`: The function can be called from a Blueprint Visual Script.
 - `BlueprintPure`: The function can be called from a Visual Script, will note have an execution pin.
+	- `const` functions are pure by default. Add `BlueprintPure = False` to turn it into a non-pure node.
 - `BlueprintImplementableEvent`: The function is only declared and not implemented in C++, the function definition is provided by a Blueprint class inheriting from the C++ class. I assume `Blueprintable` must be provided on the C++ class for this to make sense.
 - `BlueprintNativeEvent`: Like `BlueprintImplementableEvent`, but with a fallback C++ definition in case no Blueprint implementation is made. A separate C++ function with the same name but with `_Implementation` at the end is declared automatically and this is where the C++ implementation should be written. I assume `Blueprintable` must be provided on the class for this to make sense.
 
@@ -58,8 +59,10 @@ UPARAM(Ref) FMyType& MyGetterFunction();
 
 Using `UPARAM` we can also set the name of the output pin:
 ```cpp
+UFUNCTION(BlueprintCallable, Category = "MyCategory")
 UPARAM(DisplayName = "Num Widgets") int32 GetNumWidgets();
 ```
+If the function is `static` then the `UPARAM` macro should be placed between the `static` keyword and the return type.
 
 To return a pointer to a UObject, make a parameter that is a reference to a pointer.
 ```cpp
