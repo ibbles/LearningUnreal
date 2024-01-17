@@ -4,12 +4,13 @@ Textures can be imported using the Import button in the Content Drawer.
 Textures can be used for many different kinds of data, but there are a few that are very common.
 
 - Diffuse
-  The base color of a surface.
-  Sometimes called Albedo.
+    - The base color of a surface.
+    - Sometimes called Albedo.
 - Normal
-  Provide sub-triangle surface unevenness to a surface.
-  Texture containing normals are called "normal maps".
-  Textures containing normals are often sufficed with `_N`.
+    - Provide sub-triangle surface unevenness to a surface.
+    - Texture containing normals are called "normal maps".
+    - Textures containing normals are often sufficed with `_N`.
+    - Due to coordinate system differences sometimes imported normal maps are backwards with shadows showing up on the wrong side of a bump or dent. Fix this by checking Flip Green Channel in [[Texture Editor]] > Details panel > Texture.
 - Specular
 - Roughness
 
@@ -20,18 +21,29 @@ It is also possible to do more complicated packing, where values are mixed over 
 Textures are **sampled**, which means that a value is read from a coordinate on it.
 This is often done in a [[Material]], created in the [[Material Editor]].
 
-Each texture has a bunch of metadata that is set in the Details panel of the Texture Editor.
+Each texture has a bunch of metadata that is set in the Details panel of the [[Texture Editor]].
 Different **compression settings** are suitable for different types of data.
-For example, normal maps should have the `Normalmap` compression setting.
-
-A texture may contain an **animation** by dividing the texture into a grid and put each frame of the animation into a grid cell.
-Selecting a frame to show is done by manipulating the UVs, i.e. the texture coordinates, passed to the [[Texture Sample]] node.
-The **Flip Book** node helps with this.
+For example:
+- Base color textures should have the `Default` setting.
+- Normal maps should have the `Normalmap` setting.
+- Textures that contain multiple unrelated things, such as red=metallic; green=specular; blue=ambient occlusion, must be set to `Masks`.
+	- I think the same should be done even for single-channel textures.
+	- So what is the list of things that should be set to `Masks`?
 
 
 (
 [[TODO]] Write about sRGB. Once I understand it.
 )
+sRGB should be:
+- on for base color textures.
+- off for normal maps.
+
+
+# Animation Texture
+
+A texture may contain an **animation** by dividing the texture into a grid and put each frame of the animation into a grid cell.
+Selecting a frame to show is done by manipulating the UVs, i.e. the texture coordinates, passed to the [[Texture Sample]] node.
+The **Flip Book** node helps with this.
 
 
 # Texture size

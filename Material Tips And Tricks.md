@@ -14,6 +14,23 @@ There is also the  **World Aligned Normal** node, which seems related.
 One can also mask out only the Z component of Vertex Normal WS and use that to lerp between two textures.
 
 
+# Static Switching
+
+A static switch is kind of like a preprocessor `#if` in C++.
+It is a configuration point in a [[Master Material]] that a [[Material Instance]] can use to enable or disable parts of the graph.
+Called Static Switch Parameter in the node list.
+A static switch has two inputs, one labeled True and on labeled false, and one output.
+Depending on the value set my the [[Material Instance]] either the True-value or the False value is evaluated and propagated.
+The other path is not evaluated.
+[[Material Parameter|Material Parameters]] that only connect to static switches along a path that a particular [[Material Instance]] doesn't evaluate will not be listed in the [[Material Instance]].
+The static switch node can propagate any data type.
+
+A static switch must always have something connected to both inputs.
+This means that we lose the ability to use the engine defaults for the [[Material Output Node]] when there is at least one path that provide a value.
+I don't know how to work around this, other than knowing what the default is and creating a constant node with the  same value.
+Or creating a [[Material Parameter]] for it an letting someone else pick a value.
+
+
 # Material Attributes
 
 **Material Attributes** is a pack / struct of everything that a [[Material]] can output.
@@ -76,6 +93,8 @@ Alpha = 1 will use the B input value as-is.
 Alpha close to 0 will result in mostly the A value but some of the B value.
 Alpha close to 1 will result in mostly the B value but some of the A value.
 The value passed to Alpha must be a scalar value, not an RGB value.
+
+
 # References
 
 - [_Material Editor Fundamentals for Game Development_ by Epic Games, Lincoln Hughes @ dev.epicgames.com 2021](https://dev.epicgames.com/community/learning/courses/pm/unreal-engine-material-editor-fundamentals-for-game-development/)
