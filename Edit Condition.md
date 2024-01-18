@@ -7,9 +7,9 @@ There are limitations on what can go into the expression, but I'm not sure what 
 UPROPERTY(Meta = (EditCondition = "bLightEnabled && bLightColored"))
 FColor LightColor;
 
-UPROPERTY()
+UPROPERTY(EditAnywhere, Category = "Overrides", Meta = (PinHiddenByDefault, InlineEditConditionTogle))
 bool bLightEnabled;
 
-UPROPERTY()
+UPROPERTY(EditAnywhere, Category = "Overrides", Meta = (PinHiddenByDefault, InlineEditConditionTogle))
 bool bLightColored;
 ```
