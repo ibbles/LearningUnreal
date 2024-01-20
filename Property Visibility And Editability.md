@@ -66,7 +66,7 @@ Unless I'm misunderstanding something.
 # Dynamic Edit Condition Based On Other Properties
 
 We can make a [[Property]] be either editable or not depending on the value of some other [[Property]].
-This is called `EditCondition` and is a [[Meta Property Specifier]].
+This is called [[Edit Condition|`EditCondition`]] and is a [[Meta Property Specifier]].
 
 Example:
 ```cpp
@@ -77,7 +77,7 @@ public:
 	UPROPERTY(EditAnywhere, Category = "My Object", Meta = (EditCondition = "bMyPropertyEditable"))
 	double MyProperty = 0.0;
 
-	UPROPERTY(EditAnywhere, Category = "Overrides", Meta = (PinHiddenByDefault, InlineEditConditionTogle))
+	UPROPERTY(EditAnywhere, Category = "Overrides", Meta = (PinHiddenByDefault, InlineEditConditionToggle))
 	bool bMyPropertyEditable = false;
 };
 ```
@@ -89,7 +89,7 @@ Experiment with the above, see what each part does and if all of them are necess
 The `EditCondition` can be a more complicated expression, with `!`, `&&`, and `||`.
 Not sure if function calls are allowed.
 
-If there are many such Booleans then they they may be merged into a bitfield:
+If there are many such Booleans then they may be merged into a bitfield:
 ```cpp
 UPROPERTY(...)
 uint8 bFirstPropertyEditable : 1 = false;
