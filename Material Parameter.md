@@ -25,8 +25,11 @@ Check the check-box next to a parameter name to override it.
 The value-column becomes editable and we can set the value we want this [[Material Instance]] to have for that [[Material Parameter]].
 Values not overridden will use the value set in the parent material.
 
+
+# Groups
+
 Parameters can be grouped.
-Assign a group at Details panel > Material Expression > Group.
+Assign a group by selecting the parameter node and edit Details panel > Material Expression > Group.
 By setting a Sort Priority we decide where within that group a particular parameter is placed.
 
 

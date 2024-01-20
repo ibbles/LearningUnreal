@@ -141,7 +141,15 @@ Unreal Engine supports multiple rendering APIs:
 - Metal.
 
 
+# Vertex And Pixel Shaders
+
+Many of the steps in the rendering pipeline makes use of shaders.
+A [[shader]] is a GPU program that is run in parallel over all vertices or all pixels of a rendered [[Mesh]].
+The two most important [[Shader]] types are [[Vertex Shader]] and [[Pixel Shader]].
+
 # References
 
 - [_Graphics Programming Overview_ by Epic Games @ docs.unrealengine.com](https://docs.unrealengine.com/5.0/en-US/graphics-programming-overview-for-unreal-engine/)
 - [_Begin Play | Rendering_ by Epic Games @ dev.epicgames.com 2022](https://dev.epicgames.com/community/learning/tutorials/vyZ1/unreal-engine-begin-play-rendering)
+- [_Materials Master Learning_ > _Architecture_ by Epic Games, Sjoerd de Jong @ dev.epicgames.com 2019](https://dev.epicgames.com/community/learning/courses/2dy/unreal-engine-materials-master-learning/oJjW/unreal-engine-performance)
+

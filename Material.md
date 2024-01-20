@@ -1,11 +1,11 @@
 A Material defines the look-and-feel of an objects.
 Unreal Engine uses [[Physically Based Rendering]], so the purpose of a Material is to define values for the parameters used by that rendering model.
-See _Main Material Node_ below.
+See _Main Material Node_ below and [[Rendering Pipeline]].
 
 The function of a Material is defined by its [[Material Graph]], which is constructed in the [[Material Editor]].
-The Material has a bunch of inputs.
+A Material has a bunch of inputs.
 Some, such as texture coordinates and vertex colors, come from the mesh being rendered.
-Some, such as camera position and time, come from the engine itself.
+Some, such as camera position and time, come from the engine.
 Some, the [[Material Parameter|Material Parameters]], are user provided.
 The author of the Material creates the parameters and implement their semantics through the [[Material Graph]].
 
@@ -23,25 +23,30 @@ There will be as many Material > Element # entries in the Static Mesh's [[Detail
 A Material can have [[Material Parameter|Material Parameters]] and we can create a [[Material Instance]] or a [[Dynamic Material Instance]] that set these parameters to particular values.
 Parameters are created by adding a Constant node, created by holding 1 to 4 and clicking in the Material Graph, right-click the Constant node and select Convert To Parameter.
 Can also be created by right-clicking any input pin on any node and select Promote To Parameter.
-Give the parameter a name.
+Give the parameter a name and a default value.
 
 
 # Main Material Node
 
-The main part of a Material is the Main Material Node, also called the [[Material Output Node]].
+The main part of a Material is the main Material node, also called the [[Material Output Node]].
 The values passed to the input pins of the output node define the function of the Material.
-Depending on the settings set in the Details panel different input pins are available.
-By default most values are zero, exceptions are shown in () below.
+Depending on the settings set in the [[Details Panel]] different input pins are available.
+See [[Physically Based Rendering]].
+
+Default values are shown in () below.
 
 - Base Color:
 	- The color of the material.
-- Metallic:
+- Metallic (0):
 	- How metallic the material is. I don't know what this means.
+	- Increasing it reduces the influence of Base Color, makes reflections more visible.
 	- Many recommend using this as a boolean, i.e. only ever pass 0.0 or 1.0. I don't know why.
 - Specular (0.5):
 	- In the majority of cases this can be left unconnected, using the default value.
-- Roughness:
-	- Values closer to 0.0 makes it more mirror-like, values closer to 1.0 makes it more diffuse.
+	- Setting Specular to 0.0 removes reflections.
+	- Does nothing if Metallic is 1.0.
+- Roughness (1.0):
+	- Values closer to 0.0 makes it more smooth and mirror-like, values closer to 1.0 makes it more diffuse.
 	- 1.0 means that light bounces off it in all directions.
 - Anisotropy:
 - Emissive Color:
@@ -61,6 +66,7 @@ By default most values are zero, exceptions are shown in () below.
 
 If you are modeling a real-world material It is sometimes possible to find suitable ranges for many of these values on the internet.
 For example "PBR roughness plastic".
+See also [[Physically Based Rendering]]
 
 
 ## Base Color: Vector
@@ -108,8 +114,10 @@ The following properties are available in the Details panel of the [[Material Ed
 	- **Translucent**: We get gradual opacity, can set it 0..1 per pixel.
 - Advanced > Fully Rough: boolean
 	- Max out roughness, remove any glossiness from the materials.
+	- Simplifies the generated [[Shader]], removing parts of the [[Physically Based Rendering]], which improves performance.
+		- Not sure by how much.
 	- Not sure how this relates to the Roughness output, which is still enabled even after setting Fully Rough to true.
-	- The pin value seems to be ignored.
+		- The pin value seems to be ignored.
 - Use Material Attributes
 	- Collapse all the input pins on the [[Material Output Node]] to a single pin. This is useful when you are passing entire material setups around through [[Material Function|Material Functions]], mixing layers and such.
 - Dithered LOD Transition: Make the transition between LOD levels smoother.
@@ -120,3 +128,5 @@ The following properties are available in the Details panel of the [[Material Ed
 # References
 
 - [_Material Editor Fundamentals for Game Development_ > PBR Properties and the Material Editor by Epic Games, Lincoln Hughes @ dev.epicgames.com 2021](https://dev.epicgames.com/community/learning/courses/pm/unreal-engine-material-editor-fundamentals-for-game-development/PZb/unreal-engine-pbr-properties-and-the-material-editor)
+- [_Materials Master Learning_ > _Performance_ by Epic Games, Sjoerd de Jong @ dev.epicgames.com 2019](https://dev.epicgames.com/community/learning/courses/2dy/unreal-engine-materials-master-learning/oJjW/unreal-engine-performance)
+
