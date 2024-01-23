@@ -1,19 +1,47 @@
 The purpose of texture streaming is to maintain high visual quality while managing the available texture memory.
 Texture streaming is the act of dynamically loading and unloading [[Texture|Textures]] during runtime.
-
+Unreal Engine reserves a certain amount of memory for textures.
+This means that there is a texture budget which can be spent on loaded textures.
+The memory area where textures are stored is called the texture streaming pool.
+The size of the texture streaming pool is set with the `r.Streaming.PoolSize` [[Console Variable]], in MiB.
+`r.Streaming.PoolSize` should be set appropriately for your project and target platform.
 
 # Mip-Map Chain
 
-A [[Texture]] contains multiple [[LOD|LODs]], different versions of the same texture at different quality levels.
+A [[Texture]] contains multiple [[LOD|LODs]], different versions of the same texture at different quality levels (sizes).
 These are called mip levels, or a mip-map chain.
-Each level of the chain is half the size of the previous level, with the top level, level 0, being the source texture.
-The mip-map chain is generated when the [[Texture]] is imported.
-Using a smaller mip level improves performance and reduces aliasing and shimmering if the on-screen texture is smaller than the source texture, i.e. when the texel-to-pixel ratio is large, i.e. when there is a large population of texels that map to the same screen pixel.
+Each level of the chain is half the size of the previous level in both dimension, with the top level, level 0, being the source texture.
+The mip-map chain is generated (If possible, see power-of-two requirement below.) when the [[Texture]] is imported.
+The mip-map generation settings can be changed from [[Texture Editor]] > [[Details Panel]] > Level Of Detail > Mip Gen Settings.
+Here we can control of the smaller mip levels should be blurred or sharpened.
+
+Using a smaller mip level improves performance and reduces aliasing and shimmering if the on-screen texture is smaller than the source texture,
+i.e. when the texel-to-pixel ratio is large,
+i.e. when there is a large population of texels that map to the same screen pixel.
+In that case, neighboring pixels will sample vastly different texture data since there is a lot of detail.
+When using a higher mip level then we are sampling from a more suitable sized texture for the pixel size,
+and neighboring pixels will sample texels close to each other in the texture.
+Close to the a low mip-level is sampled and the farther away a rendered pixel is the higher mip-level it will sample from.
 
 Texture streaming ensure that we have the appropriate mip levels loaded in memory, instead of naively loading the entire texture.
+This is good for memory efficiency and performance, prevents hitching.
+Imagine an object being created in the distance and then moving closer and closer to the camera.
+If we did not use a mip-chain then we would need to load the entire texture all at once,
+for no reason and possibly causing a hitch.
+By only loading the smallest mip-level while the object is far away,
+and progressively loading larger and larger mips as they are needed we reduce both the memory bandwidth and memory size required.
+
+To conserve memory and improve performance we can limit or bias the mip-map look-up.
+By limiting a particular texture to, say, mip level 2 the level 1 and level 0 data will never be loaded,
+reducing memory usage and bandwidth requirements.
+A bias steps down the mip levels.
+For example, if the engine determines that mip level 1 would be suitable at a particular point in time a bias of 3 would make the streaming system load mip level 1 + 3 = 4 instead.
 
 Mip-map generation require that the source texture is a power-of-two size in each dimension.
+Rectangular textures are allowed.
 Textures that do not have any mip-maps will not be streamed.
+
+It is OK for UI textures to not have mip-maps, and thus not be power-of-two, since they are not viewed at a distance.
 
 Texture streaming is handled automatically by Unreal Engine.
 
@@ -29,6 +57,8 @@ A scene can contain a mix of streaming textures and [[Virtual Texture|Virtual Te
 # Texture Streaming Pool
 
 There is a set of video memory that holds streaming textures called the texture streaming pool.
+At some point the default texture streaming pool size was 1 GiB,
+not sure if that is still the case.
 Unreal Engine uses the texel size and the world bounds (of each rendered object?) to determine an appropriate texel to pixel ratio for each displayed texture.
 (
 What is that target ratio?
@@ -40,16 +70,21 @@ I assume this is because a player can turn faster than they can move.
 
 The texture streaming pool has a maximum size.
 We can **set this size** with the `r.Streaming.PoolSize` [[Console Variable]].
+It can be set in the project's `Config/DefaultEngine.ini`, in the `[/Script/Engine.enderSettings]` group.
 Another way is to set the value in one of the Scalability `.ini` files.
 For example the `BasicScalability.ini` file in the engine installation.
 (
 I don't think we should be messing around with the engine's `.ini` files, feels wrong.
+I assume we can create a `.ini` file in the project's `Config` directory as well,
+to override the engine's `BasicScalability.ini` file.
+Not sure what that file should be called though.
+Should the [[Scalability]] profiles be used to set `r.Streaming.PoolSize`?
 )
 There are different texture quality levels, marked with `@#` in the category name, where `#` is a number.
 For example `[TextureQuality@1]` or `[TextureQuality@3]`.
 Use the [[Output Log]] to find the Texture Quality level you are currently at by searching for `TextureQuality` and set `r.Streaming.PoolSize` in that category in `BasicScalability.ini`.
 
-Setting an appropriate value for your project and target hardware is probably complicated.
+Setting an appropriate value of `r.Streaming.PoolSize` for your project and target hardware is probably complicated.
 I assume this value should be different for different quality settings set by the end user.
 You can get some hints to what you need to set it to using the _Statistics_ and _Optimization View Modes_ described below.
 
@@ -60,7 +95,8 @@ Take not of the number and set `r.Streaming.PoolSize` to something a bit larger.
 Not sure how big the safety margin should be.
 
 If the texture streaming pool is full then a texture mip level that should be loaded may be rejected and we may get a blurry object.
-The system may also decide to unload a previously loaded mip level, falling back to a lower mip level for that texture, to make room for a larger mip level of another texture.
+The system may also decide to unload a previously loaded mip level, falling back to a lower mip level for that texture, to make room for a larger mip level of another texture,
+or to fit another texture at all, at the lowest mip level.
 The system will prioritize unloading mip levels where the smaller mip level still fulfills the texel to pixel ratio target.
 
 If it is not possible to fit all needed mip levels in the streaming pool then the following message is printed to the top-left corner of the [[Level Viewport]]:
@@ -189,3 +225,5 @@ Not sure what this actually means.
 - [_Managing the Texture Streaming Pool | Tips & Tricks | Unreal Engine_ by Unreal Engine @ youtube.com, 2022](https://youtu.be/uk3W8Zhahdg)
 - [_Texture Streaming_ by Epic Games @ docs.unrealengine.com](https://docs.unrealengine.com/5.0/en-US/texture-streaming-in-unreal-engine/)
 - [_UE4 - TEXTURE STREAMING POOL - PERMANENT FIX TUTORIAL_ by OneUp Game Dev @ youtube.com 2021](https://www.youtube.com/watch?v=9qPcAW5obg0)
+- [_Materials Master Learning_ > _Mipmaps, Texture Sizes, and Texture Pool_ by Epic Games, Sjoerd de Jong @ dev.epicgames.com 2019](https://dev.epicgames.com/community/learning/courses/2dy/unreal-engine-materials-master-learning/1Yno/unreal-engine-mipmaps-texture-sizes-and-texture-pool)
+

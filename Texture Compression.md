@@ -49,6 +49,7 @@ e.g. goes up when a grayscale texture is changed from the default texture compre
 The [[Statistics Browser]] can tell you the amount of memory used by textures.
 `stat memory` shows the usage in-game.
 
+
 # References
 
 - [_Materials Master Learning_ > _Compression and Memory_ by Epic Games, Sjoerd de Jong @ dev.epicgames.com 2019](https://dev.epicgames.com/community/learning/courses/2dy/unreal-engine-materials-master-learning/Y0q/compression-and-memory)

@@ -28,13 +28,18 @@ A value node can be a literal node, a [[Material Parameter|Parameter node]], a t
 
 Nodes are created by right-clicking in the Material Graph editor and searching for the name of the node.
 Some nodes have shortcuts.
+
 A **constrant vector node** can be created by holding one of the number keys from `1` to `4` on the keyboard and clicking.
 Double-click 3- or 4-component literal node to select a color, or edit from the [[Details Panel]].
-A **Texture Sample** node is created by dragging a texture from the Content Drawer into the Material Graph editor,
+
+A **[[Texture Sample]]** node is created by dragging a texture from the Content Drawer into the Material Graph editor,
 or by selecting Texture Sample from the right-click menu, or by holding T while left-clicking the [[Material Graph]].
 When created from the right-click menu the Texture Sample node will read from the [[Texture]] that is selected in the [[Content Browser]].
 Texture Sample nodes use the texture coordinates on the rendered mesh to know where on the texture to sample.
 Unless explicit UVs are passed to the Texture Sample node.
+There is a limit to the number of texture samplers there can be in a material,
+around 13 depending on what [[Shader|Shader Templates]] the [[Material]] depend on.
+
 A **Vertex Color** node reads the vertex color data from the Static Mesh being rendered.
 
 Reroute nodes can be used to tidy up the wires.

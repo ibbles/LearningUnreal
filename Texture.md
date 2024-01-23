@@ -38,6 +38,15 @@ sRGB should be:
 - on for base color textures.
 - off for normal maps.
 
+A Texture has a group.
+A bunch of project-wide settings operate on all Textures with these groups.
+A Texture's group is set at [[Texture Editor]] > [[Details Panel]] > Level Of Detail > Texture Group.
+There are a bunch of predefined groups such as World, Vehicle, Weapon, Character, Lightmap, and more.
+I don't know if it is possible to add custom groups for our project.
+
+Texture group wide settings are at [[Top Menu Bar]] > Window > Developer Tools > Device Profiles.
+Select a device and click the wrench button under Texture LOD Groups.
+This will bring up a Details panel-like view where Min LOD Size, Max LOD size, LOD Bias and more can be set.
 
 # Animation Texture
 
@@ -63,7 +72,6 @@ A newer variant of mip-map is [[Virtual Texture]].
 
 # Texture Streaming
 
-
 [[Texture Streaming]]
 
 
@@ -86,4 +94,5 @@ RuntimeTexture->UpdateResource();
 # References
 
 - [_5 Tips to Optimize Environments in Unreal Engine 4_ - Texture Size by Jakub Haluszczak @ youtube.com 2021](https://youtu.be/gZkKcaF4Ifk?t=386)
+- [_Materials Master Learning_ > _Mipmaps, Texture Sizes, and Texture Pool_ by Epic Games, Sjoerd de Jong @ dev.epicgames.com 2019](https://dev.epicgames.com/community/learning/courses/2dy/unreal-engine-materials-master-learning/1Yno/unreal-engine-mipmaps-texture-sizes-and-texture-pool)
 
