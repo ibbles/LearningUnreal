@@ -98,3 +98,4 @@ The value passed to Alpha must be a scalar value, not an RGB value.
 # References
 
 - [_Material Editor Fundamentals for Game Development_ by Epic Games, Lincoln Hughes @ dev.epicgames.com 2021](https://dev.epicgames.com/community/learning/courses/pm/unreal-engine-material-editor-fundamentals-for-game-development/)
+- [_Materials Master Learning_ > _Material Editor Intro and Learning Strategies_ and the following videos by Epic Games, Sjoerd de Jong @ dev.epicgames.com 2019](https://dev.epicgames.com/community/learning/courses/2dy/unreal-engine-materials-master-learning/oVv/material-editor-intro-and-learning-strategies)

@@ -8,6 +8,7 @@ Some, such as texture coordinates and vertex colors, come from the mesh being re
 Some, such as camera position and time, come from the engine.
 Some, the [[Material Parameter|Material Parameters]], are user provided.
 The author of the Material creates the parameters and implement their semantics through the [[Material Graph]].
+See [[Material Input]].
 
 Material is a type of [[Asset]], new Materials are created from the [[Content Browser]].
 Right-click in the Content Browser and select Material.

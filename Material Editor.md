@@ -85,3 +85,5 @@ Hold Alt and click on a pin to break all connections from that pin.
 # References
 
 - [_Material Editor Fundamentals for Game Development_ > PBR Properties and the Material Editor by Epic Games, Lincoln Hughes @ dev.epicgames.com 2021](https://dev.epicgames.com/community/learning/courses/pm/unreal-engine-material-editor-fundamentals-for-game-development/PZb/unreal-engine-pbr-properties-and-the-material-editor)
+- [_Materials Master Learning_ > _Material Editor Intro and Learning Strategies_ by Epic Games, Sjoerd de Jong @ dev.epicgames.com 2019](https://dev.epicgames.com/community/learning/courses/2dy/unreal-engine-materials-master-learning/oVv/material-editor-intro-and-learning-strategies)
+

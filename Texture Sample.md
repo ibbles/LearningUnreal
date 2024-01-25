@@ -30,6 +30,12 @@ Useful if there is no base color [[Texture]], the grass is just solid green or t
 Also, since [[Texture Compression|alpha is not compressed]] but the color channels are, it may be worthwhile to take three alpha textures and put them into the RGB channels of an alpha-less [[Texture]].
 Combining different data in a single [[Texture]] like this is sometimes called "mergemaps".
 
+A Texture Sample can be combined with the Bump Offset node to give the illusion of depth in the surface.
+It produces a parallax effect.
+Connect a Texture Sample from a [[Height Map]] into the Height input pin of the Bump Offset node to control the contour of the imaginary bumps.
+The output of a Bump Offset node is a tweaked UV coordinate that should be passed to the regular Texture Sample nodes,
+the ones used for Base Color, Roughness, and so on.
+Can be used to make it appear like something is behind a glass pane, for example an old CRT TV or a spot-light inside the ceiling or an aquarium.
 # References
 
 - [_Materials Master Learning_ > _Mipmaps, Texture Sizes, and Texture Pool_ by Epic Games, Sjoerd de Jong @ dev.epicgames.com 2019](https://dev.epicgames.com/community/learning/courses/2dy/unreal-engine-materials-master-learning/1Yno/unreal-engine-mipmaps-texture-sizes-and-texture-pool)
