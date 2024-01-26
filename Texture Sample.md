@@ -36,6 +36,12 @@ Connect a Texture Sample from a [[Height Map]] into the Height input pin of the 
 The output of a Bump Offset node is a tweaked UV coordinate that should be passed to the regular Texture Sample nodes,
 the ones used for Base Color, Roughness, and so on.
 Can be used to make it appear like something is behind a glass pane, for example an old CRT TV or a spot-light inside the ceiling or an aquarium.
+
+An even more powerful variant of parallax effect is the Parallax Occlusion Mapping node.
+Give it a [[Height Map]] and it produces
+- updated UVs to use when sampling color, normal, etc [[Texture|Textures]].
+- A shadow mount value to be multiplied into the base color expression to get shadows.
+- A pixel depth offset to connect to the Pixel Depth Offset input pin on the [[Material Output Node]].
 # References
 
 - [_Materials Master Learning_ > _Mipmaps, Texture Sizes, and Texture Pool_ by Epic Games, Sjoerd de Jong @ dev.epicgames.com 2019](https://dev.epicgames.com/community/learning/courses/2dy/unreal-engine-materials-master-learning/1Yno/unreal-engine-mipmaps-texture-sizes-and-texture-pool)
