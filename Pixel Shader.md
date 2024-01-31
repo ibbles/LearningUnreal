@@ -14,7 +14,7 @@ Unreal adds a bunch of extra shader code, called [[Shader Template|Shader Templa
 So the actual shader program is a large HLSL program Epic Games designed that contains customization points that a we configure per [[Material]] through the [[Material Editor]].
 Each input pin on the [[Material Output Node]] is one of those customization points.
 The settings set in the [[Details Panel]] of the [[Material]] defines which engine-provided shader code is included and which customization points the [[Material]] must specify, i.e. which input pins are active on the [[Material Output Node]].
-Settings such as Material Domain, Blend Mode, Shading Model, (Anything else?).
+Settings such as Material Domain, Blend Mode, and Shading Model. (Anything else?)
 The shader code is available in the engine installation, in the `Engine/Shaders` directory.
 
 Additional HLSL code from the engine [[Shader Template|Shader Templates]] may be added based on usage.
@@ -46,3 +46,4 @@ See also [[Vertex Shader]].
 # References
 
 - [_Materials Master Learning_ by Epic Games, Sjoerd de Jong @ dev.epicgames.com 2019](https://dev.epicgames.com/community/learning/courses/2dy/unreal-engine-materials-master-learning/bVy/introduction)
+- [_Materials Master Learning_ > _Material Input - Part One_by Epic Games, Sjoerd de Jong @ dev.epicgames.com 2019](https://dev.epicgames.com/community/learning/courses/2dy/unreal-engine-materials-master-learning/KzX/material-inputs-part-one)

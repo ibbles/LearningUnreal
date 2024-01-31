@@ -38,6 +38,7 @@ Default values are shown in () below.
 
 - Base Color:
 	- The color of the material.
+	- Red, green, and blue each in the range 0.0..1.0. Larger values are clamped.
 - Metallic (0):
 	- How metallic the material is. I don't know what this means.
 	- Increasing it reduces the influence of Base Color, makes reflections more visible.
@@ -50,18 +51,51 @@ Default values are shown in () below.
 	- Values closer to 0.0 makes it more smooth and mirror-like, values closer to 1.0 makes it more diffuse.
 	- 1.0 means that light bounces off it in all directions.
 - Anisotropy:
-- Emissive Color:
+- Emissive Color (0.0, 0.0, 0.0):
+	- Causes the material to illuminating, to glow. Controls bloom.
+	- Can accept color values larger than 1.0.
+	- Does not actually emit light, does not shine on surrounding objects and does not cause shadows.
+		- With [[Lumen]] I think it does. (Test it.)
+	- Used for small lights, like LED diodes, fire,
 - Opacity:
 - Opacity Mask:
 - Normal
 - Tangent:
 - World Position Offset:
+	- Evaluated by the [[Vertex Shader]].
+	- Used to tweak the position of the vertex.
+	- Does not create new vertices, so needs a high-resolution mesh for high-resolution surface details.
+	- Can be used to create procedural wind animation for foliage.
+		- Create a grass texture where the vertices at the bottom have black [[Vertex Color]] and the ones at the top has [[Vertex Color]] color, with a gradient between them.
+		-  Provide two 3-component vector values, one negative and one positive, to control the amount of sway of the grass.
+		- Use the Time node, pass it through a Sine node, offset and scale to 0.0..1.0 range, pass to a [[Lerp]] node lerping between the two sway amount values, multiply the resulting sway amount with the green channel of the [[Vertex Color]], connect to the World Position Offset input pin.
+		- The vertices at the bottom will not sway since they are black so the last multiply will multiply by 0.0.
+		- The vertices at the top will sway by the set sway amount since they are multiplied by 1.0, the all-green color read from the [[Vertex Color]] for those vertices.
+		- The vertices in-between will sway some portion of the sway amount depending on their height and thus amount of green in the [[Vertex Color]].
+	- Can be used to create wave-like patterns.
+		- Use a pair of Panner nodes, with different settings, to pan a grayscale noise texture twice over the surface, multiply the two samples together, scale to wanted height, append with 0.0 and 0.0 to produce a (0.0, 0.0, noise\*noise) vector, connect to World Position Offset.
+	- Can be used to create uneven surfaces from a [[Height Map]].
+		- Sample a [[Height Map]] [[Texture]], multiply that with a scalar to control offset distance, multiply by the Vertex Normal WS to move in the correct direction, and connect to the World Position Offset input pin.
 - Subsurface Color:
 - Custom Data 0:
 - Custom Data 1:
 - Ambient Occlusion:
+	- Not sure exactly.
+	- Does not work with dynamics lights.
+		- (As of Unreal Engine 4.something, 2019. Does it work with [[Lumen]]?)
 - Refraction:
 - Pixel Depth Offset:
+	- Offsets the location of the pixels.
+	- Not sure in which direction. Away from the camera?
+	- Used for making grass on a plane appear more natural when it intersects with a flat ground.
+	- By using a grayscale texture painting some blades of grass white, some gray, and some dark gray with get some variation of where they become occluded by the ground.
+	- There is no straight intersection line anymore.
+	- The same can be done with hair.
+	- Can be used in combination with the Parallax Displacement Map.
+		- If we lower a parallaxed flat plane down towards a flat ground the grooves won't disappear first.
+		- The entire parallaxed object will remain visible until the plane passes through the ground, at which point the entire object disappears all at once.
+		- The illusion of depth is lost.
+		- By adding a Pixel Depth Offset that is larger in the grooves we push those further away into the ground and those pixels a Z-culled away before the higher parts of the [[Height Map]].
 - Shading Model:
 
 
@@ -130,4 +164,4 @@ The following properties are available in the Details panel of the [[Material Ed
 
 - [_Material Editor Fundamentals for Game Development_ > PBR Properties and the Material Editor by Epic Games, Lincoln Hughes @ dev.epicgames.com 2021](https://dev.epicgames.com/community/learning/courses/pm/unreal-engine-material-editor-fundamentals-for-game-development/PZb/unreal-engine-pbr-properties-and-the-material-editor)
 - [_Materials Master Learning_ > _Performance_ by Epic Games, Sjoerd de Jong @ dev.epicgames.com 2019](https://dev.epicgames.com/community/learning/courses/2dy/unreal-engine-materials-master-learning/oJjW/unreal-engine-performance)
-
+- [_Materials Master Learning_ > _Material Inputs - Part Two_ by Epic Games, Sjoerd de Jong @ dev.epicgames.com 2019](https://dev.epicgames.com/community/learning/courses/2dy/unreal-engine-materials-master-learning/9zP/material-inputs-part-two)
