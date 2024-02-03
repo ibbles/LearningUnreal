@@ -7,4 +7,4 @@ You can store the expression node's value in a variable if you only want to eval
 or if you want to use a changing value multiple times.
 The Random Float In Range is an example of an expression node that gives different values if evaluated multiple times.
 
-
+Expression Nodes are used in both [[Blueprint Visual Script]] and the [[Material Graph]].
