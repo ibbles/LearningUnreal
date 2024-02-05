@@ -56,15 +56,37 @@ The Static Switch node has a True input pin and a False input pin.
 If the Static Switch Parameter is set to True then only the True branch is evaluated.
 If the Static Switch Parameter is set to False then only the False branch is evaluated.
 
+
 # Groups
 
 Parameters can be grouped.
+This puts them in a named category within the [[Details Panel]] when editing a [[Material Instance]]
 Assign a group by selecting the parameter node and edit Details panel > Material Expression > Group.
 By setting a Sort Priority we decide where within that group a particular parameter is placed.
 
+
+# Material Parameter Collection
+
+A global, project-wide, Material Parameter that is accessible from all [[Material|Materials]].
+A way to modify the same Material Parameter in many [[Material Instance|Material Instances]] at once.
+A Material Parameter Collection is an [[Asset]].
+It contains a list of scalar parameters and a list of vector parameters.
+Each parameter has a name and a value.
+
+To use a Material Parameter Collection in a [[Material]] add a Collection Parameter node.
+The Collection Parameter node has Collection Param underneath the title.
+In the [[Details Panel]], the node has a reference to the Material Parameter Collection [[Asset]],
+and a Parameter Name to identify which parameter in the collection this particular node should output.
+
+A [[Material]] can only use two Material Parameter Collections.
+One strategy is to have a general collection that any [[Material]] can use and a bunch of more specific ones that are used in a [[Material]] on a case-by-case basis.
+The general collection can contain things like the time of day, color of the sky, and similar.
+
+A Material Parameter Collection cannot have more than 1024 parameters.
 
 # References
 
 - [_Material Editor Fundamentals for Game Development_ > Master Materials, Material Instances, and Parameters_ by Epic Games, Lincoln Hughes @ dev.epicgames.com 2021](https://dev.epicgames.com/community/learning/courses/pm/unreal-engine-material-editor-fundamentals-for-game-development/b6Z/unreal-engine-master-materials-material-instances-and-parameters)
 - [_Materials Master Learning_ > _Material Instances_ by Epic Games @ dev.epicgames.com 2019](https://dev.epicgames.com/community/learning/courses/2dy/unreal-engine-materials-master-learning/o6r/material-instances)
+- [_Materials Master Learning_ > _Material Parameter Collections_ by Epic Games @ dev.epicgames.com 2019](https://dev.epicgames.com/community/learning/courses/2dy/unreal-engine-materials-master-learning/qLO/material-parameter-collections)
 
