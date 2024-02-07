@@ -42,6 +42,26 @@ Give it a [[Height Map]] and it produces
 - updated UVs to use when sampling color, normal, etc [[Texture|Textures]].
 - A shadow mount value to be multiplied into the base color expression to get shadows.
 - A pixel depth offset to connect to the Pixel Depth Offset input pin on the [[Material Output Node]].
+
+
+# Texture Mapping
+
+Texture mapping is the act of assigning texels in a [[Texture]] to points on a [[Mesh]].
+Normally, each vertex of the [[Mesh]] have a texture coordinate that identifies a point on the [[Texture]],
+and those texture coordinates are interpolated over the triangle formed from the vertices.
+The texture coordinates are typically assigned in a mesh modeling software such as Blender.
+The texture coordinates goes into the UV input pin of a Texture Sample node.
+
+Sometimes we want to do something custom.
+Perhaps we have a [[Mesh]] that lack texture coordinates, or perhaps we are after some other type of effect.
+In these cases we can generate, calculate, texture coordinate within the [[Material Graph]].
+There are a number of nodes that can help with this.
+
+World Coordinate 3-Way does a planer projection from all three primary axes.
+It uses Absolute World Position and the vertex normal to generate a texture sample that is a regular texture lookup for triangles facing one of the primary axes and blend between them for angled triangles.
+This gives a seamless and reasonable looking texture wrapping without needing per-vertex texture coordinates.
+
+
 # References
 
 - [_Materials Master Learning_ > _Mipmaps, Texture Sizes, and Texture Pool_ by Epic Games, Sjoerd de Jong @ dev.epicgames.com 2019](https://dev.epicgames.com/community/learning/courses/2dy/unreal-engine-materials-master-learning/1Yno/unreal-engine-mipmaps-texture-sizes-and-texture-pool)
