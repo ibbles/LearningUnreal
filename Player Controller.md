@@ -1,5 +1,7 @@
 A Player Controller is a type of [[Controller]].
-It may be possessing, i.e. controlling, a [[Pawn]].
+The Player Controller is part of the Pawn, [[Player Controller]], [[Player State]] trio created for each player.
+
+The Player Controller may be possessing, i.e. controlling, a [[Pawn]].
 We can get access to that [[Pawn]] with the Get Controlled Pawn node.
 In C++ we call the `AController::GetPawn` function.
 We can check if a particular [[Pawn]] is controlled by a Player Controller with the Is Player Controlled node.
