@@ -1,8 +1,17 @@
 HUD is short for Heads-Up Display.
-It is the 2D elements that are rendered "on the camera lens"-ish.
+It is the 2D elements that are rendered "on the camera lens"-ish, i.e. the UI or User Interface.
 Often used to display health bars, ammo counters, mini-maps, and other gameplay related state that the player need to have quick access to.
 
+The HUD is displayed on the player's [[Viewport]].
+Elements can be added to and removed from the HUD based on gameplay events and logic.
+
+The HUD is spawned by each player's [[Player Controller]] as part of the instantiation process.
+This doesn't mean that the HUD logic must be in the [[Player Controller]],
+you can put it anywhere it makes sense.
+
 I don't know the difference between having a HUD vs adding a [[Widget Blueprint]] to the Viewport.
+
+The HUD class inherits from [[Actor]].
 
 **Create a new HUD** Blueprint by Content Browser > right-click > Blueprint Class > type HUD in the search field > Click Select.
 HUD Blueprints are often named with a `HBP_` prefix.
@@ -10,11 +19,17 @@ HUD Blueprints are often named with a `HBP_` prefix.
 Make a particular HUD class the **active** one by selecting it in [[Game Mode]] > Details panel > Classes > HUD.
 Make sure the [[Game Mode]] is selected in either the [[World Settings]] or the [[Project Settings]].
 
+The HUD can be built using [[Unreal Motion Graphics]], UMG, something similar you build yourself, or using a plugin.
+
 The HUD is owned by the [[Player Controller]], and if we have a reference to the [[Player Controller]] then we can get the HUD with the Get HUD node.
 
-A HUD is a [[Blueprint Class]] and therefor has a Components list, a My Blueprint panel, a Viewport, and an [[Event Graph]].
+A HUD is a [[Blueprint Class]] inheriting from [[Actor]] and therefor has a Components list, a My Blueprint panel, a Viewport, and an [[Event Graph]].
 
-HUD has a Blueprint Event named **Event Receive Draw HUD** which is given the width and the height of the screen.
+I'm not sure how to best communicate new data to the HUD.
+One one is to have the [[Player State]] notify the HUD about any changes in the [[Player State]].
+I thing you can get a hold of the HUB object from a [[Player State]] member function via the [[Player Controller]].
+
+HUD has a [[Blueprint Event]] named **Event Receive Draw HUD** which is given the width and the height of the screen.
 The size is specified with integers so I assume they are in pixels, or [[DPI]] scaled pixels.
 The screen size parameters are named `Sizex X` and `Size Y`.
 
