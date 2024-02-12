@@ -22,3 +22,6 @@ A Static Mesh Asset can contain vertex colors.
 This is a color assigned to each vertex.
 While the vertex color can be rendered as-is, it is more common to use it to control some other aspect of the rendering through the [[Material]], such as which texture to sample from.
 
+A Static Mesh Asset can be created from a Static Mesh [[Actor]] in a [[Level]] with right-click > Convert `NAME` To Static Mesh.
+This will read all Static Meshes from the [[Actor]] and save the result as a Static Mesh Asset.
+A dialog window will open to let you chose a folder and asset name.

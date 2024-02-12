@@ -14,6 +14,12 @@ I'm not sure the above is true.
 I'm not sure what happens if you access an Actor member Component after it has been destroyed.
 Is it still safe to call Is Valid on it?
 
+Actor Component has a Tick Component callback that should be disabled for every Component that don't need it,
+for runtime performance reasons.
+For a Blueprint Component untick the [[Class Defaults]] > Tick > Start With Tick Enabled checkbox.
+For a C++ Blueprint Component that don't ever need the tick callback do `PrimaryComponentTick.bCanEverTick = false` in the constructor.
+For a C++ Blueprint that only needs ticking sometimes do `PrimaryComponentTick.bStartWithTickEnabled = false` in the constructor.
+Some time later, use the `PrimaryComponentTick.SetTickFunctionEnable` function to enable or disable the tick callback.
 
 # Creating A New Actor Component Type
 
@@ -31,9 +37,13 @@ See [[Module]], [[UPROPERTY]], [[UFUNCTION]] ... for details on some of the bits
 `MyComponent.h`:
 ```cpp
 #pragma once
+
+#include <Components/ActorComponent.h>
+
 #include "MyComponent.generated.h"
+
 UCLASS(Meta = (BlueprintSpawnableComponent))
-class MYPROJECT_API UMyComponent : public UActorComponent /* Or USceneComponent. */
+class MYPROJECT_API UMyComponent : public UActorComponent /* Or, for example, USceneComponent. */
 {
 	GENERATED_BODY()
 public:
