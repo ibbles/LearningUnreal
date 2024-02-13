@@ -1,9 +1,11 @@
 An Event Dispatcher is something that other objects can listen to.
 Other objects can get a callback when the Event Dispatcher is triggered.
+We say that the Event Dispatcher dispatches an [[Event]].
 
 An Event Dispatcher is created from the My Blueprint panel of the [[Blueprint Editor]].
+Give the new Event Dispatcher a name.
 
-Trigger an Event Dispatcher by dragging it from the My Blueprint > Event Dispatchers list into the [[Event Graph]] and select Call from the list.
+Trigger an Event Dispatcher by dragging it from the My Blueprint > Event Dispatchers list into the [[Event Graph]] and select Call from the list that pops up.
 Any listeners registered with the Event Dispatcher will be executed.
 
 When dragging the Event Dispatcher from the My Blueprint panel to the [[Event Graph]] and selecting Event from the list we will get a red [[Blueprint Event]] node.
@@ -19,6 +21,20 @@ Instead of selecting Event and Bind as two actions we can select Assign from the
 This will create both nodes and connect them.
 
 
+# Blueprint Communication
+
+An Event Dispatcher can be used for [[Blueprint Communication]].
+Create one [[Blueprint Class]], let's call it `BP_Dispatcher` for example, that contains the Event Dispatcher, created as described above.
+For this example let's call it `MyEvent`.
+Create another [[Blueprint Class]], let's call it `BP_Listener` for example, that has a [[Blueprint Variable]] whose type is a reference to the first [[Blueprint Class]].
+Make the variable public so that a level designer can chose which instances of the two [[Blueprint Class]]es should communicate.
+In listener [[Blueprint Class]] drag the `BP_Dispatcher` reference variable into the [[Event Graph]] to get the reference and from it drag and select Bind Event To My Event.
+A node Bind Event node appears, which has an Event input pin.
+Drag of off the Event input pin an select Create Custom Event.
+
+Now, whenever the Dispatcher [[Blueprint Class]] triggers its Event Dispatcher the [[Custom Event]] in the listener [[Blueprint Class]] will be run.
+
+
 # Input
 
 Event Dispatchers can send arguments along with the event when triggered.
@@ -28,4 +44,4 @@ This will cause every Call node for that Event Dispatcher to include input pins 
 # References
 
 - [_Blueprint Communication > Event Dispatchers_ by Epic Games @ dev.epicgames.com 2022](https://dev.epicgames.com/community/learning/courses/LWv/unreal-engine-blueprint-communication/b7yv/unreal-engine-event-dispatchers)
-
+- [_Event Dispatchers in UE5 are EASY! Simple STEP-BY-STEP Tutorial in Blueprint!_ by Unreal Dev Hub @ youtube.com 2024](https://www.youtube.com/watch?v=uBl9kIdOT-k)
