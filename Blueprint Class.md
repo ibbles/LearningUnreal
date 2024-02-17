@@ -33,7 +33,7 @@ Inheritance can be many levels deep.
 Many Blueprint classes eventually inherit from one of the built-in Unreal Engine classes, such as [[Actor]] or [[Component]].
 
 Create a new child class of a Blueprint class by Content Browser > right-click the Blueprint class > Create Child Blueprint Class.
-The parent of a Blueprint class is shown in the top-right corner of the [[Blueprint Editor]].
+The parent of a Blueprint class is shown in the top-right corner of the [[Blueprint Actor Editor]].
 
 
 # Class Reference Variable

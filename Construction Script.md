@@ -8,7 +8,7 @@ Remember to call the **Parent Construction Script**.
 If there is no  node for the Parent Construction Script then create one by clicking the Construction Script start node and select Add Call To Parent Function.
 It is often a good idea to call the parent's Construction Script even if it doesn't do anything because it might do something in the future.
 
-There is a tab in the [[Blueprint Editor]] for the Construction Script.
+There is a tab in the [[Blueprint Actor Editor]] for the Construction Script.
 The tab can be re-opened by double-clicking My Blueprint panel > Functions > ConstructionScript.
 
 By default the Construction scrip is run continuously when an Actor Instance is **dragged**.

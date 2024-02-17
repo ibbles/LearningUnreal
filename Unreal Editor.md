@@ -1,5 +1,5 @@
 Unreal Editor is the main editor for Unreal Engine projects.
-This is where we create our [[Level|Levels]] with the [[Level Editor]], edit our [[Blueprint Class|Blueprints]] with the [[Blueprint Editor]], design our [[Material|Materials]] with the [[Material Editor]], and so on for a bunch of [[Asset]] types.
+This is where we create our [[Level|Levels]] with the [[Level Editor]], edit our [[Blueprint Class|Blueprints]] with the [[Blueprint Actor Editor]], design our [[Material|Materials]] with the [[Material Editor]], and so on for a bunch of [[Asset]] types.
 Assets created in other authoring tools, such as Blender, Gimp, or Krita, are imported into Unreal Editor.
 
 

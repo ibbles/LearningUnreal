@@ -12,7 +12,7 @@ The Timeline also show up as a **variable** in the Components category.
 On this variable we can call Play From Start.
 
 # Timeline Editor
-The Timeline Editor is a tab within the [[Blueprint Editor]].
+The Timeline Editor is a tab within the [[Blueprint Actor Editor]].
 The length, or duration, of the Timeline is set at the top.
 Tracks are added with the `+ Track` button.
 Each Track has a name that is also the name of the Timeline node output pin in the [[Event Graph]].

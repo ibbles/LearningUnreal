@@ -43,7 +43,7 @@ When stopped on a breakpoint you can:
 # Watches
 
 Right-click a node pin and select Watch This Value.
-Then, when a Play In Editor session is open, select an instance of the Blueprint Class from the Debug Filter in the Tool Bar of the [[Blueprint Editor]].
+Then, when a Play In Editor session is open, select an instance of the Blueprint Class from the Debug Filter in the Tool Bar of the [[Blueprint Actor Editor]].
 The last value that the pin had will be shown in a tool-tip.
 Remove the watch by clicking the icon next to the pin.
 

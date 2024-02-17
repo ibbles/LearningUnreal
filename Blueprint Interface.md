@@ -16,7 +16,7 @@ A Blueprint Interface cannot contain anything else.
 
 # Implementing a Blueprint Interface
 
-To add an interface to [[Blueprint Class]], do [[Blueprint Editor]] > Tool Bar > Class Settings > Details panel > Interfaces > Add.
+To add an interface to [[Blueprint Class]], do [[Blueprint Actor Editor]] > Tool Bar > Class Settings > Details panel > Interfaces > Add.
 Functions contained in the added Interfaces are listed in the [[Blueprint Class|Blueprint Class']] My Blueprint panel, under Interfaces.
 To implement an interface function, right-click the interface function in My Blueprint > Interfaces and select Implement Function.
 This will create a [[Blueprint Events|Blueprint Event]] node in the Blueprint's [[Event Graph]].

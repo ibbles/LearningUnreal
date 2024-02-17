@@ -22,13 +22,13 @@ The `UPROPERTY` macro may contain a [[Property Specifier]] to control how that P
 
 To say that we need read-write access to the [[Property]]:
 - `EditDefaultsOnly`
-	- Can edit the [[Property]] in a [[Blueprint Class]] in the [[Blueprint Editor]].
+	- Can edit the [[Property]] in a [[Blueprint Class]] in the [[Blueprint Actor Editor]].
 	- Cannot edit the [[Property]] when an instance of the class is selected in the [[Level Editor]].
 - `EditInstanceOnly`
-	- Cannot edit the [[Property]] in a [[Blueprint Class]] in the [[Blueprint Editor]].
+	- Cannot edit the [[Property]] in a [[Blueprint Class]] in the [[Blueprint Actor Editor]].
 	- Can edit the [[Property]] when an instance of the class is selected in the [[Level Editor]].
 - `EditAnywhere`
-	- Can edit both in the [[Blueprint Editor]] and in the [[Level Editor]].
+	- Can edit both in the [[Blueprint Actor Editor]] and in the [[Level Editor]].
 
 To say that we need read-only access to the [[Property]]:
 - `VisibleDefaultsOnly`

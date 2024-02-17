@@ -1,4 +1,4 @@
-In a [[Blueprint Class]] inheriting from [[Actor]] a [[Component]] can be added to the class using the Components panel in the [[Blueprint Editor]].
+In a [[Blueprint Class]] inheriting from [[Actor]] a [[Component]] can be added to the class using the Components panel in the [[Blueprint Actor Editor]].
 The equivalent operation in C++ is to call the `CreateDefaultSubobject` function from a `AActor` subclass' constructor.
 The name of the new [[Component]] is passed to `CreateDefaultSubobject`.
 `CreateDefaultSubobject` returns a pointer to the created [[Component]].
@@ -66,7 +66,7 @@ AMyActor::AMyActor()
 ```
 
 A [[Component]] created like this will be marked `(Inherited)` in [[Blueprint Class]] subclasses.
-An inherited [[Component]] cannot be removed from the [[Blueprint Editor]].
+An inherited [[Component]] cannot be removed from the [[Blueprint Actor Editor]].
 
 
 # References

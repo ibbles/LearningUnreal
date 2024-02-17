@@ -3,11 +3,13 @@ Other objects can get a callback when the Event Dispatcher is triggered.
 We say that the Event Dispatcher dispatches an [[Event]].
 
 An Event Dispatcher is a mechanism used to implement an event-driven system.
+Another common name for this mechanism is Publisher / Subscriber or Observer Pattern.
+
 An Event Dispatcher is a type of [[Delegate]].
 
 # Blueprint
 
-An Event Dispatcher is created from the My Blueprint panel of the [[Blueprint Editor]].
+An Event Dispatcher is created from the My Blueprint panel of the [[Blueprint Actor Editor]] .
 Give the new Event Dispatcher a name.
 
 Trigger an Event Dispatcher by dragging it from the My Blueprint > Event Dispatchers list into the [[Event Graph]] and select Call from the list that pops up.
@@ -57,3 +59,4 @@ This will cause every Call node for that Event Dispatcher to include input pins 
 - [_Blueprint Communication > Event Dispatchers_ by Epic Games @ dev.epicgames.com 2022](https://dev.epicgames.com/community/learning/courses/LWv/unreal-engine-blueprint-communication/b7yv/unreal-engine-event-dispatchers)
 - [_Breaking Down the Components of Gameplay_ > _Component and Interface Communication_ by Epic Games, Rob @ dev.epicgames.com 2021](https://dev.epicgames.com/community/learning/courses/mo/unreal-engine-breaking-down-the-components-of-gameplay/bq0/unreal-engine-component-and-interface-communication)
 - [_Event Dispatchers in UE5 are EASY! Simple STEP-BY-STEP Tutorial in Blueprint!_ by Unreal Dev Hub @ youtube.com 2024](https://www.youtube.com/watch?v=uBl9kIdOT-k)
+- [_The Most Common Mistake Beginners Make in Unreal Engine | UE5_ by Ali Elzoheiry @ youtube.com 2024](https://www.youtube.com/watch?v=YFtLd-bKl-U)

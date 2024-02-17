@@ -1,4 +1,4 @@
-Variables created in the [[Blueprint Editor]] are part of the template for that [[Blueprint Class]].
+Variables created in the [[Blueprint Actor Editor]] are part of the template for that [[Blueprint Class]].
 Instance of that [[Blueprint Class]] get a copy of the variables.
 The instance can override the value of the template.
 Variables that are overridden have yellow arrow next to them.
