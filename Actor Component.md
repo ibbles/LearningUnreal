@@ -55,10 +55,10 @@ Some time later, use the `PrimaryComponentTick.SetTickFunctionEnable` function t
 
 ## Blueprint
 
-[[Content Browser]] > right-click > New Blueprint Class > Actor Component or Scene Component.
+[[Content Browser]] > right-click > New Blueprint Class > Actor Component, Scene Component, or any of the Actor Component subclasses listed under All Classes.
 Give the new Component type a name.
 A common naming convention is to prefix the name of Blueprint Components with `BP_`.
-Double-click the new [[Asset]] to open the [[Blueprint Component Editor]].
+Double-click the new [[Asset]] to open the [[Blueprint Component Editor]] where the contents and behavior of the Component can be configured.
 
 
 ## C++

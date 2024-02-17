@@ -4,16 +4,27 @@ We say that the Event Dispatcher dispatches an [[Event]].
 
 An Event Dispatcher is a mechanism used to implement an event-driven system.
 Another common name for this mechanism is Publisher / Subscriber or Observer Pattern.
+The purpose is to avoid repeated costly state checking and instead only updating something, such as a [[Widget]], when the underlying state changes.
+
+The Event Dispatcher may pass data, called parameters, with the [[Event]].
 
 An Event Dispatcher is a type of [[Delegate]].
 
 # Blueprint
 
-An Event Dispatcher is created from the My Blueprint panel of the [[Blueprint Actor Editor]] .
+## Creating An Event Dispatcher
+
+An Event Dispatcher is created from the [[My Blueprint Panel]] of the [[Blueprint Class Editor]].
 Give the new Event Dispatcher a name.
+It is common to give Event Dispatchers a name that starts with "On".
+To add an input, a.k.a. parameter, to the Event Dispatcher click [[Details Panel]] > Inputs > + button.
 
 Trigger an Event Dispatcher by dragging it from the My Blueprint > Event Dispatchers list into the [[Event Graph]] and select Call from the list that pops up.
 Any listeners registered with the Event Dispatcher will be executed.
+If the Event Dispatcher has any parameter then those appear as input pins on the Call node.
+(
+I assume.
+)
 
 When dragging the Event Dispatcher from the My Blueprint panel to the [[Event Graph]] and selecting Event from the list we will get a red [[Blueprint Event]] node.
 This event node can be bound to the Event Dispatcher to connect them.
@@ -28,7 +39,22 @@ Instead of selecting Event and Bind as two actions we can select Assign from the
 This will create both nodes and connect them.
 
 
-# Blueprint Communication
+## Listening To An Event Dispatcher
+
+To listen to an Event Dispatcher we need to get a hold of if,
+often by getting a reference to the object that owns it.
+If there are many instances of the Event Dispatcher owning type then this process must be repeated for every instance we are interested in.
+
+Once you have a reference to the object owning the Event Dispatcher in the [[Event Graph]]
+drag off of the reference output pin and
+search for Bind Event To EVENT NAME
+where EVENT NAME is the name you gave the Event Dispatcher when it was created.
+This create a Bind Event node that has an [[Event]] input pin that can be connected to the event you want to run when the Event Dispatcher is triggered.
+A short-hand is to select Assign EVENT NAME instead of Bind Event To EVENT NAME,
+that creates connects a [[Custom Event]] for you.
+See _Blueprint Communication_ below for a step-by-step example.
+
+## Blueprint Communication
 
 An Event Dispatcher can be used for [[Blueprint Communication]].
 Create one [[Blueprint Class]], let's call it `BP_Dispatcher` for example, that contains the Event Dispatcher, created as described above.
@@ -39,7 +65,7 @@ In listener [[Blueprint Class]] drag the `BP_Dispatcher` reference variable into
 A node Bind Event node appears, which has an Event input pin.
 Drag of off the Event input pin an select Create Custom Event.
 
-Now, whenever the Dispatcher [[Blueprint Class]] triggers its Event Dispatcher the [[Custom Event]] in the listener [[Blueprint Class]] will be run.
+Now, whenever the Dispatcher [[Blueprint Class]] triggers its Event Dispatcher the [[Custom Event]] in the listener [[Blueprint Class]] will be run. 
 
 
 # C++
