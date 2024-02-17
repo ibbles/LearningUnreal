@@ -1,4 +1,4 @@
-This note is about the type introspection, for the rendering effect see [[Reflections]].
+This note is about type introspection, for the rendering effect see [[Reflections]].
 
 The ability of a program to examine itself.
 List functions and variables.

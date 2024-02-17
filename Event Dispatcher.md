@@ -2,6 +2,11 @@ An Event Dispatcher is something that other objects can listen to.
 Other objects can get a callback when the Event Dispatcher is triggered.
 We say that the Event Dispatcher dispatches an [[Event]].
 
+An Event Dispatcher is a mechanism used to implement an event-driven system.
+An Event Dispatcher is a type of [[Delegate]].
+
+# Blueprint
+
 An Event Dispatcher is created from the My Blueprint panel of the [[Blueprint Editor]].
 Give the new Event Dispatcher a name.
 
@@ -35,13 +40,20 @@ Drag of off the Event input pin an select Create Custom Event.
 Now, whenever the Dispatcher [[Blueprint Class]] triggers its Event Dispatcher the [[Custom Event]] in the listener [[Blueprint Class]] will be run.
 
 
+# C++
+
+Not sure how to bind a C++ function to a Blueprint Event Dispatcher, or how to declare a C++ class with an Event Dispatcher.
+There is a similar concept called [[Delegate]] that is designed for use in C++.
+
 # Input
 
 Event Dispatchers can send arguments along with the event when triggered.
 Select the Event Dispatcher in the My Blueprint panel and at the top of the Details panel there is a list of inputs.
 This will cause every Call node for that Event Dispatcher to include input pins for those inputs.
 
+
 # References
 
 - [_Blueprint Communication > Event Dispatchers_ by Epic Games @ dev.epicgames.com 2022](https://dev.epicgames.com/community/learning/courses/LWv/unreal-engine-blueprint-communication/b7yv/unreal-engine-event-dispatchers)
+- [_Breaking Down the Components of Gameplay_ > _Component and Interface Communication_ by Epic Games, Rob @ dev.epicgames.com 2021](https://dev.epicgames.com/community/learning/courses/mo/unreal-engine-breaking-down-the-components-of-gameplay/bq0/unreal-engine-component-and-interface-communication)
 - [_Event Dispatchers in UE5 are EASY! Simple STEP-BY-STEP Tutorial in Blueprint!_ by Unreal Dev Hub @ youtube.com 2024](https://www.youtube.com/watch?v=uBl9kIdOT-k)

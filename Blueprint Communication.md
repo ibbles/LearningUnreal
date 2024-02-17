@@ -44,7 +44,7 @@ See [[Blueprint Interface]].
 
 # Event Dispatcher
 
-See [[Event Dispatcher]].
+See [[Event Dispatcher]], and also [[Delegate]].
 This is useful to update the in-game UI.
 Have the UMG widget's On Construct event bind to an Event Dispatcher in the [[Game Mode]].
 The event in the UMG can update a variable, or set some text, whenever the event is triggered.
