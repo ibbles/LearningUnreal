@@ -1,8 +1,48 @@
 A [[Niagara System]] is a the thing that _is_ a particle system in Niagara.
-It is a container for various other stuff, such as emitters and ....
+It is a container for various other stuff, such as emitters and .... (Anything else?)
 A Niagara System is an [[Asset]] that can be created from and lives in the Content Browser.
-Create a new Niagara System by Content Browser  > right-click > Niagara System > pick one of the templates.
+Create a new Niagara System by [[Content Browser]]  > right-click > Niagara System > pick one of the templates.
 A Niagara System can be placed or spawned in a [[Level]].
+Drag the particle system from the [[Content Browser]] to the [[Level Viewport]] to create an instance.
+
+To spawn a particle system at runtime from C++:
+
+`MyActor.h`:
+```cpp
+#pragma once
+#include "GameFramework/Actor.h"
+#include "MyActor.generated.h"
+class UNiagaraSystem;
+
+UCLASS(Blueprintable)
+class MYMODULE_API AMyActor : public AActor
+{
+	GENERATED_BODY()
+
+public:
+	void EmittParticles();
+
+	UPOPERTY(EditAnywhere, Category="Effects")
+	UNiagaraSystem* ParticleSystem;
+}
+```
+
+`UNiagaraSystem` is the type of the Niagara System [[Asset]].
+So `ParticleSystem` doesn't point to an actual instance in  the world, but a description of a particle system.
+To get an instance in the level we must spawn a new instance of the `UNiagaraSystem`.
+
+`MyActor.cpp`:
+```cpp
+void AMyActor::EmittParticles()
+{
+	UNiagaraComponent* Particles =
+		UNiagaraFunctionLibrary::SpawnSystemAtLocation(
+			GetWorld(), ParticleSystem, GetActorLocation());
+}
+```
+
+An alternative to `SpawnSystemAtLocation`  is `SpawnSystemAttached`,
+which makes the spawned particle system follow, i.e. be attached to, a [[Scene Component]] we provide.
 
 
 # User Parameters
