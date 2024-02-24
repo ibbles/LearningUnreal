@@ -5,6 +5,8 @@ Some common Property Specifiers:
 - `Blueprint(ReadWrite|ReadOnly)`
 - `(Edit|Visible)(DefaultsOnly|InstanceOnly|Anywhere)` [[Property Visibility And Editability]]
 - `Category = "MyCategory"`
+- `BlueprintAssignable`
+	- Used with a [[Delegate]] that should be bindable from a [[Blueprint Class]].
 
 Example:
 ```cpp
