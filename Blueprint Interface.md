@@ -1,9 +1,10 @@
 Used to communicate between [[Blueprint Class|Blueprint Classes]].
 Useful when multiple [[Blueprint Class|Blueprint Classes]] perform similar actions.
 
-A Blueprint Interface contains **signatures for [[Blueprint Function|Blueprint Functions]]**.
+A Blueprint Interface contains **signatures** for [[Blueprint Function|Blueprint Functions]].
 It does not contain an implementation for any of the functions.
 The implementation is instead provided by [[Blueprint Class|Blueprint Classes]] that implement the interface.
+
 
 # Creating a Blueprint Interface
 
@@ -14,13 +15,14 @@ Click the ⊕ to add a function to the Blueprint Interface.
 There is no implementation of the function in the Blueprint Interface, only its name, inputs, and outputs.
 A Blueprint Interface cannot contain anything else.
 
+
 # Implementing a Blueprint Interface
 
 To add an interface to [[Blueprint Class]], do [[Blueprint Actor Editor]] > Tool Bar > Class Settings > Details panel > Interfaces > Add.
 Functions contained in the added Interfaces are listed in the [[Blueprint Class|Blueprint Class']] My Blueprint panel, under Interfaces.
 To implement an interface function, right-click the interface function in My Blueprint > Interfaces and select Implement Function.
 This will create a [[Blueprint Events|Blueprint Event]] node in the Blueprint's [[Event Graph]].
-The Event node will have a map/arrow/gear icon.
+The event node will have a map+arrow+gear icon.
 The new event node will be executed then the interface function is called on an instance of this [[Blueprint Class]].
 That is, when the corresponding message is received at the instance.
 
@@ -28,13 +30,15 @@ That is, when the corresponding message is received at the instance.
 # Calling functions
 
 Given a reference to an [[Actor]] instance we can check if it implements a particular Blueprint Interface with Does Implement Interface.
+(
+Can an [[Actor Component]] also implement an interface?
+)
 Drag of the [[Actor]] reference output pin and search for the name of the function you want to call.
 Interface functions will have a `(Message)` suffix in the list and the node has an open envelope icon.
 When the Actor receives the message the [[Blueprint Events|Blueprint Event]] that implements that Blueprint Interface function in that Actor's [[Blueprint Class]] will be executed.
 Messages can be sent to any [[Actor]], even those that don't implement the corresponding interface.
 Such messages are ignored by the receiving [[Actor]].
-Because of this the type sending the message doesn't need to know the exact type of the thing receiving the message.
-We're type agnostic, just like C `void*`. Completely type-unsafe.
+Because of this the one sending the message doesn't need to know the exact type of the thing that is receiving the message.
 
 A Blueprint Interface function can have return values.
 I do not know what is returned if the thing we call the function on doesn't implement that interface.
@@ -44,12 +48,10 @@ Are they safe to use?
 How do we know if they are safe to use?
 Does the Message node never return?
 
-
 The reference can, for example be a public [[Blueprint Variable]] that a [[Level Designer]] can set on an instance of the sender, to a particular receiver instance.
 
 
 # References
 - [_I Struggled With Blueprint Interfaces for Years!! (Unreal Engine 5)_ by Glass Hand Studios @ youtube.com](https://www.youtube.com/watch?v=m9416Fi-PJw)
 - [_Blueprint Communication > Blueprint Interfaces_ by Epic Games @ dev.epicgames.com 2023](https://dev.epicgames.com/community/learning/courses/LWv/unreal-engine-blueprint-communication/J61E/unreal-engine-blueprint-interfaces)
-
-
+- [_Blueprints and Gameplay for Game Designers_ > _Opening Using a Blueprint Interface_ by Epic Games @ dev.epicgames.com 2021 UE 4.25](https://dev.epicgames.com/community/learning/courses/OP/unreal-engine-blueprints-and-gameplay-for-game-designers/0G6/unreal-engine-opening-using-a-blueprint-interface)
