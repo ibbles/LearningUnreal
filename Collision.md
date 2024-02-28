@@ -19,6 +19,7 @@ It is common to set Pawn - World Prop collisions to Ignore so that the player do
 
 A variant of a collision check is a [[Line Trace]].
 
+Instead of listening for overlap events we can also call the Get Overlapping Actors member function on [[Primitive Component]].
 
 # Overlap Callback
 
