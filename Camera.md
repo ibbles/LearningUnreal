@@ -54,6 +54,11 @@ It is actively updating its position and orientation based on player input.
 May layer other behavior on top of the player input, such as avoiding obstacles and preventing things getting in between the camera and the [[Pawn]].
 
 
+# Camera Shake
+
+See [[Camera Shake]].
+
+
 # References
 
 - [_Begin Play | Gameplay_ by Epic Games, Samuel Bass @ dev.epicgames.com 2022](https://dev.epicgames.com/community/learning/tutorials/l21z/unreal-engine-begin-play-gameplay)
