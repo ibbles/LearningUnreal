@@ -1,12 +1,13 @@
 A Player Controller is a type of [[Controller]].
-The Player Controller is part of the Pawn, [[Player Controller]], [[Player State]] trio created for each player.
+The Player Controller is part of the [[Pawn]], Player Controller, [[Player State]] trio created for each player.
 
 The Player Controller may be possessing, i.e. controlling, a [[Pawn]].
 We can get access to that [[Pawn]] with the Get Controlled Pawn node.
 In C++ we call the `AController::GetPawn` function.
 We can check if a particular [[Pawn]] is controlled by a Player Controller with the Is Player Controlled node.
 Inside a [[Pawn]] we get find the current Player Controller with the Get Controller node and a [[Cast|cast]].
-We can get a Player Controller from anywhere with the Get Player Controller node.
+We can get a Player Controller from anywhere with the [[Get Player Controller]] node,
+and the `UGameplayStatics::GetPlayerController` C++ function..
 In that case we must know the index of the Player Controller we want.
 
 The Player Controller translates user input into movement, inventory navigation, or interaction with something near-by in the game world.
