@@ -54,6 +54,59 @@ It is actively updating its position and orientation based on player input.
 May layer other behavior on top of the player input, such as avoiding obstacles and preventing things getting in between the camera and the [[Pawn]].
 
 
+# Switching Between Cameras
+
+Each [[Player Controller]] has a View Target.
+A View Target is the Camera, or an [[Actor]] that contains a Camera Component, that the player associated with the [[Player Controller]] is viewing the game through.
+Use the Set View Target( With Blend)? function to make a [[Player Controller]] switch from one Camera to another.
+Pass the [[Pawn]] as the View Target to return to the default camera view.
+
+So you can pass in any [[Pawn]], for example, and the designer of the [[Pawn]] has already decided what Camera should be used when the [[Pawn]] becomes the View Target.
+Possessing a [[Pawn]] with a [[Player Controller]] will make that [[Pawn]] the View Target for that [[Player Controller]].
+An exception to this rule is a Begin Play if there is a Camera in the level that has [[Details Panel]] > Auto Activate For Player set to the current player.
+This setting overrides the possess-means-set-View-Target rule.
+
+If there is no Camera in the View Target then the scene will be rendered with a default camera placed at the View Target [[Actor]]'s origin.
+
+Example in C++:
+```cpp
+#include "Kismet/GameplayStatics.h"
+
+void UMyObject::SwitchToExternalCamera(AActor* ActorWithCamera)
+{
+	APlayerController* PlayerController =
+		UGameplayStatics::GetPlayerController(this, 0);
+	const float BlendTime {1.0};
+	PlayerController->SetviewTargetWithBlend(ActorWithCamera, BlendTime);
+}
+
+void UMyObject::SwitchToPawnCamera()
+{
+	APlayerController* PlayerController =
+		UGameplayStatics::GetPlayerController(this, 0);
+	APawn* Pawn = PlayerController->GetPawn();
+	const float BlendTime {1.0};
+	PlayerController->SetViewTargetWithBlend(Pawn, BlendTime);)
+}
+```
+
+
+# Look At
+
+Making a Camera look at a target can be done with the help of Find Look At Rotation.
+The following example assumes that Actor With Camera has a Camera Component at its local origin,
+i.e. with an identity, i.e. all-zero, transformation.
+```cpp
+#include "Kismet/KismetMathLibrary.h"
+
+void UMyObject::LookAt(AActor* ActorWithCamra, AActor* Target)
+{
+	const FVector CameraLocation = ActorWithCamera->GetActorLocation();
+	const FVector TargetLocation = Target->GetActorLocation();
+	FRotator Rotator = UKismetMathLibrary::FindLookAtRotation(CameraLocation, TargetLocation);
+	ActorWithCamera->SetActorRotation(Rotator);
+}
+```
 # Camera Shake
 
 See [[Camera Shake]].
