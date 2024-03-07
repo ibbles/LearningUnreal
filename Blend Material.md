@@ -3,7 +3,7 @@ A Blend Material is a type of [[Material]] that contains multiple Materials that
 It is common to use [[Vertex Color]] and [[Mesh Paint Editing Editor Mode Vertex Color]] to chose which material should be applied where by letting each channel of the vertex color control the blend strength of one of the blended materials.
 Another way is to use a [[Perlin Noise]] node to get a random distribution of materials.
 This is good when the goal is to break up texture repetition.
-See also [[Breaking up Landscape texture tiling]].
+See also [[Breaking up Landscape Texture Tiling]].
 
 There are multiple ways to do the blending.
 
