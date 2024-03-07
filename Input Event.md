@@ -1,6 +1,6 @@
 An Input Event is an event that the player can trigger.
 Input events are bound to one or more low-level events through [[Input Bindings]].
-There are two types of input events: [[Action Event]] and [[Axis Events]].
+There are two types of input events: [[Action Event]] and [[Axis Event]].
 
 When the players presses a button the bindings dictate which Input Event should be triggered, but not which [[Blueprint Event]] that should be executed.
 There may be many Actors listening for the same event.
