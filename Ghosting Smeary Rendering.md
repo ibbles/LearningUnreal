@@ -1,6 +1,6 @@
-Unreal Engine 5 introduced [[Temporal Super Resolution]], a up-scaling / anti-aliasing method.
+Unreal Engine 5 introduced [[Temporal Super Resolution]], an up-scaling / anti-aliasing method.
 To work this algorithm needs motion vectors for everything on-screen.
-This is handled automatically for Static Mesh and Skeletal Mesh, as long as [[World Position Offset]] isn't use, but as of Unreal Engine 5.1 multiple things don't yet support writing motion vectors.
+This is handled automatically for Static Mesh and Skeletal Mesh, as long as [[World Position Offset]] isn't used, but as of Unreal Engine 5.1 multiple things don't yet support writing motion vectors.
 If you have ghostly trails after objects then use the console to enable the Visualize Motion Blur flag:
 ```
 ShowFlag.VisualizeMotionBlur 1
@@ -26,6 +26,11 @@ Must enable Override Project's Manual Screen Percentage right next to it for thi
 No idea what this is or what it does. Seems to help sometimes, no idea during what circumstances.
 
 
+# Static Mesh
+
+If you move a Static Mesh by setting the Location part of the Transform directly, also set the Velocity [[Property]].
+
+
 # World Position Offset
 
 If the [[Material]] uses [[World Position Offset]], which is common for foliage, then the motion vectors may be wrong and e.g. branches swaying in the wind will appear with trails behind them.
@@ -44,8 +49,13 @@ Prior to Unreal Engine 5.3, or thereabout, this setting was under Motion Blur.
 
 # Text Render Component
 
-On the [[Material]], it it is translucent, select the output node and enable Translucency > Output Depth And Velocity in the Details panel.
+On the [[Material]], if it is translucent, select the output node and enable Translucency > Output Depth And Velocity in the [[Details Panel]].
 
+
+# Instanced Static Mesh
+
+When updating the transform of an instance make sure you also supply the previous transform.
+Use the [`UInstancedStaticMeshComponent::BatchUpdateInstancesTransforms`](https://docs.unrealengine.com/5.3/en-US/API/Runtime/Engine/Components/UInstancedStaticMeshComponent/BatchUpdateInsta-/3/) overload that takes a `NewInstancesPrevTransforms` parameter.
 
 # References
 
