@@ -30,6 +30,8 @@ ACD168DC-A353-4632-936F-026F02096F1C=/media/s1300/unreal_engine/5.0.3
 I list both two-digit and three digit version numbers, and update the two-digit version whenever I install a new path release.
 Then in the `.uproject` file I can write `5.0` if I want whatever is the latest `5.0` version, and `5.0.3` if I want that exact version.
 
+The `<HASH>` value for an Unreal Engine installation can be found in `$UE_ROOT/Engine/Build/InstalledBuild.txt`.
+
 This entire setup may be bad idea, as explained on Discord and described in the following section.
 
 
