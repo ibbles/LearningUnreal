@@ -1,4 +1,4 @@
-Three main types, and raytraced as a separate thing.
+Three main types, and ray-traced as a separate thing.
 Stacked/chained so that if a cheaper method has already rendered a pixel then the more expensive methods won't run.
 
 The reflections can be visualized with Viewport > Lit > Reflections.
