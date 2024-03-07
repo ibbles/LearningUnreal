@@ -1,4 +1,4 @@
-An expression node,  also called pure node, is a node that is not an [[Execution Nodes|Execution Node]].
+An expression node,  also called pure node, is a node that is not an [[Execution Node]].
 Expression nodes provide one or more output pins.
 An expression node evaluation is triggered by the [[Execution Node]] that the expression node tree that the expression node is part of is rooted at.
 An expression node may be part of multiple expression node trees.
