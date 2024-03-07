@@ -26,7 +26,7 @@ Can have multiple keys with different axis values, for example for forwards or b
 
 # Acting On Input
 
-The logic to execute in response to an [[Action Event]] or [[Axis Event]]  may take the form of a [[Blueprint Visual Script]] node graph rooted at a [[Blueprint Events|Blueprint Event]] node or C++ code.
+The logic to execute in response to an [[Action Event]] or [[Axis Event]]  may take the form of a [[Blueprint Visual Script]] node graph rooted at a [[Blueprint Event]] node or C++ code.
 
 A [[Blueprint Event]] node created by right-click in the Blueprint's [[Event Graph]] and finding the name of the action or axis mapping in the list.
 They will be under Input > {Action, Axis} Events.

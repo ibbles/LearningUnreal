@@ -21,7 +21,7 @@ A Blueprint Interface cannot contain anything else.
 To add an interface to [[Blueprint Class]], do [[Blueprint Actor Editor]] > Tool Bar > Class Settings > Details panel > Interfaces > Add.
 Functions contained in the added Interfaces are listed in the [[Blueprint Class|Blueprint Class']] My Blueprint panel, under Interfaces.
 To implement an interface function, right-click the interface function in My Blueprint > Interfaces and select Implement Function.
-This will create a [[Blueprint Events|Blueprint Event]] node in the Blueprint's [[Event Graph]].
+This will create a [[Blueprint Event]] node in the Blueprint's [[Event Graph]].
 The event node will have a map+arrow+gear icon.
 The new event node will be executed then the interface function is called on an instance of this [[Blueprint Class]].
 That is, when the corresponding message is received at the instance.
@@ -35,7 +35,7 @@ Can an [[Actor Component]] also implement an interface?
 )
 Drag of the [[Actor]] reference output pin and search for the name of the function you want to call.
 Interface functions will have a `(Message)` suffix in the list and the node has an open envelope icon.
-When the Actor receives the message the [[Blueprint Events|Blueprint Event]] that implements that Blueprint Interface function in that Actor's [[Blueprint Class]] will be executed.
+When the Actor receives the message the [[Blueprint Event]] that implements that Blueprint Interface function in that Actor's [[Blueprint Class]] will be executed.
 Messages can be sent to any [[Actor]], even those that don't implement the corresponding interface.
 Such messages are ignored by the receiving [[Actor]].
 Because of this the one sending the message doesn't need to know the exact type of the thing that is receiving the message.
