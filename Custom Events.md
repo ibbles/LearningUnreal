@@ -1,2 +1,2 @@
-- [[Custom Blueprint Events]]
+- [[Custom Blueprint Event]]
 

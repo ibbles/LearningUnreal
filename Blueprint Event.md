@@ -10,5 +10,5 @@ When the Event happens the nodes connected to the Event node's output execution 
 
 Example events are [[Begin Play]], mouse events, keyboard events, gameplay events, and so on.
 
-[[Custom Blueprint Events]]
+[[Custom Blueprint Event]]
 [[Input Event]]
