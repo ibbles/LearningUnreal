@@ -24,5 +24,5 @@ A Binding is a function that is called every tick.
 This has a high performance cost if there are many Bindings.
 This cost is especially unnecessary for widgets that don't change often.
 
-An alternative to Bindings is a [[Custom Events|Custom Event]] in the Widget's Event Graph.
-The [[Custom Events|Custom Event]] can have a Parameter that is the new state the Widget should display.
+An alternative to Bindings is a [[Custom Event]] in the Widget's Event Graph.
+The [[Custom Event]] can have a Parameter that is the new state the Widget should display.
