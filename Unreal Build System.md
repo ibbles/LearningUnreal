@@ -30,6 +30,7 @@ For example, the following build the web helper for Linux in Shipping mode:
 $ Engine/Build/BatchFiles/Linux/Build.sh EpicWebHelper Linux Shipping
 ```
 
+
 # Unreal Header Tool and Unreal Macros
 
 The main purpose of Unreal Header Tool is to parse Unreal Macros in C++ header files and produce generated C++ code that implement what those macros describe.
@@ -61,6 +62,15 @@ See _Address Sanitizer_ in [[Building Unreal Engine]].
 See also [[Building Unreal Engine]].
 
 
+# Building A Single Module
+
+A single module can be built with:
+```shell
+$UE_ROOT/Engine/Build/BatchFiles/Linux/Build.sh -Target="UnrealEditor Linux Development" -Module="MyModule"
+```
+
+
 # References
+
 - [The Unreal Build System Explained | Inside Unreal by Unreal Engine @ youtube.com](https://www.youtube.com/watch?v=GJZUV8homoo)
 
