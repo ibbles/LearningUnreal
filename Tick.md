@@ -19,7 +19,7 @@ The tick groups are:
 - Post Physics
 - Post Update Work
 
-In a Blueprint that supports the Tick [[Blueprint Event]] the tick group is set in [[Blueprint Editor]] > [[Class Defaults]] > Actor Tick > Advanced > Tick Group.
+In a Blueprint that supports the Tick [[Blueprint Event]] the tick group is set in [[Blueprint Actor Editor]] > [[Class Defaults]] > Actor Tick > Advanced > Tick Group.
 To execute a [[Blueprint Visual Script]] on tick right-click the [[Event Graph]] and select Add Event > Event Tick.
 
 In a C++ class that supports the Tick virtual member function the tick group is set at `PrimaryActorTick.TickGroup`  for [[Actor|Actors]] and `PrimaryComponentTick.TickGroup` for [[Component|Components]].

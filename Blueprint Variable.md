@@ -6,6 +6,7 @@ A Blueprint variable has a type that is one of the [[Blueprint Datatypes]].
 Create a **new variable** by clicking the `+` next to Variables in the My Blueprint panel.
 Or duplicate an already existing variable by selecting it and pressing Ctrl+W (UE4) or Ctrl+D (UE5).
 The Blueprint should be compiled after adding a variable to make it possible to set a default value.
+The variables type, default value, and my other settings are set in the [[Details Panel]] after selecting the variable.
 
 **Use a variable** by either
 - Dragging it from the Variables list into the [[Blueprint Visual Script Editor]]

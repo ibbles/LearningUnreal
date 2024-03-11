@@ -1,4 +1,4 @@
-See also [[Breaking up Landscape texture tiling]].
+See also [[Breaking up Landscape Texture Tiling]].
 See also [[Texture]].
 
 

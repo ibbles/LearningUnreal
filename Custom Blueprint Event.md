@@ -7,4 +7,4 @@ Custom Events are used to notify a Blueprint Class that something has happened o
 
 Custom Blueprint Events are events that we define ourselves.
 One type of event is [[Input Bindings]] created in the Project Settings.
-One type of event is [[Custom Events]] created directly in the Event Graph.
+One type of event is [[Custom Event]] created directly in the Event Graph.

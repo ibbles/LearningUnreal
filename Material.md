@@ -18,6 +18,7 @@ To assign a Material to a [[Static Mesh]]
 
 There will be as many Material > Element # entries in the Static Mesh's [[Details Panel]] as there are [[Material Slot|Material Slots]] in the [[Static Mesh]].
 
+A Material can be used in different contexts, called a [[Material Domain]].
 
 # Parameters And Material Instances
 

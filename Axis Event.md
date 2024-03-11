@@ -1,5 +1,5 @@
-Axis Events are continuous events that trigger every frame and that comes with an axis value in the range [-1.0, 1.0].
-Another type of event are [[Action Events]].
+An axis Event is a continuous events that trigger every frame and that comes with an axis value in the range [-1.0, 1.0].
+Another type of event is the [[Action Event]].
 Both are types of [[Input Event]].
 
 With each event triggering is associated an axis value.

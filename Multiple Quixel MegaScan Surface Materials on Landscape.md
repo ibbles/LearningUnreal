@@ -5,7 +5,7 @@ The goal is to create a Landscape that uses multiple [[Quixel Surface Materials]
 A Landscape can only have a single [[Landscape Material]], but that material can have multiple Layers that are blended together based on [[Paint Material on a Landscape|layer weights painted onto the Landscape]].
 
 Ideally we would reference the Quixel Surface Material directly from our new Landscape Material, but I have not found a way to do that.
-Instead we will re-implement the Quixel Master Material in a collection of [[Material Functions]], one for each Quixel Surface Material we wish to use on our Landscape, call those functions from our new Landscape Material, and blend the results using Layer Blend nodes.
+Instead we will re-implement the Quixel Master Material in a collection of [[Material Function]], one for each Quixel Surface Material we wish to use on our Landscape, call those functions from our new Landscape Material, and blend the results using Layer Blend nodes.
 
 If you use Quixel Bridge to download assets you must ensure that Enable Displacement is enabled in the Megascans Settings.
 

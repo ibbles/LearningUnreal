@@ -1,11 +1,12 @@
 A Trace is a spatial query into the scene and returns the first Actor that the Trace hits.
 There are different types of Traces depending on the shape:
-- Line Trace
-- Sphere Trace
+- [[Line Trace]]
+- [[Sphere Trace]]
 
 A Trace is bounded in spacing, having both a Start and an End coordinate.
 
 # Trace Channel
+
 
 # Hit Result
 - Blocking Hit: True if the Trace hit an Actor.

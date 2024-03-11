@@ -12,7 +12,7 @@ The Timeline also show up as a **variable** in the Components category.
 On this variable we can call Play From Start.
 
 # Timeline Editor
-The Timeline Editor is a tab within the [[Blueprint Editor]].
+The Timeline Editor is a tab within the [[Blueprint Actor Editor]].
 The length, or duration, of the Timeline is set at the top.
 Tracks are added with the `+ Track` button.
 Each Track has a name that is also the name of the Timeline node output pin in the [[Event Graph]].
@@ -29,4 +29,20 @@ The Break interpolation method adds tangent handles to the key point.
 The view of the curve editor can be focused with the Expand Horizontally and Expand Vertically buttons at the top of the curve editor.
 
 
+
+# Play Rate, Speed
+
+We can set the playback speed of a Timeline in our Blueprint.
+There is a member function for this named Set Play Rate.
+We need a reference to the Timeline object to call the function.
+Do not use the Timeline node itself for this.
+Instead, the Timeline node has a name, Timeline by default.
+This name is also the name of a variable, which can be found under Components in the [[Blueprint Variable]] section of the [[My Blueprint Panel]].
+So right-click the [[Node Graph Editor]] and search for `Get Timeline`, your Timeline should show up, or drag it from the [[My Blueprint Panel]].
+If you have renamed the Timeline node (From the right-click menu or with F2.) then search for that name instead.
+Drag off of the output pin of the Timeline reference node and search for Set Play Rate.
+
+If the Timeline has a length of 1.0 then we can use Set Play Rate as a duration control as follows:
+
+![[Timeline__SetPlayRate.jpg]]
 

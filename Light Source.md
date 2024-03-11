@@ -12,11 +12,17 @@ Light sources can be created from the Place Actors panel, the Add Component menu
 
 A Light Source has a bunch of [[Light Source Properties]].
 
+Lights can have a big impact on performance.
+See
+- [[Lighting And Shadow Performance]]
+- [[Rendering Performance Profiling And Analysis]]
+
 A scene often consists of multiple light sources.
-Common lighting setups can be created from the Environment Light Mixes.
+Common lighting setups can be created from the [[Environment Light Mixer]].
 
 # Environment Light Mixer
 
+See [[Environment Light Mixer]].
 Opened from Top Menu Bar > Window > Env. Light Mixer.
 The Environment Light Mixer contains buttons for creating a number of common light sources.
 

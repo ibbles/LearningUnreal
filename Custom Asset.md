@@ -273,24 +273,22 @@ With the Layout created we call `FAssetEditorToolkit::InitAssetEditor`.
 You can find examples of how to create Styles in  `Engine/Source/Editor/EditorStyle/Private/SlateEditorStyle.cpp`.
 
 
-[[2020-09-10_19:55:50]] [Modules](./Modules.md)  
-[[2020-09-30_13:13:51]] [Callbacks](./Callbacks.md)  
-[[2020-08-31_10:01:57]] [Garbage collection](./Garbage%20collection.md)  
+[[Module]]
+[[Callback]]
+[[Garbage collection]]
 
-[[2020-03-11_19:00:31]] [Assets](./Assets.md)  
-[[2020-08-17_09:45:29]] [Loading assets](./Loading%20assets.md)  
-[[2020-03-10_21:23:32]] [Naming convention](./Naming%20convention.md)  
-[[2020-03-09_21:43:36]] [UPROPERTY](./UPROPERTY.md)  
-
-[Custom Asset Editors Code Exploration @ learn.unrealengine.com](https://learn.unrealengine.com/course/2436528/module/5372752?moduletoken=UHxxnDLPW8ROFOnyLDf7jkpDsWH-6EgInZkaEVy-utqnxQVniUN~z2b6Dq5f9wUr&LPId=0)
-[TextAsset @ github.com](https://github.com/ue4plugins/TextAsset)  
-[C++ Extending the Editor | Live Training | Unreal Engine by Unreal Engine @ youtube.com](https://youtu.be/zg_VstBxDi8?t=1731)
-[Writing a Custom Asset Editor for Unreal Engine 4](http://cairansteverink.nl/cairansteverink/blog/writing-a-custom-asset-editor-for-unreal-engine-4-part-1/)  
-[Asset Editor - Development of asset editor in Unreal Engine](https://easycomplex-tech.com/blog/Unreal-AssetEditor/)  
-[How to make tools in UE4](https://lxjk.github.io/2019/10/01/How-to-Make-Tools-in-U-E.html)  
+[[Asset]]
+[[Asset Loading]]
+[[Naming Convention]]
+[[UPROPERTY]]
 
 
 # References
  
 - [_Creating a Custom Asset Type with its own Editor in C++_ by JanKXSKI @ dev.epicgames.com. July 7, 2022](https://dev.epicgames.com/community/learning/tutorials/vyKB/unreal-engine-creating-a-custom-asset-type-with-its-own-editor-in-c)
-
+- [Custom Asset Editors Code Exploration @ learn.unrealengine.com](https://learn.unrealengine.com/course/2436528/module/5372752?moduletoken=UHxxnDLPW8ROFOnyLDf7jkpDsWH-6EgInZkaEVy-utqnxQVniUN~z2b6Dq5f9wUr&LPId=0)
+- [TextAsset @ github.com](https://github.com/ue4plugins/TextAsset)  
+- [C++ Extending the Editor | Live Training | Unreal Engine by Unreal Engine @ youtube.com](https://youtu.be/zg_VstBxDi8?t=1731)
+- [Writing a Custom Asset Editor for Unreal Engine 4](http://cairansteverink.nl/cairansteverink/blog/writing-a-custom-asset-editor-for-unreal-engine-4-part-1/)  
+- [Asset Editor - Development of asset editor in Unreal Engine](https://easycomplex-tech.com/blog/Unreal-AssetEditor/)  
+- [How to make tools in UE4](https://lxjk.github.io/2019/10/01/How-to-Make-Tools-in-U-E.html)  

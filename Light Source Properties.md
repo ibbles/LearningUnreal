@@ -25,6 +25,13 @@ Not all [[Light Source|Light Sources]] have all of these properties.
 	- It is often better to control this with the Base Color of the [[Material|Materials]] of the objects in the scene, in particular large objects such as floors and walls.
 - Volumetric Scattering Intensity: Control the intensity of [[God Rays Light Shafts]] from this light.
 
+# Lighting Channels
+
+A [[Light Source]] can be assigned to one or more lighting channels.
+The same can be done for [[Mesh]]es.
+A [[Mesh]] will only be lit by a particular [[Light Source]] if they share at least one lighting channel.
+In this way we can control which objects in a scene are lighted by which light sources.
+This can be for artistic or performance purposes.
 
 # References
 - [_Lux_ > _Illuminance_ @ wikipedia.org](https://en.wikipedia.org/wiki/Lux#Illuminance)

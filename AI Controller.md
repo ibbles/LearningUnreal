@@ -6,7 +6,7 @@ AI Controller assets names are often prefixed with `BP_`.
 
 A particular [[Pawn]] instance is assigned an AI Controller type from Details panel > Pawn > AI Controller Class.
 
-An AI Controller is a type of Actor, so the editor for the AI Controller is the regular [[Blueprint Editor]], with a Components panel, a My Blueprint panel, and so on.
+An AI Controller is a type of Actor, so the editor for the AI Controller is the regular [[Blueprint Actor Editor]], with a Components panel, a My Blueprint panel, and so on.
 
 We can get a reference to the [[Pawn]] being controlled, if any, with the Get Controlled Pawn node.
 
@@ -17,6 +17,7 @@ An AI can only move through areas that have navigation data in the form of a nav
 Unreal Engine will automatically create a nav mesh within a Nav Mesh Bounds Volume, which can be created from the Place mode.
 The generated mesh can be visualized by selecting Viewport > Show > Navigation, or by pressing P.
 
+AI Controller instance only exists on the server.
 
 # References
 

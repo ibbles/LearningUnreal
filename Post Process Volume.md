@@ -1,5 +1,6 @@
-Add [[Post Processing]] to an area of the map, or an entire level by enabling Infinite Extent (Unbounded).
-An Actor that define a volume in a level in which a [[Post Processing]] should be applied.
+Add [[Post Processing]] to an area of the map,
+or an entire level by enabling Infinite Extent (Unbounded).
+An Actor or Component that define a volume in a level in which a [[Post Processing]] should be applied.
 The volume can either be bounded, i.e. only apply within a cube, or unbounded, also called Infinite Extent, i.e., applied everywhere.
 Make the Post Process Volume infinitely large by enabling Details panel > Post Process Volume Settings > Infinite Extend (Unbound).
 It is the position of the camera that determine of a Post Process Volume is active or not, not the position of the thing being rendered.
@@ -9,10 +10,35 @@ Controls the exposure of the scene, camera settings, [[Lumen]] quality settings,
 A Post Process Volume is an override mechanic.
 For it to do anything a setting in the Details must first be enabled, and then that setting in the Post Process Volume overrides that of the [[Project Settings]] or a lower-priority Post Process Volume.
 
+A Post Process Volume has a Blend Weight.
+This controls the strength of the effect on the final image.
+This can be used to fade the effect in and out.
+The Blend Weight is a value between 0.0 and 1.0.
+Not sure what happens if the value goes outside these bounds.
+
 # Inter-Post Process Volume Priority
 
-I think we can have overlapping Post Process Volumes and set a priority to control which on wins.
+We can have overlapping Post Process Volumes and set a priority to control which on wins.
+Higher priority wins.
+I don't know if this is applied for the Post Process Volume as a whole,
+or per overridden setting.
+For example, consider the following overlapping Post Process Volumes and [[System Settings]]:
+- Priority 9
+	- White Balance > Temp: Not overridden.
+- Priority 1
+	- White Balance > Temp: Overridden to 7'000.
+- [[System Settings]]
+	- White Balance > Temp: 6'500.
 
+Option 1: The priority 9 Post Process wins so it is applied. It does not override White Balance > Temp so the [[System Settings]] remain in effect at 6'500.
+Option 2: The priority 9 Post Process gets to go first but it doesn't override White Balance > Temp so the next in line, the one with priority 1, is considered. It does override White Balance > Temp so it is set to 7'000.
+
+
+# Post Process Component
+
+We can add a Post Process Component to an Actor.
+A Post Process Component does not have an extent of its own.
+It must either be set to Infinite Extent or be attached to a Shape Component.
 
 # Auto Exposure
 
@@ -44,6 +70,11 @@ Reducing this value makes dark areas darker and bright areas brighter.
 I think.
 )
 Moving the small circle within the larger color circle increases the amount of that color in the scene.
+
+
+# Film
+
+
 
 # Rendering Features
 
