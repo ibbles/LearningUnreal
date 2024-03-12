@@ -32,6 +32,13 @@ Has the same name as your project.
 The center point of the project, the module that makes use of all the other modules.
 
 
+# Building A Module
+
+A single module can be built with:
+```shell
+$UE_ROOT/Engine/Build/BatchFiles/Linux/Build.sh -Target="UnrealEditor Linux Development" -Module="MyModule"
+```
+
 # References
 
 - [_The Unreal Build System Explained | Inside Unreal_ at 38:58 by Unreal Engine @ youtube.com](https://youtu.be/GJZUV8homoo?t=2338)
