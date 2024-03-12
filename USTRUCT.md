@@ -10,3 +10,4 @@ struct MYMODULE_API FMyStruct
 };
 ```
 
+For more details on using `struct`s in Unreal Engine, see [[Struct]].
