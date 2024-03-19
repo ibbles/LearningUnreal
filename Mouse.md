@@ -1,6 +1,9 @@
 # Mouse Buttons
 
-(This text describe the old mappings-based input system. Unreal Engine 5 introduced a new system called [[Enhanced Input]].)
+(
+This text describe the old mappings-based input system. Unreal Engine 5 introduced a new system called [[Enhanced Input]].
+)
+
 Mouse button events are listened to in the same way as all other [[Input Event]].
 Each mouse button press and release generate an [[Action Event]].
 Set up an [[Action Event]] for a mouse button at [[Project Settings]] > Engine > Input > [[Input Bindings]] > [[Action Mappings|Action Mapping]].
@@ -30,6 +33,22 @@ FVector WorldDirection;
 DeprojectMousePositionToWorld(
 	WorldLocation, WorldDirection);
 ```
+
+
+# Overlap / Cursor Over Event
+
+A [[Static Mesh]] can trigger On Begin Cursor Over and On End Cursor Over [[Event]]s.
+For this to work the [[Player Controller]] must have Mouse Over Events enabled.
+This can be enabled from a [[Blueprint Visual Script]] with the Set Enable Mouse Over Events node.
+
+In the [[Blueprint Class]] that has the [[Static Mesh Component]] select the Component in the Components panel.
+In the [[Details Panel]], in the Events category Click the `+` button next to On Begin Cursor Over and / or On End Cursor Over.
+[[Event Node]]s are added to the [[Event Graph]].
+
+I tried to implement this myself using [[Enhanced Input]] and Mouse 2D XY-Axis,
+since I wanted to be able to enable / disable it using [[Mapping Context]],
+but the Mouse 2D XY-Axis event would only trigger while a mouse button was held,
+which is not what I want.
 
 
 # References
