@@ -46,6 +46,13 @@ void UMyObject::MyFunction()
 It is possible to copy data from a Data Table row into a Data Asset,
 if the data types match.
 
+# Creating A Blueprint Data Asset
+
+Create a [[Blueprint Class]] inheriting from Primary Data Asset.
+The [[Blueprint Variable]]s of this [[Blueprint Class]] defines the contents of the Data Asset.
+Create a new Data Asset, selecting the [[Blueprint Class]] as the Data Asset Instance.
+Open the Data Asset Editor to modify the data held by the Data Asset.
+
 # References
 
 - [_Improving C++ Workflows Using Data_ by Epic Games @ dev.epicgames.com 2022](https://dev.epicgames.com/community/learning/courses/Xp/unreal-engine-improving-c-workflows-using-data/pY1/unreal-engine-project-overview-and-creating-structs)
