@@ -7,6 +7,12 @@ The resolution of our painting is limited to the vertex density of the mesh, sin
 
 # Creating A Material Blend
 
+(
+These instructions are broken on Unreal Engine 5.2-5.3.
+See https://www.youtube.com/watch?v=ugKr8Cx4ye8
+In short, create the blend material with a single [[Material Instance]] selected in the [[Content Browser]] and then manually set the textures for the other two in the [[Material Instance Editor]].
+)
+
 To create a material blend:
 - In a [[Content Browser]] select three [[Material Instance|Material Instance]] imported using [[Quixel Bridge]].
 	- The order they are selected determines which channel of the [[Vertex Color]] that [[Material Instance]] map to.

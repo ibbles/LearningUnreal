@@ -4,7 +4,7 @@ Execution nodes can have value input pins.
 A value input pin may be connected to an [[Expression Node]].
 
 Execution nodes can be disabled, meaning execution will jump over them.
-Enable [[Editor Preferences]] > Blueprint Editor Settings > Experimental > Advanced > Allow Explicit Impure Node Disabling.
+Enable [[Editor Preferences]] > General > Blueprint Editor Settings > Experimental > Advanced > Allow Explicit Impure Node Disabling.
 Then you will see Disable (Do Not Compile) and Enable Compile in the right-click context menu of execution nodes.
 Can also set up a keyboard shortcut at [[Editor Hotkeys]] in the [[Editor Preferences]].
 

@@ -5,6 +5,12 @@ Often used to display health bars, ammo counters, mini-maps, and other gameplay 
 The HUD is displayed on the player's [[Viewport]].
 Elements can be added to and removed from the HUD based on gameplay events and logic.
 
+There are two HUD-capable systems in Unreal Engine:
+- The HUD class.
+- [[Unreal Motion Graphics - UMG]].
+
+This note is about the HUD class.
+
 The HUD is spawned by each player's [[Player Controller]] as part of the instantiation process.
 This doesn't mean that the HUD logic must be in the [[Player Controller]],
 you can put it anywhere it makes sense.
@@ -19,7 +25,7 @@ HUD Blueprints are often named with a `HBP_` prefix.
 Make a particular HUD class the **active** one by selecting it in [[Game Mode]] > Details panel > Classes > HUD.
 Make sure the [[Game Mode]] is selected in either the [[World Settings]] or the [[Project Settings]].
 
-The HUD can be built using [[Unreal Motion Graphics]], UMG, something similar you build yourself, or using a plugin.
+The HUD can be built using [[Unreal Motion Graphics - UMG]], UMG, something similar you build yourself, or using a plugin.
 
 The HUD is owned by the [[Player Controller]], and if we have a reference to the [[Player Controller]] then we can get the HUD with the Get HUD node.
 

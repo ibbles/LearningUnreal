@@ -1,4 +1,4 @@
-A Data Table is a container for tabular data, i.e. multiple rows with similar column.
+A Data Table is a container for tabular data, i.e. multiple rows with similar columns.
 Suitable when working with large amounts of simple data,
 not great for nested or hierarchical data.
 An alternative to using a Data Table is a [[Data Asset]].

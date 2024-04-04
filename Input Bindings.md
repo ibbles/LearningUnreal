@@ -1,3 +1,6 @@
+Input bindings are deprecated since Unreal Engine 5.1.
+Use [[Enhanced Input]] instead.
+
 Input bindings are used to bind [[Input Event]] the player can trigger, such as pushing buttons and moving the mouse, to logic in the game.
 It is an abstraction, so that the implementing logic doesn't need to specify low-level input events such as "A was pressed" or "The third gamepad axis moved up", but instead bind to named events such as "Move Left" and "Look Up".
 
