@@ -140,7 +140,7 @@ The highest quality reflections are produced by setting Reflections > Lumen Refl
 - Ray Lighting Mode to Hit Lighting For Reflections.
 - High Quality Translucency Reflections to On.
 
-# Flickering / Jittering / Crawling Indirect Lighting
+# Noise / Flickering / Jittering / Crawling Indirect Lighting
 
 Sometimes Lumen causes flickering / jittering / crawling light in indirectly illuminated parts of the level.
 This happens because Lumen is an approximate light propagation simulation algorithm.
@@ -150,9 +150,16 @@ In a Post Process Volume, increase Global Illumination > Lumen Global Illuminati
 - Final Gather Quality
 - Advanced > Final Gather Lighting Update Speed
 
+One can also edit the `r.Lumen.Reflections.ScreenSpaceReconstruction.TonemapStrength` [[Console Variable]].
+This clamps the intensity of reflections which means brightness will go down a bit,
+but this is often preferable to the noise.
+Try with a value of 1, tweak as necessary.
+
+
 # References
 
 - [_Lighting in Unreal Engine 5 for Beginners_, by William Faucher @ youtube.com](https://www.youtube.com/watch?v=fSbBsXbjxPo)
 - [_Lighting in Unreal Engine 5 for Beginners_ - Fixing crawling indirect lighting, by William Faucher @ youtube.com](https://youtu.be/fSbBsXbjxPo?t=2185)
 - [_Unreal Engine 5 New Lumen Hardware Ray tracing Reflections_, by JSFILMZ @ youtube.com](https://www.youtube.com/watch?v=rQ0zJFgdqHE)
 - [_LUMEN in Unreal Engine 5 | How it REALLY works ?_ by Proj Prod @ youtube.com 2023](https://www.youtube.com/watch?v=HZFBUhusQn4)
+- [_Rough Lumen reflections cheat sheet_ by ](https://forums.unrealengine.com/t/rough-lumen-reflections-cheat-sheet/875826/5)
