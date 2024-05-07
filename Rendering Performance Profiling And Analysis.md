@@ -6,8 +6,9 @@ If you need full performance even when Unreal Editor does not have focus, is in 
 
 # Optimization Viewmodes
 
-The [[Level Viewport]] supports various [[View Mode|View Modes]], the default is Lit.
-These are different things that can be rendered instead of the regular view of the scene.
+The [[Level Viewport]] supports various [[View Mode|View Modes]] that can be selected from the top-left corner.
+The default [[View Mode]] is Lit, which renders the scene using the regular renderer as it would appear in game.
+There are different things that can be rendered instead of the regular view of the scene.
 Each [[View Mode]] visualizes a particular feature or aspect of the rendering pipeline.
 The [[View Mode|View Modes]] listed below are grouped under Optimization Viewmodes in the [[View Mode]] list.
 
