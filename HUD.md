@@ -36,7 +36,7 @@ One one is to have the [[Player State]] notify the HUD about any changes in the 
 I thing you can get a hold of the HUB object from a [[Player State]] member function via the [[Player Controller]].
 
 HUD has a [[Blueprint Event]] named **Event Receive Draw HUD** which is given the width and the height of the screen.
-The size is specified with integers so I assume they are in pixels, or [[DPI]] scaled pixels.
+The size is specified with integers so I assume they are in pixels, or [[DPI - Dots Per Inch, Scaling]] scaled pixels.
 The screen size parameters are named `Sizex X` and `Size Y`.
 
 Drawing elements on the HUD is done with various **Draw** nodes.

@@ -4,4 +4,4 @@ We can display the collected data with the `stat <CATEGORY>` console command.
 The data shows up as a table rendered onto the viewport.
 
 - `stat streaming`: Show statistics about the streaming pool.
-- 
+- `stat gpu`: Time spent by the GPU for various passes that make up the rendering pipeline.
