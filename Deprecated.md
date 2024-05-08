@@ -1,5 +1,5 @@
 # Property
-When a [[Propery]] has been deprecated any use of it in a Blueprint will result in a warning.
+When a [[Property]] has been deprecated any use of it in a Blueprint will result in a warning.
 
 (Are deprecated properties still serialized?)
 
