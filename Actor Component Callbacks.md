@@ -1,0 +1,8 @@
+- C++ constructor
+- Post Init Properties
+- Post Load
+	- Only if loading a level or creating a [[Blueprint Instance]], not when a new Component is created in an existing [[Actor]].
+- Begin Play
+- Tick
+- End Play
+- Destroy Component

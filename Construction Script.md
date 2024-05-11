@@ -13,4 +13,6 @@ The tab can be re-opened by double-clicking My Blueprint panel > Functions > Con
 
 By default the Construction scrip is run continuously when an Actor Instance is **dragged**.
 This can be disabled by unchecking Toolbar > Class Setting > Blueprint Options > Run Construction Script on Drag.
+The construction script is not run when a [[Scene Component]] within an Actor Instance is dragged.
 
+A [[Property]] edited from the Construction Script becomes marked as [[User Construction Script Modified Property]], or UCSModified for short.

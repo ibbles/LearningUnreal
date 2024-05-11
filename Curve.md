@@ -12,5 +12,5 @@ Right-click an interpolation point to change interpolation type:
 - Break: 
 - Auto: Provides a handle to control the tangent.
 
-To access a float curve in C++ declare a [[Propery]] of type `UCurveFloat*`.
+To access a float curve in C++ declare a [[Property]] of type `UCurveFloat*`.
 To sample the function call `UFloatCurve::GetFloatValue(float X)`.
