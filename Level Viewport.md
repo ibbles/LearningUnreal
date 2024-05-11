@@ -42,6 +42,20 @@ The hamburger menu, three lines in the top-left, contains settings for the viewp
 - Layouts
 	- See _Layouts_ below.
 
+# Camera Selector
+
+Next to the hamburger menu is the camera selector.
+The perspective camera is the default.
+It is a free-moving camera that defaults to Lit [[View Mode]].
+Top, bottom, front, back, left, and right are orthographic views.
+They default to wireframe [[View Mode]].
+Then comes a list of [[Camera]] [[Actor|Actors]] placed in the level.
+
+When any of the orthographic cameras is selected the middle mouse button becomes a measurement tool  instead of panning the camera.
+Panning is instead done with the right mouse button.
+
+
+![CameraSelector](./Images/LevelViewport_CameraSelector.jpg)
 
 # Layouts
 
