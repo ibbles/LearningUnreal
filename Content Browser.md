@@ -21,8 +21,18 @@ such as the number of vertices of a [[Static Mesh Asset]] or the size and channe
 Right-click an asset to get a list of actions that can be performed on that asset.
 Some of the actions are described throughout this note.
 
-We can move an [[Asset]] by selecting it and dragging it to the folder where we want it to be.
-Unreal Engine tracks all asset references all will update them to point to the new location.
+We can **move** an [[Asset]] by selecting it and dragging it to the folder where we want it to be.
+Unreal tracks all asset references all will update them to point to the new location.
+Maybe. I'm not sure how this works.
+It will also leave a hidden [[Redirector]] at the old asset location.
+These can be unhidden using _Asset Filtering_ and removed with folder > right-click > Fix Up Redirectors.
+
+We can **delete** an [[Asset]] by selecting it and hitting the delete key.
+If the asset is used, i.e. referenced, anywhere then we will get a warning saying so with a list of referencing assets .
+We can chose to delete that asset as well by right-clicking it in the list and selecting Add To Pending Deletes.
+If we don't want to delete that other [[Asset]] then we can chose to make the reference point to another asset instead.
+We can also do Force Delete, I not sure what happens if we do that.
+Will the other assets keep their references to the now deleted assets? Will they be set to None?
 
 Unreal Engine 5 introduced the [[Content Drawer]].
 The Content Drawer is an auto-hiding panel with a Content Browser in it.
@@ -38,6 +48,7 @@ At the top of the Content Browser, click the dashed triangle to the left of the 
 This opens the filter list, which is a list of asset types along with a check box next to each.
 Select a few check boxes and only asset of the selected types will be shown.
 Only  assets matching the filter within the currently selected folder, including subfolders, will be shown.
+This can be used to unhide any [[Redirector]] that a  folder may contain.
 
 By default the text search searches by name.
 It is also possible to search by meta-data.
