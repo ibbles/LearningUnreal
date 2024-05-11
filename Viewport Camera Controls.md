@@ -11,6 +11,7 @@ In the [[Level Viewport]], any many other [[Viewport|Viewports]], allow you  mov
 	- In this mode mouse movements rotate right-left (yaw) or up-down (pitch..
 - `MMB`: Hold to activate view plane move mode.
 	- In this mode mouse movements move the camera in the projection plane, up-down, left-right.
+	- In orthographic view modes (top, front, left, etc) this is a distance measurement tool instead.
 - `LMB`+`RMB`: Hold to activate view plane move mode.
 	- Identical to `MMB`.
 - `F`: Focus the selected object.
