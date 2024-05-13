@@ -3,6 +3,13 @@ It is not an editor for the triangles itself, the topology of the mesh.
 It is an editor for how Unreal Engine uses and renders the mesh.
 
 
+# Main Tool Bar
+
+Reimport Base Mesh uses the source asset path stored in the [[Static Mesh Asset]] and imports it again,
+throwing away the old triangles and replacing them with the new ones.
+The file location Unreal Editor searches then reimporting can be changed at [[Details Panel]] > Import Settings > File Path > Source File.
+
+
 # LOD Settings
 
 Where the settings for [[Mesh LOD]] is set.

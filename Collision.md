@@ -67,4 +67,4 @@ AMyActor::AMyActor()
 
 - [_Begin Play | Gameplay_ by Epic Games, Samuel Bass @ dev.epicgames.com 2022](https://dev.epicgames.com/community/learning/tutorials/l21z/unreal-engine-begin-play-gameplay)
 - [_Breaking Down the Components of Gameplay_ > _Component Design Choices_ by Epic Games, Rob @ dev.epicgames.com 2021](https://dev.epicgames.com/community/learning/courses/mo/unreal-engine-breaking-down-the-components-of-gameplay/aDO/unreal-engine-component-design-choices)
-
+- [_Becoming an Environment Artist in Unreal Engine_ > _Collison Setup_ by Epic Online Learning @ dev.epicgames.com/courses 2022 UE4.25](https://dev.epicgames.com/community/learning/courses/Gm/becoming-an-environment-artist-in-unreal-engine/jMJ/unreal-engine-collison-setup)
