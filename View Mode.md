@@ -14,7 +14,9 @@ You can read more about the performance related View Modes in [[Rendering Perfor
 You can read more about the lighting related View Modes in [[Lighting View Modes]].
 You can read more about material related View Modes in [[Material View Modes]].
 
+- Player Collision: Visualize the [[Collision Shape|Collision Shapes]] that the player will collide with.
 
 # References
 
 - [_Begin Play | Rendering_ 15:39 by Epic Games @ dev.epicgames.com 2022](https://dev.epicgames.com/community/learning/tutorials/vyZ1/unreal-engine-begin-play-rendering)
+- [_Becoming an Environment Artist in Unreal Engine_ > _Collison Setup_ by Epic Online Learning @ dev.epicgames.com/courses 2022 UE4.25](https://dev.epicgames.com/community/learning/courses/Gm/becoming-an-environment-artist-in-unreal-engine/jMJ/unreal-engine-collison-setup)

@@ -31,11 +31,17 @@ Some textures, such as [[Normal Map]] or [[Vector Displacement Map]], does not w
 There are other compression algorithms for those.
 Select compression algorithms for a [[Texture]] at [[Texture Editor]] > [[Details Panel]] > Compression > Compression Settings.
 They are named after what they are supposed to be used for.
+- Default (DXT1/5, BC1/3 on DX11)
+	- Used for color maps.
+	- Uses a compression algorithm optimized based on how our eyes and brain interprets color.
 - Normal Map.
-	- Should be used for all normal maps, which is very common to have.
+	- Should be used for all normal maps.
 	- Removes the blue channel, uses the saved space to not compress red and green as hard.
 	- The generated [[Shader]] code restores the value of the blue channel from the red and green.
 	- This is possible since normals are always normalized.
+	- Unreal Editor uses a heuristic to identify normal maps on import and often sets the correct Compression Setting, thou you should double-check.
+	- Also ensure that sRGB is turned off for any [[Texture]] used as a [[Normal Map]].
+	- Also ensure that the correct green channel convention is used. Toggle Flip Green Channel if things look wrong.
 - Vector Displacement Map.
 	- Uncompressed.
 	- RGBA8 or B8G8R8A8. Not sure which, the Compression Settings says one thing but the Format at the top of the [[Details Panel]] says the other.
@@ -53,3 +59,4 @@ The [[Statistics Browser]] can tell you the amount of memory used by textures.
 # References
 
 - [_Materials Master Learning_ > _Compression and Memory_ by Epic Games, Sjoerd de Jong @ dev.epicgames.com 2019](https://dev.epicgames.com/community/learning/courses/2dy/unreal-engine-materials-master-learning/Y0q/compression-and-memory)
+- [_Becoming an Environment Artist in Unreal Engine_ > _Importing Meshes and Textures Into Unreal_ by Epic Online Learning @ dev.epicgames.com/courses 2020 UE4.25](https://dev.epicgames.com/community/learning/courses/Gm/becoming-an-environment-artist-in-unreal-engine/aVW/unreal-engine-importing-meshes-and-textures-into-unreal)
