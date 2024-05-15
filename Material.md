@@ -1,6 +1,6 @@
 A Material defines the look-and-feel of an objects.
 Unreal Engine uses [[Physically Based Rendering]], so the purpose of a Material is to define values for the parameters used by that rendering model.
-See _Main Material Node_ below and [[Rendering Pipeline]].
+See _Main Material Node_ below, [[Material Editor]], [[Material Graph]] and [[Rendering Pipeline]].
 
 The function of a Material is defined by its [[Material Graph]], which is constructed in the [[Material Editor]].
 A Material has a bunch of inputs.
@@ -19,6 +19,8 @@ To assign a Material to a [[Static Mesh]]
 There will be as many Material > Element # entries in the Static Mesh's [[Details Panel]] as there are [[Material Slot|Material Slots]] in the [[Static Mesh]].
 
 A Material can be used in different contexts, called a [[Material Domain]].
+Example domains include Surface, Light Function, and Post Process Blendable.
+
 
 # Parameters And Material Instances
 
@@ -33,14 +35,15 @@ Give the parameter a name and a default value.
 The main part of a Material is the main Material node, also called the [[Material Output Node]].
 The values passed to the input pins of the output node define the function of the Material.
 Depending on the settings set in the [[Details Panel]] different input pins are available.
-See [[Physically Based Rendering]].
+Settings that effect the pins available include [[Blend Mode]] and [[Shading Model]].
+See also [[Physically Based Rendering]].
 
 Default values are shown in () below.
 
 - Base Color:
 	- The color of the material.
 	- Red, green, and blue each in the range 0.0..1.0. Larger values are clamped.
-- Metallic (0):
+- Metallic (0.0):
 	- How metallic the material is. I don't know what this means.
 	- Increasing it reduces the influence of Base Color, makes reflections more visible.
 	- Many recommend using this as a boolean, i.e. only ever pass 0.0 or 1.0. I don't know why.
@@ -166,3 +169,5 @@ The following properties are available in the Details panel of the [[Material Ed
 - [_Material Editor Fundamentals for Game Development_ > PBR Properties and the Material Editor by Epic Games, Lincoln Hughes @ dev.epicgames.com 2021](https://dev.epicgames.com/community/learning/courses/pm/unreal-engine-material-editor-fundamentals-for-game-development/PZb/unreal-engine-pbr-properties-and-the-material-editor)
 - [_Materials Master Learning_ > _Performance_ by Epic Games, Sjoerd de Jong @ dev.epicgames.com 2019](https://dev.epicgames.com/community/learning/courses/2dy/unreal-engine-materials-master-learning/oJjW/unreal-engine-performance)
 - [_Materials Master Learning_ > _Material Inputs - Part Two_ by Epic Games, Sjoerd de Jong @ dev.epicgames.com 2019](https://dev.epicgames.com/community/learning/courses/2dy/unreal-engine-materials-master-learning/9zP/material-inputs-part-two)
+- [_Becoming an Environment Artist in Unreal Engine_ > _Basic Material Creation and Application_ by Epic Online Learning @ dev.epicgames.com/courses 2020 UE4.25](https://dev.epicgames.com/community/learning/courses/Gm/becoming-an-environment-artist-in-unreal-engine/Ya6/unreal-engine-basic-material-creation-and-application)
+- [_Becoming an Environment Artist in Unreal Engine_ > _Material Masters and Instances_ by Epic Online Learning @ dev.epicgames.com/courses 2020 UE4.25](https://dev.epicgames.com/community/learning/courses/Gm/becoming-an-environment-artist-in-unreal-engine/7Bb/unreal-engine-material-masters-and-instances)

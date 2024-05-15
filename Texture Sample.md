@@ -1,21 +1,26 @@
 In an abstract sense, a texture sample is a read from a [[Texture]].
-It is kind of like a 2D array look-up, but with floating-point instead of integer array indices.
-For a texture sample the location to read is called a UV coordinate.
+It is kind of like a 2D array look-up, but with floating-point instead of integer array indices,
+and the value read may be a mixture of multiple array elements, called the texels of the [[Texture]].
+For a texture sample the location to read is called a texture coordinate or a UV coordinate.
 This means that we may read between texels.
 Different filtering modes determine what happens in this case, how the nearby texels are blended into a single color value.
 
 In Unreal Engine, a Texture Sample is a node in a [[Material Graph]].
 The UV coordinate is an input to the Texture Sample node.
-By default the UV coordinate is formed by blending the UV coordinates or the three vertices that form the current triangle.
+By default the UV coordinate is formed by blending the UV coordinates of the three vertices that form the current triangle.
 
 We can get that 2D value, to do some processing on it before passing it to the UV input pin, using the Texture Coordinate node.
 The node created is named Tex Coord instead of Texture coordinate.
 The Tex Coord node has U Tiling and V Tiling properties to control whether the texture should be scaled down or up.
 More tiling means more repetitions of the texture per unit length.
 
+It is important that the [[Details Panel]] > Material Expression Texture Base > Sampler Type matches the [[Texture Compression]] setting set in the [[Texture Editor]] for the sampled texture.
+If you set a texture directory on the Texture Sample node then Unreal Editor will make sure this is correct.
+If the [[Texture]] to use is a [[Material Parameter]] then you need to keep track of this yourself, though you may get a warning about it if the settings mismatch.
+
 A [[Material]] can contain no more than 16 texture samplers,
 some of which, around 3, are already reserved for internal use by the engine.
-Such as [[Lightmap]], [[Shadow Maps]].
+Such as [[Lightmap]], or [[Shadow Maps]].
 However, some graphics APIs, such as DirectX11 and 12, support Shared Texture Samplers.
 This increases the limit from 16 to 128.
 Enabling shared sampling is done on the Texture Sample node in the [[Material Graph]].
@@ -65,4 +70,6 @@ This gives a seamless and reasonable looking texture wrapping without needing pe
 # References
 
 - [_Materials Master Learning_ > _Mipmaps, Texture Sizes, and Texture Pool_ by Epic Games, Sjoerd de Jong @ dev.epicgames.com 2019](https://dev.epicgames.com/community/learning/courses/2dy/unreal-engine-materials-master-learning/1Yno/unreal-engine-mipmaps-texture-sizes-and-texture-pool)
+- [_Becoming an Environment Artist in Unreal Engine_ > _Basic Material Creation and Application_ by Epic Online Learning @ dev.epicgames.com/courses 2020 UE4.25](https://dev.epicgames.com/community/learning/courses/Gm/becoming-an-environment-artist-in-unreal-engine/Ya6/unreal-engine-basic-material-creation-and-application)
+
 
