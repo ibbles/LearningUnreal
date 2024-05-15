@@ -1,6 +1,7 @@
 A property of [[Material]], just like [[Shading Model]].
 Control how meshes rendered with this material is blended with the surroundings.
 Used for [[Translucency]].
+A [[Material Instance]] can override the parent [[Material|Material's]] Blend Mode from [[Details Panel]] > General > Material Property Overrides > Blend Mode.
 
 # Opaque
 All pixels from this mesh completely overwrite whatever is behind it.
