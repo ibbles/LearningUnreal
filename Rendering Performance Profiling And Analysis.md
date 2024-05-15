@@ -16,7 +16,7 @@ The [[View Mode|View Modes]] listed below are grouped under Optimization Viewmod
 
 Colors every surface based on the complexity, a proxy for frametime cost, of the [[Shader]] resulting from the [[Material]] used.
 Green means good, red means bad but OK in small patches, white means very bad.
-A bar at the bottom of the screen shows how complex the [[Vertex Shader]] and [[Pixel Shader]] is individually for the pixel that the cross-hair at the center of the screen is on.
+A bar at the bottom of the screen shows how complex the [[Vertex Shader]] and [[Pixel Shader]] are individually for the pixel that the cross-hair at the center of the screen is on.
 You can see the number of instructions for a material in the [[Stats Panel]] in the [[Material Editor]].
 I don't think this count includes extra shader code added by the engine for specific usage scenarios, see [[Shader]].
 
@@ -50,10 +50,6 @@ Blue is good, red is bad, white is really bad.
 See [[Lighting And Shadow Performance]] for tips on how to improve lighting performance.
 
 Not sure what goes into Light Complexity and what goes into Shader Complexity.
-
-## Shader Complexity
-
-Not sure what goes into Shader Complexity and what goes into Light Complexity.
 
 
 # Statistics Window
@@ -117,5 +113,8 @@ The GPU Visualizers displays a timeline of the frame render and a tree view of t
 
 - [_Materials Master Learning_ > _Compression and Memory_ by Epic Games, Sjoerd de Jong @ dev.epicgames.com 2019](https://dev.epicgames.com/community/learning/courses/2dy/unreal-engine-materials-master-learning/Y0q/compression-and-memory)
 - [_Unreal* Engine 4 Optimization Tutorial, Part 1 - GPU Visualizer_, by intel @ intel.com. UE4.19](https://www.intel.com/content/www/us/en/developer/articles/training/unreal-engine-4-optimization-tutorial-part-1.html#gpu-visualizer)
+- [_Becoming an Environment Artist in Unreal Engine_ > _Basic Material Creation and Application_ by Epic Online Learning @ dev.epicgames.com/courses 2020 UE4.25](https://dev.epicgames.com/community/learning/courses/Gm/becoming-an-environment-artist-in-unreal-engine/Ya6/unreal-engine-basic-material-creation-and-application)
+
+
 
 
