@@ -7,6 +7,7 @@ Examples of light Actor or Components:
 - [[Directional Light]]: A light source that appears to be very far away, producing parallel light rays covering the entire extent of the scene.
 - [[Spotlight]]: Like a Point Light but with a limited arc where it emanates light.
 - [[Sky Light]]: A light source simulating light coming from a sky dome. Can either use a cube map or do real time scene capture.
+- [[Rect Light]]: 
 
 Light sources can be created from the Place Actors panel, the Add Component menu on an [[Actor]] or from the [[Environment Light Mixer]].
 

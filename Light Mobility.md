@@ -9,12 +9,15 @@ Dynamic lighting is more computationally demanding at runtime but doesn't requir
 There is also a hybrid blend between static and dynamic, tries to be the best of both worlds.
 A scene can contain [[Light Source|Light Sources]] in any combination of the three.
 
+It is not possible to change the [[Mobility]] of a [[Light Source]] at runtime.
+
 # Movable
 
 When a [[Light]]'s mobility is set to Movable then its light is fully dynamic, both direct and indirect lighting.
 Indirect lighting, also called [[Global Illumination]], is only supported with [[Lumen]], not with the legacy lighting system.
 Without [[Global Illumination]] any part of the level that is in shadow from all lights will be completely dark,
 except possibly for [[Sky Light]].
+It is the most expensive to render.
 
 Dynamic light is computed at runtime.
 This includes [[Shadows]] and [[Shading]].
@@ -26,6 +29,7 @@ There is no [[Lightmap]] involved, so [[Mesh|Meshes]] don't need Lightmap UVs.
 
 Increasing the number of dynamic light sources will increase the computational cost of the scene dramatically.
 Especially if they have overlapping attenuation radius, see [[Light Source Properties]].
+The number of meshes within a light's attenuation radius also influence the runtime cost.
 The cost of a dynamic light can be reduced significantly by disabling Details panel > Light > Cast Shadows.
 [[Dynamic Shadows]] is one of the most computationally expensive things in the engine.
 
@@ -42,6 +46,7 @@ Uses a different [[Shadows|Shadows]] method than stationary lights.
 # Stationary
 
 A hybrid blend between movable and static, trying to have a bit of the advantages of both while minimizing the drawbacks of them.
+Not as fast to render as static lights, but faster than movable lights.
 Means that the light won't move, but there are some properties, such as intensity and color, that can change at runtime.
 Not sure if there are other parameters that can change as well.
 Will result in partially baked lighting.
@@ -69,9 +74,10 @@ Sunlight is often set to stationary.
 
 # Static
 
-The [[Light]] may not change in any way.
+The [[Light]] may not change in any way during runtime.
 Can be fully baked using [[Lightmass]], producing [[Baked Lighting]] with a [[Lightmap]] for each static [[Static Mesh]] and Volumetric Lightmap for everything else.
 Produces both direct and indirect lighting.
+It is the cheapest to render.
 
 Shadows can become blurry or blocky since they are limited to the [[Lightmap]] resolution of the illuminated mesh, and also depending on the [[Lightmass]] settings.
 For high-quality shadows consider changing to stationary,
@@ -84,12 +90,14 @@ The light from all light sources is baked into the same set of textures regardle
 
 Whenever something is changed in the scene that affects the baked [[Lightmap|Lightmaps]] a Preview text will be shown on the objects that receive baked lighting.
 This means that what is shown in the [[Level Viewport]] isn't representative of what the final package project will look like.
-
-
+If you move a light that has already been baked then you will see both the baked lighting and the preview lighting on top of each other,
+visible as a double-shadow effect.
 
 # References
 - [_Lighting in Unreal Engine 5 for Beginners_ by William Faucher @ youtube.com](https://youtu.be/fSbBsXbjxPo?t=318)
 - [_Understanding Lightmass - Baking Checklist_, by Epic Games @ dev.epicgames.com](https://dev.epicgames.com/community/learning/courses/yon/introducing-global-illumination/kn8/understanding-lightmass-baking-checklist)
 - [_Lighting Essential Concepts and Effects - Dynamic Lighting - Indoor and Basics_, by Epic Games @ dev.epicgames.com, 2018](https://dev.epicgames.com/community/learning/courses/Xwp/lighting-essential-concepts-and-effects/mX9k/dynamic-lighting-indoor-and-basics)
+- [_Becoming an Environment Artist in Unreal Engine_ > _Lighting_ by Epic Online Learning @ dev.epicgames.com/courses 2020 UE 4.25](https://dev.epicgames.com/community/learning/courses/Gm/becoming-an-environment-artist-in-unreal-engine/oE6/unreal-engine-lighting)
+
 
 

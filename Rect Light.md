@@ -1,4 +1,4 @@
-A light source that has an area and "flaps", called barn doors, on the sides.
+A [[Light Source]] that has a rectangular area and "flaps", called barn doors, on the sides.
 The size of the Rect Light is controlled with Source Width and Source Height.
 The size of the Rect Light is seen in reflections.
 Acts like a soft box.
