@@ -74,6 +74,13 @@ Moving the small circle within the larger color circle increases the amount of t
 
 # Film
 
+# Lens
+
+## Bloom
+
+This category of settings control how a [[Emissive Material]] leak color into surrounding pixels.
+Intensity control how far an emissive surface will leak light.
+Threshold control how strong the emissive color must be before it starts leaking.
 
 
 # Rendering Features
