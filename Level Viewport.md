@@ -2,6 +2,10 @@ The Level Viewport is the part of the [[Level Editor]] where we can see the cont
 
 There are various [[Viewport Camera Controls]].
 
+Click an [[Actor]] to select it.
+Translucent objects cannot be selected by default,
+hit the T key to enable or disabled translucent object selection.
+
 The [[Transform Gizmo]] is used to move objects in the level.
 
 There are several debug and performance [[View Mode|View Modes]] that can be selected from the top-left of the viewport.
@@ -21,13 +25,18 @@ Collision shapes will be used if available, otherwise the origin of the object i
 
 Left-click an object in the Viewport to select it.
 If this doesn't work then check the Allow Translucent Selection option in [[Main Tool Bar]] > Gear.
+Keyboard shortcut `t`.
 The selected object is highlighted in the [[Outliner]] panel and the [[Property|Properties]] for that object is shown in the [[Details Panel]].
 Hold Shift when clicking to select multiple objects.
 Hold Ctrl when clicking to toggle selection of the object.
 (
 Check if I got Shift/Ctrl correct.
 )
-Hold Ctrl+Alt and `LMB` drag to select all objects in a box.
+In a perspective view hold Ctrl+Alt and `LMB` drag to select all objects in a box.
+This will only select visible objects, not objects that are fully occluded by other objects.
+In an orthographic view a simple `LMB` click-drag will select ALL objects in the box.
+See _Camera Selector_ below.
+
 Right-click an object in the Viewport to see actions for that object.
 
 
@@ -42,11 +51,12 @@ The hamburger menu, three lines in the top-left, contains settings for the viewp
 - Layouts
 	- See _Layouts_ below.
 
+
 # Camera Selector
 
 Next to the hamburger menu is the camera selector.
 The perspective camera is the default.
-It is a free-moving camera that defaults to Lit [[View Mode]].
+It is a free-moving camera that defaults to the Lit [[View Mode]].
 Top, bottom, front, back, left, and right are orthographic views.
 They default to wireframe [[View Mode]].
 Then comes a list of [[Camera]] [[Actor|Actors]] placed in the level.
@@ -54,6 +64,22 @@ Then comes a list of [[Camera]] [[Actor|Actors]] placed in the level.
 When any of the orthographic cameras is selected the middle mouse button becomes a measurement tool  instead of panning the camera.
 Panning is instead done with the right mouse button.
 
+There are keyboard shortcuts for the different camera views:
+- Perspective: Alt + G
+- Top: Alt + J
+- Bottom: Alt + Shift + J
+- Left: Alt + K
+- Right: Alt + Shift + K
+- Front: Alt + H
+- Back: Alt + Shift + H
+
+- H: X-axis
+- K: Y-axis
+- J: Z-axis
+
+This shift / no-shift keyboard shortcuts are not consistent with the positive / negative direction on the coordinate axes.
+H / X-axis and J / Z-axis is no-Alt = from positive.
+	K / Y-axis is no-Alt = from negative.
 
 ![CameraSelector](./Images/LevelViewport_CameraSelector.jpg)
 
@@ -69,6 +95,26 @@ A grid button in the top-right of the Level Viewport unmaximizes the pane so tha
 When unmaximized the unmaximize button becomes a maximize button.
 Any pane can be maximized.
 
+# Actor Groups
+
+We can group Actors by selecting them > right-click > Group.
+Keyboard shortcut CTRL + G.
+This will move the pivot point to the center of the group.
+The grouping is remembered, so you can unselect the group and when selecting any Actor in the group later the entire group will become selected.
+A Group Actor will be created in the [[Outliner]].
+
+To enable moving a single Actor within a group right-click an Actor in the group > Groups > Unlock.
+It is now possible to select individual Actors within the group.
+To re-enable the lock right-click and Actor in the group > Groups > Lock.
+
+When a group is unlocked you can remove individual Actors from it with right-click > Groups > Remove From Group.
+
+If you Alt + `LMB`-drag with a group selected then all Actors in that group will be duplicated.
+
+We can temporarily move the pivot point for a group by dragging the [[Transform Gizmo]] with Alt + `MMB`.
+If you unselect the group and then select it again then the pivot point will have returned to the original position.
+
+Ungroup with Shift + G.
 
 # Multiple Viewport
 
