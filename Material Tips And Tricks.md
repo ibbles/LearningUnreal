@@ -60,8 +60,16 @@ Lerp won't do a rotation, will it? This will just sort of squish the normal?
 
 We create a color tint by multiplying the Base Color of the [[Material]] with another color.
 Create a constant 3 vector (Hold 3 on the keyboard and click.) and multiply (Hold M on the keyboard and click.) it with the Base Color.
-Convert the constant 3 vector to a parameter.
+Convert the constant 3 vector to a [[Material Parameter]].
 Make the default value white, (1.0, 1.0, 1.0), that will make the multiply a no-op.
+
+A separate [[Texture]] can be used to control which parts of the mesh is affected by the color tint.
+Options:
+- Make the [[Texture]] a binary value and use a Select node to either pick the tint-multiplied base color or just the base color. Make sure the [[Texture Compression]] settings are set to Masks and [[sRGB]] is disabled in the [[Texture Editor]].
+- Make the texture a scalar value and [[Lerp]] between the tint-multiplied base color and the base color as-is. Then you can have gradients in the tinting.
+
+By having multiple channels in the texture you can have multiple tint values for different parts of the mesh.
+Or you can do some math on the single-channel grayscale texture values to map different ranges in the grayscale to different tint parameters.
 
 We can make **color variations** by having a gray-scale texture for patterns and using a **Blend Overlay** node along with a color parameter to chose a hue.
 
@@ -99,3 +107,4 @@ The value passed to Alpha must be a scalar value, not an RGB value.
 
 - [_Material Editor Fundamentals for Game Development_ by Epic Games, Lincoln Hughes @ dev.epicgames.com 2021](https://dev.epicgames.com/community/learning/courses/pm/unreal-engine-material-editor-fundamentals-for-game-development/)
 - [_Materials Master Learning_ > _Material Editor Intro and Learning Strategies_ and the following videos by Epic Games, Sjoerd de Jong @ dev.epicgames.com 2019](https://dev.epicgames.com/community/learning/courses/2dy/unreal-engine-materials-master-learning/oVv/material-editor-intro-and-learning-strategies)
+- [_An In-Depth Look at Environment Artist Based Tools_ > _Controlling and Masking Base Color_ by Epic Online Learning @ dev.epicgames.com/courses 2021 UE4.27](https://dev.epicgames.com/community/learning/courses/3G/unreal-engine-an-in-depth-look-at-environment-artist-based-tools/y07/unreal-engine-controlling-and-masking-base-color)
