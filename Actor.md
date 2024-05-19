@@ -18,3 +18,12 @@ An Actor can be added to the level by dragging an [[Asset]] from the [[Content B
 
 We can **spawn** new Actor instances at runtime with the Spawn Actor From Class node.
 We can **destroy** an Actor instance at runtime with the Destroy Actor node.
+
+# Attach Actor To Actor
+
+An Actor can be attached to another Actor.
+Attach by dragging on Actor on top of another in the [[Outliner]].
+The dragged Actor will be attached to the Actor it is dropped on.
+When the parent Actor is moved then the child Actor will also move.
+When the parent Actor is hidden, with the eye icon in the [[Outliner]], then the child Actor is hidden as well.
+Detach the attached Actor again by dragging it on top of the parent Actor.

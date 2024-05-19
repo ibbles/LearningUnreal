@@ -3,7 +3,8 @@ The transformation describe an object's location, rotation, and scale.
 These act in the Unreal Engine [[Coordinate System]].
 Transformations can be chained, one being applied on the result of the one before it.
 We call this a **transformation hierarchy**, since each step can branch into many child transforms.
-The Scene Components of an Actor is an example of a transformation hierarchy.
+The Scene Components of an [[Actor]] is an example of a transformation hierarchy.
+Actors attached to each other is another example of a transformation hierarchy.
 We call each level in the hierarchy a coordinate frame, frame, or a space.
 Each transform can be seen as a local transformation or a global transformation.
 The **local transformation** tells you where the transformed object is relative to the transformation's parent transformation.
