@@ -16,6 +16,10 @@ Rule of thumb, see below for details:
 - If it must be high-quality Surface Forward Shading with Screen Space Reflections then minimize the use of the material and minimize the number of translucent objects that can be seen through each other.
 - More translucent surfaces implies that a simpler translucency model should be used.
 
+Translucent objects cannot be selected in the [[Level Viewport]] by default.
+Toggle translucent object selection on and off with the T key.
+
+
 # Material Details Panel Settings
 
 This section is about the various settings in [[Material Editor]] > [[Details Panel]] > Translucency.
