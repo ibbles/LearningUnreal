@@ -42,6 +42,8 @@ The parent may also be a Material Instance, but at the root of a Material Instan
 Some of the "material global" (not sure what word to use here) of the parent [[Material]] can be overridden by a Material Instance.
 These settings are found in [[Details Panel]] > General > Material Property Overrides.
 You can, for example, override the [[Blend Mode]] and the [[Shading Model]].
+
+
 # Setting Material Parameter Values At Runtime
 
 To modify a [[Material Parameter]] at runtime we need a [[Dynamic Material Instance]].
