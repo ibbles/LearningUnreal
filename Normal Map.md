@@ -30,12 +30,15 @@ If you have multiple normal maps then you should use the Blend Angle Corrected N
 That node does have an Alpha input pin so I don't know how to set a blend weight.
 (
 What do I mean by this?
-The [example video](https://dev.epicgames.com/community/learning/courses/3G/unreal-engine-an-in-depth-look-at-environment-artist-based-tools/RmB/unreal-engine-controlling-normals) (03:58) on shows Base Normal and Additional Normal input pins.
+The [example video](https://dev.epicgames.com/community/learning/courses/3G/unreal-engine-an-in-depth-look-at-environment-artist-based-tools/RmB/unreal-engine-controlling-normals) (03:58) only shows Base Normal and Additional Normal input pins.
 )
 
 A use-case for blending normals is if you have a full-mesh normal map that approximates a high-resolution source mesh on a low-resolution real-time rendering mesh and also a tileable normal map that provides small-scale surface patterns / texture on the surface.
 When having a tileable texture added like this it is common to provide a tiling parameter so the size of the small-scale surface features can be controlled from a [[Material Instance]].
 Pass a TexCoord node and a Tileable Scale [[Material Parameter]] to a Multiply Node and pass that to the UVs input pin on the Texture Sample node sampling the tileable texture.
+
+If you have a [[Material Attributes]] wire and a Normal Map you want to blend into the [[Material Attributes]] then you can use a Mat Layer Blend Baked Normal node.
+Connect the [[Material Attributes]] into the Material input pin and the Normal Map [[Texture Sample]] into the Normal input pin.
 
 # References
 
