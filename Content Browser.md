@@ -69,6 +69,11 @@ A way to group [[Asset|Assets]] that has some relationship other than the folder
 For example we may have a folder containing all the assets that define a vehicle grouped by asset type and collections to group everything that make up the doors.
 
 
+# Actor Selection
+
+We can select all [[Actor]]s in the [[Level Viewport]] using a particular [[Asset]] with Content Browser > Asset > right-click > Asset Actions > Select Actors Using This Asset.
+
+
 # Settings
 
 Accessed from the top-right corner of the Content Browser.

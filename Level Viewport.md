@@ -2,11 +2,21 @@ The Level Viewport is the part of the [[Level Editor]] where we can see the cont
 
 There are various [[Viewport Camera Controls]].
 
+# Object Selection
+
 Click an [[Actor]] to select it.
 Translucent objects cannot be selected by default,
 hit the T key to enable or disabled translucent object selection.
 
-The [[Transform Gizmo]] is used to move objects in the level.
+The [[Transform Gizmo]] appears when one or more object are selected.
+It is used to move, rotate, and scale objects in the level.
+
+If a [[Static Mesh]] is selected then all [[Static Mesh|Static Meshes]] using that same [[Static Mesh Asset]] can be selected with right-click > Select > Static Meshes > {Select Matching (Selected Classes), Select Matching (All Classes)}.
+I'm not sure what this does, exactly.
+
+If a [[Static Mesh]] is selected that all [[Static Mesh]]es using the same [[Material]] can be selected with right-click > Select > Materials > Select All With Same Material.
+
+# View Settings And View Modes
 
 There are several debug and performance [[View Mode|View Modes]] that can be selected from the top-left of the viewport.
 The default is Lit.
