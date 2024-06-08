@@ -5,8 +5,8 @@ There are various [[Viewport Camera Controls]].
 # Object Selection
 
 Click an [[Actor]] to select it.
-Translucent objects cannot be selected by default,
-hit the T key to enable or disabled translucent object selection.
+Translucent objects cannot be selected by default.
+Hit the T key to enable or disabled translucent object selection.
 
 The [[Transform Gizmo]] appears when one or more object are selected.
 It is used to move, rotate, and scale objects in the level.
@@ -15,6 +15,8 @@ If a [[Static Mesh]] is selected then all [[Static Mesh|Static Meshes]] using th
 I'm not sure what this does, exactly.
 
 If a [[Static Mesh]] is selected that all [[Static Mesh]]es using the same [[Material]] can be selected with right-click > Select > Materials > Select All With Same Material.
+
+I think Shift + E does something selection-related.
 
 # View Settings And View Modes
 
