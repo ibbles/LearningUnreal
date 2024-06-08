@@ -1,4 +1,15 @@
 Virtual Shadow Maps is a method for generating [[Shadows]].
+Results in high-quality shadows both far in the distance and close to the camera.
+(
+Unsure of how to interpret the source sentence, from [_Building Open Worlds in Unreal Engine 5 | Unreal Fest 2022_ by Epic Online Learning @ dev.epicgames.com/talks-and-demos](https://dev.epicgames.com/community/learning/talks-and-demos/LLM5/building-open-worlds-in-unreal-engine-5-unreal-fest-2022)
+
+> Allow you to get awesome far distance shadows or fantastic shadows close to objects.
+
+These are two orthogonal concepts near/far the camera vs near/far the object.
+Did he mean "close to the camera" at the end?
+He made a point of separating Virtual Shadows from Virtual Shadow Maps. What is the difference?
+)
+
 Virtual Shadow Maps is a project wide setting.
 It is enabled by setting [[Project Settings]] > Engine > Rendering > Shadows > Shadow Map Method to Virtual Shadow Maps.
 When enabled it replaces [[Cascaded Shadow Maps]].
@@ -143,6 +154,9 @@ Open you [[Landscape Grass Type]] asset and disable Cast Dynamic Shadow.
 
 - [_UE5: Virtual Shadow Map Performance with Foliage_, by UnrealityBites @ youtube.com](https://www.youtube.com/watch?v=AobyMegpUMg)
 - [_Virtual Shadow Maps_, by Epic Games @ docs.unrealengine.com](https://docs.unrealengine.com/5.0/en-US/virtual-shadow-maps-in-unreal-engine/)
+- [_Building Open Worlds in Unreal Engine 5 | Unreal Fest 2022_ by Epic Online Learning @ dev.epicgames.com/talks-and-demos](https://dev.epicgames.com/community/learning/talks-and-demos/LLM5/building-open-worlds-in-unreal-engine-5-unreal-fest-2022)
+
+
 
 
 
