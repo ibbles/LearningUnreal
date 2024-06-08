@@ -1,5 +1,5 @@
 The console is a CLI interface to many of the low-level features of Unreal Engine.
-The console can be used to set [[Console Variable|Console Variables]] and run [[Console Commands]].
+The console can be used to set [[Console Variable|Console Variables]] and run [[Console Command]].
 The console is available
 - UE5: at the bottom of the Unreal Editor window.
 - UE4: at the bottom of the Console Log panel.
