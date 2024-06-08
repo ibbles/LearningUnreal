@@ -16,7 +16,7 @@ Use [[Details Panel]] > Rendering > Visible (Correct path?) to toggle rendering 
 
 The [[Actor|Actors]] are organized in a hierarchy where they can be placed either inside folders or as children to each other.
 An [[Actor]] that is a child of another [[Actor]] will move with the parent [[Actor]].
-
+(TODO Figure out how to make a Level Instance current.)
 
 # Folders
 
@@ -26,9 +26,13 @@ Deleting a folder only deletes the folder itself, any [[Actor]] within the folde
 or the root if there is no parent folder.
 The root cannot be deleted.
 
-Objects can be selected, renamed, grouped, hidden with the eye icon.
+Objects can be selected, renamed, grouped, and hidden with the eye icon.
 Move to a folder by selecting and either dragging to the folder or right-click > Move To > select either a folder or Create New Folder.
 
+A folder can be made current with right-click > _Actor Editor Context_ > Make Current Folder.
+When an [[Actor]] is created when there is a Current Folder then the created [[Actor]] will be placed in that folder.
+The current folder is shown in the bottom-right corner of the [[Level Viewport]].
+To un-current a folder right-click any folder > _Actor Editor Context_ > Clear Current Folder och click the close x button on  the current folder widget in the lower-right corner of the [[Level Viewport]].
 
 # Search And Filter
 
