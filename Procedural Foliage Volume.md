@@ -10,7 +10,7 @@ As of Unreal Engine 5.0 Procedural Foliage is experimental and must be enabled i
 [[Static Mesh Foliage]] assets created with the setting enabled get a Procedural category in the Details panel.
 
 
-An alternative to Procedural Foliage volume is [[Procedural Content Generation]].
+An alternative to Procedural Foliage volume is [[Procedural Content Generation PCG]].
 
 
 # Static Mesh Foliage
