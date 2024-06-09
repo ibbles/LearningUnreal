@@ -24,7 +24,7 @@ The level editor is always in one particular [[Editor Mode]].
 The default mode is the [[Select Mode]], which is used when selecting, adding, or modifying the [[Actor|Actors]] of the currently open level.
 Switch between the modes with the modes drop-down in the [[Tool Bar]].
 Example modes:
-- [[Selection Mode]]
+- [[Select Mode]]
 	- Called [[Place Mode]] in Unreal Engine 4.
 - [[Landscape Mode]]
 - [[Foliage Mode]]
