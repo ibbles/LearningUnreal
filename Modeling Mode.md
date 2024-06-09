@@ -5,6 +5,9 @@ The other, the Modeling panel, contains  settings for the currently selected too
 
 All models in Unreal Engine are triangle meshes.
 
+The organization of the tabs and tools seems to have changed quite a bit between Unreal Engine versions
+The following listing is a mix that will, hopefully, be cleared up over time as Epic Games settles on a particular organization.
+
 
 # Shapes
 
@@ -47,6 +50,7 @@ I don't know why.
 
 
 ## Auto Generated Assets
+
 Each created object will also create an [[Asset]] to hold the data for that object.
 The asset is either created relative to the currently open [[Level]], in a single folder for all Levels, or in the current folder.
 There are settings one can set related to this in Project Settings > Plugins > Modeling Mode.
@@ -69,6 +73,17 @@ Not sure how this relates to PolyModel > MeshBool > Union and  MeshOps > Merge.
 Create a copy of the currently selected [[Static Mesh Asset]].
 Beware of the Handle Inputs > Delete Inputs setting.
 Don't want to accidentally delete assets.
+
+# XForm
+
+## Merge
+
+Used to merge multiple [[Static Mesh]]es into a single one.
+Select multiple [[Static Mesh Actor]]s in the [[Level]].
+Click Merge, click Accept.
+The selected [[Static Mesh Actor]]s are replaced by a single one using a generated [[Static Mesh Asset]] with all the triangles (I think.) from the source meshes.
+The settings window > On Tool Accept > Handle Inputs setting lets you decide what to do with the original [[Static Mesh Actor]]s.
+- Hide Inputs: Keep the source [[Static Mesh Actor]]s in the [[Level]] but hide them, i.e. close the eye in the [[Outliner]]. Not sure if this also disables the Visible [[Property]] on the [[Static Mesh Component]].
 
 # PolyModel
 
@@ -165,7 +180,10 @@ Can also use MeshOps > Remesh for this.
 
 ## Lattice
 
-Place a 3D lattice over the model and deforming the lattice will distance weight blend nearby vertices.
+Place a 3D lattice over the model and deforming the lattice by selecting and dragging the control points at the lattice corners will distance weight blend nearby vertices.
+Can have different Interpolation T... (Type?) to control the weighting function, i.e. how vertices progressively farther and farther away from the control point is affected when the control point is transformed.
+- Linear: Gives straight lines between control points.
+- Cubic: Gives curves between control points.
 
 # Transform
 
@@ -227,14 +245,19 @@ A decent setup is
 - Output Options > Append To Existing > Enable.
 	- Not sure about this one.
 
+
 # Uncertainties And Questions
-What is the similarities and differences between
-- Create > MshMrg
+
+What is the similarities and differences between the following:
+- Create > MshMrg.
 - PolyModel > MeshBool > Union.
 - MeshOps > Merge.
+- XForm > Merge.
 
+Which of the above are renames of the same thing?
 
 # References
 
 - [Exploring Geometry Tools in UE5 | Inside Unreal by Unreal Engine @ youtube.com](https://youtu.be/apCSgAAkDTU?t=506)
+- [_Introduction to PCG Workflows in Unreal Engine 5 | Unreal Fest 2023_ by Epic Games @ youtube.com 2023](https://www.youtube.com/live/LMQDCEiLaQY)
 
