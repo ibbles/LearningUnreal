@@ -21,6 +21,8 @@ PCG Graph [[Asset]]s often has a name starting with `PCG_`.
 To add an instance of the PCG Graph to the [[Level]] drag it from the [[Content Browser]] to the [[Level Viewport]].
 This creates a PCG Volume [[Actor]] instance.
 
+A good way to learn and discover what can be done in PCG is to study one of the existing PCG graphs included in the engine and sample projects.
+
 
 # PCG Graph Editor
 
@@ -55,10 +57,29 @@ This is useful on Spawner nodes for hiding the thing they spawn, making it easie
 A point is the fundamental unit of information in PCG.
 Most nodes create, manipulate, or consume points.
 
+A point has a set of mandatory data, called Properties.
+The Properties are:
+- Transform.
+- Density.
+- Bounds Min.
+- Bounds Max.
+- Color.
+- Steepness.
+	- Don't know what this is. Density gradient across the bounds?
+- Seed.
+
 A point has a scale, which is used by Static Mesh Spawner to set the scale of the spawned Static Mesh Instance.
 
 A point has a density, which is a scalar value.
 Can be used to filter and prune points before they reach a Spawner.
+
+A point has a set of optional data, called attributes or metadata.
+A PCG graph that transform points must take care to always propagate the attributes or else they are lost.
+The Copy Point has a Copy Metadata boolean input.
+(
+How does one propagate attributes in general?
+Does the Transform Point node copy the attributes?
+)
 
 We can inspect the environment around a point and use that to assign a density to the point.
 For example, we can set a point's density to the dot product between a mesh's surface normal and the up vector to get higher density on top of an object and lower density on the sides and below.
@@ -195,6 +216,10 @@ All those points will be passed to the output.
 Useful when we have multiple paths each with a Static Mesh Spawner, a Mesh Sampler, and a Copy Points.
 Merge makes it so that we get points on all of the meshes.
 
+## Projection
+
+Don't know yet.
+
 # Spawners
 
 The purpose of a PCG graph is to instantiate things, i.e. to spawn them.
@@ -252,22 +277,45 @@ I don't know how to select a particular [[Spline Component]] if there are multip
 
 The output from Get Spline Data can be passed to Spline Sampler to generate points along the spline.
 
+## World Ray Hit Query
+
+Don't know yet.
+
 # Hierarchical PCG
 
+## Communication between PCG Actors
+
 One PCG graph can read the output of another PCG graph.
-If that other PCG passes the points to the output node.
-We call the PCG graph that writes to the output the child PCG,
+If that other PCG graph passes the points to the output node.
+We call the PCG graph that writes to its output node the child PCG,
 and the PCG graph that reads and uses those points the parent PCG.
 
 To find the child PCG the parent PCG graph uses the Get Actor Data node.
 There are several ways of using the Get Actor Data node.
-One way is to
+One way is to set the following in the Get Actor Data node's [[Details Panel]]:
 - Set Actor Filter to All World.
 - Set Actor Selection to By Tag.
 	- This is [[Details Panel]] > Actor > Advanced > Tag on the PCG Actor instance that we want to find.
 - Set Actor Selection Tag to the tag that  you assigned to the PCG Actor instances that points should be read from.
 - Set Mode to Get Data From PCG Component.
 	- This is what makes is so that we read the points that the child PCG passed to its output node.
+- Consider enabling Ignore Self And Children.
+	- What is meant by "children"? Attached in the [[Outliner]]?
+	- What happens if we don't enable this? Infinite recursion where our output points are added to our input point set ad infinitum?
+- If using [[World Partition]].
+	- See _PCG And World Partition_ below for more details.
+	- Enable Must Overlap Self.
+	- Enable Track Actors Only Within Bound.
+- Connect the output of the Get Actor Data node to a To Point node.
+
+
+## Nesting PCG Graphs
+
+One PCG graph can call another PCG graph.
+Similar to calling a function.
+Drag the PCG graph [[Asset]] from the [[Content Browser]] into the PCG graph that should call it.
+Points that the nested PCG graph pass to the output node will be available in the calling PCG graph.
+
 
 # Debugging
 
@@ -297,9 +345,21 @@ What is it that must overlap self? The [[Actor]] we are getting data from, or th
 One way to prevent this is to enable Get Actor Data node > [[Details Panel]] > Settings > Track Actor Only Within Bound.
 Not sure how this differs from Must Overlap Self.
 
+May also need to pass the points to a Cull Points Outside Actor Bounds.
+Since even if the found PCG [[Actor]] itself is within the bounds, points it generate may far away, on the other side.
+
+If there are multiple child PCG graphs that the parent PCG graph get points from then those points may be overlapping.
+Discard duplicates with a Self Pruning node.
+I have no idea what this does.
+Can also use a Difference node.
+
+
 # Blueprint Extensions
 
 We can add custom PCG graph nodes with Blueprints.
+
+## Calling A Blueprint Extension
+
 The node to call a Blueprint implemented node is Execute Blueprint.
 In its [[Details Panel]] it has Blueprint Element Type which is the Blueprint to call.
 A long list of Blueprints is included with the editor.
@@ -311,10 +371,72 @@ I don't know what these mean.
 Select one and the node will change name and the [[Details Panel]] is populated with the settings for that Blueprint.
 
 Double-click the node to open the [[Visual Script]] graph implementing the node.
+This is a good way to learn and discover what can be done with a Blueprint Extension.
+Create an Execute Blueprint node, set it to one of the many build-in Blueprints, and double-click to open it and see what it does.
+Create a copy to get a base to start from and modify to your hearts content.
 
 Example Blueprints that are not listed in the Palette panel:
 - Mesh Sockets To Points: Emit a point for every socket on a [[Static Mesh]].
 	- Must specify a [[Static Mesh Asset]] to get sockets from and a Tag that the sockets to emit points for should have.
+
+## Creating A Blueprint Extension
+
+We can create our own Blueprint nodes.
+Create a new [[Blueprint Class]] that inherits from PCG Blueprint Element.
+The operations that should be performed by the custom node are implementing by overriding functions inherited from PCG Blueprint Element.
+Override a function with [[My Blueprint Panel]] > Function > Override drop-down.
+- Apply Preconfigured Settings
+- Execute
+- Execute With Context:
+	- Run once when the calling PCG graph is evaluated.
+	- Call Iteration Loop to trigger calls to Iteration Loop Body.
+	- Use Make PCG Tagged Data, Make Array, and Make PCG Data Collection to pass the output of Iteration Loop to the Return Node's input.
+- Is Cacheable Override
+- Iteration Loop Body
+	- Run a number of iterations controlled  by an input pin on the node..
+	- Is given the current iteration index.
+	- Can access any input point.
+	- See _Implementing Iteration Loop Body_ below.
+- Nested Loop Body
+- Node Color Override
+- Node Type Override
+- Point Node Body
+	- Run for every point.
+	- Cannot access the data for other points.
+- Variable Loop Body
+
+The node can have [[Blueprint Variable]]s.
+They are created at [[My Blueprint Panel]] > Variables.
+If [[Details Panel]] > Variable > Instance Editable, or the eye icon int he variable list, is enabled then that variable shows up, and is editable, in the [[Details Panel]] when an Execute Blueprint node calling this Blueprint Extension is selected,
+and if the Execute Blueprint is expanded then the variables show up as input pins.
+
+The node can have input and output pins.
+These are configured at [[Class Defaults]] > [[Details Panel]] > Settings > Input & Output > Custom (Input|Output) Pins.
+These are arrays.
+Each array element has
+- Label:
+- Allowed Types:
+- Allow Multiple Data:
+- Allow Multiple Conne...:
+- Advanced Pin:
+- Tooltip:
+
+## Implementing Iteration Loop Body
+
+Can compute a fraction iteration progress with Iteration divided by Points, where Points is the variable passed to Iteration Loop node in Execute With Context.
+Can get the location of the PCG [[Actor]] with Context > Get Original Component > Get Owner > Get Actor Transform.
+
+A point is created with Make PCG Point.
+Its details panel lists the point properties and you can enable the ones you want to specify.
+The enabled properties show up as input pins on the Make PCG Point node.
+One of the properties is Seed.
+You should connect Compute Seed From Position to the Seed input,
+and the Position input on Compute Seed From Position should be the position of the point we are about to create.
+Connect the output of Make PCG point to the Point input pin on the return node.
+(
+Is it possible to return more than one point from an iteration?
+)
+It seems possible to not return any point from an iteration, by setting return node > Return Value to false.
 
 
 # PCG Component
