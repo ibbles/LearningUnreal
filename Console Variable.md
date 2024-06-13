@@ -73,3 +73,39 @@ The new value will persist through the [[Play In Editor]] session and remain aft
 	- Not sure what happens if that LOD level isn't available for a particular [[Static Mesh Foliage]].
 
 
+
+# Custom CVars
+
+We can add our own console variables.
+
+```cpp
+namespace MyConsoleVariables
+{
+    static TAutoConsoleVariable CVarMyConsoleVariable(
+        TEXT("mygame.MyConsoleVariable"),
+        0, // Default value.
+        TEXT("My console variable."),
+        ECVF_Default);
+}
+
+
+UMySubsystem::Initialize()
+{
+    MyConsoleVariables::CVarMyConsoleVariable->OnChangedDelegate().AddWeakLambda(
+    this, [this](const IConsoleVariable* CVar)
+    {
+        if (!CVar->IsVariableInt())
+        {
+            return;
+        }
+        int32 Value = CVar->GetInt();
+        // Use Value.
+    });
+}
+```
+
+
+# References
+
+- [_Console Variables in C++_ by Epic Games @ dev.epicgames.com/documentation](https://dev.epicgames.com/documentation/en-us/unreal-engine/console-variables-cplusplus-in-unreal-engine?application_version=5.4)
+
