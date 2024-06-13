@@ -95,7 +95,13 @@ Select a platform to show for in the top-right of the window.
 There are a bunch of [[Stat]] collectors that are useful to analyse the performance of your scene.
 These are enabled with a console command and are displayed as a table in the [[Level Viewport]].
 
+- `stat none`: Clear the screen of all statistics.
 - `stat fps`: Show an FPS and frametime counter to the right of the [[Level Viewport]].
+	- This is the same as enabling [[Level Viewport]] > top-left corner drop-down > Show FPS.
+- `stat scenerendering`: A summary of the scene rendering, both timing and contents.
+- `stat game`: Blueprint time and such.
+- `stat gpu`: 
+- `stat unit`: Milliseconds per thread. Useful for knowing where to start looking for bottlenecks.
 - `state memory`: Shows memory usage, e.g. how much is used by textures.
 - `stat streaming`: Statistics about the texture streaming system.
 > TODO List a few more here.
