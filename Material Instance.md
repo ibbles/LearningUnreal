@@ -15,7 +15,7 @@ Editing a [[Material Parameter]] from the Material Instance Editor is instantane
 If junior developers are restricted to only work on Material Instances there is very little they can mess up.
 Senior developers can focus on the small number of [[Master Material|Master Materials]].
 
-A Material Instance is created from the [[Content Browser]] by
+A Material Instance is created from the [[Content Browser]] by one of
 - Right-click > Materials & Textures > Material Instance.
 - Right-click a [[Material]] > Create Material Instance.
 A Material Instance [[Asset]] has a darker green color than a [[Material]] [[Asset]] in the [[Content Browser]].
@@ -30,11 +30,18 @@ The only panels we have are:
 - [[Details Panel]].
 - Instance Parents.
 
-The [[Material Parameter|Material Parameters]] inherited from the [[Master Material]] are listed in the [[Details Panel]].
+The [[Material Parameter|Material Parameters]] inherited from the [[Master Material]] are listed in the [[Details Panel]] under Parameter Groups.
 To override an inherited value tick the check-box next to the parameter name and then set a new value.
+If the parameter is a [[Texture]] then we can drag one from the [[Content Browser]] to the parameter.
 The [[Details Panel]] also lists the parent [[Material]].
 Double-click the parent [[Material]] icon to open it.
 The parent may also be a Material Instance, but at the root of a Material Instance parent chain is always a [[Material]].
+
+# Material Property Overrides
+
+Some of the "material global" (not sure what word to use here) of the parent [[Material]] can be overridden by a Material Instance.
+These settings are found in [[Details Panel]] > General > Material Property Overrides.
+You can, for example, override the [[Blend Mode]] and the [[Shading Model]].
 
 
 # Setting Material Parameter Values At Runtime
@@ -51,3 +58,7 @@ since the creation of the Material Instance Dynamic also made it the [[Material]
 # References
 
 - [_Materials Master Learning_ > _Material Instances_ by Epic Games @ dev.epicgames.com 2019](https://dev.epicgames.com/community/learning/courses/2dy/unreal-engine-materials-master-learning/o6r/material-instances)
+- [_Becoming an Environment Artist in Unreal Engine_ > _Material Masters and Instances_ by Epic Online Learning @ dev.epicgames.com/courses 2020 UE4.25](https://dev.epicgames.com/community/learning/courses/Gm/becoming-an-environment-artist-in-unreal-engine/7Bb/unreal-engine-material-masters-and-instances)
+
+
+

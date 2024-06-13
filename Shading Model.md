@@ -1,5 +1,7 @@
 A property of a [[Material]].
 Set in the [[Material Editor]] > [[Details Panel]] >  Material > Shading Model with the Material's output node selected.
+Or, to override the parent material's shading model in a [[Material Instance]], at [[Material Instance Editor]] > General > Material Property Overrides > Shading Model.
+A [[Material Instance]] can override the parent [[Material|Material's]] Shading Model from [[Details Panel]] > General > Material Property Overrides > Shading Model.
 Selecting different shading models causes different input pins to be available on the [[Material Output Node]].
 The available shading models are:
 - Unlit

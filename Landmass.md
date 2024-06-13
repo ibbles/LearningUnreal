@@ -33,3 +33,9 @@ To add a Blueprint Brush to an Editor Layer:
 
 The Blueprint Brush instance is an Actor that contains a Spline.
 The Spline is used if Blueprint Brush instance > Details panel > Brush Settings Brush Type is set to Landmass Outline or 
+
+
+
+# References
+
+- [_Advanced Skill Sets for Environment Art_ > _Landscape Sculpting and Landmass_ by Epic Online Learning 2022 UE4.27](https://dev.epicgames.com/community/learning/courses/Qwa/unreal-engine-advanced-skill-sets-for-environment-art/0Rz6/landscape-sculpting-and-landmass)

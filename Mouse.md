@@ -1,3 +1,6 @@
+
+See also [[Input Mode]].
+
 # Mouse Buttons
 
 (

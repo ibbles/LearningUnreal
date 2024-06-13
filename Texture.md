@@ -10,6 +10,7 @@ Textures can be used for many different kinds of data, but there are a few that 
     - The base color of a surface.
     - Should not contain and shadow or specular information, just a plain unshaded color.
 	    - Unless for a specific reason, e.g. to achieve a particular style.
+	- Should use the default [[Texture Compression]] setting.
 - Normal (normalized vector)
     - Provide sub-triangle unevenness to a surface.
     - Affects how [[Lighting]] interacts with the surface.
@@ -19,6 +20,7 @@ Textures can be used for many different kinds of data, but there are a few that 
     - Normal maps are often mostly blue-ish.
     - Textures containing normals are often sufficed with `_N`.
     - Due to coordinate system differences sometimes imported normal maps are backwards with shadows showing up on the wrong side of a bump or dent. Fix this by checking Flip Green Channel in [[Texture Editor]] > Details panel > Texture.
+    - Should use the Normal Map [[Texture Compression]] setting.
     - See also [[Normal Map]].
 - Specular (0.0 .. 1.0)
 - Roughness (0.0 .. 1.0)

@@ -1,7 +1,7 @@
 Also called an omnidirectional light.
 A [[Light Source]] that emits light from a single point in all directions.
 The Point Light's rotation doesn't matter.
-Similar to a light bulb, when views from some distance.
+Similar to a light bulb, when viewed from some distance.
 
 A Point Light's intensity is measures in candela, which is a measure of how strong each ray of light emitted from the light source is.
 A candle flame is about 1 candela.

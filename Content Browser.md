@@ -43,23 +43,53 @@ This turns it into a regular panel.
 
 # Asset Filtering
 
+It can be useful to open up multiple Content Browser panels and have different filtering settings for them.
+Open new Content Browsers from [[Top Menu Bar]] > Content Browser.
+
+## By Type
+
 The Content Browser can be filtered, i.e. made to show only certain types of assets.
 At the top of the Content Browser, click the dashed triangle to the left of the search bar.
 This opens the filter list, which is a list of asset types along with a check box next to each.
 Select a few check boxes and only asset of the selected types will be shown.
-Only  assets matching the filter within the currently selected folder, including subfolders, will be shown.
-This can be used to unhide any [[Redirector]] that a  folder may contain.
+Only assets matching the filter within the currently selected folder, including subfolders, will be shown.
+This can be used to unhide any [[Redirector]] that a folder may contain.
+
+## By Meta-Data
 
 By default the text search searches by name.
 It is also possible to search by meta-data.
-Type the name of a property, such as UVChannels.
+Type the name of a property, such as `UVChannels`.
+If the name  has spaces then remove those.
+For example, `Nantive Enabled` becomes `NaniteEnabled`.
 This forms a query, so we need to provide an expression.
-For example `UVChannels>1`.
-Multiple terms can be joined with `AND` and `OR`.
+For example:
+- `UVChannels>1`.
+- `NaniteEnabled=False & Triangles>5000`
+
+Multiple terms can be joined with `AND` (or `&`) and `OR` (or `|` (I think.)).
+
+You can see what meta-data an [[Asset]] has by hovering the mouse cursor over it in the Content Browser, a tool-tip will appear.
+Everything listed can be included in a search.
+For your own [[Asset]] types you can add the Asset Registry Searchable [[Property Specifier]] to make those [[Property]]s searchable.
+
+```c++
+UPROPERTY(VisibleAnywhere, BlueprintReadWrite, AssetRegistrySearchable, Category = "My Category")
+int32 MyData;
+```
+
+## Custom Filter
+
 A search can be saved as a custom filter or as a Collection, see _Collections_ below.
 
-It can be useful to open up multiple Content Browser panels and have different filtering settings for them.
-Open new Content Browsers from [[Top Menu Bar]] > Content Browser.
+Create a new custom filter with Content Browser > dashed triangle > Custom Filters > Create New Filter.
+A filter has a label and a string.
+The string is the search expression.
+For example:
+- Filter Label: `Suss Meshes`
+- Filter String: `NaniteEnabled=False & Triangles>5000`
+
+The created filter is added to the Filters list in the Content Browser.
 
 
 # Collections
@@ -67,6 +97,11 @@ Open new Content Browsers from [[Top Menu Bar]] > Content Browser.
 Collections are virtual folders.
 A way to group [[Asset|Assets]] that has some relationship other than the folder hierarchy.
 For example we may have a folder containing all the assets that define a vehicle grouped by asset type and collections to group everything that make up the doors.
+
+
+# Actor Selection
+
+We can select all [[Actor]]s in the [[Level Viewport]] using a particular [[Asset]] with Content Browser > Asset > right-click > Asset Actions > Select Actors Using This Asset.
 
 
 # Settings
@@ -94,4 +129,5 @@ Click Done Editing when done.
 # References
 
 - [_Unreal Engine Editor Fundamentals > Content Browser_ by Epic Games @ dev.epicgames.com 2023](https://dev.epicgames.com/community/learning/courses/D95/unreal-engine-editor-fundamentals/0Kpw/unreal-engine-content-browser)
+- [_Building Bigger: Changing Your Workflow for Building Worlds instead of Scenes | Unreal Fest 2023_ by Chris Murphy @ dev.epicgames.com/talks-and-demos 2024 UE5.3](https://dev.epicgames.com/community/learning/talks-and-demos/jwlJ/unreal-engine-building-bigger-changing-your-workflow-for-building-worlds-instead-of-scenes-unreal-fest-2023)
 

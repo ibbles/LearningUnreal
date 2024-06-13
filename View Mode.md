@@ -1,7 +1,7 @@
 A View Mode is a visualization tool that can show various aspects of the [[Rendering Pipeline]] in the [[Level Viewport]].
 By default the Level Viewport will render the level much like it would look in-game, optionally with some extra billboards to show the location of non-rendered entities such as [[Light Source|Light Sources]] and [[Sound]] emitters.
 The billboards can be toggled with the `G` button, hiding them is called [[Game View]].
-This is called the Lit View Mode.
+This game-like view is called the Lit View Mode.
 But the Level Viewport can visualize other things as well.
 These are called View Modes and are accessed from one of the buttons in the top-left part of the viewport.
 The button will display the currently selected View Mode, which by default is Lit.

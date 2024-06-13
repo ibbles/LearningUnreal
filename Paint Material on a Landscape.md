@@ -1,17 +1,19 @@
-[[Landscape Material]]
 [[Material]]
-
+[[Landscape Material]]
+[[Landscape Blend Layers Material]]
 
 When in the [[Landscape Mode]], select the Paint tab and then the Paint tool.
 
-![[Landscape_Mode_Paint_Tab_Paint_Tool.png]]
-
+![[Landscape_Mode_Paint_Tab_Paint_Tool.jpg]]
 
 A Landscape consists of layers where each layer has its own appearance.
-The number of layers a Landscape has depend on the [[Landscape Material]] assigned to it.
+The number of layers a [[Landscape]] has depend on the [[Landscape Blend Layers Material]] assigned to it.
+
 
 # Layer Info
-Each layer in the Material must have an associated Layer Info set on the Landscape.
+
+Each layer in the [[Landscape Blend Layers Material]] must have an associated Layer Info set on the [[Landscape]].
+They Layer Info is created by clicking the + button on the layer in [[Landscape Mode]] > Landscape panel > Target Layers > Layers.
 Each layer can be either weight-blended or not.
 It should match the `Blend Type` set for that layer in the [[Landscape Material#Layer Blending|Layer Blend node]] in the [[Landscape Material]].
 The Layer Info object will appear as an asset in the Content Browser.

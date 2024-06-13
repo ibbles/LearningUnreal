@@ -20,6 +20,9 @@ public:
 };
 ```
 
+
+# Meta
+
 There is a special type of Property Specifier called the [[Meta Property Specifier]].
 It is a collection of sub-properties that are used by Unreal Editor.
 Some examples of Meta sub-properties:
@@ -29,3 +32,11 @@ For more details see _Dynamic Edit Condition Based On Other Properties_ in [[Pro
 
 `EditConditionHide`: A C++ expression, using the other [[Property|Properties]] in the class, that determines if this [[Property]] should be visible in [[Details Panel|Details Panels]].
 
+# Other Property Specifiers
+
+- `AssetRegistrySearchable`
+	- Makes the [[Property]] searchable and filterable in the [[Content Browser]].
+
+# References
+
+- [_Building Bigger: Changing Your Workflow for Building Worlds instead of Scenes | Unreal Fest 2023_ by Chris Murphy @ dev.epicgames.com/talks-and-demos 2024 UE5.3](https://dev.epicgames.com/community/learning/talks-and-demos/jwlJ/unreal-engine-building-bigger-changing-your-workflow-for-building-worlds-instead-of-scenes-unreal-fest-2023)

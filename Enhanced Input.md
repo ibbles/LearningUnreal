@@ -187,7 +187,7 @@ I don't know what happens if we pass the wrong template type to `Get<>`.
 
 # Debugging
 
-[[Console Commands]]:
+[[Console Command]]:
 - `showdebug enhancedinput`
 - `showdebug devices`
 # References

@@ -1,11 +1,12 @@
 A Landscape Material is a [[Material]] intended for use on a Landscape.
-In particular, a Landscape Material is a Material that contains one or more Landscape Layer Blend nodes.
+In particular, a Landscape Material is a [[Material]] that contains one or more Landscape Layer Blend nodes.
 See [[Landscape Blend Layers Material]] and [[Landscape Weight Layers Material]].
 
 Landscape Materials are created just like a regular [[Material]].
 Content Browser > Right-click > Material.
 
-A Landscape Material can use Texture Sample nodes. Consider using Landscape Coords instead of Tex Coord nodes for [[Texture Sample]].
+A Landscape Material can use [[Texture Sample]] nodes.
+Consider using Landscape Coords instead of Tex Coord nodes for the  [[Texture Sample]].
 A Landscape Material can include [[Landscape Foliage]].
 A Landscape Material can access the layer weights to produce a [[Landscape Blend Layers Material]].
 A Landscape Material can get the height of the Landscape at the current point with the Absolute World Position node and a Component Mask node only returning the B (Z) component.
@@ -13,6 +14,7 @@ A Landscape Material can write to a [[Runtime Virtual Texture]].
 
 
 # Texture coordinates
+
 Tiling of textures is controlled with a Landscape Layer Coords node.
 Increase `Mapping Scale` to make the texture bigger. (I think)
 
@@ -21,10 +23,9 @@ Increase `Mapping Scale` to make the texture bigger. (I think)
 
 # Layer Sampling
 
-The Landscape Material can check how much of each [[Landscape Painting]] layer is present at the current fragment.
-This is done with a  Landscape Layer Sample node, called Sample '<LAYER`_`NAME>' in the [[Material Graph]].
+The Landscape Material can check how much of each [[Paint Material on a Landscape]] layer is present at the current fragment.
+This is done with a Landscape Layer Sample node, called Sample '<LAYER`_`NAME>' in the [[Material Graph]].
 The node returns a value in 0..1 based on how much that particular layer has been painted at this particular location.
-
 
 
 # Distance Based Quality
@@ -39,4 +40,5 @@ Change
 # References
 
 - [_Landscape Communication in UE4 (Automatic Snow/Desert Foliage!)_, by PrismaticaDev @ youtube.com](https://www.youtube.com/watch?v=rW4zCzuGZvs)
+- [_Advanced Skill Sets for Environment Art_ > _Landscape Materials and Layers_ by Epic Online Learning @ dev.epicgames.com/courses 2022 UE4.27](https://dev.epicgames.com/community/learning/courses/Qwa/unreal-engine-advanced-skill-sets-for-environment-art/2YXB/landscape-materials-and-layers)
 

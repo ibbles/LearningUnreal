@@ -111,7 +111,7 @@ You can list all textures currently in the streaming pool by running
 ```
 ListStreamingTextures
 ```
-in the [[Console Commands|Console]].
+in the [[Console Command|Console]].
 This will print a listing of all textures including their size, currently loaded size, and wanted size.
 Example:
 ```

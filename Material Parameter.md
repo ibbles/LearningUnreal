@@ -23,11 +23,13 @@ A Material Parameters can be
 Modifying a Material Parameter in a Material Instance is very fast, much faster than edit the same value in the parent material.
 
 Create a new parameter by
-- right-clicking any Constant or Constant#Vector node and select Convert To Parameter.
+- right-clicking any Constant, Constant#Vector, or Texture Sample node and select Convert To Parameter.
 - creating a Make * node, right-click > Convert To Parameter.
 - right-click an input pin > Promote To Parameter.
 - Holding `s` and clicking to get a scalar parameter.
 	- Is there a button to hold for a 2,3,4 component vector parameter?
+
+Set a name for the parameter either in the node itself or at [[Details Panel]] > General > Parameter name.
 
 Values nodes that represent a Material Parameter has the word Param, along with the default value, under the node title.
 
@@ -52,6 +54,7 @@ Set Scalar Parameter Value has two parameters:
 # Static Switch Parameter
 
 Used to let a [[Material Instance]] turn parts of the [[Material Graph]] on or off.
+The node is titled Switch Param.
 The Static Switch node has a True input pin and a False input pin.
 If the Static Switch Parameter is set to True then only the True branch is evaluated.
 If the Static Switch Parameter is set to False then only the False branch is evaluated.
@@ -89,4 +92,6 @@ A Material Parameter Collection cannot have more than 1024 parameters.
 - [_Material Editor Fundamentals for Game Development_ > Master Materials, Material Instances, and Parameters_ by Epic Games, Lincoln Hughes @ dev.epicgames.com 2021](https://dev.epicgames.com/community/learning/courses/pm/unreal-engine-material-editor-fundamentals-for-game-development/b6Z/unreal-engine-master-materials-material-instances-and-parameters)
 - [_Materials Master Learning_ > _Material Instances_ by Epic Games @ dev.epicgames.com 2019](https://dev.epicgames.com/community/learning/courses/2dy/unreal-engine-materials-master-learning/o6r/material-instances)
 - [_Materials Master Learning_ > _Material Parameter Collections_ by Epic Games @ dev.epicgames.com 2019](https://dev.epicgames.com/community/learning/courses/2dy/unreal-engine-materials-master-learning/qLO/material-parameter-collections)
+- [_Becoming an Environment Artist in Unreal Engine_ > _Material Masters and Instances_ by Epic Online Learning @ dev.epicgames.com/courses 2020 UE4.25](https://dev.epicgames.com/community/learning/courses/Gm/becoming-an-environment-artist-in-unreal-engine/7Bb/unreal-engine-material-masters-and-instances)
+
 
