@@ -57,6 +57,8 @@ This is useful on Spawner nodes for hiding the thing they spawn, making it easie
 A point is the fundamental unit of information in PCG.
 Most nodes create, manipulate, or consume points.
 
+## Properties
+
 A point has a set of mandatory data, called Properties.
 The Properties are:
 - Transform.
@@ -73,14 +75,6 @@ A point has a scale, which is used by Static Mesh Spawner to set the scale of th
 A point has a density, which is a scalar value.
 Can be used to filter and prune points before they reach a Spawner.
 
-A point has a set of optional data, called attributes or metadata.
-A PCG graph that transform points must take care to always propagate the attributes or else they are lost.
-The Copy Point has a Copy Metadata boolean input.
-(
-How does one propagate attributes in general?
-Does the Transform Point node copy the attributes?
-)
-
 We can inspect the environment around a point and use that to assign a density to the point.
 For example, we can set a point's density to the dot product between a mesh's surface normal and the up vector to get higher density on top of an object and lower density on the sides and below.
 This is done with the Normal To Density node.
@@ -92,6 +86,26 @@ We pass it points and in the [[Details Panel]] we set a normal.
 Filtering is done with the Density Filter node.
 It has a range of density values and a toggle for either accepting or rejecting points within that range.
 
+## Attributes / Metadata
+
+A point has a set of optional data, called attributes or metadata.
+A PCG graph that transform points must take care to always propagate the attributes or else they are lost.
+The Copy Point has a Copy Metadata boolean input.
+(
+How does one propagate attributes in general?
+Does the Transform Point node copy the attributes?
+)
+
+For example, a point can carry a [[Material]] and a [[Static Mesh]].
+
+To add an attribute to a set of points you need a PCG Point Data.
+(Not sure what that is yet, or how to get one.)
+The Mutable Metadata node will give you the metadata for the point data.
+The metadata contains the attributes.
+The Create (Vector|String|...) Attribute node will create a new attribute of type Vector.
+This can be done from the Execute With Context of a _Blueprint Extension_,
+before calling Iteration Loop to actually populate the newly created attributes.
+In Iteration Loop Body use Set (Vector|String|...) Attribute to set the attribute for a particular particle.
 
 # Point Samplers
 
@@ -152,6 +166,24 @@ If there are many Target points then the Input points are duplicated for each.
 
 The Target can be the location of an [[Actor]] to make the points be around that [[Actor]].
 See _Get Actor Data_ below.
+
+## Point Filter
+
+Split the input points into two sets according to a predicate.
+We get the `true` set and the `false` set.
+Called the Inside Filter and the Outside Filter, respectively.
+
+## Merge
+
+Take two sets of points and merge them to a single set.
+
+## Point Filter > Merge
+
+We can use Filter and Merge together to modify a subset of a set of points.
+Use a Point Filter node to extract the set of points that should be modified.
+Route the Inside Filter through a set of point modification nodes, such as Projection or Transform Point.
+Route both the output of the last modification node and the Outside Filter output of the Point Filter node to a Merge node.
+The effect is that we start with a set of point, split them in two sets based on a predicate, modified one of the sets but left the other unchanged, and then merged them back to a single set again.
 
 ## Spatial Noise
 
@@ -235,6 +267,10 @@ The scale of the spawned thing is determined by the scale of the point given to 
 ## Static Mesh Spawner
 
 Spawns a [[Static Mesh]] at the input points.
+The mesh to spawn is selected in different ways depending on what [[Details Panel]] > Settings > Mesh Selector Type is set to.
+
+### PCG Mesh Selector Weighted
+
 Can have a selection of [[Static Mesh Asset]]s to randomly select from,
 based on a weighted random distribution.
 
@@ -242,6 +278,24 @@ The set of [[Static Mesh Asset]]s that the Static Mesh Spawner selects among is 
 Each element has:
 - Static Mesh: The [[Static Mesh Asset]] to instantiate when this element is selected for a point.
 - Weight: How likely this entry is to be selected for an  input point.
+
+### PCG Mesh Selector By Attribute
+
+Reads the mesh to spawn from each point's Mesh (Name?) attribute / metadata.
+Used when creating a _Configurable PCG Level Instance_.
+
+
+## Spawn Actor
+
+Spawn an [[Actor]] for every input point.
+Has [[Details Panel]] > Settings > Template Actor Class which is the [[Actor]] type to spawn.
+After spawning the Spawn Actor node can call functions on the newly created instance by adding the names of the functions to call to [[Details Panel]] > Settings > Post Spawn Function Names.
+
+Has [[Details Panel]] > Settings > Actor Overrides.
+Not sure what this does.
+What is being overridden?
+What happens with that data later?
+Where does it takes the data from? Metadata > Attributes?
 
 
 # World Inspection
@@ -276,6 +330,12 @@ When the [[Details Panel]] > Settings > Actor Filter is set to Self then the PCG
 I don't know how to select a particular [[Spline Component]] if there are multiple.
 
 The output from Get Spline Data can be passed to Spline Sampler to generate points along the spline.
+
+## Get Landscape Data
+
+Combine with a Projection node to move the point to the Landscape surface.
+The [_Procedural Content Generation Tools in UE5: Overview and Roadmap | Unreal Fest 2023_ 40:00](https://dev.epicgames.com/community/learning/talks-and-demos/M7DW/unreal-engine-procedural-content-generation-tools-in-ue5-overview-and-roadmap-unreal-fest-2023) presentation combined this with a BP PCGE Preserve Local Z node.
+I don't know if this node is included or a custom Blueprint Extension part of the demo project only.
 
 ## World Ray Hit Query
 
@@ -354,7 +414,7 @@ I have no idea what this does.
 Can also use a Difference node.
 
 
-# Blueprint Extensions
+# Blueprint Extension
 
 We can add custom PCG graph nodes with Blueprints.
 
@@ -445,6 +505,24 @@ An [[Actor Component]].
 
 Has [[Details Panel]] > Instance > Graph that is a reference to a PCG Graph [[Asset]].
 
+
+# Configurable PCG Level Instance
+
+Right-click a [[Level]] in the [[Content Browser]] > _Common_ > Scripted Asset Actions > PCG - Level To PCG Settings.
+Converts all assets (What does he mean by assets? [[Static Mesh Asset]]?) to point data.
+Each point carries a bunch of attributes / metadata about the static meshes in the level.
+For example the [[Static Mesh Asset]] and the [[Material]].
+Also information about how the [[Actor]]s were attached to each other.
+These attributes / metadata is used by Static Mesh Spawner with Mesh Selector Type set to PCG Mesh Selector By Attribute.
+
+Also has relative transform.
+Tags set on the [[Actor]]s becomes a boolean attribute / metadata,
+1 on the points representing an [[Actor]] that had that tag,
+0 on points representing an [[Actor]] that did not have that tag.
+
+The custom attributes / metadata setup made y PCG - Level To PCG Settings means that a new PCG graph must be created for each [[Level]] we want to turn into a PCG Level Instance.
+We cannot reuse the graph or replace the root node.
+We can however create helper functions, i.e. a subgraph for the actual logic and call that from all PCG Level Instance graphs.
 
 # References
 
