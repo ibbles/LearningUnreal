@@ -1,0 +1,222 @@
+The Scriptable Tools Mode is an [[Editor Mode]] that contains interactive tool that we can implement ourselves.
+Implemented in a pair of bundled [[Plugin]]s named Scriptable Tools Editor Mode and Scriptable Tools Framework.
+
+The Scriptable Tools Mode provide two panels:
+- Tools panel
+	- A list of tools we have access to.
+- Tool Properties panel
+	- Properties for the selected tool.
+
+When a tool is clicked in the Tools panel it becomes activated and its properties, if any, are shown in the Tool Properties panel.
+At the bottom of the [[Level Viewport]] a set of buttons will appear, either Complete or Accept / Cancel.
+
+There is a [[Blueprint]] system for building tools in Unreal Editor, particularly the [[Level Editor]].
+These tools are editor-only, cannot be used in a packaged application.
+Build upon the interactive tools framework.
+Gives access to mouse input, gizmos, accept / cancel buttons, a tools settings panel, and more.
+A user-defined tool is created by adding a [[Blueprint Class]] that inherits from one of:
+- Editor Scriptable Interactive Tool
+- Editor Scriptable Single Click Tool
+- Editor Scriptable Click Drag Tool
+
+
+# Creating A Tool
+
+[[Content Browser]] > right-click > _Create Advanced Asset_ > Editor Utilities > Editor Utility Blueprint.
+As the parent class pick one of
+- Editor Scriptable Interactive Tool
+- Editor Scriptable Single Click Tool
+- Editor Scriptable Click Drag Tool
+
+Typically named with a `BP_Tool_` prefix.
+
+Edited in the regular [[Blueprint Class Editor]].
+
+[[My Blueprint Panel]] has been extended with a Scriptable Tool Settings category.
+Contains [[Blueprint Variable]]s that should be filled in.
+May need to enable [[My Blueprint Panel]] > top-right gear > Show Inherited Variables.
+These can also be set from [[Class Defaults]] > [[Details Panel]] > Scriptable Tool Settings.
+- Tool Name: The name that will be shown in the Tools panel of the Scriptable Tools [[Editor Mode]].
+- Long Name:
+- Category: The category that the tool will show up in in the Tools panel.
+- Tooltip:
+- Visible In Editor:
+- Shutdown Type: Whether the tool should show the Complete button or the Accept / Cancel pair of buttons.
+
+# Events / Overridable Functions
+
+Has a bunch of virtual functions we can override.
+Override by either:
+- [[My Blueprint Panel]] > top-left > Add > Override Function.
+- [[My Blueprint Panel]] > right-click > Override Function.
+- [[My Blueprint Panel]] > Functions > Override drop-down.
+Availability of function may depend on which Editor Scriptable parent class was selected.
+- On Script Setup: Called when the tool is selected in the Tools panel.
+- On Gizmo Transform Changed.
+	- Called when one of the gizmos created with Create TRS Gizmo function is moved by the user.
+- On Script Can Accept.
+- On Script Draw HUD.
+- On Script Render. Draw any visualization the tool needs.
+- On Script Shutdown.
+	- Called when the tool "ends", either because it was unselected (I assume.), the user clicked the Accept button, or the user clicked the Cancel button.
+- On Script Tick
+
+## On Script Setup
+
+An overridable function that is run when the tool is selected in the Tools panel.
+If the tool has a Tool Property Set then this is where we should call Add Property Set Of Type and Restore Property Set Settings.
+If the tool uses a [[Transform Gizmo]] then it can be created here.
+See _Transform Gizmo_ below.
+
+	- If you have a Scriptable Interactive Tool Property Set child class, call Add Property Set Of Type, promote it to a [[Blueprint Variable]], 
+
+## On Script Render
+
+Called once per frame.
+Provides a Render API output which is an object that provides rendering functions under Scriptable Tool > Render  when dragging off of the pin.
+
+The Draw Line function is used to draw lines.
+Give it two points in world space and a line will be drawn between them.
+
+I assume there are other rendering primitives.
+
+
+## On Script Draw HUD
+
+Called once per frame.
+Provides a Draw HUD API output which is an object that provides widget functions under Scriptable Tool > Draw HUD.
+
+The Draw Text At Location draws text at a world location.
+Can for example be used to show the name of the selected [[Actor]]'s display name next to it.
+Get the selected [[Actor]] with Get Selected Actors.
+
+## On Script Shutdown
+
+Called when the user clicks one of the Completed, Accept, and Cancel button.
+(
+Is it also called if the user switches to another tool?
+)
+
+A [[Blueprint Event]] (Or overridable function? Not sure.) that the Editor Scriptable Tool can listen for.
+Add to the [[Event Graph]] with [[My Blueprint Panel]] > Add > Override Function > On Script Shutdown.
+Has Shutdown Type output pin, one of Completed, Accept, Cancel.
+Use a Switch On Tool Shutdown Type node to branch based on the shutdown type.
+
+If you have a Property Set child class with Instance Editable [[Blueprint Variable]]s it is common to call Save Property Set Settings on Completed and Accept.
+That makes it so that the next time the tool's On Script Setup logic is run the Restore Property Set Settings call will get those values back.
+
+
+# Tool Property Set
+
+A tool may provide settings to the user.
+
+There is [[Blueprint Class]] named Scriptable Interactive Tool Property Set.
+Inherit from this to create properties for the Editor Scriptable Interactive Tool [[Blueprint Class]] child class.
+Variables in this class that are marked Instance Editable will appear in the property window, the right half of the Tools panel.
+
+To associate a Property Set with a Scriptable Tool, in the Scriptable Tool's [[Event Graph]], on the On Script Setup event, call Add Property Set Of Type and in the Property Set Type drop-down select your Property Set subclass.
+Promote the New Property Set output to a [[Blueprint Variable]].
+To have the tool remember settings between uses, call Restore Property Set Settings immediately after setting the [[Blueprint Variable]].
+
+To read a property from the Tool Property Set call the Get Editor Property function.
+Connect your Property Set variable, created from the output of the Add Property Set Of Type node, to the Object input on the Get Editor Property node.
+The Property Name should be the name of an Instance Editable [[Blueprint Variable]] in the Scriptable Interactive Tool Property Set child class.
+
+A property may not always be relevant.
+For example enabling one setting may cause other related settings to appear.
+A property is shown or hidden with the Set Property Visible By Name function.
+
+To be notified when a property change to can add an event with the Watch Property function.
+This takes an [[Blueprint Event]] input named On Modified.
+Drag off of this input pin and select Create Custom Event.
+The [[Custom Event]] will receive the property set that was changed and the name of the property within that set that was changed.
+There are typed overloads such as Watch Bool Property and Watch Int Property.
+I assume the include the new value with the event.
+
+
+# Transform Gizmo
+
+## Create Gizmo
+
+Create a [[Transform Gizmo]] by calling Create TRS Gizmo on the On Script Setup event.
+I think TRS stands for Transform Rotate Scale.
+The Gizmo Options input let you control what features should be enabled on the [[Transform Gizmo]], such as if translation, rotation, scale, or all should be allowed, which axis / planes should be free, what coordinate system it should use, and if snapping should be enabled.
+Give the gizmo a unique identifier.
+
+After the gizmo has been created we can get its transform using the Get Gizmo Transform function.
+
+When the gizmo is moved the new transform is passed to the Gizmo Transform Changed event.
+
+## Gizmo Transform Changed
+
+Override the On Gizmo Transform Changed function with [[My Blueprint Panel]] > Add > Override Function > On Gizmo Transform Changed.
+A new [[Blueprint Event]] node named Event On Gizmo Transform Changed will show up in the [[Event Graph]].
+Will have an output pin named Gizmo Identifier that is the identifier given to Create TRS Gizmo.
+Useful if our tool uses multiple gizmos.
+Also has New Transform output pin.
+
+
+# Editor Scriptable Single Click Tool
+
+In addition to the Scriptable Tool Settings category, this [[Blueprint Class]] also has the Single Click Tool Settings category in the Variables category in the [[My Blueprint Panel]].
+Contains the Want Mouse Hover [[Blueprint Variable]].
+(
+Don't know what this does yet.
+I assume it must be enabled to get the hover events described below.
+I assume it is a performance optimization to turn this off.
+)
+
+Has a number of overridable functions in addition to the basic ones.
+- On Hit By Click: Called when the user clicks in the [[Level Viewport]].
+- On Hover Begin:
+- On Hover End:
+- On Hover Hit Test:
+- On Hover Update:
+- Test If Hit By Click:
+
+## On Hit By Click
+
+[[Blueprint Event]] that is triggered when the user clicks in the [[Level Viewport]].
+The Event node has Click Pos and Modifiers output pins.
+Click Pos is not a position but an Input Device Ray, which has both World Ray and Screen Position.
+World Ray, in turn, has Origin and Direction.
+Origin is the camera position. (I assume.)
+Direction is the direction from the camera through the clicked coordinate on the projection plane.
+This information can be used to perform a [[Line Trace]] to find what was clicked.
+Connect Click Pos > World Ray > Origin to the Start input.
+Connect Origin + (Direction times some ray length as a float) to the End input.
+The ray length to use depends on the project and contents of the level.
+You can right-click the other input pin of the multiply node and select To Float.
+Too large is often a better first guess than too small, so that we don't frustrate our users with clicks that don't register because our line trace ray is too short..
+
+The Hit Result we get back from the [[Line Trace]] can, for example, be used to [[Spawn]] an [[Actor]] at that location with Spawn Actor From Class.
+
+
+## On Hover Begin / Update / End
+
+
+# Error Reporting
+
+Message functionality is available under [[Node Graph Editor]] > right-click > Scriptable Tools > Messaging.
+
+The Display User (Help|Warning) Message adds a help or warning message.
+Help messages goes to the status bar at the bottom of the window.
+Warning messages toes to top of the tool's settings panel.
+This message must be explicitly removed when it is no longer relevant.
+
+Messages are removed with Clear User Messages.
+Can chose to clear help messages, warning messages, or both.
+
+# /
+
+The Get Selected Actors node is used to get access to the [[Actor]]s that are currently selected in the [[Level Viewport]].
+
+The Get Tool World function gives access to the [[World]].
+
+# References
+
+- [_Scriptable Tools & Editor Mode Reference_ by Michael Munir @ dev.epicgames.com/tutorials 2023 UE5.2](https://dev.epicgames.com/community/learning/tutorials/7BKd/unreal-engine-scriptable-tools-editor-mode-reference)
+- [_Scriptable Tools & Editor Mode_ by Michael Muni @ dev.epicgames.com/tutorials 2023 UE5.2](https://dev.epicgames.com/community/learning/tutorials/1loo/unreal-engine-scriptable-tools-editor-mode)
+- [_Editor Scriptable Tools: Basic Tools UE5.2_ by Volkiller Games @ youtube.com 2023](https://www.youtube.com/watch?v=xWxtxS2jADo)
+- [_UE5.2 Scriptable Tools : Node overview_ by Volkiller Games @ youtuve.com 2024](https://www.youtube.com/watch?v=w-PXmo8QKZs)
+- [_Unreal Engine 5.2 - Scriptable Tools Introduction (Physics Scattering)_ by renderBucet @ youtube.com 19:43 2023](https://www.youtube.com/watch?v=0-DcPwR4CI0)
