@@ -7,4 +7,4 @@ The modes are:
 - [[Foliage Mode]]
 - [[Mesh Paint Mode]]
 - [[Modeling Mode]]
-
+- [[Scriptable Tools Mode]]
