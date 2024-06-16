@@ -1,16 +1,16 @@
 The Scriptable Tools Mode is an [[Editor Mode]] that contains interactive tool that we can implement ourselves.
 Implemented in a pair of bundled [[Plugin]]s named Scriptable Tools Editor Mode and Scriptable Tools Framework.
+Each individual tool is implemented as a [[Blueprint Class]].
 
 The Scriptable Tools Mode provide two panels:
-- Tools panel
+- Tool Palette panel
 	- A list of tools we have access to.
 - Tool Properties panel
 	- Properties for the selected tool.
 
-When a tool is clicked in the Tools panel it becomes activated and its properties, if any, are shown in the Tool Properties panel.
+When a tool is clicked in the Tool Palette panel it becomes activated and its properties, if any, are shown in the Tool Properties panel.
 At the bottom of the [[Level Viewport]] a set of buttons will appear, either Complete or Accept / Cancel.
 
-There is a [[Blueprint]] system for building tools in Unreal Editor, particularly the [[Level Editor]].
 These tools are editor-only, cannot be used in a packaged application.
 Build upon the interactive tools framework.
 Gives access to mouse input, gizmos, accept / cancel buttons, a tools settings panel, and more.
@@ -18,6 +18,9 @@ A user-defined tool is created by adding a [[Blueprint Class]] that inherits fro
 - Editor Scriptable Interactive Tool
 - Editor Scriptable Single Click Tool
 - Editor Scriptable Click Drag Tool
+
+Tool settings are defined in a Property Set.
+See _Tool Property Set_ below.
 
 
 # Creating A Tool
@@ -36,9 +39,9 @@ Edited in the regular [[Blueprint Class Editor]].
 Contains [[Blueprint Variable]]s that should be filled in.
 May need to enable [[My Blueprint Panel]] > top-right gear > Show Inherited Variables.
 These can also be set from [[Class Defaults]] > [[Details Panel]] > Scriptable Tool Settings.
-- Tool Name: The name that will be shown in the Tools panel of the Scriptable Tools [[Editor Mode]].
+- Tool Name: The name that will be shown in the Tool Palette panel of the Scriptable Tools [[Editor Mode]].
 - Long Name:
-- Category: The category that the tool will show up in in the Tools panel.
+- Category: The category that the tool will show up in in the Tool Palette panel.
 - Tooltip:
 - Visible In Editor:
 - Shutdown Type: Whether the tool should show the Complete button or the Accept / Cancel pair of buttons.
@@ -51,7 +54,7 @@ Override by either:
 - [[My Blueprint Panel]] > right-click > Override Function.
 - [[My Blueprint Panel]] > Functions > Override drop-down.
 Availability of function may depend on which Editor Scriptable parent class was selected.
-- On Script Setup: Called when the tool is selected in the Tools panel.
+- On Script Setup: Called when the tool is selected in the Tool Palette panel.
 - On Gizmo Transform Changed.
 	- Called when one of the gizmos created with Create TRS Gizmo function is moved by the user.
 - On Script Can Accept.
@@ -63,7 +66,7 @@ Availability of function may depend on which Editor Scriptable parent class was 
 
 ## On Script Setup
 
-An overridable function that is run when the tool is selected in the Tools panel.
+An overridable function that is run when the tool is selected in the Tool Palette panel.
 If the tool has a Tool Property Set then this is where we should call Add Property Set Of Type and Restore Property Set Settings.
 If the tool uses a [[Transform Gizmo]] then it can be created here.
 See _Transform Gizmo_ below.
@@ -100,6 +103,7 @@ Is it also called if the user switches to another tool?
 A [[Blueprint Event]] (Or overridable function? Not sure.) that the Editor Scriptable Tool can listen for.
 Add to the [[Event Graph]] with [[My Blueprint Panel]] > Add > Override Function > On Script Shutdown.
 Has Shutdown Type output pin, one of Completed, Accept, Cancel.
+These corresponds to the buttons at the bottom of the [[Level Viewport]] when the tool is active.
 Use a Switch On Tool Shutdown Type node to branch based on the shutdown type.
 
 If you have a Property Set child class with Instance Editable [[Blueprint Variable]]s it is common to call Save Property Set Settings on Completed and Accept.
@@ -109,22 +113,32 @@ That makes it so that the next time the tool's On Script Setup logic is run the 
 # Tool Property Set
 
 A tool may provide settings to the user.
+The settings are shown in the right half of the Tool Palette panel.
+
+## Creating A Property Set
 
 There is [[Blueprint Class]] named Scriptable Interactive Tool Property Set.
 Inherit from this to create properties for the Editor Scriptable Interactive Tool [[Blueprint Class]] child class.
-Variables in this class that are marked Instance Editable will appear in the property window, the right half of the Tools panel.
+
+## Adding Properties To A Property Set
+
+Variables in this class that are marked Instance Editable will appear in the property window, the right half of the Tool Palette panel.
+
+## Associate With A Tool
 
 To associate a Property Set with a Scriptable Tool, in the Scriptable Tool's [[Event Graph]], on the On Script Setup event, call Add Property Set Of Type and in the Property Set Type drop-down select your Property Set subclass.
 Promote the New Property Set output to a [[Blueprint Variable]].
-To have the tool remember settings between uses, call Restore Property Set Settings immediately after setting the [[Blueprint Variable]].
+Casting may be required to make the variable have the actual type of your particular settings rather than a general Tool Property Set.
+
+## Read Property Values
 
 To read a property from the Tool Property Set call the Get Editor Property function.
 Connect your Property Set variable, created from the output of the Add Property Set Of Type node, to the Object input on the Get Editor Property node.
 The Property Name should be the name of an Instance Editable [[Blueprint Variable]] in the Scriptable Interactive Tool Property Set child class.
 
-A property may not always be relevant.
-For example enabling one setting may cause other related settings to appear.
-A property is shown or hidden with the Set Property Visible By Name function.
+If you gave the [[Blueprint Variable]] the exact type of your Tool Property Set child class then you may be able to access the variable directly on a variable reference node, just like any other Blueprint member.
+
+## Property Changed Callback
 
 To be notified when a property change to can add an event with the Watch Property function.
 This takes an [[Blueprint Event]] input named On Modified.
@@ -133,6 +147,18 @@ The [[Custom Event]] will receive the property set that was changed and the name
 There are typed overloads such as Watch Bool Property and Watch Int Property.
 I assume the include the new value with the event.
 
+## Store / Restore Property Values
+
+To have the tool remember settings between uses, call Restore Property Set Settings in the On Script Setup event.
+In the On Script Shutdown event call Save Property Set Settings if Shutdown Type is Completed or Accept.
+That makes it so that the next time the tool's On Script Setup logic is run the Restore Property Set Settings call will get those values back.
+
+## Controlling Property Visibility
+
+A property may not always be relevant.
+For example enabling one setting may cause other related settings to appear.
+A property is shown or hidden with the Set Property Visible By Name function.
+This is often done from the property changed callback of the property that has related settings, and possibly also On Script setup for the initial state.
 
 # Transform Gizmo
 
