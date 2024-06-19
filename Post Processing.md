@@ -1,10 +1,23 @@
 Post Processing comes either from a
 - [[Post Process Volume]].
-- Post Process Component.
+- Post Process Component. (Is this the same as a [[Post Process Volume]]?)
 - Settings on a Camera.
 - Project Settings.
 
-Change the look of your scene.
+Post Processing happens near the end of the [[Rendering Pipeline]].
+[[Mesh]]es have already been rendered and [[Lighting]] applied.
+Post Processing takes that rendered image, the [[GBuffer]], as input and modifies it.
+We say that Post Processing is applied in screen space.
+
+Post Processing changes the look of your scene.
+Can add things  like lens flares and bloom effects, color grading and tone mapping.
+Some of these effects are enabled by default and can be configured using a [[Post Process Volume]].
+They are configured in [[Project Settings]] > Engine > Rendering
+- Global Illumination
+- Reflections
+- Lumen
+- Default Settings
+
 There can only be one Post Process active at the time.
 If there are multiple Post Process that want to be active at the same time then the one with the highest Priority is used.
 A Post Process has a Blend Weight that control the strength of the effect.
@@ -90,3 +103,8 @@ Does color/tint/contrast correction.
 
 Enable a sharpen filter by running `r.Tonemapper.Sharpen <amount>` in the console.
 10 for the value is a lot, 0.5 is reasonable.
+
+
+# References
+
+- [_Introducing Post Processing_ by Epic  Online Learning, Kevin Lyle @ dev.epicgames.com/courses 2023 UE5.0](https://dev.epicgames.com/community/learning/courses/pE2/unreal-engine-introducing-post-processing/mZ11/unreal-engine-introducing-post-processing-overview)

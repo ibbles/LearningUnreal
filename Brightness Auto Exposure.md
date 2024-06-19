@@ -1,5 +1,7 @@
 I use auto exposure to refer to all types of adaptive brightness control.
 
+We can visualize the current ??? with [[Level Viewport]] > [[Show]] > Visualize > HDR (Eye Adaptation).
+
 When designing a level it can be distracting to have the brightness go up and down all the time.
 There are various ways to disable this.
 
@@ -51,4 +53,5 @@ Smaller values makes the scene brighter.
 - [_Let's Create an Unreal Engine 5 Environment in ONE SITTING Ep.2 | 3D Livestream_ - Auto Exposure, by pwnisher @ youtube.com](https://youtu.be/k77o5Ug41ek?t=1304)
 - [_Lighting in Unreal Engine 5 for Beginners_ - Disable Auto Exposure, by William Faucher @ youtube.com](https://youtu.be/fSbBsXbjxPo?t=1846)
 - [_Introducing Global Illumination_ - Visualizing Lightmass, by Epic Games @ dev.epicgames.com, UE-4.20](https://dev.epicgames.com/community/learning/courses/yon/introducing-global-illumination/x7n/visualizing-lightmass)
+- [_Introducing Post Processing_ by Epic  Online Learning, Kevin Lyle @ dev.epicgames.com/courses 2023 UE5.0](https://dev.epicgames.com/community/learning/courses/pE2/unreal-engine-introducing-post-processing/mZ11/unreal-engine-introducing-post-processing-overview)
 

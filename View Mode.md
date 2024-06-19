@@ -1,8 +1,8 @@
 A View Mode is a visualization tool that can show various aspects of the [[Rendering Pipeline]] in the [[Level Viewport]].
 By default the Level Viewport will render the level much like it would look in-game, optionally with some extra billboards to show the location of non-rendered entities such as [[Light Source|Light Sources]] and [[Sound]] emitters.
-The billboards can be toggled with the `G` button, hiding them is called [[Game View]].
 This game-like view is called the Lit View Mode.
-But the Level Viewport can visualize other things as well.
+The billboards can be toggled with the `G` button, hiding them is called [[Game View]].
+The [[Level Viewport]] can visualize other things as well.
 These are called View Modes and are accessed from one of the buttons in the top-left part of the viewport.
 The button will display the currently selected View Mode, which by default is Lit.
 Clicking this button gives you a list of the available View Modes.
@@ -15,6 +15,8 @@ You can read more about the lighting related View Modes in [[Lighting View Modes
 You can read more about material related View Modes in [[Material View Modes]].
 
 - Player Collision: Visualize the [[Collision Shape|Collision Shapes]] that the player will collide with.
+- Buffer visualization
+	- Custom Stencil. Shows the stencil buffer values.
 
 # References
 
