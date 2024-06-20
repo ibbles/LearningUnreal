@@ -158,12 +158,82 @@ Tint does something I don't understand.
 
 ## Misc
 
+### LUT
+
 Color Grading LUT.
 LUT is short for Look Up Table.
 A chart that tells the renderer how to map the colors in our scene.
+How color data should be read.
 (
 This means absolutely nothing to me.
 )
+
+Think of them as functions, implemented as a lookup table, that takes a color as input and returns another color as output.
+The input is the pixels of the rendered image and the output is the pixels we see on screen.
+
+There are different levels of LUTs.
+A 1D LUT has a scalar input and a scalar output.
+It operates on one channel at the time.
+A 3D LUT takes a color input and produces a color output.
+It operates on all three channels.
+
+#### 1D LUT
+
+A 1D LUT adjusts brightness, contrast, and black and white levels.
+With a single 1D LUT the red, green, and blue channels are adjusted together, in the same way.
+We can have three 1D LUTs, one each for the red, green, and blue channels.
+This approach cannot mix colors, or have the intensity of one color affect the intensity of another.
+These kind of LUTs clamp the output to 8-bit colors.
+Means color space conversions will be lossy and HDR output is not possible.
+
+The steps to create three 1D LUTs is to take a screenshot of the scene, open that in an image editing software, add adjustment layers to get the look you want, apply the same adjustments to a RGB table template image, import the adjusted template image to a Post Process Volume.
+
+The basic pipeline is that we take a screenshot of the scene and open in the image editing software.
+Then we use the adjustment layers available in the image editing software to produce the look we are after.
+The same filters are also applied to an RGB table image template, altering the colors of that template.
+This altered template is the definition of our LUT.
+Export the template as a PNG image.
+Import the PNG image into Unreal Engine as a [[Texture]].
+Open it in the [[Texture Editor]] and set [[Details Panel]] > Level Of Detail > Mip Gen Settings to No Mipmaps.
+Set the sibling property Texture Group to Color Lookup Table.
+
+Create a Post Process Volume.
+Enable Post Process Volume > [[Details Panel]] > Color Grading > Misc > Color Grading LUT.
+Set Color Grading LUT to the imported [[Texture]].
+The colors in the [[Level Viewport]] will now match those we created in the image editing software.
+
+#### 3D LUT
+
+A 3D LUT can perform more complicated color operations.
+The color channels can interact with each other.
+Can change one color to another.
+Have a larger amount of color information.
+(
+What does this mean?
+)
+
+A 3D LUT is a color-to-color function.
+We give it a color and can get any color in return.
+It is implemented as a 3D, or Volume, [[Texture]] where the three channels of the input color form the coordinate within that texture.
+That is, each input color owns a specific texel within the [[Volume Texture]] and that texel is the color that should be used displayed instead of the input color.
+
+3D LUT files can have the `.exr` file extension.
+When imported into Unreal Editor they become a [[Texture]] [[Asset]].
+Convert the [[Texture]] to a [[Volume Texture]] with right-click > Create Volume Texture.
+You need to know what the size of the [[Volume Texture]] should be.
+Set this in [[Texture Editor]] > [[Details Panel]] > Source 2D > Tile Size X and Tile Size Y.
+Set Compression > Compression Settings to HDR (RGB, no sRGB).
+
+Create a [[Post Process Material]] with [[Volume Texture]] > right-click > Create Material.
+This will create a new [[Material]] containing a [[Texture Sample]] node reading from the [[Volume Texture]].
+Sett [[Material]] > [[Details Panel]] > Material > Material Domain to Post Process.
+Connect the RGB output of the [[Texture Sample]] node to the Emissive Color input pin on the [[Material Output Node]]. 
+
+Create a Scene Texture node and set [[Details Panel]] > Scene Texture ID to Post Process Input 0.
+We don't need the alpha channel so pass the Color output to a Component Mask with the R, G, and B channels enabled and the A channel disabled.
+Convert the RGB values to UVW coordinates for the [[Volume Texture]] [[Texture Sample]] node by multiplying them by `(size - 1) / size` and adding `0.5 / size.
+
+Add the [[Post Process Material]] to Post Process Volume > [[Details Panel]] > Rendering Features > Post Process Materials.
 
 ## Saturation
 
@@ -206,6 +276,9 @@ This value lets us control how strong the influence from that [[Post Process Mat
 ## Ambient Occlusion
 
 Disable [[Ambient Occlusion]] by setting Intensity to 0.0.
+
+## Motion Blur
+
 
 
 # Lumen
