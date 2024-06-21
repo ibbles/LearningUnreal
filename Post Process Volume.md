@@ -132,6 +132,19 @@ Vignette Intensity causes a dark halo around the image.
 # Color Grading
 
 Color grading is used to modify the look and feel of the scene.
+Color correction.
+It allows for transformation of color spaces from HDR to LDR.
+Unreal Engine works in HDR internally, to get more colors to work with, and maps those colors to LDR for non-HDR displays.
+The Filmic Tonemapper uses Academy Color Encoding System, ACES.
+(
+I don't know what the Filmic Tonemapper is.
+Is it all the settings in the Color Grading category of the Post Process Volume?
+)
+
+To help with color grading Unreal Engine includes a [[Static Mesh]] named `SM_ColorCalibrator`.
+Make sure [[Content Browser]] > Settings > Show Engine Content is enabled to find it.
+
+
 Editing within the Global category will affect the entire spectrum.
 The other options are Shadows, Midtones, and Highlights.
 
@@ -148,13 +161,50 @@ Setting Temperature Type to White Balance and increasing Temp causes to scene to
 
 Tint does something I don't understand.
 
-## Global
+## Global, Shadows, Midtones, Highlights
 
-## Shadows
+A collection of color tweaking controls that all operate in the same way but have different effects on the image.
 
-## Midtones
+Can be in either RGB mode or HSV mode.
 
-## Highlights
+R, G, B (or H, S, V) sliders let us control the color channels individually.
+Hold Shift while dragging a slider to make finer edits.
+This moves a circle within the color wheel.
+We can also move the circle and the sliders will update accordingly.
+Under the color wheel is the Intensity slider.
+It controls all the RGB (or HSV) values together, while maintaining relativity set with the individual sliders.
+Think of the intensity slider as a multiplier on the RGB (or HSV) values.
+
+There is a forth slider, Y, that controls luminance.
+Increasing it brightens the saturation.
+
+### Saturation
+
+Can be used to remove color from the scene.
+Reduce the RGB Y component.
+Not sure what that means.
+
+### Contrast
+
+Add color to the highlights and shadows.
+
+### Gamma
+
+Controls the gamma curve.
+Controls the midtones.
+Reducing this value makes dark areas darker and bright areas brighter.
+(
+I think.
+)
+Moving the small circle within the larger color circle increases the amount of that color in the scene.
+
+### Gain
+
+Controls the highlights.
+
+### Offset
+
+Controls the shadows.
 
 ## Misc
 
@@ -235,27 +285,15 @@ Convert the RGB values to UVW coordinates for the [[Volume Texture]] [[Texture S
 
 Add the [[Post Process Material]] to Post Process Volume > [[Details Panel]] > Rendering Features > Post Process Materials.
 
-## Saturation
-
-Can be used to remove color from the scene.
-Reduce the RGB Y component.
-Not sure what that means.
-
-## Gamma
-
-Controls the gamma curve.
-Reducing this value makes dark areas darker and bright areas brighter.
-(
-I think.
-)
-Moving the small circle within the larger color circle increases the amount of that color in the scene.
-
 
 # Film
 
 The Slope parameter controls the steepness between the Toe and the Shoulder.
+This affects the contrast of the image.
+A low Slope makes the image washed out.
 
 Toe and Shoulder set the chop-off values.
+Toe controls the black levels and Shoulder controls the white levels.
 A long toe will make shades of gray appear as black.
 A short toe allow us to see more shades of gray, but decreases contrast.
 Shoulder is like toe, but for white values instead of black.
