@@ -6,16 +6,17 @@ Provides:
 - Ambient occlusion.
 - Reflections.
 
+Enabled from [[Project Settings]] > Engine > Rendering:
+- Set Global Illumination > Dynamic Global Illumination Method to Lumen.
+- Set Reflections > Reflection Method to Lumen.
+
 Since Lumen is a dynamic lighting model, all [[Light Source|Light Sources]] should have their [[Mobility]] set to Movable.
 
-To ensure that all lighting is using Lumen and that no costly [[Baked Lighting|Light Baking]] happens enable [[Project Settings]] > Engine > Rendering > Misc Lighting > Allow Static Lighting.
+To ensure that all lighting is using Lumen and that no costly [[Baked Lighting|Light Baking]] happens set [[Project Settings]] > Engine > Rendering > Misc Lighting > Allow Static Lighting to false.
 
 A [[Light Source]] may have a Indirect Lighting Intensity setting in the Details panel.
 This setting controls how much that light source contribute to the global illumination around objects directly illuminated by the light source.
 
-Enabled from [[Project Settings]] > Engine > Rendering:
-- Set Global Illumination > Dynamic Global Illumination Method to Lumen.
-- Set Reflections > Reflection Method to Lumen.
 
 # Requirements
 
@@ -36,6 +37,37 @@ In Project Settings > Engine > Rendering
 Not sure if the settings above are suitable for real-time rendering or more for cinematics.
 )
 
+
+# Lumen Configuration
+
+Lumen is configured from [[Project Settings]] > Engine > Rendering.
+Quality settings can be overridden locally with a [[Post Process Volume]].
+
+
+## Project Settings
+
+- Global Illumination
+	- Dynamic Global Illumination Method: Set to Lumen to use Lumen.
+- Reflections
+	- Reflection Method: Set to Lumen to use Lumen.
+	- Reflection Capture Resolution: 128 for real-time, 2,048 for high-quality non-real-time.
+- Lumen
+	- User Hardware Ray Tracing When Available:
+	- Ray Lighting Mode: Control how reflections work when using hardware ray-tracing. (What is done when not using hardware ray-tracing? Always reflect the Surface Cache?)
+		- Surface Cache: Reflections will only show the surface cache, not the actual object being reflected.
+		- Hit Lighting For Reflections: Calculate lighting at the ray hit point. High GPU cost since this will run the [[Material Graph]] for reflections. We see the actual object in the reflection instead of the Surface Cache.
+
+## Post Process Volume
+
+These settings are the the [[Details Panel]].
+
+- Global Illumination
+	- Method: Switch between None, Lumen, and Screen Space.
+	- Lumen Global Illumination
+		- Quality settings for Lumen Global Illumination.
+	- Ray Tracing Global Illumination
+		- Quality settings for Ray Tracing Global Illumination.
+- Reflection
 
 # Ray Tracing
 
@@ -163,3 +195,4 @@ Try with a value of 1, tweak as necessary.
 - [_Unreal Engine 5 New Lumen Hardware Ray tracing Reflections_, by JSFILMZ @ youtube.com](https://www.youtube.com/watch?v=rQ0zJFgdqHE)
 - [_LUMEN in Unreal Engine 5 | How it REALLY works ?_ by Proj Prod @ youtube.com 2023](https://www.youtube.com/watch?v=HZFBUhusQn4)
 - [_Rough Lumen reflections cheat sheet_ by ](https://forums.unrealengine.com/t/rough-lumen-reflections-cheat-sheet/875826/5)
+- [_Introducing Post Processing_ by Epic  Online Learning, Kevin Lyle @ dev.epicgames.com/courses 2023 UE5.0](https://dev.epicgames.com/community/learning/courses/pE2/unreal-engine-introducing-post-processing/mZ11/unreal-engine-introducing-post-processing-overview)
