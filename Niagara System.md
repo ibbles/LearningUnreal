@@ -1,6 +1,6 @@
 A [[Niagara System]] is a the thing that _is_ a particle system in Niagara.
-It is a container for various other stuff, such as emitters and .... (Anything else?)
-A Niagara System is an [[Asset]] that can be created from and lives in the Content Browser.
+It is a container for various other stuff, such as emitters, parameters, and .... (Anything else?)
+A Niagara System is an [[Asset]] that can be created from and lives in the [[Content Browser]].
 Create a new Niagara System by [[Content Browser]]  > right-click > Niagara System > pick one of the templates.
 A Niagara System can be placed or spawned in a [[Level]].
 Drag the particle system from the [[Content Browser]] to the [[Level Viewport]] to create an instance.
@@ -22,6 +22,7 @@ class MYMODULE_API AMyActor : public AActor
 public:
 	void EmittParticles();
 
+	// A reference to a Niagara System asset, not an in-world instance.
 	UPOPERTY(EditAnywhere, Category="Effects")
 	UNiagaraSystem* ParticleSystem;
 }
@@ -35,6 +36,8 @@ To get an instance in the level we must spawn a new instance of the `UNiagaraSys
 ```cpp
 void AMyActor::EmittParticles()
 {
+	// You can make the UNiagaraComponent a member variable to
+	// interact with it later.
 	UNiagaraComponent* Particles =
 		UNiagaraFunctionLibrary::SpawnSystemAtLocation(
 			GetWorld(), ParticleSystem, GetActorLocation());
@@ -48,12 +51,15 @@ which makes the spawned particle system follow, i.e. be attached to, a [[Scene C
 # User Parameters
 
 A Niagara System can contain user parameters.
-These are values that can be passed in from e.g. a Details panel or set by a [[Blueprint Visual Script]].
+These are values that can be passed in to an instance of the System from e.g. a Details panel or set by a [[Blueprint Visual Script]].
 
 Add a new parameter by selecting the blue system node in the [[Niagara Editor]] > User Parameters > click the blue + button to the right.
-Each parameter has a type.
+Each parameter has a type, so a list of possible types is opened. Pick one.
+Give the parameter a name and a default value in the Selection panel.
+User parameters are always in the USER [[Niagara Namespace]].
+When an instance of the System is selected in the [[Level Viewport]] we can find the new parameter at [[Details Panel]] > User Parameters.
 
-Any parameter to a [[Niagara Module]] in the system can be bound to these user parameters.
+Any parameter in a [[Niagara Module]] in the system can be bound to these user parameters.
 
 
 # Particle Attributes
@@ -75,3 +81,4 @@ Particle Attributes can be bound to [[Niagara Module]] input parameters by dragg
 # References
 
 - [_Unreal Engine 4.26.0 Niagara Growing Trees Tutorial_ by Art Hiteca @ youtube.com 2020](https://youtu.be/DV1cPrYHtYg?t=337)
+- [_Begin Play | Niagara_ by Epic Online Learning, Arran Langmead @ dev.epicgames.com/tutorials 2023 UE5.0](https://dev.epicgames.com/community/learning/tutorials/j9YO/unreal-engine-begin-play-niagara)
