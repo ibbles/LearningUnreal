@@ -48,7 +48,7 @@ An alternative to `SpawnSystemAtLocation`  is `SpawnSystemAttached`,
 which makes the spawned particle system follow, i.e. be attached to, a [[Scene Component]] we provide.
 
 
-# User Parameters
+# User Parameter
 
 A Niagara System can contain user parameters.
 These are values that can be passed in to an instance of the System from e.g. a Details panel or set by a [[Blueprint Visual Script]].
@@ -60,9 +60,11 @@ User parameters are always in the USER [[Niagara Namespace]].
 When an instance of the System is selected in the [[Level Viewport]] we can find the new parameter at [[Details Panel]] > User Parameters.
 
 Any parameter in a [[Niagara Module]] in the system can be bound to these user parameters.
+Select the module with the parameter, click the ﹀ button > select Link Inputs > User > USER `variable name`.
 
 
-# Particle Attributes
+
+# Particle Attribute
 
 A Niagara System contains a collection of particles and each particle carries data in the form of [[Niagara Attribute|Niagara Attributes]].
 An Attribute is like a member variable in a struct, and all particles are like instances of that struct.

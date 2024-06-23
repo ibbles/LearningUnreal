@@ -69,3 +69,7 @@ To change the name of the value in the Map Set node double-click the name and ty
 Happens when there is a user parameter, in the Parameters tab, with the same name as a built-in parameter.
 In my case it was `User.NumParticles` that conflicted with `Engine.Emitter.NumParticles`.
 Renamed the user parameter to `TargetNumParticles` and the error went away.
+
+# References
+
+- [_Begin Play | Niagara_ by Epic Online Learning, Arran Langmead @ dev.epicgames.com/tutorials 2023 UE5.0](https://dev.epicgames.com/community/learning/tutorials/j9YO/unreal-engine-begin-play-niagara)

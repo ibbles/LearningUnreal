@@ -103,3 +103,7 @@ Events that can be generated include
 - Location
 - Collision
 - Death
+
+# References
+
+- [_Begin Play | Niagara_ by Epic Online Learning, Arran Langmead @ dev.epicgames.com/tutorials 2023 UE5.0](https://dev.epicgames.com/community/learning/tutorials/j9YO/unreal-engine-begin-play-niagara)

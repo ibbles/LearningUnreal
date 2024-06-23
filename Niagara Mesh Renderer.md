@@ -6,3 +6,9 @@ Somewhere around Unreal Engine 5.1 the Motion Blur part of the path was removed,
 I don't know what  this actually does.
 I don't know if there is a way to directly control the motion vector.
 Setting `PARTICLES.Velocity` doesn't seem to affect this.
+
+See [[Niagara Render Material]].
+
+# References
+
+- [_Begin Play | Niagara_ by Epic Online Learning, Arran Langmead @ dev.epicgames.com/tutorials 2023 UE5.0](https://dev.epicgames.com/community/learning/tutorials/j9YO/unreal-engine-begin-play-niagara)
