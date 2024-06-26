@@ -1,5 +1,5 @@
 A Niagara Emitter is a piece of a [[Niagara System]].
-The emitter is responsible for spawning new particles.
+The emitter is responsible for spawning new particles and updating them each frame.
 An emitter consists of [[Niagara Module|Niagara Modules]].
 The modules define the behavior or the emitter.
 The modules are part of different stages that run at different times:
@@ -8,6 +8,12 @@ The modules are part of different stages that run at different times:
 - Particle Spawn
 - Particle Update
 - Render
+
+The [[Niagara Module]]s within a stage are executed top to bottom.
+The different stages have different responsibilities and some module actions are limited to specific stages.
+For example, particle spawning is possible in Emitter Spawn and Emitter Update, but not the other stages. (I assume, haven't tested.)
+
+An Emitter can be made as an [[Asset]], meaning it can be reused multiple times in the same [[Niagara System]], and used by multiple systems.
 
 
 # Adding An Emitter
@@ -107,3 +113,4 @@ Events that can be generated include
 # References
 
 - [_Begin Play | Niagara_ by Epic Online Learning, Arran Langmead @ dev.epicgames.com/tutorials 2023 UE5.0](https://dev.epicgames.com/community/learning/tutorials/j9YO/unreal-engine-begin-play-niagara)
+- [_Intro To Niagara_ by Epic Online Learning, James Hill @ dev.epicgames.com/tutorials 2023 UE5.2](https://dev.epicgames.com/community/learning/tutorials/8B1P/unreal-engine-intro-to-niagara)

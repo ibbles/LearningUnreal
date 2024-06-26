@@ -1,9 +1,39 @@
 A [[Niagara System]] is a the thing that _is_ a particle system in Niagara.
+The things that represents a whole effect, such as an explosion or a flame with smoke.
 It is a container for various other stuff, such as emitters, parameters, and .... (Anything else?)
+
+# Creating A Niagara System
+
 A Niagara System is an [[Asset]] that can be created from and lives in the [[Content Browser]].
-Create a new Niagara System by [[Content Browser]]  > right-click > Niagara System > pick one of the templates.
+Create a new Niagara System by [[Content Browser]]  > right-click > _Create Basic Asset_ > Niagara System > pick one of the templates.
+
+Niagara Systems are often named with the `NS_` prefix, for Niagara System.
+
+Double-click the Niagara System [[Asset]] to open the [[Niagara Editor]].
+See [[Niagara Emitter]], [[Niagara Module]], and [[Niagara Parameter]] to learn how to populate the System with particles and behavior.
+
+# Niagara System Settings
+
+The Niagara System node in the [[Niagara Editor]] is the blue one.
+Select it, or one of its modules, to populate the Selection panel with its properties.
+
+## System State
+
+Loop Behavior:
+- Once
+	- When an instance of the System is spawned in the [[Level]] Emitters are spawned with it and live until all Emitters and / or (Which is it?) and particles have aged out. The the Particle System if empty and destroyed (I think.).
+- Infinite
+	- The particle system is reset and restarted at regular intervals. Emitter Spawn is run at each restart. The time between resets is controlled with Loop Duration.
+- Multiple
+	- Like Infinite, but with a limited number of loops.
+
+
+# Spawning A Niagara System
+
 A Niagara System can be placed or spawned in a [[Level]].
 Drag the particle system from the [[Content Browser]] to the [[Level Viewport]] to create an instance.
+Systems with Loop Behavior set to Once are usually not placed like this since they would only run once when the level is loaded and the disappear.
+It is more common to spawn a System in response to user action or game logic.
 
 To spawn a particle system at runtime from C++:
 
@@ -48,10 +78,16 @@ An alternative to `SpawnSystemAtLocation`  is `SpawnSystemAttached`,
 which makes the spawned particle system follow, i.e. be attached to, a [[Scene Component]] we provide.
 
 
-# User Parameter
+# Parameters
+
+A Niagara System contains data that the [[Niagara Emitter]]s, and their [[Niagara Module]]s, can access.
+Through this data [[Niagara Emitter]]s can talk to each other.
+
+## User Parameter
 
 A Niagara System can contain user parameters.
 These are values that can be passed in to an instance of the System from e.g. a Details panel or set by a [[Blueprint Visual Script]].
+Used for fine-tuning of an effect for a particular use-case or setting.
 
 Add a new parameter by selecting the blue system node in the [[Niagara Editor]] > User Parameters > click the blue + button to the right.
 Each parameter has a type, so a list of possible types is opened. Pick one.
@@ -84,3 +120,4 @@ Particle Attributes can be bound to [[Niagara Module]] input parameters by dragg
 
 - [_Unreal Engine 4.26.0 Niagara Growing Trees Tutorial_ by Art Hiteca @ youtube.com 2020](https://youtu.be/DV1cPrYHtYg?t=337)
 - [_Begin Play | Niagara_ by Epic Online Learning, Arran Langmead @ dev.epicgames.com/tutorials 2023 UE5.0](https://dev.epicgames.com/community/learning/tutorials/j9YO/unreal-engine-begin-play-niagara)
+- [_Intro To Niagara_ by Epic Online Learning, James Hill @ dev.epicgames.com/tutorials 2023 UE5.2](https://dev.epicgames.com/community/learning/tutorials/8B1P/unreal-engine-intro-to-niagara)

@@ -19,6 +19,8 @@ The main parts from a designer point of view are
 - Emitter
 - Particle
 
+A [[Niagara System]] contains [[Niagara Emitter]]s that contain particles.
+
 Each of these can have [[Niagara Module]]s associated with them that perform some action on spawn/emit or on update (tick).
 
 Data available in one level is available to all instances at the lower levels.
@@ -29,3 +31,4 @@ For example, all Emitters in a System can access that System's data, and all Par
 - [_Creating Fluid Simulation in UE5 | Inside Unreal_ by Epic Games, 2022 @ youtube.com](https://www.youtube.com/watch?v=k7WLE2kM4po)
 - [_Creating Visual Effects_ @ docs.unrealengine.com](https://docs.unrealengine.com/5.0/en-US/creating-visual-effects-in-niagara-for-unreal-engine/)
 - [_Begin Play | Niagara_ by Epic Online Learning, Arran Langmead @ dev.epicgames.com/tutorials 2023 UE5.0](https://dev.epicgames.com/community/learning/tutorials/j9YO/unreal-engine-begin-play-niagara)
+- [_Intro To Niagara_ by Epic Online Learning, James Hill @ dev.epicgames.com/tutorials 2023 UE5.2](https://dev.epicgames.com/community/learning/tutorials/8B1P/unreal-engine-intro-to-niagara)

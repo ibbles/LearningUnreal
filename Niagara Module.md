@@ -3,7 +3,23 @@ A Module is an [[Asset]] that lives in the [[Content Browser]].
 It is created with [[Content Browser]] > Niagara > Niagara Module Script.
 A modules is added to a [[Niagara Emitter]].
 We say that the Emitter calls the Module which causes the module to be executed, i.e. its code is run.
-Modules are executed at emitter spawn, particle spawn, emitter update, particle update, or render depending on where in the Emitter it is placed.
+Modules are executed at one of different stages depending on where in the Emitter's module stack it is placed.
+- Emitter Spawn
+- Emitter Update
+- Particle Spawn
+- Particle Update
+- Render
+
+A module placed in one of the Particle stages will be executed multiple times,
+once for each particle being spawned or updated.
+
+The Module's operation is defined in a visual scripting language.
+The graph starts with an input node and ends with an output node.
+In between these we can have any number of Map Get and Map Set nodes.
+These are how to Module communicates with the outside world, i.e. the data held by the [[Niagara System]].
+See _Input_ below.
+Map Set can be used to update the state of a particle,
+or to communicate with later Modules in the module stack.
 
 Module calls can be copy-pasted between Emitters.
 Select a module in one Emitter and hit Ctrl+C to copy it.
@@ -37,6 +53,19 @@ Create a new parameter by clicking the + button next to an empty output pinon a 
 You can change the [[Niagara Namespace]] of the parameter by right-click > Change Namespace > pick a namespace.
 
 Some parameters are not read with a Map Get node, but instead used by a Static Switch node.
+
+## Dynamic Input
+
+A parameter's argument does not need to be a single static value.
+With a Module selected in the [[Niagara Editor]] the parameters of that module are listed in the Selection panel.
+A text box is provided to set a static argument, but we can also click the ⌵ button to get a list of ways to compute it.
+A Dynamic Input is an expression with parameters of its own, and those parameters can also be  Dynamic Inputs.
+We can reference [[Niagara Parameter]]s, read [[Niagara Attribute]]s, do arithmetic, generate random numbers, define curves, and much more.
+
+A Float Curve is a Dynamic Input that contains a curve editor and a Curve Index parameter that decides where on the curve a particular execution of the Module should be.
+By binding Curve Index to the PARTICLES > Normalized Age [[Niagara Attribute]] we get a Module parameter value that varies over the lifetime of each particle.
+This can, for example, be used to control the color, opacity, or scale of the particle.
+
 
 ## Input Map - Map Get
 
@@ -73,3 +102,4 @@ Renamed the user parameter to `TargetNumParticles` and the error went away.
 # References
 
 - [_Begin Play | Niagara_ by Epic Online Learning, Arran Langmead @ dev.epicgames.com/tutorials 2023 UE5.0](https://dev.epicgames.com/community/learning/tutorials/j9YO/unreal-engine-begin-play-niagara)
+- [_Intro To Niagara_ by Epic Online Learning, James Hill @ dev.epicgames.com/tutorials 2023 UE5.2](https://dev.epicgames.com/community/learning/tutorials/8B1P/unreal-engine-intro-to-niagara)
