@@ -1,0 +1,48 @@
+This note describe how to achieve various effects using a [[Niagara System]] and [[Niagara Emitter]]s by implementing and combining [[Niagara Module]]s.
+
+We can control the motion of our particles in three main ways:
+- Position
+	- Set a new position directly.
+- Velocity
+	- Set a velocity on the particle and integrate to compute the new position.
+- Force
+	- Set a force on the particle and integrate to compute the new velocity, and then integrate again to get the new position.
+
+The integration is handled by a built-in [[Niagara Module]] named Solve Forces And Velocity.
+
+Velocity and / or force can either be set in the Particle Spawn section to give the particles an initial impulse,
+or in Particle Update to affect them continuously.
+
+
+# Add Velocity
+
+Add Velocity is a built-in [[Niagara Module]] that adds to the PARTICLES > Velocity [[Niagara Attribute]].
+It has a float parameter named Velocity Speed that is the speed, not velocity, that is added to the particles.
+The direction can be set in various ways, and is controlled with Velocity Mode.
+- From Point
+	- The added velocities are pointing away from Velocity Origin. This is set to ENGINE > EMITTER > Simulation Position by default. I think this is the position of the System in the world, but its a weird name so I'm not sure.
+	- There is a Origin Offset that lets  you offset the point from the Velocity Origin value.
+- TODO Fill in here Velocity Modes here.
+
+This [[Niagara Module]] is often used with the Particle Spawn stage to give new particles an initial velocity.
+By setting Velocity Mode to From Point and setting Origin Offset to some small-ish value (tens) we get a directional burst in the opposite direction.
+Set the Origin Offset down and we get an initial velocity upwards.
+Set the Origin Offset left and we get an initial velocity to the right.
+
+
+# Drag
+
+Add a force to the particles.
+The force is dependent of a Drag float parameter and the velocity of each particle.
+The drag force is always directed opposite to the velocity, thus acting to slow the particle down.
+By having a high Drag parameter we can have particles that start of with a high velocity but quickly slows down.
+
+
+# Gravity Force
+
+Add a force to the particles.
+The force is dependent on a Gravity vector parameter and the mass of each particle.
+Set the Gravity to some negative value in the Z direction to get falling particles.
+Gravity Force is usually added to the Particle Update stage since gravity is always pulling.
+Relentlessly, tirelessly, eternal.
+
