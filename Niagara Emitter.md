@@ -30,6 +30,8 @@ Can also add an Emitter with Timeline panel > Track > Emitter > pick a template.
 
 Modules are removed from an Emitter by clicking them to select and then hitting the Del key on the keyboard.
 
+An emitter can be renamed by selecting it in the [[Niagara Editor]] and hitting F2.
+And emitter can be renamed by right-clicking it in the [[Niagara Editor]] and selecting Rename.
 An emitter can be renamed from the left part of the Timeline panel, double-click the name and type a new one.
 
 An Emitter consists of a stack of [[Niagara Module|Niagara Modules]] grouped into stages.

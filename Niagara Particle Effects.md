@@ -30,6 +30,19 @@ Set the Origin Offset down and we get an initial velocity upwards.
 Set the Origin Offset left and we get an initial velocity to the right.
 
 
+# Curl Noise Force
+
+Uses a 3D generated noise to apply a different force to each particle,
+producing a swirling pattern.
+
+- Noise Strength: How much force to apply.
+- Noise Frequency: With lower frequency the particles move in bigger groups. With larger frequency there is a higher difference in force for neighboring particles.
+
+Supports debug drawing.
+Enable debug drawing with the eye button on the [[Niagara Module]] in the [[Niagara Emitter]]'s module stack.
+Will draw lines in the preview [[Viewport]] showing the direction of the applied forces,
+colored based on the force magnitude.
+
 # Drag
 
 Add a force to the particles.
@@ -46,3 +59,11 @@ Set the Gravity to some negative value in the Z direction to get falling particl
 Gravity Force is usually added to the Particle Update stage since gravity is always pulling.
 Relentlessly, tirelessly, eternal.
 
+# Initialize Particle
+
+A very versatile [[Niagara Module]] that can set a whole  bunch of [[Niagara Attribute]]s in various ways.
+
+
+# References
+
+- [_Intro To Niagara_ by Epic Online Learning, James Hill @ dev.epicgames.com/tutorials 2023 UE5.2](https://dev.epicgames.com/community/learning/tutorials/8B1P/unreal-engine-intro-to-niagara)
