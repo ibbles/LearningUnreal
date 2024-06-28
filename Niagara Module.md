@@ -61,9 +61,21 @@ With a Module selected in the [[Niagara Editor]] the parameters of that module a
 A text box is provided to set a static argument, but we can also click the ⌵ button to get a list of ways to compute it.
 A Dynamic Input is an expression with parameters of its own, and those parameters can also be  Dynamic Inputs.
 We can reference [[Niagara Parameter]]s, read [[Niagara Attribute]]s, do arithmetic, generate random numbers, define curves, and much more.
+A Dynamic Input parameter is indicated by a graph icon on the parameter in the Selection panel.
+
+
+### Float Curve
 
 A Float Curve is a Dynamic Input that contains a curve editor and a Curve Index parameter that decides where on the curve a particular execution of the Module should be.
+Use the Templates buttons at the top of the curve editor to select a curve shape.
+Modify a curve control point by selecting it and either drag or type a coordinate in the Key Data text boxes below the graph.
+To control a control point's tangents right-click it and select User,
+two extra handles will appear next to the control point, one on either side.
+Or select Auto to get a different kind of tangent control.
+Remove a curve control point by selecting it and hitting the Del key.
+Fit the curve view to the control points by clicking the diagonal arrows ⤢ button in the lower-left corner of the curve editor.
 By binding Curve Index to the PARTICLES > Normalized Age [[Niagara Attribute]] we get a Module parameter value that varies over the lifetime of each particle.
+Use the Scale Curve parameter to control the vertical (value) scale of the entire curve.
 This can, for example, be used to control the color, opacity, or scale of the particle.
 
 
