@@ -83,3 +83,8 @@ See also:
 - [[Blueprint Function]]
 - [[Blueprint Function Library]]
 
+
+# References
+
+- [_Why I prefer BlueprintImplementableEvent to BlueprintNativeEvent_ by Ben @ benui.ca](https://benui.ca/unreal/implementable-event-or-native-event/)
+
