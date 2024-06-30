@@ -35,6 +35,28 @@ Drag the particle system from the [[Content Browser]] to the [[Level Viewport]] 
 Systems with Loop Behavior set to Once are usually not placed like this since they would only run once when the level is loaded and the disappear.
 It is more common to spawn a System in response to user action or game logic.
 
+## Blueprint
+
+To spawn a particle system at runtime from Blueprint Visual Script use one of
+- Spawn System At Location
+- Spawn System At Location With Params
+- Spawn System Attached
+- Spawn System Attached With Params
+
+Set System Template to the [[Niagara System]] [[Asset]] to spawn.
+
+Once the system has been spawned we can set parameters on it.
+Use the Set Niagara Variable node to do this.
+This node has a text input pin named Variable Name for the name of the variable to set.
+The name should include the [[Niagara Namespace]].
+This node cannot set variables in the PARTICLES namespace.
+And probably many others as well.
+It can set USER parameters.
+See _Parameters_ below.
+
+
+# C++
+
 To spawn a particle system at runtime from C++:
 
 `MyActor.h`:
@@ -98,6 +120,11 @@ When an instance of the System is selected in the [[Level Viewport]] we can find
 Any parameter in a [[Niagara Module]] in the system can be bound to these user parameters.
 Select the module with the parameter, click the ﹀ button > select Link Inputs > User > USER `variable name`.
 
+## Setting A Parameter From Blueprint Visual Script
+
+Use the Set Niagara Variable node to set a variable on a Niagara System.
+Only parameters within the USER [[Niagara Namespace]] can be set.
+To set a parameter named "My Parameter", use the name "USER.My Parameter".
 
 
 # Particle Attribute

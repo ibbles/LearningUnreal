@@ -1,4 +1,8 @@
 The Niagara Editor is where we author [[Niagara]] particle effects.
+The Niagara Editor is used to edit:
+- [[Niagara System]]
+- [[Niagara Editor]]
+- Anything else? Should [[Niagara Module]] be listed here?
 It consists of
 - a Preview panel with a [[Viewport]]
 - a Parameters panel with parameters.

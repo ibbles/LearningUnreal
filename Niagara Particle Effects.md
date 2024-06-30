@@ -30,6 +30,22 @@ Set the Origin Offset down and we get an initial velocity upwards.
 Set the Origin Offset left and we get an initial velocity to the right.
 
 
+# Collisions
+
+A [[Niagara Module]] that adds collisions.
+Should be added to the Particles Update stage.
+I assume before Solve Forces And Velocity.
+The types of collisions that can be generated depend on if the [[Niagara Emitter]] uses CPU Sim or GPUCompute Sim.
+- CPU
+	- Ray Traced: Does a [[Line Trace]] using the World Dynamic trace channel.
+		- This sounds really expensive.
+	- Analytical Planes: Add a bunch of infinite planes that approximate the world.
+
+Collision Radius > Radius Calculation Type should be set to Mesh to use the Static Mesh selected in the [[Niagara Mesh Renderer]] to compute the size of the particles.
+At least that's what I though it did, but the [_Intro To Niagara_ ](https://dev.epicgames.com/community/learning/tutorials/8B1P/unreal-engine-intro-to-niagara) video still set the Mesh Dimensions explicitly, by hand, in the Collision Module's Selection panel.
+
+
+
 # Curl Noise Force
 
 Uses a 3D generated noise to apply a different force to each particle,

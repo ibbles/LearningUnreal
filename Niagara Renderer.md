@@ -18,6 +18,18 @@ Then we setup one to use the Position attribute and the other to use a custom at
 
 See [[Niagara Render Material]].
 
+
+# Translucency And Sort Order
+
+When using a [[Translucency|Translucent]] [[Material]] it is important to render the objects in the correct order.
+(
+I assume that order is back-to-front.
+)
+There is no good way to do this with particle systems since some particle may be behind while others are in front.
+Still, we can do the best we can by setting [[Niagara Editor]] > [[Niagara Emitter]] > rendering module > Selection panel > Sort Order > Sort Order Hint so that particles that should be in the front have a higher Sort Order Hint.
+
+
 # References
 
 - [_Begin Play | Niagara_ by Epic Online Learning, Arran Langmead @ dev.epicgames.com/tutorials 2023 UE5.0](https://dev.epicgames.com/community/learning/tutorials/j9YO/unreal-engine-begin-play-niagara)
+- [_Intro To Niagara_ by Epic Online Learning, James Hill @ dev.epicgames.com/tutorials 2023 UE5.2](https://dev.epicgames.com/community/learning/tutorials/8B1P/unreal-engine-intro-to-niagara)
