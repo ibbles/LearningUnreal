@@ -1,14 +1,48 @@
 A plugin developed by Epic Games to simulate fluids using the [[Niagara]] particle system.
 Both liquids and gasses.
 Both 2D and 3D.
+Based on grids.
 Not sure if grid-only, or if there are neighbor based particle methods as well.
 Beta in Unreal Engine 5.0, must be enabled from the [[Plugin|Plugins]] menu.
+Since it is an engine plugin, to be able to see the [[Asset]]s included you need to enable [[Content Browser]] > top-right corner > Settings > (Show Engine Content)|(Shove Plugin Content).
 
 Everything implemented using the Niagara building blocks.
+Built upon [[Niagara Simulation Stage]].
+Built upon [[Niagara Grid Collection]] data interface.
 Provides reusable modules that can be used to build other effects.
+Modules for
+- Create grids.
+- Initialize grid content.
+- Modify grid content.
+	- Dissipate
+	- Advect
+- Copy to Volumetric Render Targets.
+	- Volumetric Render Targets can be used by a [[Material]].
+
 Designed for tweaking and experimentation.
 Provides data structures for 2D and 3D grids.
 Intended as a learning resource.
+
+
+# Creating A Fluid
+
+A fluid simulation is housed within a [[Niagara System]].
+Create a new [[Niagara System]] with [[Content Browser]] > right-click > _Create Basic Asset_ > Niagara System.
+A [[Niagara System]] can be created from a set of [[Niagara Emitter]]s,
+by selecting New System From Selected Emitter(s) in the [[Niagara System]] creation dialog.
+Disable Library Only to see more emitters.
+(
+I don't know what Library Only does.
+What Emitters are part of the library?
+How do I make an Emitter be part of the library?
+)
+For example, to create a 3D gas simulation, select and add Grid 3D Gas Master Emitter.
+
+Fluid simulation emitters are different from regular [[Niagara Emitter]]s in that they have the Emitter node > Emitter Summary > Selection panel > Simulation category.
+(
+I think different types of fluid emitters have different properties listed here.
+For example, see _3D Gas Master Emitter_ in this note.
+)
 
 # 3D Fluids
 
@@ -84,6 +118,42 @@ The Simulation tab of the Selection panel holds a bunch of parameters that contr
 
 
 
+# 3D Gas Master Emitter
+
+The 3D Gas Master Emitter defines a grid-based gas simulation within a bounding box.
+Selection panel > Simulation has the following parameters:
+- World Size: The size of the simulated volume in cm.
+- Local Pivot: Where within the simulated volume the local origin should be.
+	- In the range -0.5..0.5 for each axis. 
+	- Set to (0.0, 0.0, -0.5) to make the simulation expand sideways and up from the [[Niagara System]]'s position.
+- Resolution Max Axis: The number of cells along the largest axis.
+	- The other axis we be assigned whatever number of cells fit.
+	- The cells are cubes, i.e. have equal side lengths.
+- Pressure Solve Iterations: The number of times the solver is run per tick.
+- Dissipation Rate: How quickly values in the grid decay.
+	- (What do we mean by "value"? What does a grid contain? What does it mean to decay?)
+- Compensate For Actor Motion: Shift values in the grid between cells when the [[Niagara System]] is moved in the world so that cell data stay roughly stationary in world space.
+	- Not sure what happens with cells that are shifted in. Set to zero?
+	- This will kill fluid in regions of space that is first shifted out of the grid and then shifted back in. That data is lost.
+
+
+# Rendering
+
+Fluid self-shadowing is not enabled by default.
+This makes lighting on the fluid flat and featureless.
+This is a [[Light Source]] property.
+[[Light Source]] > [[Details Panel]] > Light > Cast Volumetric Shadow.
+
+A [[Lighting]] trick to render smoke from fire is to place a [[Light Source]] some distance under the fire and turn off Cast Static Shadows and Cast Dynamic Shadows.
+This will make it appear as the light is coming from the fire.
+Set [[Details Panel]]  > Light > Light Color to orange.
+
+Use a [[Lighting Channel]] to control which lights can affect the fluid, and only the fluid.
+A [[Light Source]] is assigned to [[Lighting Channel]]s at [[Details Panel]] > Light > Lighting channels.
+A [[Niagara System]] is assigned to [[Lighting Channel]]s at [[Details Panel]] > Lighting > Lighting channels.
+A [[Light Source]] will only illuminate an object, such as a fluid, if they share at least one [[Lighting Channel]].
+
+
 # Debug Visualization
 
 3D fluid systems are contained withing a simulation domain, a volume in which the fluid exists.
@@ -94,3 +164,4 @@ The size of each cell is shown on each face of the red bounding box.
 # References
 
 - [_Creating Fluid Simulation in UE5 | Inside Unreal_ by Epic Games, 2022 @ youtube.com](https://www.youtube.com/watch?v=k7WLE2kM4po)
+- [_Niagara Fluids_ by Daniel Pearson, DevonPenney, Patrick.Kelly @ dev.epicgames.com/community 2022 UE5.2](https://dev.epicgames.com/community/learning/paths/mZ/unreal-engine-niagara-fluids)
