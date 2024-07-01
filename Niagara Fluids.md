@@ -1,15 +1,22 @@
 A plugin developed by Epic Games to simulate fluids using the [[Niagara]] particle system.
+Must be enabled from the [[Plugin|Plugins]] menu.
 Both liquids and gasses.
 Both 2D and 3D.
 Based on grids.
 Not sure if grid-only, or if there are neighbor based particle methods as well.
-Beta in Unreal Engine 5.0, must be enabled from the [[Plugin|Plugins]] menu.
 Since it is an engine plugin, to be able to see the [[Asset]]s included you need to enable [[Content Browser]] > top-right corner > Settings > (Show Engine Content)|(Shove Plugin Content).
 
 Everything implemented using the Niagara building blocks.
 Built upon [[Niagara Simulation Stage]].
 Built upon [[Niagara Grid Collection]] data interface.
-Provides reusable modules that can be used to build other effects.
+A simulation contains multiple grids, each holding one piece of data.
+These are called Grid Attributes.
+- Density
+- Velocity
+- Temperature
+- Color
+
+Provides reusable [[Niagara Module]]s that can be used to build other effects.
 Modules for
 - Create grids.
 - Initialize grid content.
@@ -43,6 +50,52 @@ Fluid simulation emitters are different from regular [[Niagara Emitter]]s in tha
 I think different types of fluid emitters have different properties listed here.
 For example, see _3D Gas Master Emitter_ in this note.
 )
+
+# Emitter / Source
+
+In Niagara Fluids an Emitter is also called a Source.
+Where regular [[Niagara Emitter]] spawn particles, a fluid simulation Emitter instead writes data into the grid.
+The Grid 3D Gas Master Emitter, and possibly others, sources are configured in Selection panel > Sphere Source and Selection panel > Particle Source.
+
+## Sphere Source
+
+There is a sphere source that writes sphere shaped volumes.
+Has a position and a scale.
+Can write density, temperature, and/or color.
+
+## Particle Source
+
+Uses a regular [[Niagara Emitter]] to write data into the grid.
+Require that the [[Niagara Emitter]] has Emitter node > Properties > Selection panel > Emitter > Sim Target set to GPUCompute Sim.
+Since the fluid simulation run on the GPU.
+(
+[_Niagara Fluids_ @ dev.epicgames.com/community](https://dev.epicgames.com/community/learning/paths/mZ/unreal-engine-niagara-fluids) says:
+
+> Select the **Grid3D Gas Master Emitter** from the **Parent Emitters** tab.
+
+but I need to experiment to understand what that means.
+)
+
+The Grid 3D Gas Master Emitter, and possibly others, have Selection panel > Particle Source > Read Particle Source which should be enabled to have a regular [[Niagara Emitter]] write into the Attribute Grids.
+Enabling Selection panel > Particle Source > Read Particle Source causes a bunch of additional properties to appear in the Particle Source category, and a Particle Reader category to appear.
+To make a [[Niagara Emitter]] write into the grid write the name of the [[Niagara Emitter]] into the grid node's Selection panel > Particle Reader > Particle Read Emitter Name.
+This isn't an array, so not sure what to do if we need to read from multiple [[Niagara Emitter]].
+
+The actual writing is done in the [[Niagara Emitter]], using a Set Fluid Source Attributes [[Niagara Module]] in the Particle Update stage.
+Set Fluid Source Attributes has the following properties in the Selection panel:
+- Density
+- Temperature
+- Velocity
+- Velocity Scale
+- Divergence
+- Color
+- Radius
+
+These values can either be set to a static value or bound to a [[Niagara Dynamic Parameter]].
+For example, it is common to bind to particle attributes.
+Velocity can be bound to PARTICLES > Velocity and Color to PARTICLES > Color.
+If you write temperature and/or color in the Set Fluid Source Attributes [[Niagara Module]] then you probably want to enable Grid Emitter > Emitter Summary > Selection panel > Attributes > Density and/or Temperature.
+
 
 # 3D Fluids
 
@@ -121,7 +174,7 @@ The Simulation tab of the Selection panel holds a bunch of parameters that contr
 # 3D Gas Master Emitter
 
 The 3D Gas Master Emitter defines a grid-based gas simulation within a bounding box.
-Selection panel > Simulation has the following parameters:
+Emitter Summary > Selection panel > Simulation has the following parameters:
 - World Size: The size of the simulated volume in cm.
 - Local Pivot: Where within the simulated volume the local origin should be.
 	- In the range -0.5..0.5 for each axis. 
@@ -136,8 +189,55 @@ Selection panel > Simulation has the following parameters:
 	- Not sure what happens with cells that are shifted in. Set to zero?
 	- This will kill fluid in regions of space that is first shifted out of the grid and then shifted back in. That data is lost.
 
+Emitter Summary > Selection panel > Attributes has the following parameters:
+- Density: Allocate and update an Attribute Grid for density.
+- Temperature: Allocate and update an Attribute Grid for temperature.
+	- Enabling this, and writing a temperature close to 1.0, causes the simulation to look like fire. The temperature to write may depend on properties set on the renderer module.
+- Interpolation Type: How to sample the grid when rendering.
+	- Linear: Faster, but tends to smooth away details.
+	- Cubic: Slow, but gives more structure / detail to the fluid.
+- Dissipation Rate Density: How fast density disappears from the simulation.
+	- If your grid becomes filled with smoke then increase this value towards 1.0.
+
+Emitter Summary > Selection panel > Color has the following parameters:
+- Color: Allocate and update an Attribute Grid for color.
+
+
+# Writing Attributes
+
+## Sphere Source
+
+This is set of properties at Grid Node > Emitter Summary > Selection panel > Sphere Source.
+
+## Particle Source Reader
+
+This is a collaboration between the Grid Emitter and a [[Niagara Emitter]].
+The [[Niagara Emitter]] has in its Particle Update stage a Set Fluid Source Attributes [[Niagara Module]].
+The Grid Emitter has Emitter Summary > Selection panel > Particle Source > Read Particle Source enabled and Particle Source > Particle Reader > Particle Read > Emitter Name set to the name (top of the node) of the [[Niagara Emitter]] that the Set Fluid Source Attributes [[Niagara Module]] was added to.
+
+Enabling Emitter Summary > Particle Source > **Deterministic Source** causes a deterministic, but slower, write implementation to be used when writing data from the [[Niagara Emitter]] to the grid.
+All possible results from the non-deterministic write implementation are valid so this setting can usually be turned off.
+
+Enabling Emitter Summary > Particle Source > **Use Streaking** enables continuous sourcing.
+This means that the entire trajectory a particle traveled between two ticks is written,
+as opposed to only where the particle is at each tick.
+Similar in concept to continuous collision detection.
+Not sure if this looks at current and prior positions, or does reverse integration based on current velocity.
+While this prevents gaps you may still get a non-smooth appearance since the each write is a sphere (Can it be other shapes?) and a row of spheres creates a wave effect.
+
+Enabling Emitter Summary > Particle Source > **Use Radius Falloff** causes the "brush" that writes values to the grid at the particle positions to be smoothed, i.e. the full value is only written at the center of the particle and decreases towards its surface.
+
+Enabling Emitter Summary > Particle Source > **Read Divergence** causes the particle to act as a density repellent.
+The higher Divergence set in Set Fluid Source Attributes the more aggressive the particle will push the fluid away.
+Set a negative value to make the particle act as an attractor instead.
+In the demo in  [_Niagara Fluids_ @ dev.epicgames.com/community](https://dev.epicgames.com/community/learning/paths/mZ/unreal-engine-niagara-fluids) the particles with negative Divergence caused fluid to disappear.
+Not sure what is causing that or how to prevent it.
+Grid Emitter > Emitter Summary > Selection panel > Simulation > Dissipation Rate?
+
 
 # Rendering
+
+It is common to render the Density Attribute when rendering dust or smoke.
 
 Fluid self-shadowing is not enabled by default.
 This makes lighting on the fluid flat and featureless.
