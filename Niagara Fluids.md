@@ -3,8 +3,8 @@ Must be enabled from the [[Plugin|Plugins]] menu.
 Both liquids and gasses.
 Both 2D and 3D.
 Based on grids.
-Not sure if grid-only, or if there are neighbor based particle methods as well.
-Since it is an engine plugin, to be able to see the [[Asset]]s included you need to enable [[Content Browser]] > top-right corner > Settings > (Show Engine Content)|(Shove Plugin Content).
+Can also be particle based, the Fluid Simulation Example Content project calls these FLIP simulations.
+Since it is an engine plugin, to be able to see the [[Asset]]s included you need to enable [[Content Browser]] > top-right corner > Settings > (Show Engine Content)|(Show Plugin Content).
 
 Everything implemented using the Niagara building blocks.
 Built upon [[Niagara Simulation Stage]].
@@ -15,6 +15,9 @@ These are called Grid Attributes.
 - Velocity
 - Temperature
 - Color
+
+A Grid Collection is a collection of grids all of the same size and shape that each holds some piece of data.
+We can have a float grid holding densities, a vector grid holding velocities, and another float grid holding temperature.
 
 Provides reusable [[Niagara Module]]s that can be used to build other effects.
 Modules for
@@ -308,7 +311,59 @@ I don't know how much of this applies to other Grid Emitter types as well.
 The Grid Emitter contains a bunch of rendering settings at Selection panel > (Render Color)|(Render Density)|(Render Temperature).
 
 
+# Creating Attributes
+
+Attributes are sometimes called parameters because some parameters can bind to attributes.
+Attributes are sometimes called grids because each attribute is stored in its own grid data structure.
+All grids together is called a grid collection.
+When we say "grid" we often actually mean "grid collection".
+
+An attribute is a named and typed value stored in each cell of the grid.
+For example we can have a vector attribute named Velocity and a float attribute named Density.
+Attributes are created with the Set New Or Existing Parameter Directly [[Niagara Module]].
+The module should be placed in a Simulation Stage with Iteration Source set to Data Interface with a grid as the source and with Execute Behavior set to On Simulation Reset.
+When the Set New Or Existing Parameter module is selected the Selection panel lists the parameters that are set when the module is executed.
+Any parameter that has the STACKCONTEXT [[Niagara Namespace]] will create a grid attribute since the STACKCONTEXT in this case is the grid, since that is what Iterations Source is set to.
+
+To create a new attribute click Selection panel > Set category > + button > Make New and select the type of the attribute.
+- Float
+- Vector
+
+By default it will be put in the PARTICLES [[Niagara Namespace]], i.e. one value per particle.
+We want one value per grid cell instead, so right-click PARTICLES > Namespace > STACKCONTEXT.
+Double-click  the parameter name to change it.
+It is common to set the value to 0.0.
+
+# Attribute Index
+
+Each attribute has an index that is unique within the grid.
+There is a [[Niagara Dynamic Parameter]] named Grid 3D Get Grid Index From Name that given an attribute name returns the index of that attribute.
+It has a parameter named Grid Collection that should be set to the grid to query an attribute index from.
+It has a Grid Name attribute that should be set to the name of the attribute to get the index of.
+This is a drop-down menu for some reason.
+Not sure how to get the attribute index for attributes not in that list.
+Or will all attributes be there, populated dynamically based on what attributes we have created?
+
+It can be useful to have Emitter Parameters for each attribute index, for easier access.
+In the Emitter Spawn stage create a Set New Or Existing Parameter Directly [[Niagara Module]].
+In the Selection panel click the + button and select Make New > Common > int32.
+Repeat as many times as you have attributes.
+Rename each to the same name as the attribute it belongs to followed by Index.
+For example Density Index and Velocity Index.
+For each click the ⌵ button > Dynamic Input > Grid 3D Get Grid Index From Name.
+Set Grid Collection to the grid.
+Set Grid Name to the attribute's name.
+
+
 # Writing Attributes
+
+## Write All
+
+We can do a blanket write to an attribute in all cells with the Set New Or Existing Parameter Directly [[Niagara Module]].
+This is most common in initialization simulation stages.
+`In the Selection panel click the + button in the far right of the Set Parameters row.`
+Drag Parameters panel > Emitter Attributes > EMITTER . GRID . whatever attribute you want to write to Selection panel > Set Parameters.
+In the Selection panel, set the EMITTER . GRID . whatever attribute you want set the value field to the value you want to write.
 
 ## Sphere Source
 
@@ -458,7 +513,81 @@ The simulation grid boundary can be turned into a wall, preventing the fluid fro
 
 # Rendering
 
+## Smoke
+
 It is common to render the Density Attribute when rendering dust or smoke.
+In order to communicate the density field from the Niagara grid to a render material we need to pass it through a [[Volume Texture]].
+That [[Volume Texture]] must be created and initialized to have the same size as the grid.
+Create a new parameter with Parameters > Emitter Attributes > + button > Make New > Data Interface > Render Target Volume.
+Name it Density Render Target.
+Drag the parameter from the Parameters panel to the Emitter Spawn stage to create a Set Parameter [[Niagara Module]], leave all Selection panel settings at their defaults.
+This will create the [[Volume Texture]] as a 4-channel RGBA texture but not initialize it.
+Add a Grid 3D Init RT [[Niagara Module]] after the Set Parameter module.
+Set Grid 3D Init RT > Selection panel > RT to Link Inputs > Emitter > EMITTER . Density Render Target.
+Set Grid 3D Init RT > Selection panel > Grid to Link Inputs > Emitter > EMITTER . Grid, or whatever your grid collection is named.
+This will resize the [[Volume Texture]] to match the size of the grid.
+(
+How do we control if the [[Volume Texture]] is a scalar texture or a vector texture?
+)
+
+The [[Volume Texture]] is typically populated in a simulation stage that is run after the update simulation stage.
+For example named Post Sim.
+Create a new simulation stage with emitter node > + stage button > Simulation Stages > Generic Simulation Stage.
+In Generic Simulation Stage Settings > Selection panel set
+- Simulation Stage Name to Post Sim.
+- Iteration Source to Data Interface.
+- Data Interface to EMITTER . Grid, or whatever you named your grid.
+
+To the Post Sim simulation stage add a Grid 3D > Grid 3D Set RT Values [[Niagara Module]].
+In Grid 3D Set RT Values > Selection panel set
+- Grid to Link Inputs > Emitter > EMITTER . Grid, or whatever  you named the grid to.
+- RT to Link Inputs > Emitter > EMITTER . Density Render Target.
+
+The rest of the parameter on Grid 3D Set RT Values is what to search each channel of the [[Volume Texture]] to.
+To write the density attribute to the red channel set Red to Link Inputs > Emitter > EMITTER . GRID . Density.
+The [[Material]] described below expects to find density in the red channel.
+
+The green channel is used for lighting information.
+You can set that to 1.0 to make the smoke gray instead of pure black.
+
+The [[Material]] needs to know how large each grid cells is.
+It assumes that each grid is a cube, i.e. with equal sides, so it wants a float.
+The Grid 3D Set Resolution [[Niagara Module]] computed the cell size for us, but stored it in a Vector parameter, we need it in a float parameter.
+Create an emitter parameter for the float.
+Emitter node > Emitter Spawn stage > + button > Set New Or Existing Parameter Directly.
+Selection panel > Set Parameters > + button > Make New > Common > float.
+Name  it dx.
+dx > ⌵ button > General > Dynamic Inputs > Make Float From Vector.
+Vector > ⌵ button > Link Inputs > Emitter > EMITTER . GRID 3D SET RESOLUTION . World Cell Size.
+Leave Channel set to X.
+
+Rendering [[Niagara Module]]s are added to the Render stage in the emitter node.
+Create a Mesh Renderer to render smoke.
+Set Mesh Renderer >Selection panel > Mesh Rendering > Source Mode to Emitter.
+This is to not create one mesh per particle, since we don't have any particles, but instead a single mesh for the entire emitter.
+Set Mesh Renderer > Selection panel > Mesh Rendering > Meshes > element 0 to `s_cube_1cm_flippednormals`.
+Set the neighboring Enable Material Overrides.
+Add an array element to the neighboring Material Overrides array.
+In the array element set Explicit Mat to `M_RayMarch_Smoke_Inst`.
+A few bindings need to be setup in Mesh Renderer > Selection Panel > Bindings:
+- Scale Binding: EMITTER . GRID 3D SET RESOLUTION . World Grid Extents.
+- Material Parameter Bindings: Add the following array elements:
+	- 0:
+		- Material Parameter Name: Volume Tex.
+		- Niagara Variable: Emitter > EMITTER . Density Render Target.
+		- This informs the [[Material]] of which [[Volume Texture]] that the emitter writes densities to.
+	- 1:
+		- Material Parameter Name: Voxel Size.
+		- Niagara Variable: Emitter > EMITTER . dx.
+	- 2:
+		- Material Parameter Name: World Grid Extents.
+		- Niagara Variable: Emitter > EMITTER . World Grid Extents.
+	- 3-6:
+		- Material Parameter Name: World To Local \[0-3\].
+		- Niagara Variable: Emitter > EMITTER. GRID 3D CREATE UNIT TO WORLD TRANSFORM . World To Local \[0-3\].
+
+
+## Lighting And Shadows
 
 Fluid self-shadowing is not enabled by default.
 This makes lighting on the fluid flat and featureless.
@@ -490,9 +619,9 @@ The size of each cell is shown on each face of the red bounding box.
 
 We can visualize grid attributes in the Preview panel.
 
-### Visualize Vector Attribute 
+### Visualize Vector Attribute
 
-This visualizer renders arrows in the [[Viewport]] based on a vector grid attribute.i
+This visualizer renders arrows in the [[Viewport]] based on a vector grid attribute.
 It doesn't render all grid cells at once, that would produce a mess of arrows difficult to interpret.
 Instead it renders a slice of the grid.
 
@@ -502,6 +631,10 @@ Toggle Debug Draw > Draw Visualizer to enable or disable the visualizer.
 By having it disabled most of the time we can have a number of visualizers ready to go whenever we need to.
 Set Debug Draw > Grid by clicking the ⌵ button and select > Link Inputs > Emitter > EMITTER | and then the name of your grid in Parameters panel > Emitter Attributes.
 Select a grid attribute to visualize: Click Debug Draw > Vector Value > ⌵ button > Link Inputs > Emitter > EMITTER | GRID | attribute name.
+I don't know why, but we must also set Vector Index to the attribute index of the attribute selected for Vector Value.
+Either use a Grid 3D Get Grid Index From Name [[Niagara Dynamic Parameter]] or set to Link Inputs > Emitter > EMITTER . attribute name, if you have created such a emitter parameter.
+See _Attribute Index_ for details.
+The Plane parameter is used to control which subset of data from the grid to visualize.
 
 The Unit To World parameter tells the visualizer how to convert coordinates in the grid to coordinates in the world so that the rendered arrows shows up at the right place in the [[Viewport]].
 It is a matrix and while we can enter numbers manually if we want to,
