@@ -58,7 +58,7 @@ My `LauncherInstalled.dat`:
 }
 ```
 
-Everything works great, my project has `"EngineAssociation": "5.1",`, opens without needing to select engine installation and opening it doesn't change the EngineAssociation.
+Everything works great, my project has `"EngineAssociation": "5.1",`, opens without needing to select engine installation and opening it doesn't change the `EngineAssociation`.
 
 A later discussion: [Unreal Source Discord thread 2024](https://discord.com/channels/187217643009212416/375022233875382274/1199994122124148837)
 
