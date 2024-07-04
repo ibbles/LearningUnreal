@@ -47,6 +47,7 @@ The groups are
 - Event Handling
 - Render
 
+
 # Customizing An Emitter
 
 When a [[Niagara Emitter]] [[Asset]] is added to a [[Niagara System]]  it becomes a node in the System Overview panel of the [[Niagara Editor]].

@@ -34,6 +34,34 @@ Provides data structures for 2D and 3D grids.
 Intended as a learning resource.
 
 
+# Parameters
+
+A Niagara Fluid contains parameters at many levels.
+Parameters are created with the Set New Or Existing Parameter Directly [[Niagara Module]].
+
+Parameters created in the Emitter Spawn emitter stage in the EMITTER [[Niagara Namespace]] are tied to the emitter as a whole.
+
+Parameters can be included in the Emitter Summary's Selection panel.
+This is intended for parameters that we can expect users of the emitter will want to tweak for their specific use-case.
+To include a parameter in the Emitter summary select the Set Parameters node that creates it > Selection panel > parameter > right-click > _Emitter Summary_ > Show In Emitter Summary.
+Parameters that are commonly shown in the emitter summary:
+- World Grid Extents
+- Num Cells Max Axis.
+- Behavior tweaking parameters for specific [[Niagara Module]]s, such as Curl Noise Force > Noise Strength and Noise Frequency.
+
+The parameters are by default grouped based on the [[Niagara Module]] they come from.
+This can be modified by clicking the pen button at the top-right of the Emitter Summary Selection panel to enter edit mode.
+There is a ⌵ button next to each parameter and clicking this lets you set
+- Display Name
+- Category: For example Grid or Simulation.
+- Sort Index
+- Is Visible
+
+Click the pen button at the top-right of the Selection panel again to leave edit mode.
+
+Click the ⋀ button at the bottom of the emitter node to collapse it down to mostly the Emitter Summary.
+
+
 # Creating A Fluid
 
 ## From A Template
@@ -148,6 +176,22 @@ Give it a name in Generic Simulation Stage Settings > Selection panel > Simulati
 Set Simulation Stage > Iteration Source to Data Interface.
 Set Data Interface Parameter > Data Interface to EMITTER . Grid.
 
+### Niagara System
+
+Create a new [[Niagara System]] with [[Content Browser]] > right-click > _Create Basic Asset_ > Niagara System.
+Select Create Empty System.
+Niagara Systems are often named with the `NS_` prefix.
+Open the [[Niagara System]] in the [[Niagara Editor]].
+System Overview panel > right-click > Add Emitter > Show All > Parent Emitters > select your emitter.
+If the emitter was closed in the emitter editor then it is created in its collapsed state, showing mostly the Emitter Summary.
+If we expand the emitter in the emitter editor again, then it will expand in the system editor as well.
+See _Parameters_ for instructions for how to add specific parameters to the Emitter Summary.
+
+Parameters can be exposed one step further,
+making them editable on Niagara System instances in a [[Level]].
+This is done by creating a User Parameter for the module parameter.
+Emitter Summary > Selection panel > some parameter > ⌵ button > General > Make > Read From New User Parameter.
+The new User Parameter shows up in Parameters panel > User Exposed.
 
 # Emitter / Source
 
@@ -528,12 +572,24 @@ When Generic Simulation Stage Settings is selected the Selection panel shows pro
 
 ## Pre Simulation Stage
 
+
+### Buoyancy
+
+A simple buoyancy-like effect can be made by adding a velocity to all cells in the grid.
+This should be done in the pre simulation stage because it is not something that is iterated but set directly.
+
+
 ## Simulation Stage
 
 A bunch of simulation-related [[Niagara Module]]s are included with the engine.
-You can find many (all?) of them under the Grid 3D group that opens when clicking the + button next to the simulation stage name.
+You can find many of them under the Grid 3D group that opens when clicking the + button next to the simulation stage name.
+Some, such as Dissipate Float, are found under Grid 2D.
+Not sure how to determine if a Grid 2D [[Niagara Module]] also works with a 3D grid.
 
-With a [[Niagara Module]] selected select Selection panel > dashed down arrow button > Show Parameter Writes to see where the output of a particular module is written.
+The output from one module can be passed to the input of another.
+To do this bind the parameter of the second module to the write parameter of the first module.
+The write parameters are hidden in the Selection panel by default.
+To unhide them, with a [[Niagara Module]] selected select Selection panel > dashed down arrow button > Show Parameter Writes to see where the output of a particular module is written.
 This is often not back to the grid cell value that was read,
 but instead to some temporary storage.
 Often named OUTPUT . MODULE NAME . Output Value Name.
@@ -542,14 +598,34 @@ With the Set Parameters module selected, drag the Emitter Attribute you want to 
 It will show up as a parameter to the Set Parameters module.
 Bind that parameter to Link Inputs > Output > OUTPUT . MODULE NAME > Output Value Name.
 
-- Grid 3D Advect Scalar: Move values in the grid cells according to the velocities in the grid cells. Does not write the updated grid values back to the same grid attribute, but to OUTPUT . GRID 3D ADVECT SCALAR . Advected Scalar.
-	- Advection Method: Don't know yet.
-	- Advected Grid: The grid that contains the scalar attribute to be advected. Set with ⌵ button > Link Inputs > Emitter > EMITTER  . your grid.
-	- dt: The delta time for the current tick. ⌵ button > Link Inputs > Engine > ENGINE . Delta Time.
-	- dx: The size of a cell. Typically bound to an Emitter Parameter that has been initialized to EMITTER . GRID 3D SET RESOLUTION . World Cell Size > X, which is created by the Grid 3D Set Resolution [[Niagara Module]].
-	- Scalar Index: The attribute index of the grid attribute to advect. We typically create Emitter Parameters for these, see _Attribute Index_.
-	- Velocity Grid: The grid that contains the velocity attribute causing the advection. Often the same as Advected Grid.
-	- Velocity Index: The attribute index of the velocity grid attribute. See _Attribute Index_.
+If you add another [[Niagara Module]] at the end of a sequence that computes a new grid attribute value, remember to update the Set Parameter module to read from the new last module's output.
+If you forget this the module will compute its result but it will never be used for anything.
+
+### Grid 3D Advect Scalar
+
+Move values in the grid cells according to the velocities in the grid cells. Does not write the updated grid values back to the same grid attribute, but to OUTPUT . GRID 3D ADVECT SCALAR . Advected Scalar.
+
+Parameters:
+- Advection Method: Don't know yet.
+- Advected Grid: The grid that contains the scalar attribute to be advected. Set with ⌵ button > Link Inputs > Emitter > EMITTER  . your grid.
+- dt: The delta time for the current tick. ⌵ button > Link Inputs > Engine > ENGINE . Delta Time.
+- dx: The size of a cell. Typically bound to an Emitter Parameter that has been initialized to EMITTER . GRID 3D SET RESOLUTION . World Cell Size > X, which is created by the Grid 3D Set Resolution [[Niagara Module]].
+- Scalar Index: The attribute index of the grid attribute to advect. We typically create Emitter Parameters for these, see _Attribute Index_.
+- Velocity Grid: The grid that contains the velocity attribute causing the advection. Often the same as Advected Grid.
+- Velocity Index: The attribute index of the velocity grid attribute. See _Attribute Index_.
+
+
+### Dissipate Float
+
+This one is in Grid 2D, not Grid 3D.
+Seems to work with 3D grids anyway.
+I assume because it doesn't use the grid structure for anything, it just reads one single float and it doesn't matter where it comes from, the computation is the same regardless.
+
+Parameters:
+- Dissipation Rate: How fast to dissipate. Don't know the unit of this. Values around 1.0 seems to work well.
+- dt: Bind to Link Inputs > Engine > ENGINE . Delta Time.
+- Float Value: The value to dissipate.
+	- Bind it to e.g. Link Inputs > Emitter > EMITTER . GRID . Density, or, if you have another module, such as Grid 3D Advect Scalar, that you want to dissipate the output of, bind the Float Value parameter to Link Inputs > Output > OUTPUT . MODULE NAME . Output Name, for example OUTPUT . GRID 3D ADVECT SCALAR . Advected Scalar.
 
 
 ## Post Simulation Stage
@@ -739,6 +815,8 @@ Add an array element to the neighboring Material Overrides array.
 In the array element set Explicit Mat to `M_RayMarch_Smoke_Inst`.
 This is a [[Material]] that does ray marching into volume data.
 A few bindings need to be setup in Mesh Renderer > Selection Panel > Bindings:
+- Position Binding: The center of the grid in world space.
+	- Bind this to a Position emitter parameter named Grid Center set in Emitter Update that in turn is bound to Convert Vector To Position that in turn is bound to Link Inputs > Emitter > EMITTER . GRID 3D CREATE  UNIT TO WORLD TRANSFORM > Grid Center Position. Require that a Grid 3D Create Unit To World Transform [[Niagara Module]] has been added to the Emitter Update stage before the Set Parameter module setting the Grid Center parameter.
 - Scale Binding: EMITTER . GRID 3D SET RESOLUTION . World Grid Extents.
 - Material Parameter Bindings: Add the following array elements:
 	- 0:
