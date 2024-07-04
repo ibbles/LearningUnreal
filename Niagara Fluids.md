@@ -71,18 +71,18 @@ Required because simulation grids are only supported using GPU Compute Sim.
 
 A grid is created with Parameters panel > Emitter Attributes > + button > Make New > Grid3D Collection.
 Give it a name, for example grid.
-The full name will be, for example, EMITTER | Grid.
+The full name will be, for example, EMITTER . Grid.
 
-To create the grid object, drag Parameters panel > Emitter Attributes > EMITTER | Grid into the Emitter Spawn stage of the Emitter's node.
-This will create a Set: EMITTER | Grid [[Niagara Module]].
-Set Selection panel > Set (EMITTER) Grid > EMITTER | Grid > Grid > Num Attributes to 0.
+To create the grid object, drag Parameters panel > Emitter Attributes > EMITTER . Grid into the Emitter Spawn stage of the Emitter's node.
+This will create a Set: EMITTER . Grid [[Niagara Module]].
+Set Selection panel > Set (EMITTER) Grid > EMITTER . Grid > Grid > Num Attributes to 0.
 The attributes are created elsewhere.
 
 #### Grid Resolution
 
 To initialize the grid add a Grid 3D Set Resolution [[Niagara Module]] to the Emitter Spawn stage.
-Place it after the Set: EMITTER | Grid Module.
-To make the Grid 3D Set Resolution Module act on the grid created in the Set: EMITTER | Grid Module, select the Grid 3D Set Resolution Module and click Selection panel > Grid > ⌵ button > Link Inputs > Emitter > EMITTER | Grid.
+Place it after the Set: EMITTER . Grid Module.
+To make the Grid 3D Set Resolution Module act on the grid created in the Set: EMITTER . Grid Module, select the Grid 3D Set Resolution Module and click Selection panel > Grid > ⌵ button > Link Inputs > Emitter > EMITTER . Grid.
 The last stage of that path is the name you gave to the grid in Parameters panel > Emitter Attributes when it was first created.
 
 How the resolution of the grid is set depends on what Grid 3D Set Resolution > Selection panel > Resolution Method is set to.
@@ -100,7 +100,7 @@ Since we can set both the number of cells and grid extents independently for all
 If is often useful to make Grid3D Set Resolution > World Grid Extent a User Parameter,
 since we may need to use this value in other [[Niagara Module]]s as well.
 Click the ⌵ button > General > Make > Read From New Emitter Parameter.
-The new parameter will show up at Parameters panel > Emitter Attributes > EMITTER | World Grid Extents.
+The new parameter will show up at Parameters panel > Emitter Attributes > EMITTER . World Grid Extents.
 To set a default value to this parameter, drag it from the Parameters panel into the Emitter Spawn stage, immediately before the Grid 3D Set Resolution Module.
 
 ### Grid Initialization Stage
@@ -136,8 +136,8 @@ To turn it into a grid (Or cell?) parameter right-click > Namespace > STACKCONTE
 STACKCONTEXT means "Assign to to whatever the current stack is related to, its context.".
 For a simulation stage with Generic Simulation Stage Settings > Selection panel > Simulation Stage > Iteration Source set to Data Interface, the context is whatever data container Simulation Stage Settings > Selection panel > Data Interface Parameters > Data Interface is set to.
 If this is a grid will a million cells, then a million parameter values are created.
-The new parameter will show up at Parameters panel > Emitter Attributes > EMITTER | GRID | Parameter Name.
-For modules in a Generic Simulation Stage with the Iteration Source set to a grid Data Interface, STACKCONTEXT and EMITTER | GRID are synonymous.
+The new parameter will show up at Parameters panel > Emitter Attributes > EMITTER . GRID . Parameter Name.
+For modules in a Generic Simulation Stage with the Iteration Source set to a grid Data Interface, STACKCONTEXT and EMITTER . GRID are synonymous.
 The parameter can be renamed either from the Parameters panel or from the Set [[Niagara Module]].
 
 
@@ -146,7 +146,7 @@ The parameter can be renamed either from the Parameters panel or from the Set [[
 Create a new simulation stage with Emitter node > + Stage button > Simulation Stages > Generic Simulation Stage.
 Give it a name in Generic Simulation Stage Settings > Selection panel > Simulation Stage Name.
 Set Simulation Stage > Iteration Source to Data Interface.
-Set Data Interface Parameter > Data Interface to EMITTER | Grid.
+Set Data Interface Parameter > Data Interface to EMITTER . Grid.
 
 
 # Emitter / Source
@@ -191,7 +191,7 @@ Set Fluid Source Attributes has the following properties in the Selection panel:
 
 These values can either be set to a static value or bound to a [[Niagara Dynamic Parameter]].
 For example, it is common to bind to particle attributes.
-Velocity can be bound to PARTICLES | Velocity and Color to PARTICLES | Color.
+Velocity can be bound to PARTICLES . Velocity and Color to PARTICLES . Color.
 If you write temperature and/or color in the Set Fluid Source Attributes [[Niagara Module]] then you probably want to enable Grid Emitter > Emitter Summary > Selection panel > Attributes > Density and/or Temperature.
 
 
@@ -365,11 +365,89 @@ This is most common in initialization simulation stages.
 Drag Parameters panel > Emitter Attributes > EMITTER . GRID . whatever attribute you want to write to Selection panel > Set Parameters.
 In the Selection panel, set the EMITTER . GRID . whatever attribute you want set the value field to the value you want to write.
 
+
+## Scratch Dynamic Input
+
+We can create our own logic for computing the value set by a Set New Or Existing Parameter Directly,
+or any module parameter, I assume.
+It is similar to a [[Niagara Scratch Pad Module]], but instead of being a module that goes into an emitter stage it is associated with a particular parameter to a module.
+The logic is created with a visual scripting language that has inputs and an output.
+
+If the Simulation Stage that the [[Niagara Module]] is part of has Iteration Source set to Data Interface and bound to a Grid Collection then the Scratch Dynamic Input is executed per grid cell.
+
+To create one that sets a grid cell attribute value, either:
+- Drag from Parameters panel > Emitter Attributes > EMITTER . GRID . Attribute Name to one of the simulation stages in an emitter node.
+- Click the + button on an emitter stage and select Set New Or Existing Parameter Directly. Click Selection panel > + button and select Link Inputs > Emitter EMITTER . Grid . Attribute Name.
+
+Scratch Dynamic Input works for modules other than Set New Or Existing Parameter Directly as well.
+
+In the Selection panel click the ⌵ button next to a parameter and select New Scratch Dynamic Input.
+This will open the Scratch Pad panel.
+It starts off containing three nodes:
+- Input Map: Provides access to all the parameters this Scratch Dynamic Input has access to.
+- Map Get: Similar to [[Niagara Module]]s, the Map Get node takes an Input Map as inputs and reads data from it.
+- Output Dynamic Input: The return node. Has a single input pin and whatever we pass to this pin is forwarded to the [[Niagara Module]] parameter that the Scratch Dynamic Input is associated with.
+
+Our job is to decide what inputs we need to read with the Map Get node, do some computation on those values to produce the final result, and connect that result to the Output Dynamic input pin.
+
+The output pins we have on the Map Get node will show up in the Selection panel when the [[Niagara Module]] using the Scratch Dynamic Input is selected.
+This is where we assign values to those Map Get output pins.
+We can rename Map Get output pins by double-clicking them.
+
+The Map Get node comes with a Default pin that we can remove with right-click > Remove Pin.
+
+To access grid metadata we need a Grid Collection input.
+Create one with Map Get > + > Make New > Data Interface > Grid 3D Collection.
+With the module using the Scratch Pad Input selected in the emitter node, click the ⌵ button next to the grid parameter and select Link Inputs > Emitter > EMITTER . the name of your grid.
+Access to per-cell data is done with parameters of types such as float or Vector.
+
+The Grid parameter is used to find where in the grid the current execution is operating.
+That is, it can convert the Execution Index to a Unit space position.
+That is, a Vector with 0.0 to 1.0 in all dimensions.
+(
+Or is it -0.5 to 0.5?
+When we set Local Pivot on a 3D Gas Master Emitter then the origin is at the center of the grid bounds.
+Is Local Pivot not in Unit space but some other unit space?
+)
+This is done with the Execution Index To Unit function.
+
+When operating on grid cell positions it is common to use the Unit To World transform.
+Get access to it by creating a Matrix pin on the Map Get node.
+With the module using the Scratch Dynamic Input selected do Selection panel > Unit To World parameter > ⌵ button > Link Inputs > Emitter > EMITTER . GRID 3D CREATE UNIT TO WORLD TRANSFORM . Unit To World.
+For this to show up you need a Grid 3D Create Unit To World Transform module in the Emitter Spawn stage.
+
+To convert the Unit position we get from Grid > Execution Index To Unit to a world space position use the Unit To World matrix input and Matrix Transform Position.
+I don't know what the difference, if any, between Transform Position and Matrix Transform Position is.
+Execution Index To Unit returns a Vector, so it must be converted to a Position before it can be connected to Matrix Transform Position.
+
+To read grid cell data create a Map Get pin of the type of data you want to read. So, for example, for density you would select float and for velocity you would select Vector.
+Select System Overview panel > Emitter node > the module with a Scratch Dynamic Input.
+The Map Get output pins we created in the Scratch Dynamic Input is listed in the Selection panel.
+Next to the per-cell data parameter click the ⌵button and select > Link Inputs > Emitter > EMITTER . GRID . some grid attribute.
+
+
+### Custom HLSL
+
+A Scratch Dynamic Input can include HLSL code snippets.
+Create a Custom HLSL node with right-click > Functions > Custom HLSL.
+The Custom HLSL node contains a text box where we write our HLSL code.
+A Custom HLSL node can have input and output pins.
+There are accessible as variables in the HLSL code.
+Drag a wire from an output pin to an empty input pin on the Custom HLSL node to create an input variable of the same type as the connected output pin..
+Double-click the input pin name to rename both the pin and the variable.
+You can also create an input variable by clicking the + button next to an empty input pin and select a type.
+Output pins are created in the same way.
+Example HLSL code for a Custom HLSL node that has a World input of type Position and a Density output of type float, that writes a small density to a sphere with radius 20 cm around the world origin:
+```hlsl
+Density = length(World) < 20 ? 0.1 : 0.0;
+```
+
 ## Sphere Source
 
 This is set of properties at Grid Node > Emitter Summary > Selection panel > Sphere Source.
 
-## Particle Source Reader
+
+## Particle Source Reader - Reading From A Particle System
 
 This is a collaboration between the Grid Emitter and a [[Niagara Emitter]].
 The [[Niagara Emitter]] has in its Particle Update stage a Set Fluid Source Attributes [[Niagara Module]].
@@ -416,12 +494,12 @@ We want it to sample the world space location of each grid cell.
 Select Sample Position > ⌵ button > Dynamic Inputs > Grid 3D World Position.
 This create a bunch of Dynamic Input Parameters.
 - Grid: The grid to sample from.
-	- ⌵ button > Link Inputs > Emitter > EMITTER | Grid, or whatever you named your Emitter Parameter for the grid to.
+	- ⌵ button > Link Inputs > Emitter > EMITTER . Grid, or whatever you named your Emitter Parameter for the grid to.
 - Unit To World: Transformation matrix converting grid internal space coordinates to world space coordinates.
-	- See _Grid Unit Space_ and then ⌵button > Link Inputs > Emitter > EMITTER | GRID 3D CREATE UNIT TO WORLD TRANSFORM > Unit To World.
+	- See _Grid Unit Space_ and then ⌵button > Link Inputs > Emitter > EMITTER . GRID 3D CREATE UNIT TO WORLD TRANSFORM > Unit To World.
 
 The output from such modules are stored somewhere where they can be linked to from other module parameters.
-In the Curl Noise Force example the output can be linked to with ⌵ button > Link Inputs > Output > OUTPUT | CURL NOISE FORCE | Curl Nose Force.
+In the Curl Noise Force example the output can be linked to with ⌵ button > Link Inputs > Output > OUTPUT . CURL NOISE FORCE . Curl Nose Force.
 
 
 # Collision Detection
@@ -476,7 +554,7 @@ Enable Emitter node > Emitter Summary > Selection panel > Collisions > User Phys
 We must tell the simulation which [[Physics Asset]] it should collide with.
 Create a USER [[Niagara Parameter]] named PhysicsCollisions of type Physics Asset with System node (the blue one) > User Parameters > + button > Object.
 In the Selection panel, rename from NewObject to something descriptive, such as Player Skeleton Mesh.
-Set User Parameters > Selection panel > USER | PhysicsCollisions > SOURCE > Mesh User Parameter to Player Skeleton Mesh.
+Set User Parameters > Selection panel > USER . PhysicsCollisions > SOURCE > Mesh User Parameter to Player Skeleton Mesh.
 
 From a [[Blueprint Visual Script]], for example the [[Level Blueprint]], get a reference to an instance of the [[Niagara System]] in the [[Level]].
 On the [[Niagara System]] instance call Set Niagara Variable (Object).
@@ -629,8 +707,8 @@ To a Generic Simulation Stage with an Execute Behavior that runs on tick add a G
 Edit the visualizers properties from the Selection panel.
 Toggle Debug Draw > Draw Visualizer to enable or disable the visualizer.
 By having it disabled most of the time we can have a number of visualizers ready to go whenever we need to.
-Set Debug Draw > Grid by clicking the ⌵ button and select > Link Inputs > Emitter > EMITTER | and then the name of your grid in Parameters panel > Emitter Attributes.
-Select a grid attribute to visualize: Click Debug Draw > Vector Value > ⌵ button > Link Inputs > Emitter > EMITTER | GRID | attribute name.
+Set Debug Draw > Grid by clicking the ⌵ button and select > Link Inputs > Emitter > EMITTER . and then the name of your grid in Parameters panel > Emitter Attributes.
+Select a grid attribute to visualize: Click Debug Draw > Vector Value > ⌵ button > Link Inputs > Emitter > EMITTER . GRID . attribute name.
 I don't know why, but we must also set Vector Index to the attribute index of the attribute selected for Vector Value.
 Either use a Grid 3D Get Grid Index From Name [[Niagara Dynamic Parameter]] or set to Link Inputs > Emitter > EMITTER . attribute name, if you have created such a emitter parameter.
 See _Attribute Index_ for details.
@@ -638,7 +716,7 @@ The Plane parameter is used to control which subset of data from the grid to vis
 
 The Unit To World parameter tells the visualizer how to convert coordinates in the grid to coordinates in the world so that the rendered arrows shows up at the right place in the [[Viewport]].
 It is a matrix and while we can enter numbers manually if we want to,
-but a better way is to have a Grid 3D Create Unit To World Transform [[Niagara Module]] in our Emitter, see _Grid Unit Space_, and link the visualizer's Unit To World parameter to Link Inputs > Emitter > EMITTER | GRID 3D CREATE UNIT TO WORLD TRANSFORM | Unit To World.
+but a better way is to have a Grid 3D Create Unit To World Transform [[Niagara Module]] in our Emitter, see _Grid Unit Space_, and link the visualizer's Unit To World parameter to Link Inputs > Emitter > EMITTER . GRID 3D CREATE UNIT TO WORLD TRANSFORM . Unit To World.
 
 Press the Play button in the Timeline panel to see the errors in the Preview panel.
 
@@ -656,14 +734,14 @@ The matrix that performs this transform is computed by the Grid 3D Create Unit T
 The Selection panel for Grid 3D Create Unit To World Transform contains a bunch of grid-related parameters that we need to set so that they match our grid.
 - Camera Facing: Don't know what this is.
 - Local Pivot: 
-- Offset: In world space where the grid origin should be placed. Often ⌵ button > Link Inputs > Engine > ENGINE | OWNER | Position.
+- Offset: In world space where the grid origin should be placed. Often ⌵ button > Link Inputs > Engine > ENGINE . OWNER . Position.
 	- That is the position of the [[Actor]] that the fluid simulation belongs to.
-- Rotation: In world space. Often ⌵ button > Link Inputs > Engine > ENGINE | OWNER | Position.
+- Rotation: In world space. Often ⌵ button > Link Inputs > Engine > ENGINE . OWNER . Position.
 	- That is the rotation of the [[Actor]] that the fluid simulation belongs to.
 - World Grid Extent: The value passed to Grid 3D Set Resolution [[Niagara Module]] > World Grid Extent.
 	- It is recommended to make a USER [[Niagara Parameter]] for World Grid Extent that can be used both in Grid 3D Set Resolution and Grid 3D Create Unit To World Transform.
 
-The existence of the Grid 3D Create Unit To World Transform [[Niagara Module]] will cause a bunch of Parameters panel > Emitter Attributes > EMITTER | GRID 3D CREATE  UNIT TO WORLD TRANSFORM parameters to be created.
+The existence of the Grid 3D Create Unit To World Transform [[Niagara Module]] will cause a bunch of Parameters panel > Emitter Attributes > EMITTER . GRID 3D CREATE  UNIT TO WORLD TRANSFORM parameters to be created.
 - Grid Center Position
 - Grid Orientation
 - Local Pivot
