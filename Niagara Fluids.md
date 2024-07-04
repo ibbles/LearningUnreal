@@ -501,6 +501,84 @@ This create a bunch of Dynamic Input Parameters.
 The output from such modules are stored somewhere where they can be linked to from other module parameters.
 In the Curl Noise Force example the output can be linked to with ⌵ button > Link Inputs > Output > OUTPUT . CURL NOISE FORCE . Curl Nose Force.
 
+# Simulation
+
+A Niagara Fluid simulation is split up into stages.
+The stages are not fixed, each emitter can have its own set of stages.
+Common stages are:
+- Init: Run once when the Niagara Fluid is spawned.
+- Pre Simulation: Run once each tick.
+- Simulation: Run one or more times each tick.
+- Post Simulation: Run once each tick.
+
+We split the per-tick part up because some fluid simulation algorithms need multiple iterations to find the next state and there may be some work that don't need to be run multiple times.
+Put such work either in Pre Sim or Post Sim.
+
+Create a new stage with Emitter node > + Stage button at the top-right > Generic Simulation Stage.
+This creates a new group in the Emitter node with a Generic Simulation Stage Settings child.
+When Generic Simulation Stage Settings is selected the Selection panel shows properties for the stage.
+- Simulation Stage Name: The name of the stage.
+	- Is shown in the Emitter node.
+- Enable Binding: Don't know yet.
+- Num Iterations: The number of times the [[Niagara Module]]s in the stage are executed per tick.
+	- Set this to 1 for the Pre Sim and Post Sim stages, and however many iterations you need for the Sim stage.
+- Num Iterations Bindings: Don't know yet.
+- Iteration Source: This controls if the stage simulates particles or something else, such as a grid.
+	- For a grid simulation, set Iteration Source to Data Interface. This causes the Data Interface Parameters category to show up in the Selection Panel. Set Data Interface Parameters > Data Interface to your grid, i.e. EMITTER . your grid.
+
+## Pre Simulation Stage
+
+## Simulation Stage
+
+A bunch of simulation-related [[Niagara Module]]s are included with the engine.
+You can find many (all?) of them under the Grid 3D group that opens when clicking the + button next to the simulation stage name.
+
+With a [[Niagara Module]] selected select Selection panel > dashed down arrow button > Show Parameter Writes to see where the output of a particular module is written.
+This is often not back to the grid cell value that was read,
+but instead to some temporary storage.
+Often named OUTPUT . MODULE NAME . Output Value Name.
+To write the value back to the grid use a Set New Or Existing Parameter [[Niagara Module]].
+With the Set Parameters module selected, drag the Emitter Attribute you want to write to from the Parameters panel to the Set Parameters row in the Selection panel.
+It will show up as a parameter to the Set Parameters module.
+Bind that parameter to Link Inputs > Output > OUTPUT . MODULE NAME > Output Value Name.
+
+- Grid 3D Advect Scalar: Move values in the grid cells according to the velocities in the grid cells. Does not write the updated grid values back to the same grid attribute, but to OUTPUT . GRID 3D ADVECT SCALAR . Advected Scalar.
+	- Advection Method: Don't know yet.
+	- Advected Grid: The grid that contains the scalar attribute to be advected. Set with ⌵ button > Link Inputs > Emitter > EMITTER  . your grid.
+	- dt: The delta time for the current tick. ⌵ button > Link Inputs > Engine > ENGINE . Delta Time.
+	- dx: The size of a cell. Typically bound to an Emitter Parameter that has been initialized to EMITTER . GRID 3D SET RESOLUTION . World Cell Size > X, which is created by the Grid 3D Set Resolution [[Niagara Module]].
+	- Scalar Index: The attribute index of the grid attribute to advect. We typically create Emitter Parameters for these, see _Attribute Index_.
+	- Velocity Grid: The grid that contains the velocity attribute causing the advection. Often the same as Advected Grid.
+	- Velocity Index: The attribute index of the velocity grid attribute. See _Attribute Index_.
+
+
+## Post Simulation Stage
+
+Generate lighting and rendering data needed by the [[Material]] used to render the Niagara Fluid.
+See _Rendering_.
+These [[Niagara Module]]s generate data used by the `M_RayMarch_Smoke_inst` [[Material]].
+
+### Grid 3D Bake Directional Light
+
+Generate light data for a directional light.
+Should be placed before the Grid 3D Set RT Values [[Niagara Module]] since the values computed by Grid 3D Bake Directional Light will be written into the [[Volume Texture]] by Grid 3D Set RT Values.
+
+Parameters:
+- Iteration Grid: Our grid. Not sure what the Iteration part is for.
+- Grid: Also our iteration grid. Don't know why we need both.
+- Density Index: The _Attribute Index_ of the density attribute.
+- Density Mult: Scalar to scale the density value up or down.
+	- Setting this smaller than 1.0 makes the light illuminate deeper into the smoke.
+- Light Intensity: How strong the light is.
+- dx: The size of one grid cell in cm. Bind this to an Emitter parameter that in turn is bound to EMITTER . GRID 3D SET RESOLUTION . World Cell Size . X.
+- World Grid Extends: The size of the grid in world space. Bind this to an Emitter parameter in that is also used by the Grid 3D Set Resolution [[Niagara Module]].
+- World To Local: Transformation matrix that transforms from the world space to the grid's local, not internal, space. Bind to EMITTER . GRID 3D CREATE UNIT TO WORLD TRANSFORM . World To Local.
+- Unit To World: Transformation matrix that transforms from the unit space to the world space. Bind to EMITTER . GRID 3D CREATE  UNIT TO WORLD TRANSFORM . Unit To World.
+
+If Grid 3D Bake Directional Light > Selection panel > dashed down arrow > Show Parameter Writes is enabled then under Parameter Writes we can see that this module writes its output to OUTPUT. GRID 3D BAKE DIRECTIONAL LIGHT > Transmittance.
+
+The `M_RayMarch_Smoke_Inst` [[Material]] expects to find this value in the green channel of the [[Volume Texture]].
+Grid 3D Set RT Values [[Niagara Module]] > Selection panel > Green > ⌵ button > Link Inputs > Output > OUTPUT . GRID 3D BAKE DIRECTIONAL LIGHT > Transmittance.
 
 # Collision Detection
 
@@ -593,7 +671,7 @@ The simulation grid boundary can be turned into a wall, preventing the fluid fro
 
 ## Smoke
 
-It is common to render the Density Attribute when rendering dust or smoke.
+It is common to render the density attribute when rendering dust or smoke.
 In order to communicate the density field from the Niagara grid to a render material we need to pass it through a [[Volume Texture]].
 That [[Volume Texture]] must be created and initialized to have the same size as the grid.
 Create a new parameter with Parameters > Emitter Attributes > + button > Make New > Data Interface > Render Target Volume.
@@ -606,13 +684,13 @@ Set Grid 3D Init RT > Selection panel > Grid to Link Inputs > Emitter > EMITTER 
 This will resize the [[Volume Texture]] to match the size of the grid.
 (
 How do we control if the [[Volume Texture]] is a scalar texture or a vector texture?
+Is it always a vector texture?
 )
 
-The [[Volume Texture]] is typically populated in a simulation stage that is run after the update simulation stage.
-For example named Post Sim.
+The [[Volume Texture]] is typically populated in a simulation stage that is run after the update simulation stage, often named Post Sim or Post Simulation.
 Create a new simulation stage with emitter node > + stage button > Simulation Stages > Generic Simulation Stage.
 In Generic Simulation Stage Settings > Selection panel set
-- Simulation Stage Name to Post Sim.
+- Simulation Stage Name to Post Simulation.
 - Iteration Source to Data Interface.
 - Data Interface to EMITTER . Grid, or whatever you named your grid.
 
@@ -621,12 +699,23 @@ In Grid 3D Set RT Values > Selection panel set
 - Grid to Link Inputs > Emitter > EMITTER . Grid, or whatever  you named the grid to.
 - RT to Link Inputs > Emitter > EMITTER . Density Render Target.
 
-The rest of the parameter on Grid 3D Set RT Values is what to search each channel of the [[Volume Texture]] to.
+The rest of the parameters on Grid 3D Set RT Values is what to search each channel of the [[Volume Texture]] to.
+What these should be depends on the [[Material]] that reads from the [[Volume Texture]].
+Described here is the setup expected by the `M_RayMarch_Smoke_Inst` [[Material]], which is included with the engine.
+- Red: Density.
+- Green: Transmittance.
+- Blue: Don't know yet.
+- Alpha: Don't know yet.
+
+The red channel is used for density.
 To write the density attribute to the red channel set Red to Link Inputs > Emitter > EMITTER . GRID . Density.
-The [[Material]] described below expects to find density in the red channel.
 
 The green channel is used for lighting information.
 You can set that to 1.0 to make the smoke gray instead of pure black.
+For better lighting add either a Grid 3D Bake Directional Light or a Grid 3D Bake Point Light [[Niagara Module]] to the Post Simulation stage,
+before the Grid 3D Set RT Values [[Niagara Module]].
+On the Grid3D Set RT Values module, set Green to Link Inputs > Output > OUTPUT. GRID 3D BAKE (POINT)|(DIRECTIONAL) LIGHT . Transmittance.
+See _Grid 3D Bake (Point)|(Directional) Light_ under _Post Simulation Stage_.
 
 The [[Material]] needs to know how large each grid cells is.
 It assumes that each grid is a cube, i.e. with equal sides, so it wants a float.
@@ -644,9 +733,11 @@ Create a Mesh Renderer to render smoke.
 Set Mesh Renderer >Selection panel > Mesh Rendering > Source Mode to Emitter.
 This is to not create one mesh per particle, since we don't have any particles, but instead a single mesh for the entire emitter.
 Set Mesh Renderer > Selection panel > Mesh Rendering > Meshes > element 0 to `s_cube_1cm_flippednormals`.
+This is a [[Static Mesh]] that has been designed specifically to render volume data such as the density field of a smoke simulation.
 Set the neighboring Enable Material Overrides.
 Add an array element to the neighboring Material Overrides array.
 In the array element set Explicit Mat to `M_RayMarch_Smoke_Inst`.
+This is a [[Material]] that does ray marching into volume data.
 A few bindings need to be setup in Mesh Renderer > Selection Panel > Bindings:
 - Scale Binding: EMITTER . GRID 3D SET RESOLUTION . World Grid Extents.
 - Material Parameter Bindings: Add the following array elements:
