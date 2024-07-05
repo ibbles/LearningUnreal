@@ -205,7 +205,7 @@ There is a sphere source that writes sphere shaped volumes.
 Has a position and a scale.
 Can write density, temperature, and/or color.
 
-## Particle Source
+## Particle Source - Other Emitter In Same System
 
 Uses a regular [[Niagara Emitter]] to write data into the grid.
 Require that the [[Niagara Emitter]] has Emitter node > Properties > Selection panel > Emitter > Sim Target set to GPUCompute Sim.
@@ -237,6 +237,24 @@ These values can either be set to a static value or bound to a [[Niagara Dynamic
 For example, it is common to bind to particle attributes.
 Velocity can be bound to PARTICLES . Velocity and Color to PARTICLES . Color.
 If you write temperature and/or color in the Set Fluid Source Attributes [[Niagara Module]] then you probably want to enable Grid Emitter > Emitter Summary > Selection panel > Attributes > Density and/or Temperature.
+
+
+## Data Channels - Emitter In Other System
+
+A Data Channel is a way to feed data into a Niagara Fluid System.
+
+The Set Fluid Source Attributes [[Niagara Module]] **writes** to a data channel.
+In Unreal Engine 5.4 this is only supported from emitters with Sim Target set to CPU Sim.
+The Set Fluid Source Attributes module should be added to the Particle Update stage.
+Enable Set Fluid Source Attributes > Selection panel > Write To Data Channel.
+
+The Set Fluid Source Attributes [[Niagara Module]] can be added to many emitters, potentially in many systems, and they will all write to the same data channel.
+
+To **read** from the data channel you need a Niagara Fluid system created from the 3D Gas template, as of Unreal Engine 5.4. More fluid types may support data channels in later engine versions.
+Set 3D Gas Emitter > Selection panel > Particle Source > Particle Source Type to Data Channel.
+
+I don't know how to control which particle systems's data channel the fluid emitter should read from.
+There seems to be a single global data channel that everyone shares.
 
 
 # 3D Fluids
@@ -927,5 +945,6 @@ The existence of the Grid 3D Create Unit To World Transform [[Niagara Module]] w
 - [_Niagara Fluids_ by Daniel Pearson, DevonPenney, Patrick.Kelly @ dev.epicgames.com/community 2022 UE5.2](https://dev.epicgames.com/community/learning/paths/mZ/unreal-engine-niagara-fluids)
 - [_Scene Interactions with Niagara Fluids_ by Daniel Pearson @ dev.epicgames.com/community 2022 UE5.0](https://dev.epicgames.com/community/learning/tutorials/8kkP/scene-interactions-with-niagara-fluids)
 - [_Niagara Fluids Development_ by Daniel Pearson, Devin Penny @ dev.epicgames.com 2022 UE5.0](https://dev.epicgames.com/community/learning/tutorials/mXXq/niagara-fluids-development)
+- [_Source Into Fluids From Any Niagara System (Data Channels)_ by Daniel Pearson @ dev.epicgames.com/tutorials 2024 UE5.4](https://dev.epicgames.com/community/learning/tutorials/7JDb/unreal-engine-source-into-fluids-from-any-niagara-system-data-channels)
 
 
