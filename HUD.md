@@ -1,6 +1,7 @@
 HUD is short for Heads-Up Display.
 It is the 2D elements that are rendered "on the camera lens"-ish, i.e. the UI or User Interface.
 Often used to display health bars, ammo counters, mini-maps, and other gameplay related state that the player need to have quick access to.
+The `AHUD` class is a manager for putting widgets on the screen.
 
 The HUD is displayed on the player's [[Viewport]].
 Elements can be added to and removed from the HUD based on gameplay events and logic.
