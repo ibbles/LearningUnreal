@@ -5,3 +5,50 @@ Many sub-editors, such as [[Blueprint Actor Editor]],  [[Static Mesh Editor]] an
 Many viewports support the same set of [[Viewport Camera Controls]].
 
 
+At runtime we can get a hold of the game viewport with
+```cpp
+UGameViewportClient* GetGameViewport()
+{
+	UWorld* World = GetWorld();
+	if (World == nullptr)
+	{
+		UE_LOG(
+			LogTemp, Warning,
+			TEXT("Cannot get game viewport because World is nullptr."));
+		return nullptr;
+	}
+	UGameViewportClient* ViewportClient = World->GetGameViewport();
+
+	return ViewportClient;
+}
+```
+
+or
+
+```cpp
+// Unreal Engine includes.
+#include "CoreMinimal.h"
+#include "Engine/Engine.h"
+
+UGameViewportClient* GetGameViewport()
+{
+	if (GEngine == nullptr)
+	{
+		UE_LOG(
+			LogTemp, Warning,
+			TEXT("Cannot get game viewport because GEngine is nullptr."));
+		return nullptr;
+	}
+	if (GEngine->GameViewport == nullptr)
+	{
+		UE_LOG(
+			LogTemp, Warning,
+			TEXT("Cannot get game viewport because GEngine->GameViewport is nullptr."));
+		return nullptr;
+	}
+
+	return GEngine->GameViewport;
+}
+```
+
+Are we guaranteed that these will always return the same Game Viewport client object?
