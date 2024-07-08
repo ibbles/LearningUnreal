@@ -524,6 +524,133 @@ Hit Esc to freeze the selection, stopping mouse cursor widget selection and you 
 Each row in the Widget Reflector tree view contains a link to the C++ code where that widget was created.
 
 
+# Wrapping A Slate Widget With An UMG Widget
+
+[[Unreal Motion Graphics - UMG]] is Unreal Engine's Blueprint UI framework.
+An UMG widget is a combination of a [[UObject]] subclass with [[Property|Properties]] that mirror a Slate widget and an owning pointer, `TSharedPtr`, to an instance of that Slate widget type.
+By creating an UMG wrapper for our Slate widget it will show up in the Palette panel in the [[Widget Blueprint]] Designer tab.
+The widget can be dragged into the canvas and the exposed properties can be edited from the [[Details Panel]].
+By default you need to hit Compile after changing a property from the [[Details Panel]] to see the change on the canvas.
+Implement Synchronize Properties to make the widget update immediately.
+
+There is a [[UObject]] subclass named `UWidget` that we should use as base class for our UMG widget.
+This class has a virtual member function named `RebuildWidget` that we should override.
+The responsibility of `RebuildWidget` is to create a new instance of the Slate widget based on the state of the UMG widget and store that in the `TSharedPtr`.
+The `UWidget`  class has a virtual member function named `ReleaseSlateResources` that should destroy the Slate widget by resetting the `TSharedPtr`.
+
+The UMG system will ensure that whenever the UMG widget is changed and it is time to update the UI, Rebuilt Widget will be called and thus a new Slate widget with the updated state is created.
+
+An example with a button with a text label.
+
+`TextButton.h`:
+```cpp
+#pragma once
+
+// Unreal Engine includes.
+#include "CoreMinimal.h"
+#include "Components/Widget.h"
+
+#include "TextButton.generated.h"
+
+class STextButton;
+
+UCLASS()
+class UTextButton : public UWidget
+{
+	GENERATED_BODY()
+public:
+	//~ Begin UWidget interface.
+	virtual void ReleaseSlateResources(bool bReleaseChildren) override;
+	//~ End UWidget interface.
+
+protected:
+	//~ Begin UWidget interface.
+	virtual TSharedRef<SWidget> RebuildWidget() override;
+	//~ End UWidget interface.
+
+	UPROPERTY(EditAnywhere)
+	FText LabelText;
+
+	UPROPERTY(EditAnywhere)
+	FText ToolTipText;
+
+	TSharedPtr<STextButton> TextButton;
+}
+```
+
+`TextButton.cpp`:
+```cpp
+#include "TextButton.h"
+
+// My Game includes.
+#include "STextButton.h"
+
+TSharedRef<SWidget> UTextButton::RebuildWidget()
+{
+	TextButton = SNew(STextButton)
+		.LabelText(LabelText)
+		.ToolTipText(ToolTipText);
+
+	return TextButton.ToSharedRef();
+}
+
+void UTextButton::ReleaseSlateResources(bool bReleaseChildren)
+{
+	Super::ReleaseSlateResourecs(bReleaseChildren);
+	TextButton.Reset();
+}
+```
+
+
+## Spawning Custom UMG Widget From C++
+
+It is recommended to manage widgets from a subclass of [[HUD]].
+Create a [[Property]] of type `TSoftClassPtr` typed by the custom UMG widget named Widget Class.
+This let's the user select the class to instantiate, which could be a subclass of the custom widget type.
+
+The widget is created with Create Widget, which is templated on the widget type.
+We also pass in a world and the `TSoftClassPtr`, so Create Widget knows which actual class to instantiate.
+
+The widget is added to the viewport with the Add To Viewport member function.
+No need to much about with the Game Viewport here, UMG widgets can find the viewport themselves.
+
+`MyHUD.h`:
+```cpp
+#pragma once
+
+// Unreal Engine includes
+#include "CoreMinimal.h"
+#include "GameFramework/HUD.h"
+
+#include "MyHUD.generated.h"
+
+UCLASS()
+class AMyHUD : public AHUD
+{
+	GENERATED_BODY()
+
+protected:
+	UPROPERTY(EditDefaultsOnly)
+	TSoftclassPtr<UButtonText> WidgetClass;
+};
+```
+
+`MyHUD.cpp`:
+```cpp
+#include "MyHUD.h"
+
+void AMyHUD::BeginPlay()
+{
+	Super::BeginPlay();
+
+	UButtonText* Widget
+		= CreateWidget<UButtonText>(
+			GetWorld(), WidgetClass);
+
+	Widget->AddToViewport();
+}
+```
+
 # References
 
 - [_Slate Architecture_ by Epic Games @ dev.epicgames.com/documentation](https://dev.epicgames.com/documentation/en-us/unreal-engine/understanding-the-slate-ui-architecture-in-unreal-engine)
