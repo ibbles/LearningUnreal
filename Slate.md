@@ -40,7 +40,7 @@ The Slate widgets are not [[UObject]]s, which means that they are not considered
 If you need a pointer to a [[UObject]] then that pointer should be a [[Weak Pointer|TWeakObjectPtr]].
 
 
-# Building UI
+# Building Slate UI
 
 Slate interfaces are created using a declarative syntax.
 Entire interface blocks, i.e. hierarchies of widgets, are created and configured with a single C++ expression.
@@ -108,7 +108,7 @@ SNew(SHorizontalBox)
 #undef LOCTEXT_NAMESPACE
 ```
 
-# Custom Widget
+# Custom Slate Widget
 
 When we create a custom widget we have a few options for what base Slate class to inherit from:
 - Leaf Widget: When we have no children and will do our own rendering.
@@ -212,6 +212,79 @@ void STextButton::Construct(const FArguments& InArgs)
 			.ToolTipText(InArgs._ToolTipText)
 		]
 	];
+}
+```
+
+
+# Input Controlled Child Widget Creation
+
+The declarative syntax only works when we know the widget layout up-front,
+since we must type it out.
+It cannot handle layouts that depend on the input.
+
+We we need an alternative, imperative style to create and configure widgets.
+The `SAssignNew` macro is used for this purpose.
+It let's us create a Slate widget, just like `SNew`, and also assign it to a variable so that it can be used later, for example inside and `if` statement or `for` loop.
+The first parameter to `SAssignNew` should be a `TSharedPtr` and the second parameter the widget type to create.
+
+Most widgets have member functions for doing operations that in the declarative syntax is done with operators.
+For example, in the declarative syntax we add slots to widget containers with the + operator,
+in the imperative syntax with use Add Slot instead.
+Once we have the slot we fill that using the regular declarative syntax, i.e. within `operator[]`.
+Until we hit another point where we need to leave the declarative syntax and thus use `SAssignNew` for some widget and finish the configuration of that at some later point.
+
+Example of a widget that contains a variable number of buttons in a vertical box.
+
+`SMyDependentWidget.h`:
+```cpp
+#pragma once
+
+// Unreal Engine includes.
+#include "Widgets/SCompoundWidget.h"
+
+class SButton;
+
+class SMyDependentWidget : public SCompoundWidget
+{
+public:
+	BEGIN_SLATE_ARGS()
+	{}
+	SLATE_ARGUMENT(int32, NumButtons)
+	END_SLATE_ARGS()
+
+	void Construct(const FArguments& InArgs);
+
+private:
+	TSharedPtr<SVerticalBox> Buttons;
+};
+```
+
+`SMyDependentWidget.cpp`:
+```cpp
+#include "SDependentWidget.h"
+
+void SMyDependentWidget::Construct(const FArguments& InArgs)
+{
+	// Create the vertical box, but don't fill it yet since the
+	// declarative syntax can't handle a variable number of child
+	// widgets.
+	ChildSlot
+	[
+		SAssignNew(Buttons, SVerticalBox)
+	];
+
+	// Imperative loop to create the required number of buttons.
+	for (int32 i = 0; i < InArgs.NumButtons; ++i)
+	{
+		// Use a member function instead of operator+ to create the slot.
+		Buttons->AddSlot()
+		[
+			// Now we are in a declarative context again, create the
+			// button as usual.
+			SNew(SButton)
+			.Text(TEXT("Button Label"))
+		];
+	}
 }
 ```
 
