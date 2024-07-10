@@ -51,3 +51,22 @@ I have the following script bound to Super+U, for Ungrab.
 setxkbmap -option grab:break_actions
 xdotool key XF86Ungrab
 ```
+
+
+# LLDB Breakpoint Attach Script
+
+
+See https://forums.unrealengine.com/t/debugging-in-rider-on-ubuntu-linux-gnome-causes-editor-or-game-to-freeze-on-breakpoints-causing-no-mouse-to-appear/835140/6
+
+Add the following to `~/.lldbinit`, or wherever your LLDB init script is stored:
+```shell
+target stop-hook add --one-liner "p ::UngrabAllInputImpl()"
+```
+
+If this causes issues when debugging non-Unreal applications, see the linked post for a slightly more complicated but Unreal-specific solution.
+
+
+# References
+
+- [_Debugging in Rider on Ubuntu Linux (gnome) causes editor or game to freeze on breakpoints, causing no mouse to appear_ by noisycat @ forums.unrealengine.com 2024 UE5.3](https://forums.unrealengine.com/t/debugging-in-rider-on-ubuntu-linux-gnome-causes-editor-or-game-to-freeze-on-breakpoints-causing-no-mouse-to-appear/835140)
+
