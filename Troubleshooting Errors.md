@@ -1,3 +1,8 @@
+# Rider Or Any IDE Not Finding Project Header Files In Public Directory
+
+Add `bLegacyPublicIncludePaths = false;` to the module's `.Build.cs`.
+
+
 # Cannot create a Vulkan device. Try updating your video driver to a more recent version
 
 [Reported](https://discord.com/channels/187217643009212416/375022233875382274/1073323950651756745) on Ubuntu 22.04 with an NVIDIA GPU and the 525 driver when launching Unreal Engine 5.1.1 for the first time.
