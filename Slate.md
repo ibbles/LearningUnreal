@@ -602,6 +602,15 @@ void UTextButton::ReleaseSlateResources(bool bReleaseChildren)
 ```
 
 
+# Creating A Window
+
+Classes and functions of interest:
+- [`FSlateRenderer::CreateViewport`](https://dev.epicgames.com/documentation/en-us/unreal-engine/API/Runtime/SlateCore/Rendering/FSlateRenderer/CreateViewport)
+- [`SWindow`](https://dev.epicgames.com/documentation/en-us/unreal-engine/API/Runtime/SlateCore/Widgets/SWindow)
+- [`SViewport`](https://dev.epicgames.com/documentation/en-us/unreal-engine/API/Runtime/Slate/Widgets/SViewport)
+-
+
+
 ## Spawning Custom UMG Widget From C++
 
 It is recommended to manage widgets from a subclass of [[HUD]].
@@ -657,3 +666,5 @@ void AMyHUD::BeginPlay()
 - [_7 Slate UI Framework & Widget Reflector_ by Max Preussner, Söderberg M @ youtube.com 2021](https://www.youtube.com/watch?v=je3Zid_OmGg)
 - [_Make UI With C++: How to use Slate in Unreal Engine_ by reubs @ youtube.com 2020](https://www.youtube.com/watch?v=jeK6DPB5weA)
 - [_Making UIs With C++ in Unreal Engine, by Ben UI_ by Ben UI, JetBrains @ youtube.com 2022](https://www.youtube.com/watch?v=1n3oIfI7nBM&t=603s)
+- [_Using Slate In-Game_ by Epic Games @ dev.epicgames.com/documentation](https://dev.epicgames.com/documentation/en-us/unreal-engine/using-slate-in-game-in-unreal-engine)
+- [_Two windows in a program_ @ forums.unrealengine.com 2015-2019](https://forums.unrealengine.com/t/two-windows-in-a-program/326375)
