@@ -56,5 +56,113 @@ where `POS_X` and `POS_Y` are often 0.5, i.e. middle of the screen.
 By saving the (`Screen Size X * POS_X`,  `Screen Size Y * POS_Y`) coordinate we can use that later to do [[Line Trace]].
 Pass the screen coordinate of the crosshair to Player Controller > Deproject Screen To World.
 
+
+# C++
+
+The HUD class can be implemented in C++.
+Inherit from the `AHUD` class.
+Override the Draw HUD member function to do any custom drawing.
+
+`MyHUD.h`:
+```cpp
+#pragma once
+
+// Unreal Engine includes.
+#include "GameFramework/HUD.h"
+
+#include "MyHUD.generated.h"
+
+UCLASS()
+class MYMODULE_API AMyHUD : public AHUD
+{
+	GENERATED_BODY()
+
+public:
+	//~ Begin AHUD interface.
+	virtual void DrawHUD() override;
+	//~ End AHUD interface.
+};
+```
+
+## Draw Text In C++
+
+To draw text we need some text to draw, a location to draw it at, and a font to draw it with.
+For this example we're drawing the score.
+
+`MyHUD.h`:
+```c++
+#pragma once
+
+// Unreal Engine includes.
+#include "CoreMinimal.h"
+#include "GameFramework/HUD.h"
+
+#include "MyHUD.generated.h"
+
+class UFont;
+
+UCLASS()
+class MYMODULE_API AMyHUD : public AHUD
+{
+	GENERATED_BODY()
+
+public:
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "My HUD")
+	UFont* Font;
+
+public: // Member functions.
+	void GiveScore(int32 Amount);
+
+public: // Member function overrides.
+	//~ Begin AHUD interface.
+	virtual void DrawHUD() override;
+	//~ End AHUD interface.
+
+private:
+	int32 Score {0};
+};
+```
+
+`MyHUD.cpp`:
+```cpp
+#include "MyHUD.h"
+
+// Unreal Engine includes.
+#include "Engine/Font.h"
+#include "Math/Color.h"
+
+void AMyHUD::DrawHUD()
+{
+	Super::DrawHUD();
+
+	const float LeftOffset {50.0f};
+	const float TopOffset {100.0f};
+	// TODO Find out how to do text formatting.
+	DrawText(
+		LOCTEXT("score", "Score: ") + FString::FromInt(Score),
+		FLinearColor::White, LeftOffset, TopOffset, Font);
+}
+```
+
+To set the font, create a [[Blueprint Class]] inheriting from `AMyHUD` and set the variable in the [[Blueprint Class Editor]].
+
+## Get The C++ HUD
+
+We can use `UGAmeplayStatics` to get a pointer to the HUD object for a particular player.
+It is often better to use an [[Event]] instead of directly accessing the HUD.
+
+```cpp
+void AMyPawn::StarCollected()
+{
+	APlayerController* Controller = GameplayStatics::GetPlayerController(this, 0);
+	AMyHUD* Hud = Controller->GetHUD<AMyHUD>();
+	Hud->GiveScore(1);
+}
+```
+
+- [_C++ For Unreal Engine (Part 2) | Learn C++ For Unreal Engine | C++ Tutorial For Unreal Engine_](https://youtu.be/IYJwU-rB2jA?t=11785)
+
+
 # References
 - [Creating a Block-Based Game - Adding the PlayerCharacter, Crosshair, and GameMode @ learn.unrealengine.com](https://learn.unrealengine.com/course/3770925/module/7308627)
+- [_C++ For Unreal Engine (Part 2) | Learn C++ For Unreal Engine | C++ Tutorial For Unreal Engine_ by Nerd's Lesson, Millard @ youtube.com, 2022, UE4.27](https://youtu.be/IYJwU-rB2jA?t=11785)
