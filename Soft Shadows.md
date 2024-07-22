@@ -1,9 +1,18 @@
-For many [[Light Source|Light Sources]] the shadows are very hard-edged by default.
-They can be made soft by increasing the Light's Details panel > Light > Source Radius.
-On a [[Directional Light]] this is called Source Angle instead.
+For many [[Light Source|Light Sources]] the [[Shadows]] are very hard-edged by default.
+They can be made soft by increasing the Light's [[Details Panel]] > Light > Source Radius.
+This setting may be called different things for some [[Light Source]] types.
+- On a [[Directional Light]] this is called Source Angle instead.
+- On a [[Rect Light]] this is called `TODO Check what it is called.` instead.
+
 For this to work the light must be using a shadow method that supports soft shadows.
+From best to worst quality:
+- Hardware [[Ray Traced Shadows]].
+- [[Distance Field Shadows]].
+- [[Virtual Shadow Maps]].
+- [[Cascaded Shadow Maps]].
+
 The following settings are relevant:
-- Light > Details panel > Distance Field Shadows.
+- Light > [[Details Panel]] > Distance Field Shadows.
 - Project Settings > Engine > Rendering > Shadows > Shadow Map Method
 - (I think ray traced shadows can also be soft, my I haven't been able to figure out how to enable that yet.)
 

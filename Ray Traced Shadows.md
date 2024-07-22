@@ -9,7 +9,17 @@ This will come with a performance cost.
 [_Troubleshooting FOLIAGE issues in Unreal Engine_ - Disappearing Shadows, by William Faucher @ youtube.com](https://youtu.be/Ar3vvygirLU?t=75)
 
 
+
 # Weird Shadows On Wind-Affected Foliage
+
+(
+What is described below is the big-hammer solution.
+It comes with a big performance penaly.
+
+An alternative solution that may work in some cases is to:
+- Enable [[Light Source]] > [[Details Panel]] > ??? > Evaluate World Position Offset.
+- Set the `raytracing.nanite.mode` [[Console Variable]] to `1`.
+)
 
 The [[Quixel Megascans]] foliage assets come with a wind effect.
 Enabling this in combination with [[Light Source|Light Source]] > Details panel > Light > Cast Ray Tracing Shadows can cause shadowing artifacts where the wind itself becomes a shadow.

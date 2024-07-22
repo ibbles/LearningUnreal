@@ -7,6 +7,8 @@ There are multiple types of both dynamic and static shadows.
 - [[Ray Traced Shadows]] - Dynamic.
 - (Some kind of [[Baked Lighting]] shadow? Does it have a name? Are there multiple types here?)
 
+A particular [[Light Source]] can only have one shadow method selected.
+
 The main shadowing method is selected at [[Project Settings]] > Engine > Rendering > Shadows > Shadow Map Method.
 Can be either [[Virtual Shadow Maps]] or [[Cascaded Shadow Maps]].
 The other types of shadows either take over when the main shadow method goes out of range,
@@ -20,8 +22,12 @@ I'm not sure how these shadow methods interact with the Shadow Map Method settin
 
 There are [[Soft Shadows]] that don't have hard edges.
 This is not a shadowing method but an effect produced by some of the shadowing methods listed above.
+To get [[Soft Shadows]] the shadow-casting [[Light Source]] must have a non-zero size,
+typically by setting a non-zero source radius.
 
-[[Lighting And Shadow Performance]]
+[[Lumen]] is only for indirect lighting and will not affect direct shadowing at all.
+
+See also [[Lighting And Shadow Performance]]
 
 
 # Static Mesh
@@ -46,3 +52,6 @@ A few things to check if one or more shadows are missing.
 - The [[Light Source]] must have a non-zero Shadow Resolution Scale.
 
 
+# References
+
+- [_Is this working Distance Field Shadow_ answer by jblackwell @ forums.unrealengine.com 2024](https://forums.unrealengine.com/t/is-this-working-distance-field-shadow/1798515/2)
