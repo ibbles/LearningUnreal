@@ -165,4 +165,4 @@ void AMyPawn::StarCollected()
 
 # References
 - [Creating a Block-Based Game - Adding the PlayerCharacter, Crosshair, and GameMode @ learn.unrealengine.com](https://learn.unrealengine.com/course/3770925/module/7308627)
-- [_C++ For Unreal Engine (Part 2) | Learn C++ For Unreal Engine | C++ Tutorial For Unreal Engine_ by Nerd's Lesson, Millard @ youtube.com, 2022, UE4.27](https://youtu.be/IYJwU-rB2jA?t=11785)
+- [_C++ For Unreal Engine (Part 2) | Learn C++ For Unreal Engine | C++ Tutorial For Unreal Engine_ by Nerd's Lesson, A.T. Chamillard @ youtube.com, 2022, UE4.27](https://youtu.be/IYJwU-rB2jA?t=11785)

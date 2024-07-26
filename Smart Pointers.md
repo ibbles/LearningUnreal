@@ -75,3 +75,5 @@ It creates a temporary object that can be assigned to a `TSharedRef` or a `TShar
 
 # References
 - [_Unreal Smart Pointer Library_ by Epic Games @ docs.unrealengine.com. UE 5.0.](https://docs.unrealengine.com/5.0/en-US/smart-pointers-in-unreal-engine/)
+- [_C++ For Unreal Engine (Part 2) | Learn C++ For Unreal Engine | C++ Tutorial For Unreal Engine_ by Nerd's Lesson, A.T. Chamillard @ youtube.com, 2022, UE4.27](https://youtu.be/IYJwU-rB2jA?t=13982)
+

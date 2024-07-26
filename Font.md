@@ -10,4 +10,4 @@ I don't know why it has "Legacy" in the name.
 
 # References
 
-- [_C++ For Unreal Engine (Part 2) | Learn C++ For Unreal Engine | C++ Tutorial For Unreal Engine_ by Nerd's Lesson, Millard @ youtube.com, 2022, UE4.27](https://youtu.be/IYJwU-rB2jA?t=12205)
+- [_C++ For Unreal Engine (Part 2) | Learn C++ For Unreal Engine | C++ Tutorial For Unreal Engine_ by Nerd's Lesson, A.T. Chamillard @ youtube.com, 2022, UE4.27](https://youtu.be/IYJwU-rB2jA?t=12205)

@@ -440,3 +440,4 @@ So if you need to save and later restore the list of callbacks, and you can't re
 - [_Can’t bind this delegate?_  @ forums.unrealengine.com 2023](https://forums.unrealengine.com/t/cant-bind-this-delegate/775534)
 - [_Delegates in C++_ @ unrealcode.net 2020](https://www.unrealcode.net/content/Delegates.html)
 - [_Unreal Engine C++: Event, Dispatch, Delegates etc._ by Rodolphe Vaillant @ radolphe-vaillant.fr 2020](http://rodolphe-vaillant.fr/entry/119/unreal-engine-c-event-dispatch-delegates-etc)
+- [_C++ For Unreal Engine (Part 2) | Learn C++ For Unreal Engine | C++ Tutorial For Unreal Engine_ by Nerd's Lesson, A.T. Chamillard @ youtube.com, 2022, UE4.27](https://youtu.be/IYJwU-rB2jA?t=24841)
