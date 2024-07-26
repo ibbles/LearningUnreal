@@ -44,19 +44,35 @@ The Out Row pin can be passed to a Break node to access the individual [[Struct]
 # C++
 
 Access Data Tables by having a `UDataTable*` member in a [[UClass]].
+This example uses a table that has rows of type `FMyStruct`.
 
 ```cpp
 UCLASS()
 class MYMODULE_API AMyActor : public UObject
 {
 	GENERATED_BODY()
+
 public:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "My Actor")
 	UDataTable* MyDataTable;
+
+	void UseDataTable(FName RowName);
 };
 ```
 
+The My Data Table member should be set in a [[Blueprint Class]] subclass with the [[Blueprint Class Editor]] or on an instance of My Actor from the [[Details Panel]] to a Data Table [[Asset]].
+
 `FName` is used to index into the Data Table.
+
+```cpp
+void AMyActor::UseDataTable()
+{
+	FMyStruct* Row = MyDataTable->FindRow<FMyStruct>(RowName, TEXT(""));
+}
+```
+
+The second argument is a context string that I don't know what it is for.
+
 Here is an example where an [[Enum]] is used to identify the row to read.
 ```cpp
 void AMyActor::MyFunction()
@@ -69,10 +85,38 @@ The string parameter is used to generate warning messages.
 
 # Import
 
+When importing a CSV file it is important that the first row contains the names of the columns and that the first column is named Name.
 [[Content Browser]] > right-click > Import To ... > Select a `.csv` or `.json` file.
 Select whether to import as a Data Table or something else.
-Select the [[Struct]] type to import each item as.
-The selected struct should have members that are compatible with the contents of the  imported file.
+Select the [[Struct]] type to import each item, i.e. row, as.
+The selected struct should have members that are compatible with the contents of the imported file.
+
+If the struct is a C++ struct then it should follow the following setup, with one [[Property]] for each column of the CSV file except for Name.
+`MyStruct.h`:
+```cpp
+#pragma once.
+
+// Unreal Engine includes.
+#include "CoreMinimal.h"
+#include "Engine/DataTable.h"
+
+#include "MyStruct.generated.h"
+
+USTRUCT(BlueprintType)
+struct MYMODULE_API FMyStruct : public FTableBaseRow
+{
+	GENERATED_USTRUCT_BODY() // Can we use GENERATED_BODY instead?
+
+public:
+	FMyStruct() {};
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "My Struct")
+	double SomeData {1.0};
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "My Struct")
+	int32 OtherData {1};
+};
+```
 
 If the [[Struct]] type contains an [[Enum]] member and the input file contains an invalid enum literal then it will be set to the first element of the 
 [[Enum]].
@@ -93,3 +137,4 @@ The first column is sometimes named `---`, you can rename it to `Name` if you wa
 # References
 
 - [_Improving C++ Workflows Using Data_ by Epic Games @ dev.epicgames.com 2022](https://dev.epicgames.com/community/learning/courses/Xp/unreal-engine-improving-c-workflows-using-data/pY1/unreal-engine-project-overview-and-creating-structs)
+- [_C++ For Unreal Engine (Part 2) | Learn C++ For Unreal Engine | C++ Tutorial For Unreal Engine_ by Nerd's Lesson, A.T. Chamillard @ youtube.com, 2022, UE4.27](https://youtu.be/IYJwU-rB2jA?t=17385)
