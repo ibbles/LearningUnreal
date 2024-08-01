@@ -6,7 +6,19 @@ What "close" means is defined by the grid's Loading Range.
 The successor to [[World Composition]].
 
 Must be enabled in [[Project Settings]] > Engine > World Partition > Enable World Partition.
+(
+This setting is not in in Unreal Engine 5.2.
+Was it removed, or not yet added?
+Seems to have been removed, not in Unreal Engine 5.4 either.
+)
 Is enabled per [[Level]] in [[World Settings]] panel > World Partition > Enable Streaming.
+(
+This setting does not exist in Unreal Engine 5.2 for [[Level]]s created from the Basic or Empty [[Level]] templates, or from the [[Content Browser]].
+There is [[World Settings]] panel > World Partition Setup > World Partition, but it is set to None and cannot be edited.
+If I create a new [[Level]] and select the Empty Open World template then [[World Settings]] panel > World Partition Setup does contain Enable Streaming.
+Is it not possible to enable World Partition on a level not created from an Open World template?
+If I create a [[Level]] from the [[Content Browser]] the it is created without World Partition
+)
 
 Each non-empty cell becomes a streaming level.
 
