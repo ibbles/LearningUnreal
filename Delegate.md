@@ -58,7 +58,7 @@ the first in each pair the parameter's type and the second is the parameter's na
 
 For uni-cast delegates, if the callback should have a non-void **return type** then that type should go before the delegate type name.
 Also include `_RetVal` in the macro name.
-Multi-cast delegates does not support return types.
+Multi-cast delegates does not support return types, but see _Multicast Delegate_ > _Return Value_ below for a work-around.
 
 The parameter or return types cannot include a comma because the C++ preprocessor doesn't understand template syntax.
 Use a using directive to create a comma-less type alias and use the alias instead.
@@ -248,6 +248,12 @@ void AMyActor::DoorUnlocked(ADoor* Door)
 ```
 
 
+## Return Value
+
+(
+TODO Read [_Reference Parameters in Blueprint Events_ by Hectarea1996 @ dev.epicgames.com/tutorials 2023 UE5.1](https://dev.epicgames.com/community/learning/tutorials/eK9V/unreal-engine-reference-parameters-in-blueprint-events), title says Reference Parameters but the discussion is really about return values.
+)
+
 # Dynamic Delegate
 
 A dynamic Delegate is one that ties in with the [[Reflection]] system.
@@ -357,6 +363,10 @@ If you have a reference to an instance of the C++ class then you can drag off of
 Select the delegate and a new list opens, select either Bind or Assign from this new list.
 This will create a Bind Event node for the delegate.
 
+(
+TODO Read about the `IsBindableEvent` [[Meta Property Specifier]].
+See [_Is Bindable Event_ by Ben UI @ benui.ca](https://benui.ca/unreal/uproperty/#isbindableevent).
+)
 
 # Ways To Register A Function With A Delegate
 
