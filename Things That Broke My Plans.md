@@ -1,6 +1,11 @@
 This note is about things I didn't know about Unreal Engine that ruined a design idea I had but was forced to scrap.
 
 
+# Landscape Proxies Not Avaiable In Packaged Applications
+
+They are, just not through the [[Landscape]].
+Go via the [[Landscape Info]] instead.
+
 # Cannot Call Enable Input On A Pawn
 
 Sometimes I want to control multiple [[Actor]]s at once.
