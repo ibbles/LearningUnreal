@@ -2,15 +2,20 @@ Debugging is the process of finding and correcting mistakes and errors software.
 
 # Print String And Print Text
 
-Values and debug messages can be printed with the Print String node.
-The string will be printed to the top-left corner of the [[Viewport]] and to the console.
+Values and debug messages can be printed with the Print String and Print Text nodes.
+The string will be printed to the top-left corner of the [[Viewport]], to the [[Output Log]], and to the terminal if Unreal Editor was opened from one.
 This is useful to verify that a particular piece of code is being executed, or to see the value of some input or variable.
 
 I prefer Print Text over Print String because for text we have the Format Text node.
 
-Print String has a Key input.
+Print String and Print Text have a Key input.
 This makes it possible to update an already printed text instead of adding a new line ever time.
 This is useful when printing a value that updates over time, especially when there are multiple values we want to print.
+
+A printed string or text that starts with `warning: ` will show up in orange in the [[Output Log]].
+A printed string or text that starts with `error: ` will show up in red in the [[Output Log]].
+These colors do no affect the color of text printed to the terminal, if Unreal Editor was opened from one.
+That makes Print String and Print Text different from `UE_LOG`.
 
 
 # Wire Execution Highlight
