@@ -84,6 +84,12 @@ By clicking the eye next to the sub-level in the Levels panel all Actors from th
 You can find which Level [[Asset]] a particular [[Actor]] instance comes from by selecting the [[Actor]] and right-click > Level > Find Actor Level In Content Browser.
 
 Any [[Actor]] in the persistent Level can be moved to the currently active level with [[Actor]] > right-click > Level > Move Selection To Current Level.
+(
+I don't see this option in Unreal Engine 5.3.
+Is that feature newer or removed?
+)
+
+An [[Actor]] can be moved between Levels with Levels panel > a Level > right-click > Move Selected Actors To Level to move the [[Actor]]s selected in the [[Level Viewport]] and [[Outliner]] to the right-clicked Level.
 
 You can show which Level each [[Actor]] is part of with [[Show]] > Advanced > Level Coloration.
 Set the color for each Level in the Levels panel, in the far right.
