@@ -25,8 +25,8 @@ Data Layers can be used to
 
 # Data Layers Panel
 
-Data Layers are managed in the Data Layers panel, opened with [[Top Menu Bar]] > Window > (World Partition > ?) Data Layers.
-Create a new Data Layer with Data Layers panel > right-click > Create Empty Data Layer.
+Data Layers are managed in the Data Layers panel, opened with [[Top Menu Bar]] > Window > (World Partition > ?) Data Layers (Outliner?).
+Create a new Data Layer with Data Layers panel > right-click > Create (Empty|Private) Data Layer.
 Use the eye button on the Data Layer's row to hide or unhide all [[Actor]]s part of that Data Layer in the [[Level Viewport]].
 Note than an [[Actor]] in the Data Layer may remain visible if it is also assigned to another Data Layer that is visible.
 

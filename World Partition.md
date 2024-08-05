@@ -6,7 +6,19 @@ What "close" means is defined by the grid's Loading Range.
 The successor to [[World Composition]].
 
 Must be enabled in [[Project Settings]] > Engine > World Partition > Enable World Partition.
+(
+This setting is not in in Unreal Engine 5.2.
+Was it removed, or not yet added?
+Seems to have been removed, not in Unreal Engine 5.4 either.
+)
 Is enabled per [[Level]] in [[World Settings]] panel > World Partition > Enable Streaming.
+(
+This setting does not exist in Unreal Engine 5.2 for [[Level]]s created from the Basic or Empty [[Level]] templates, or from the [[Content Browser]].
+There is [[World Settings]] panel > World Partition Setup > World Partition, but it is set to None and cannot be edited.
+If I create a new [[Level]] and select the Empty Open World template then [[World Settings]] panel > World Partition Setup does contain Enable Streaming.
+Is it not possible to enable World Partition on a level not created from an Open World template?
+If I create a [[Level]] from the [[Content Browser]] the it is created without World Partition
+)
 
 Each non-empty cell becomes a streaming level.
 
@@ -243,4 +255,5 @@ What happens in one object rests on other that has its origin in another cell an
 - [_Large worlds in UE5: A whole new (open) world | Unreal Engine_ by Epic Online Learning 2021 UE5.0](https://dev.epicgames.com/community/learning/talks-and-demos/KBe/large-worlds-in-ue5-a-whole-new-open-world-unreal-engine)
 - [_Building Open Worlds in Unreal Engine 5 | Unreal Fest 2022_ by Epic Online Learning @ dev.epicgames.com/talks-and-demos](https://dev.epicgames.com/community/learning/talks-and-demos/LLM5/building-open-worlds-in-unreal-engine-5-unreal-fest-2022)
 - [_Building Bigger: Changing Your Workflow for Building Worlds instead of Scenes | Unreal Fest 2023_ by Chris Murphy @ dev.epicgames.com/talks-and-demos 2024 UE5.3](https://dev.epicgames.com/community/learning/talks-and-demos/jwlJ/unreal-engine-building-bigger-changing-your-workflow-for-building-worlds-instead-of-scenes-unreal-fest-2023)
+- [_World Partition_ by  Epic Games @ dev.epicgames.com/documentation](https://dev.epicgames.com/documentation/en-us/unreal-engine/world-partition-in-unreal-engine)
 
