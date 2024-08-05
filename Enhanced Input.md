@@ -13,7 +13,7 @@ Examples:
 - Pick up
 - Walk
 - Crouch
-- Turn
+- Turn Right
 - Cast spell in spell slot 3.
 
 An Input Action is typically associated with some kind of hardware input,
@@ -23,11 +23,11 @@ That is controlled by an Input Mapping Context.
 
 An Input Action is a type of [[Asset]].
 Create a new Input Action with [[Content Browser]] > right-click > Input > Input Action.
-Prefix the name with `IA_`.
+Input Actions typically have a `IA_` prefix.
 
 An Input Action is a type of [[Event]], meaning that [[Actor]]s and [[Component]]s can listen for and react to the Input Action being triggered.
 When triggered the Input Action provides a value corresponding to what the user did.
-A button event is either true of false depending on if the button was pressed ore released.
+A button event is either true of false depending on if the button was pressed or released.
 A gamepad stick or mouse movement can be either a 1D or 2D value representing the angle of the stick or the motion of the mouse.
 A VR motion controller would be a 3D value.
 In the Input Action this is called its Value Type and the options are:
@@ -36,8 +36,25 @@ In the Input Action this is called its Value Type and the options are:
 - Axis2D (Vector2D)
 - Axis3D (Vector)
 
-# Trigger State
+To listen for the Input Action in an [[Actor]] do [[Event Graph]] > right-click > Input > Enhanced Action Event > your event.
 
+
+## Consume Input
+
+By default an input is passed to all matching Input Actions ordered by the priority set when the owning Input Mapping Context was added to the Enhanced Input Local Player Subsystem.
+If you want to consume, i.e. hide from lower-priority listeners, the input then tick Input Action > Input Consumption >
+- Consume Lower Priority Enhanced Input Mappings.
+	- To hide the input from [[Actor]]s using Enhanced Input.
+- Consumes Action And Axis Mappings.
+	- To hide the input from [[Actor]]s using the legacy input system.
+
+You must also tick some of the Trigger Events That Consume Legacy Keys entries.
+
+## /
+
+When creating a new Input Action remember to
+- add it to the owning Input Mapping Context.
+- add an event for it in the [[Actor]]'s [[Event Graph]].
 
 
 # Input Mapping Context
@@ -56,13 +73,17 @@ The contexts have a priority to control what Input Action is triggered if multip
 
 An Input Mapping Context is an [[Asset]].
 Create a new Input Mapping Context with [[Content Browser]]  > right-click > Input > Input Mapping Context.
+Input Mapping Contexts typically have a `IMC_` prefix.
 
 The Input Mapping Context contains a list of mappings.
 Each mapping is an Input Action and a list of hardware inputs that should trigger that Input Action when the Input Mapping Context is active.
 Hardware inputs include keyboard keys, mouse buttons, mouse motion, gamepad axes, etc.
+Each hardware input can have a modifier which modifies the value.
+This is used, for example, to bind D to Turn Right and S also to Turn Right but with the Negate modifier.
 
 An Input Mapping Context can be activated and deactivated for a particular [[Player Controller]] (Is this true? What about Enhanced Input Local Player Subsystem? Is that a part of the [[Player Controller]]?) by gameplay logic.
 Only Input Actions that are part of a currently active Input Mapping Context can be triggered by the player.
+
 
 # Activating An Input Mapping Context
 
@@ -184,6 +205,10 @@ Does it pick the first it finds?
 Is it not allowed to have multiple Input Action assets with the same name even if they are in different folders?
 
 I don't know what happens if we pass the wrong template type to `Get<>`.
+
+
+# Trigger State
+
 
 # Debugging
 
