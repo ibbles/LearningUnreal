@@ -52,6 +52,9 @@ There are a bunch of [[Console Variable|Console Variables]] that control Virtual
 They are grouped under the `r.Shadow.Virtual` prefix.
 
 - `ShowStats`
+	- Set to 1 to print some statistics to the screen.
+- `Cache.ForceInvalidateDirectional`
+- `Cache.InvalidateUseHZB`
 - `Clipmap.FirstLevel`
 - `Clipmap.LastLevel`
 - `MarkCoarsePagesDirectional`
