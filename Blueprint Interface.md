@@ -8,7 +8,7 @@ The implementation is instead provided by [[Blueprint Class|Blueprint Classes]] 
 
 # Creating a Blueprint Interface
 
-**Create** a new Blueprint Interface by Content Browser > right-click >  Blueprints > Blueprint Interface.
+**Create** a new Blueprint Interface with Content Browser > right-click > Blueprints > Blueprint Interface.
 Blueprint Interface names are often prefixed with `BPI_`.
 The Blueprint Interface editor contains a My Blueprint panel with a Functions category.
 Click the ⊕ to add a function to the Blueprint Interface.
@@ -18,8 +18,19 @@ A Blueprint Interface cannot contain anything else.
 
 # Implementing a Blueprint Interface
 
-To add an interface to [[Blueprint Class]], do [[Blueprint Actor Editor]] > Tool Bar > Class Settings > Details panel > Interfaces > Add.
+To add an interface to [[Blueprint Class]], do [[Blueprint Actor Editor]] > Tool Bar > Class Settings > Details panel > Interfaces > Implemented Interfaces > Add.
 Functions contained in the added Interfaces are listed in the [[Blueprint Class|Blueprint Class']] My Blueprint panel, under Interfaces.
+(
+What if I have added an Blueprint Interface to a [[Blueprint Class]] but the Interfaces category doesn't show up in the My Blueprint panel?
+What do I do then?
+What did I do wrong?
+One can right-click to add Blueprint Interface function event implementations,
+but doing that I got a warning about name collision and the added event get a counter at the end of the name.
+Some time later the Interfaces category showed up, no idea what caused it to.
+Pretty sure I did recompile the [[Blueprint Class]] and that wasn't enough.
+Mabe closed and opened the [[Blueprint Editor]].
+This was with Unreal Engine 5.3, I think.
+)
 To implement an interface function, right-click the interface function in My Blueprint > Interfaces and select Implement Function.
 This will create a [[Blueprint Event]] node in the Blueprint's [[Event Graph]].
 The event node will have a map+arrow+gear icon.
