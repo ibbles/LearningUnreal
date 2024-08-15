@@ -1,10 +1,18 @@
 This note is about things I didn't know about Unreal Engine that ruined a design idea I had but was forced to scrap.
 
 
-# Landscape Proxies Not Avaiable In Packaged Applications
+# Blueprint Reconstruction Wrecks Havoc With Everything
+
+[[Blueprint Reconstruction]] is the process of serializing all Components in a [[Blueprint Actor]] instance, destroying them, and the recreating them from the [[Blueprint Class]].
+
+Components added with Add TYPE Component are not recreated.
+They are just gone.
+
+# Landscape Proxies Not Available In Packaged Applications
 
 They are, just not through the [[Landscape]].
 Go via the [[Landscape Info]] instead.
+
 
 # Cannot Call Enable Input On A Pawn
 
