@@ -1,4 +1,14 @@
 This note is about things I didn't know about Unreal Engine that ruined a design idea I had but was forced to scrap.
+This happens constantly so I started taking notes of them here, simply to humor myself.
+I think that [_Reference Parameters in Blueprint Events_ by Hectarea1996 @ dev.epicgames.com/tutorials](https://dev.epicgames.com/community/learning/tutorials/eK9V/unreal-engine-reference-parameters-in-blueprint-events) is a good description of what happens when doing something new in Unreal.
+
+# Cannot Use `UPARAM(Ref)` In `DECLARE_DYNAMIC_MULTICAST_DELEGATE` Parameter List
+
+It compiles, both C++ and Blueprint, and runs, but changes made to the parameter are not copied back to the C++ side.
+Means that the const-is-required conclusion in [_Reference Parameters in Blueprint Events_ by Hectarea1996 @ dev.epicgames.com/tutorials](https://dev.epicgames.com/community/learning/tutorials/eK9V/unreal-engine-reference-parameters-in-blueprint-events) seems to be correct.
+
+# Cannot Have Pointer To Emum UProperty
+
 
 
 # Blueprint Reconstruction Wrecks Havoc With Everything
