@@ -78,6 +78,105 @@ UFUNCTION(BlueprintCallable, Category = "MyCategory", Meta=(AutoCreateRefTerm="M
 float Sum(const TArray<float>& MyArray)
 ```
 
+# Implement Function In Blueprint Script
+
+`TODO` Move to [[Exposing C++ Functions To Blueprint]].
+
+There are two [[Function Specifier]]s that allow a [[Blueprint Class]] author to implement logic in [[Blueprint Script]]:
+- Blueprint Implementable Event
+- Blueprint Native Event
+
+The difference between them is that the Native Event variant can have a C++ implementation while the Implementable Event cannot.
+From the C++ both appear as a regular function call.
+
+## Blueprint Implementable Event
+
+Example with a Blueprint Implementable Event.
+
+`MyComponent.h`:
+```cpp
+#pragma once
+
+#include "CoreMinimal.h"
+#include "Components/ActorComponent.h"
+
+UCLASS(Blueprintable, Meta=(BlueprintSpawnableComponent))
+class MYMODULE_API UMyComponent : public UActorComponent
+{
+	GENERATED_BODY()
+
+public:
+	UFUNCTION(BlueprintImplementableEvent)
+	void MyFunction();
+
+	void CallMyFunction();
+};
+```
+
+`MyComponent.cpp`:
+```cpp
+#include "MyComponent.h"
+
+void UMyComponent::CallMyFunction()
+{
+	// Call into Blueprint Script.
+	MyFunction();
+}
+```
+
+To implement the Blueprint Implementable Event in a [[Blueprint Class]] click [[Blueprint Editor]] > [[My Blueprint Panel]] > Functions > Override and the function should be included in the list.
+If the function has a return value then it will be added as a [[Blueprint Function]].
+If the function does not have a return value, i.e. the return type is `void`, then it will be added as a [[Blueprint Event]] in the [[Event Graph]].
+
+I do not know what happens if the [[Blueprint Class]] doesn't override a Blueprint Implementable Event with a return value.
+Is a default constructed value returned?
+What if there is no default constructor for the return type?
+
+## Blueprint Native Event
+
+Example with a Blueprint Native Event.
+
+`MyComponent.h`:
+```cpp
+#pragma once
+
+#include "CoreMinimal.h"
+#include "Components/ActorComponent.h"
+
+UCLASS(Blueprintable, Meta=(BlueprintSpawnableComponent))
+class MYMODULE_API UMyComponent : public UActorComponent
+{
+	GENERATED_BODY()
+
+public:
+	UFUNCTION(BlueprintNativeEvent)
+	void MyFunction();
+
+	void CallMyFunction();
+}
+```
+
+`MyComponent.cpp`:
+```cpp
+#include "MyComponent.h"
+
+void UMyFunction::CallMyFunction()
+{
+	MyFunction();
+}
+
+void UMyFunction::MyFunction_Implementation()
+{
+	// Default logic goes here.
+}
+```
+
+Notice that the `_Implementation` member function isn't declare in the class definition.
+That's weird but OK.
+
+The [[Blueprint Visual Script]] can call the C++ implementation, but that is not by default.
+To add a call right-click the event or function node and select Add Call To Parent Function.
+
 See also:
 - [[UCLASS]]
 - [[Blueprint Function]]
