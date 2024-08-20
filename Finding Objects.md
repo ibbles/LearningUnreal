@@ -1,0 +1,3 @@
+- `TActorIterator`
+- `TObjectIterator`
+- `TComponentIterator`  (?)
