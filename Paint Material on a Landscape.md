@@ -19,6 +19,8 @@ It should match the `Blend Type` set for that layer in the [[Landscape Material#
 The Layer Info object will appear as an asset in the Content Browser.
 We can chose where to save it, but Unreal Editor will provide a default.
 
+The Layer Info asset cannot be shared by multiple Landscapes, each Landscape must have its own.
+
 Once we have a Layer Info for the first layer in the [[Landscape Material]] that layer will be applied to the entire [[Landscape]].
 
 Create Layer Info objects for all layers in the [[Landscape Material]].
@@ -35,3 +37,9 @@ There are a number of settings one can tweak on the Paint tool to get the wanted
 
 [UE4: Step-by-Step to Your First Landscape Material for Beginners (Day 2/3: 3-Day Tutorial Series) @ youtube.com by WorldofLevelDesign](https://www.youtube.com/watch?v=cWOlIvq0Etg)
 
+# Troubleshooting
+
+## Landscape Is Black
+
+Make sure a Layer Info has been set for each layer listed under [[Landscape Mode]] > Landscape panel > Target Layers > Layers.
+Make sure the Layer Info assets are used by a single [[Landscape]] only.
