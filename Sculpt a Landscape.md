@@ -15,6 +15,10 @@ To create a new layer right-click an existing layer and select Create.
 You can enable or disable individual layers using the eye icon on each layer.
 This makes it possible to see what each layer contributes to the final [[Height Map]], and to help identify which layer should be edited to achieve a particular change.
 
+# Visibility
+
+See [[Invisible Landscape Patches]].
+
 # Ramp
 
 The Ramp is a sculpt tool, available from the main toolbar in the [[Landscape Mode]] Sculpt tool bar.
