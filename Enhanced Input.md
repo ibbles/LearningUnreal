@@ -80,6 +80,7 @@ Each mapping is an Input Action and a list of hardware inputs that should trigge
 Hardware inputs include keyboard keys, mouse buttons, mouse motion, gamepad axes, etc.
 Each hardware input can have a modifier which modifies the value.
 This is used, for example, to bind D to Turn Right and S also to Turn Right but with the Negate modifier.
+There is also a modifier that implements gamepad and joystick deadzone.
 
 An Input Mapping Context can be activated and deactivated for a particular [[Player Controller]] (Is this true? What about Enhanced Input Local Player Subsystem? Is that a part of the [[Player Controller]]?) by gameplay logic.
 Only Input Actions that are part of a currently active Input Mapping Context can be triggered by the player.
