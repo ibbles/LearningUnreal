@@ -37,6 +37,12 @@ The event node will have a map+arrow+gear icon.
 The new event node will be executed then the interface function is called on an instance of this [[Blueprint Class]].
 That is, when the corresponding message is received at the instance.
 
+# Referencing Objects Implementing A Blueprint Interface
+
+This doesn't seem possible.
+When creating a new [[Blueprint Variable]] we can set the type to our Blueprint Interface, but I don't think that does what I expect it to.
+The widget in the Details panel looks more like an [[Asset]] reference than an [[Actor]] reference.
+
 
 # Calling functions
 
