@@ -4,6 +4,11 @@ Many sub-editors, such as [[Blueprint Actor Editor]],  [[Static Mesh Editor]] an
 
 Many viewports support the same set of [[Viewport Camera Controls]].
 
+Some viewports support object selection:
+- LMB: Select single object.
+- CTRL + LMB: Toggle selection of object.
+- CTRL + ALT + LMB-drag: Select in rectangle.
+	- Only works in some [[Viewport]]s.
 
 At runtime we can get a hold of the game viewport with
 ```cpp
