@@ -7,7 +7,8 @@ If the framerate becomes capped do the following:
 - Check r.Vulkan.DebugVSync
 - Check Project Settings > Engine > General Setting > Framerate > Use Fixed Framerate.
 - Disable window manager (KDE etc) compositing.
-- Move Unreal Editor to the other monitor and move it back again.
+- Resize the Unreal Editor window.
+	- (This used to be "Move Unreal Editor to the other monitor and move it back again.", but I think resize is sufficient. TODO: Test it.)
 
 # References
 
