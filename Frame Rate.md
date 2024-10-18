@@ -1,3 +1,14 @@
-The frame rate can be fixed in Project Settings > 
+The frame rate can be fixed in Project Settings > Engine > General Settings > Framerate [(1)](https://docs.unrealengine.com/4.27/en-US/TestingAndOptimization/PerformanceAndProfiling/SmoothFrameRate/).
 
-[SmoothFrameRate @ docs.unrealengine.com](https://docs.unrealengine.com/4.27/en-US/TestingAndOptimization/PerformanceAndProfiling/SmoothFrameRate/)
+If the framerate becomes capped do the following:
+- Check t.MaxFPS
+- Check r.VSync
+- Check r.VSyncEditor
+- Check r.Vulkan.DebugVSync
+- Check Project Settings > Engine > General Setting > Framerate > Use Fixed Framerate.
+- Disable window manager (KDE etc) compositing.
+- Move Unreal Editor to the other monitor and move it back again.
+
+# References
+
+- 1: [SmoothFrameRate @ docs.unrealengine.com](https://docs.unrealengine.com/4.27/en-US/TestingAndOptimization/PerformanceAndProfiling/SmoothFrameRate/)
