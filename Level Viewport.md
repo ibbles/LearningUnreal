@@ -8,6 +8,8 @@ Click an [[Actor]] to select it.
 Translucent objects cannot be selected by default.
 Hit the T key to enable or disabled translucent object selection.
 
+Hold CTRL+Alt+LMB and drag to select multiple objects.
+
 The [[Transform Gizmo]] appears when one or more object are selected.
 It is used to move, rotate, and scale objects in the level.
 
