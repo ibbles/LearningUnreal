@@ -1,3 +1,8 @@
+
+
+**As of Unreal Engine 5.4 Quixel Bridge does not exist anymore. Use the Fab plugin instead.**
+
+
 Quixel Bridge is a tool for importing assets from the [[Quixel Megascans]] library into an Unreal Engine project.
 There is a stand-alone application and an Unreal Engine plugin.
 Starting with Unreal Engine 5 .0  the Quixel Bridge plugin is shipped with source builds of the engine, but not [[Installed Build]] which means the official [Epic Games binaries](www.unrealengine.com/en-US/linux) also don't have it, though there is a separate Zip archive download for the Quixel Bridge plugin for each engine version.
