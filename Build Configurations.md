@@ -10,6 +10,16 @@ Mine currently has
 </Configuration>
 ```
 
+We can set a project file generator.
+```xml
+<?xml version="1.0" encoding="utf-8" ?>
+<Configuration xmlns="https://www.unrealengine.com/BuildConfiguration">
+ <ProjectFileGenerator>
+   <Format>Make</Format>
+ </ProjectFileGenerator>
+</Configuration>
+```
+
 I've seen suggestion to make it
 ```xml
 <BuildConfiguration>
