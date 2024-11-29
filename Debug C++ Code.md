@@ -3,6 +3,7 @@ These are stored in `$UR_ROOT/Engine/Extras/`.
 For example, visualizer for GDB are stored in the `GDBPrinters` directory and visualizers for LLDB are stored in the `LLDBDataFormatters` directory.
 There are others as well.
 Not all of these are included with binary distributions of the engine.
+For example, Unreal Engine 5.2 does not include the `LLDBDataFormatters` folder for LLVM-based debuggers.
 If you need one that is missing then download from https://github.com/EpicGames/UnrealEngine/tree/release/Engine/Extras (requires log in and GitHub account linking with an Epic Games account.)
 You should match the Git tag with the engine version you have installed.
 
