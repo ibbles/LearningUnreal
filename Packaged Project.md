@@ -18,3 +18,11 @@ $UE_ROOT/Engine/Build/BatchFiles/Linux/Build.sh \
 ```
 
 `PROJECT_PATH` is the full path to the project's `*.uproject` file.
+
+# Running Packaged Project
+
+If your project is named `MyGame` then run the packaged project with
+```shell
+➤ ./Yumi.sh -Windowed -ForceRes -ResX=1920 -ResY=1080 -VSync=On
+```
+if you want a 1920x1080 window with [[VSync]] enabled.
