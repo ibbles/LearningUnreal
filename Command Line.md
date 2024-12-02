@@ -1,11 +1,9 @@
-# Command line
-
 A collection of command line actions.
 These are printed with newlines between each parameter to make them easier to read.
 
-## Engine stuff
+# Engine stuff
 
-### Initial build of the engine
+## Initial build of the engine
 
 Initial build of Unreal Engine:
 - `mkdir UnrealEngine_<VERSION>`
@@ -17,7 +15,7 @@ Initial build of Unreal Engine:
 - `make`
 - `./Engine/Binaries/Linux/UE4Editor`
 
-### Creating a binary release of the engine
+## Creating a binary release of the engine
 
 See also:
 - [[Building Unreal Engine]]
@@ -57,13 +55,13 @@ CompilePluginWithUBT(
 ```
 
 
-### Benchmarks
+## Benchmarks
 
 `%UAT_PATH% BenchmarkBuild -project=UE4 -editor -client -noxge -iterations=1`
 
-## Project stuff
+# Project stuff
 
-### Generate C++ project files
+## Generate C++ project files
 
 Generating build system project files for a C++ Unreal Engine project using wrapper script:
 ```
@@ -96,7 +94,7 @@ $UE_ROOT/Engine/Build/BatchFiles/Linux/Build.sh
 
 
 
-### Building a C++ project
+## Building a C++ project
 
 Build a C++ Unreal Engine project with the generated project files. Here assuming `Makefile`:
 ```
@@ -157,7 +155,7 @@ $UE_ROOT/Engine/Binaries/DotNET/UnrealBuildTool.exe Development Linux -Project="
 ```
 Don't know what other options for `TargetType` might be.
 
-### Packaging a project
+## Packaging a project
 
 On Linux, clicking Package Project in Unreal Editor runs the following Unreal Automation Tool command:
 ```
@@ -182,6 +180,9 @@ mono AutomationTool.exe
     -clientconfig=Development
     -utf8output
 ```
+(
+TODO Figure out what it does these day, the command above is from 4.something, so quite some time ago.
+)
 
 I expect there to be a fairly straightforward conversion to a `RunUAT.sh` command line from this.
 
@@ -196,6 +197,21 @@ $UE_ROOT/Engine/Build/BatchFiles/RunUAT.sh
     -cook
     -pak
     -compressed
+```
+
+Starting with Unreal Engine 5.5 it may be necessary to manually build project in Shipping mode before trying to package it.
+If you get the following error:
+```
+Missing UnrealGame binary.
+You may have to build the UE project with your IDE. Alternatively, build using UnrealBuildTool with the commandline:
+UnrealGame <Platform> <Configuration>
+```
+then do
+```shell
+UE_ROOT/Engine/Build/BatchFiles/Linux/Build.sh \
+	Linux Shipping \
+	-Project=$PROJECT_ROOT/$PROJECT_NAME.uproject
+	-TargetType=Game
 ```
 
 An example RunUAT line to build a server:
@@ -296,14 +312,14 @@ $UE_ROOT/Engine/Build/BatchFiles/RunUAT.sh
     -archivedirectory=$BUILD_ROOT/builds/$PROJECT_NAME
 ```
 
-### Compiling shaders (I think)
+## Compiling shaders (I think)
 
 ```
 UE4Editor "path to uproject" -run=DerivedDataCache -fill -projectonly
 ```
 
 
-### Compiling Blueprints
+## Compiling Blueprints
 
 To compile all [[Blueprint]]s from the command line:
 
@@ -316,16 +332,16 @@ $UE_ROOT/Engine/Binaries/Linux/UE4Editor-Cmd
 
 This is useful for debugging cooking crashes since it's one of the steps that the cooking process takes.
 
-## Plugin stuff
+# Plugin stuff
 
-### Exporting a plugin
+## Exporting a plugin
 ```
 eval $UE_ROOT/Engine/Build/BatchFiles/RunUAT.sh BuildPlugin -Plugin=<PATH>/<PROJECT>/Plugins/<PLUGIN>/<PLUGIN>.uplugin -Package=<PATH>/<OTHER_PROJECT>/Plugins/<PLUGIN> -Rocket
 ```
 Don't know what `-Rocket` does.
 May want to add a `-TargetPlatform(s?)=` here.
 
-## Other stuff
+# Other stuff
 
 Unpack a `.pak` file:
 ```
