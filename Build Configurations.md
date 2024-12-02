@@ -20,6 +20,11 @@ We can set a project file generator.
 </Configuration>
 ```
 
+Use `+` to have multiple generators:
+```xml
+<Format>Make+Rider</Format>
+```
+
 I've seen suggestion to make it
 ```xml
 <BuildConfiguration>
