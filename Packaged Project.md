@@ -26,3 +26,6 @@ If your project is named `MyGame` then run the packaged project with
 ➤ ./Yumi.sh -Windowed -ForceRes -ResX=1920 -ResY=1080 -VSync=On
 ```
 if you want a 1920x1080 window with [[VSync]] enabled.
+
+`-VSync=On` does not work in Unreal Engine 5.3. Or 5.4
+I worry that it may have been an illusion that it ever worked.
