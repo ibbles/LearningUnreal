@@ -20,7 +20,31 @@ For example, from `$UE_ROOT/Engine/Extras/LLDBDataFormatters/UEDataFormatters.py
 #        command script import "/Path/To/Epic/UE/Engine/Extras/LLDBDataFormatters/UEDataFormatters.py"
 ```
 
-Rider seems to pick up the LLDB visualizers automatically.
+Rider seems to pick up the LLDB visualizers automatically after doing the above.
+
+# Ungrab Mouse Cursor During Debugging
+
+If a breakpoint is hit from a click callback, such as when clicking a button, then the mouse cursor will be grabbed by the click event.
+It must be ungrabbed before it can be used to click in the debugger or other windows.
+
+## Ungrab Mouse Manually
+
+Run the following commands to ungrab the mouse.
+```bash
+setxkbmap -option grab:break_actions
+xdotool key XF86Ungrab
+```
+
+I have them in a script bound to a global keyboard shortcut.
+
+
+## Ungrab Mouse On Breakpoint
+
+Add the following to your `~/.lldbinit`:
+```
+settings set target.inline-breakpoint-strategy always
+target stop-hook add --one-liner "p ::UngrabAllInputImpl()"
+```
 
 
 # References
