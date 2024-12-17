@@ -1,4 +1,4 @@
-Download `Linux_Unreal_Engine_<VERSION_3>.zip` and `Linux_Bridge_<VERSION_2>.0_2024.0.1.zip` from [https://www.unrealengine.com/en-US/linux](https://www.unrealengine.com/en-US/linux).
+Download `Linux_Unreal_Engine_<VERSION_3>.zip` and `Linux_(Fab|Bridge)_<VERSION_2>.0_<DATE>.zip` from [https://www.unrealengine.com/en-US/linux](https://www.unrealengine.com/en-US/linux).
 Create a directory for the installation and unzip both Zip archives there, run Unreal Editor to let it initialize itself.
 ```shell
 /media/s1300/unreal_engine
@@ -52,3 +52,26 @@ Example `LauncherInstalled.dat` :
 }
 ```
 
+# LLDB Debugger Configuration
+
+See also [[Debug C++ Code]].
+
+## Reduce Launch Time With Delayed Symbol Loading
+
+For quicker launches when starting with the LLDB debugger consider adding the following to your `~/.lldbinit`:
+```
+settings set symbols.load-on-demand true
+settings set target.preload-symbols false
+settings set plugin.jit-loader.gdb.enable off
+```
+
+The drawback is that there will be a delay on the first breakpoint in a module since the debug symbols will be loaded then instead.
+
+
+## Ungrab Mouse On Breakpoint
+
+Add the following to your `~/.lldbinit`:
+```
+settings set target.inline-breakpoint-strategy always
+target stop-hook add --one-liner "p ::UngrabAllInputImpl()"
+```
