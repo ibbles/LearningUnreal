@@ -53,6 +53,30 @@ since I wanted to be able to enable / disable it using [[Mapping Context]],
 but the Mouse 2D XY-Axis event would only trigger while a mouse button was held,
 which is not what I want.
 
+# Ungrab Mouse Cursor During Debugging
+
+If a breakpoint is hit from a click callback, such as when clicking a button, then the mouse cursor will be grabbed by the click event.
+It must be ungrabbed before it can be used to click in the debugger or other windows.
+
+## Ungrab Mouse Manually
+
+Run the following commands to ungrab the mouse.
+```bash
+setxkbmap -option grab:break_actions
+xdotool key XF86Ungrab
+```
+
+I have them in a script bound to a global keyboard shortcut.
+
+
+## Ungrab Mouse On Breakpoint
+
+Add the following to your `~/.lldbinit`:
+```
+settings set target.inline-breakpoint-strategy always
+target stop-hook add --one-liner "p ::UngrabAllInputImpl()"
+```
+
 
 # References
 - [_C++ For Unreal Engine (Part 1) | Learn C++ For Unreal Engine | C++ Tutorial For Unreal Engine_ 5:30:02 DeprojectMousePositionToWorld by Nerd's Academy. 2022](https://youtu.be/47z5sVbxmUo?list=PLkDceauvDXDy23KPR7tU2lkA9C69MzI0k&t=19802)
