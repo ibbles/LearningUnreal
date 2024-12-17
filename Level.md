@@ -32,6 +32,10 @@ The following features require building:
 You can set the Level that is opened when you open your project in Unreal Editor and the Level that the game starts at in the [[Project Settings]], under Project > Maps & Modes > {Editor Startup Map, Game Default Map}.
 
 
+# Level Transition Open Level Load Level
+
+To end one level and transition to that level, i.e. to load a level, during runtime call the Open Level [[Blueprint Function]].
+
 # Sub-Levels
 
 Sub-levels are used to let different people work with different parts of the Level at the same time.
