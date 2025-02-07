@@ -5,4 +5,6 @@ I have not been able to figure out what triggers it.
 Adding or removing usage of the World Grid Material doesn't seem to affect it.
 
 One suggested solution is to enable or disable (don't remember which) Allow Static Lighting in the [[Project Settings]].
+
 Another is to make sure only one [[Rendering Hardware Interface RHI]], or [[Shader Model]] reallly, is selected in the [[Project Settings]].
+This can be done programatically by doing text modifications to `Config/DefaultEngine.ini` config file.[]()
