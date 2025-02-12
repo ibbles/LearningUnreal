@@ -1,3 +1,16 @@
+# Compiler Error On Generated Header Files `.generated.h`
+
+Try disabling [[Unreal Build Accelerator]] using a [[Build Configurations]].
+```xml
+<?xml version="1.0" encoding="utf-8" ?> 
+<Configuration xmlns="https://www.unrealengine.com/BuildConfiguration">
+    <BuildConfiguration>
+        <bAllowUBAExecutor>false</bAllowUBAExecutor>
+        <bAllowUBALocalExecutor>false</bAllowUBALocalExecutor>
+    </BuildConfiguration>
+</Configuration>
+```
+
 # Rider Or Any IDE Not Finding Project Header Files In Public Directory
 
 Add `bLegacyPublicIncludePaths = false;` to the module's `.Build.cs`.
