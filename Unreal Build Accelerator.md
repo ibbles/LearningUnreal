@@ -18,3 +18,4 @@ Can be disabled using a [[Build Configurations]] setting:
 # References
 
 - 1: [_Unreal Engine 5.4 is now available_ by Epic Games @ unrealengine.com/blog 2024](https://www.unrealengine.com/en-US/blog/unreal-engine-5-4-is-now-available)
+- 2: [_Horde Unreal Build Accelerator and Remote Compilation Tutorial_ by Epic Games @ dev.epicgames.com/documentation 2024](https://dev.epicgames.com/documentation/en-us/unreal-engine/horde-unreal-build-accelerator-and-remote-compilation-tutorial-for-unreal-engine)
