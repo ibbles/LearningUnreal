@@ -41,6 +41,8 @@ settings set plugin.jit-loader.gdb.enable off
 ```
 in `~/.lldbinit`.
 
+See [[Debug C++ Code]].
+
 Also consider
 ```cs
 bOverrideBuildEnvironment = true;            // added for Rider
@@ -48,7 +50,19 @@ AdditionalCompilerArguments = " -glldb ";    // added for Rider (better formated
 ```
 
 in `.Builds.cs`.
+Not sure why, or when we would want to do that.
 
+If you are having compiler errors on generated header files, `.generated.h`, and you are on Unreal Engine 5.5 then try disabling [[Unreal Build Accelerator]], UBA.
+
+```xml
+<?xml version="1.0" encoding="utf-8" ?> 
+<Configuration xmlns="https://www.unrealengine.com/BuildConfiguration">
+    <BuildConfiguration>
+        <bAllowUBAExecutor>false</bAllowUBAExecutor>
+        <bAllowUBALocalExecutor>false</bAllowUBALocalExecutor>
+    </BuildConfiguration>
+</Configuration>
+```
 
 # References
 

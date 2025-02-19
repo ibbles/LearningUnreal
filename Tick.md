@@ -40,6 +40,24 @@ I'm not sure if it is possible to create cross-prerequisites, i.e. have an [[Act
 If the tick calls aren't made in the order you expect then set the`tick.LogTicks` [[Console Variable]] to 1.
 This will print a trace of the tick calls to the [[Output Log]], together with information about the prerequisites.
 
+# Callback On Next Tick
+
+We can use the [[Timer Manager]] to get a callback on the next tick.
+
+```cpp
+void UMyClass::SomeFunction()
+{
+	TWeakObjectPtr<UMyClass> WeakThis = this;
+	World->GetTimerManager().SetTimerForNextTick(
+	    FTimerDelegate::CreateWeakLambda(this, [WeakThis]()
+	    {
+	        if(!WeakThis.IsValid())
+	            return;
+	        GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Green, TEXT("It is now the next tick."));
+	    }));
+	}
+}
+```
 
 # References
 

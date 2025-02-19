@@ -26,6 +26,16 @@ class MYMODULE_API UMyStruct_FL : public UBlueprintFunctionLibrary
 ```
 
 
+# Struct In Blueprint
+
+We can read the values of the struct members with the Break STRUCT function.
+Select the node and click Details panel > Hide Unconnected Pins to cut down on the clutter.
+
+We can set values of struct members with the Set Members In STRUCT function.
+
+Beware that structs owned by C++ classes are copied in and out of the [[Blueprint]] virtual machine every time they are accessed in a [[Blueprint Script]].
+
+
 # "Virtual" Functions With `TStructOpsTypeTraits`
 
 Unreal Engine contains a lot of virtual functions that our own subclasses can override to customize the behavior of our application.
@@ -75,6 +85,7 @@ struct TStructOpsTypeTraits<FMyStruct> : public TStructOpsTypeTraitsBase2<FMyStr
 Unreal Engine contains engine code similar to the following to check the feature flag and call the associated function, if available.
 The following is a reduced version of the member function `Identical`, part of a class template, where `CPPSTRUCT` is a template type parameter that in our case would be `FMyStruct`:
 ```cpp
+template <typename CPPSTRUCT>
 bool Identical(const void* A, const void* B, bool bOutResult)
 {
 	// Other code.
