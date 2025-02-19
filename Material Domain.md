@@ -61,6 +61,7 @@ Removes most of the [[Material Output Node]] input pins.
 Base Color is replaced by Final Color.
 Get a Screen Position input pin.
 
+See also [[User Interface Material]].
 
 # Volume
 
