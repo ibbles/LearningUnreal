@@ -53,6 +53,11 @@ since I wanted to be able to enable / disable it using [[Mapping Context]],
 but the Mouse 2D XY-Axis event would only trigger while a mouse button was held,
 which is not what I want.
 
+# Event Actor On Clicked
+
+See [[Event Actor On Clicked]].
+
+
 # Ungrab Mouse Cursor During Debugging
 
 If a breakpoint is hit from a click callback, such as when clicking a button, then the mouse cursor will be grabbed by the click event.
