@@ -5,12 +5,22 @@ The tick rate is also called the [[Frame Rate]], though the two aren't exactly t
 You can set a target frame rate in [[Project Settings]] > Engine > General Settings > Framerate > Fixed Frame Rate.
 This is just a target though, if the machine isn't fast enough then the frame/tick rate will be lower than the target.
 
-Some types, such as [[Actor]] and [[Component]], can get a callback once per tick.
+
+# Tick Event
+
+Some types, such as [[Actor]] and [[Component]], can get a callback once per tick, or some other interval / tick frequency.
 The callback is named `Tick`.
 In C++ the virtual member function is called `Tick` or `TickComponent`, depending on the parent class.
+
+For a [[Blueprint Class]] the callback interval is set at [[Blueprint Editor]] > [[Class Defaults]] > Actor Tick > Tick Interval.
+
 The `Tick` callback is passed the amount of time that has passed since the last tick, called `Delta Time`.
 Or rather, the time the previous tick took in total.
 The sum of all `Delta Time` is the total game time.
+(
+Is this true even if the callback frequency is lower than once per tick?
+Is delta time the time since the last time the callback was called, or the time of the last tick?
+)
 
 The tick callback can be done at different points during the tick.
 The different points are called tick groups.
