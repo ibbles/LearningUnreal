@@ -1,5 +1,10 @@
-Run a [[Behavior Tree]] with the Run Behavior Tree function.
-A [[Behavior Tree]] is an [[Asset]] that describe a tree of tasks that the [[Pawn]] should perform.
+A [[Behavior Tree]] is an [[Asset]] that describe a tree of tasks that an AI-controlled [[Pawn]] should perform.
+A Behavior Tree is used by an [[AI Controller]] to decide which of a set of  [[AI Task]]s to perform.
+Run a [[Behavior Tree]] with the [[AI Controller]] > Run Behavior Tree function.
+This function has a BTAsset input that is the Behavior Tree [[Asset]] to run.
+Run Behavior Tree can be called from a [[Pawn]]'s [[Event Graph]] if that [[Pawn]] can be assumed to be AI-controlled [(1)](https://youtu.be/heoPNDwN57k?list=PLiDon2C0wI4tadc-85kLcDykqG4j6xIyc&t=280):
+
+![Call from Pawn](./Images/BehaviorTree/call_from_pawn.jpg)
 
 Create a new Behavior Tree with Content Browser > right-click > Artificial Intelligence > Behavior Tree.
 
@@ -33,3 +38,7 @@ Create a new Key with the New Key button in the top-left corner.
 
 Uses a [[Blackboard]] to know where to move.
 
+
+# References
+
+- 1: [_Unreal Engine 5 Tutorial - Action RPG Part 13: Enemy AI_ by Ryan Laley @ youtube.com 2024](https://youtu.be/heoPNDwN57k?list=PLiDon2C0wI4tadc-85kLcDykqG4j6xIyc)
