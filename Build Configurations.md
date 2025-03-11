@@ -3,6 +3,8 @@ Debug(Game|Editor?), Development, Shipping.
 The following is based on this [Unreal Source Discord discussion](https://discord.com/channels/187217643009212416/375022233875382274/1274458435634729111).
 
 There is `~/.config/Unreal Engine/UnrealBuildTool/BuildConfiguration.xml` with some build configuration settings.
+In some cases it may also use `~/UnrealEngine/Engine/Saved/UnrealBuildTool/`, not sure.
+
 Mine currently has
 ```xml
 <?xml version="1.0" encoding="utf-8" ?>
@@ -52,7 +54,7 @@ AdditionalCompilerArguments = " -glldb ";    // added for Rider (better formated
 in `.Builds.cs`.
 Not sure why, or when we would want to do that.
 
-If you are having compiler errors on generated header files, `.generated.h`, and you are on Unreal Engine 5.5 then try disabling [[Unreal Build Accelerator]], UBA.
+If you are having compiler errors on generated header files, `.generated.h`, and you are on Unreal Engine 5.5, which introduced [[ISPC]], then try disabling [[Unreal Build Accelerator]], UBA.
 
 ```xml
 <?xml version="1.0" encoding="utf-8" ?> 
