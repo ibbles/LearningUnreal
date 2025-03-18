@@ -101,7 +101,7 @@ $ sudo apt install llvm
 $ export ASAN_SYMBOLIZER_PATH=/usr/lib/llvm-9/bin/llvm-symbolizer  # Path may be different.
 ```
 
-# Building UnrealBuildTool
+# Building Unreal Build Tool
 
 Not sure when this would ever be needed.
 
