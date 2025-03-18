@@ -101,6 +101,17 @@ $ sudo apt install llvm
 $ export ASAN_SYMBOLIZER_PATH=/usr/lib/llvm-9/bin/llvm-symbolizer  # Path may be different.
 ```
 
+# Building UnrealBuildTool
+
+Not sure when this would ever be needed.
+
+```shell
+source Engine/Build/BatchFiles/Linux/SetupEnvironment.sh -dotnet Engine/Build/BatchFiles/Linux
+dotnet build Engine/Source/Programs/UnrealBuildTool/UnrealBuildTool.csproj -c DebugGame
+```
+
+The `DebugGame` bit can be any [[Build Target]].
+
 # Git Deps
 
 `Setup.sh` downloads a bunch of stuff that is stored in `.git/ue4-gitdeps`.
