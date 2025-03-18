@@ -1,3 +1,9 @@
+# Failed to load Vulkan Driver which is required to run the engine.
+
+This can have many causes.
+For Unreal Engine 5.5.4 and currently, as of this writing, unreleased 5.6 require `VK_EXT_mesh_shader`.
+https://forums.unrealengine.com/t/unreal-engine-5-6-startup-vulkan-error-and-vk-ext-mesh-shader/2332700/2
+
 # Compiler Error On Generated Header Files `.generated.h`
 
 Try disabling [[Unreal Build Accelerator]] using a [[Build Configurations]].
