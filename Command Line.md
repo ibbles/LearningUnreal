@@ -155,6 +155,22 @@ $UE_ROOT/Engine/Binaries/DotNET/UnrealBuildTool.exe Development Linux -Project="
 ```
 Don't know what other options for `TargetType` might be.
 
+
+[Someone said](https://discord.com/channels/187217643009212416/375022233875382274/1384425538525073439):
+```shell
+#!/bin/bash
+<unreal engine folder>/Engine/Build/BatchFiles/Linux/Build.sh TAS_GameEditor Linux Development <Game folder>/Game.uproject -waitmutex
+```
+
+## Opening A Project
+
+[Someone said](https://discord.com/channels/187217643009212416/375022233875382274/1384425538525073439):
+```shell
+#!/bin/bash
+cd <engine folder>/Engine/Binaries/Linux && ./UnrealEditor "<game folder>/Game.uproject" -DebugCoreRedirects -ddc=InstalledNoZenLocalFallback
+```
+
+
 ## Packaging a project
 
 On Linux, clicking Package Project in Unreal Editor runs the following Unreal Automation Tool command:
