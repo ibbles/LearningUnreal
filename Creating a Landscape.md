@@ -1,6 +1,6 @@
 In the [[Landscape Mode]], make sure the Manage tab is selected, and the New tool within the Manage Tool Bar.
 
-![[Images/Landscape_Mode_Manage_Tab_New_Tool.png]]
+![[Images/Landscape_Mode_Manage_Tab_New_Tool.jpg]]
 
 
 The Landscape Mode Panel shows the settings for the new Landscape we are about to create.

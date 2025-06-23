@@ -6,7 +6,7 @@ See also [[Custom Node Graph Editor]] for a description of the node graph editor
 See also [[Node Graph Editor]] for an overview of the engine classes that make up the node graph editor toolkit.
 
 Here is a screenshot of the [[Sound Cue Editor]], where a sound cue [[Asset]] is being edited.
-![[Images/Sound_cue_graph.png]]
+![[Images/Sound_cue_graph.jpg]]
 
 We see three tabs:
 - Details panel

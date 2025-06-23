@@ -33,13 +33,13 @@ Possible ways to mitigate:
 
 
 Write During Depth Pass (default):
-![[Images/Smeary_foliage_depth_pass.png]]
+![[Images/Smeary_foliage_depth_pass.jpg]]
 
 Write During Base Pass (Slower?):
-![[Images/Smeary_foliage_base_pass.png]]
+![[Images/Smeary_foliage_base_pass.jpg]]
 
 With Word Position Offset pin disconnected on the Master Material:
-![[Images/Smeary_foliage_no_wpo.png]]
+![[Images/Smeary_foliage_no_wpo.jpg]]
 
 # Collisions
 
