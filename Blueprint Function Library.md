@@ -2,6 +2,14 @@ A Blueprint Function Library is a collection of C++ functions that can be called
 Can be used to provided member-function-like functionality to [[Struct]] types.
 
 ```cpp
+#pragma once
+
+// Unreal Engine includes.
+#include "CoreMinimal.h"
+#include "Kismet/BlueprintFunctionLibrary.h"
+
+#include "MyStruct.generated.h"
+
 USTRUCT(BlueprintType)
 struct MYMODULE_API FMyStruct
 {
@@ -13,7 +21,9 @@ struct MYMODULE_API FMyStruct
 UCLASS(BlueprintType)
 class MYMODULE_API UMyStruct_FL : public UBlueprintFunctionLibrary
 {
-	UFUNCTION(BlueprintCallable)
+	GENERATED_BODY()
+
+	UFUNCTION(BlueprintCallable, BlueprintPure, Category = "My Category")
 	static void Increment(UPARAM(Ref) FMyStruct& Data)
 	{
 		++Data.MyInt;
