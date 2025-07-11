@@ -85,6 +85,45 @@ There is also a modifier that implements gamepad and joystick deadzone.
 An Input Mapping Context can be activated and deactivated for a particular [[Player Controller]] (Is this true? What about Enhanced Input Local Player Subsystem? Is that a part of the [[Player Controller]]?) by gameplay logic.
 Only Input Actions that are part of a currently active Input Mapping Context can be triggered by the player.
 
+## Deadzone Modifier
+
+The Deadzone Modifier can be added either to an Input Mapping Context or to an Input Action.
+It ensures that very small or very large input signals aren't passed to gameplay logic, so that e.g.a a character stops when an axis is released even if the physical gamepad isn't perfectly centered.
+
+Deadzone seems to be buggy in Unreal Engine 5.3.
+When I create a deadzone with Lower Threshold 0.01 I still get values as low as 0.002.
+When I set Lower Threshold to 0.2 at get values as low as 0.01 but not smaller.
+No, it may be me who is not understanding the description properly.
+It is not doing
+```cpp
+double DeadZone(double Input)
+{
+	return Clamp(Input, LowerThreshold, UpperThreshold);
+}
+```
+as I though.
+
+Instead it is doing
+```cpp
+double DeadZone(double Input)
+{
+	double InputRangeLower {LowerThreshold};
+	double InputRangeUpper {UpperThreshold};
+	double OutputRangeLower {0.0};
+	double OutputRangeUpper {1.0};
+	return MapRangeClamped(
+		InputRangeLower, InputRangeUpper,
+		OutputRangeLower, OutputRangeUpper);
+}
+```
+which means that:
+- Very small values, below Lower Threshold, are clamped to 0.0.
+- Very large values, larger than Upper Threshold, are clamped to 1.0.
+- Small values, slightly above Lower Threshold, are mapped to something slightly above zero.
+- Large values, slightly below Upper Threshold, are mapped to something slightly below 1.0.
+
+
+
 
 # Activating An Input Mapping Context
 
@@ -103,8 +142,17 @@ As opposed to having Spacebar bound to both Jump and Fire.
 
 ## Activating An Input Mapping Context In Blueprint
 
-In a [[Pawn]]: Get Controller > Cast To Player Controller > Enhanced Input Local Player Subsystem > Add Mapping Context.
+In a [[Pawn]]:
+- Get Enhanced Input Local Player Subsystem > Add Mapping Context.
+or
+- Get Controller > Cast To Player Controller > Enhanced Input Local Player Subsystem > Add Mapping Context.
 
+
+In other [[Actor]] type:
+- Get Player Controller > Get Enhanced Input Local Player Subsystem > Add Mapping Context.
+
+You need to know which Player Controller you want to add the Mapping Context to.
+Usually getting Player Controller 0 works.
 
 ## Activating An Input Mapping Context In C++
 
