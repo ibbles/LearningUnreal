@@ -5,6 +5,8 @@ When a [[Property]] is edited in Unreal Editor the edited instance is notified a
 `PostEditChangeProperty` is given the Property on the instance that was changed, and also the leaf Property in case a `struct` is involved.
 `PostEditChangeChainProperty` gives you the entire chain through any number of nested `structs`.
 
+See [[Blueprint Reconstruction]] for some complicating factors when doing modifications to a [[Component]] created in a [[Blueprint Actor]] from within the [[Unreal Editor]] UI.
+
 As usual, things get a bit buggy when Blueprints are involved.
 One would expect that if multiple instances are selected and edited then the callbacks would be called on each edited instance.
 When editing instances that have been created directly in a level, i.e. that are not part of a Blueprint, then this is exactly what happens.
