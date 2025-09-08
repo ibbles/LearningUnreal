@@ -41,3 +41,41 @@ We select which category a particular [[Property]] is under with the `Category` 
 UPROPERTY(Category = "MyCategory")
 double MyData;
 ```
+
+
+# Meta Data
+
+An additional layer of data is available in the Meta container of a [[Property]].
+This is data that is associated with the [[Property]] that are specific to some parts of Unreal Editor.
+
+## `FilePathFilter` for `FFilePath`
+
+Used with a `FFilePath` typed [[Property]].
+Detected by `FFilePathStructCustomization` and used to set a file suffix filter on the File Path Picker created by the [[Details Customization]].
+
+For example, to create a [[Property]] that is a path to a `.json` file:
+```c++
+UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Configuration", Meta=(FilePathFilter="json"))
+FFilePath ConfigurationFile;
+```
+
+Also supports file file type filter syntax.
+The equivalent to the above short form would be.
+```c++
+UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Configuration", Meta=(FilePathFilter="json files (*.json)|*.json"))
+FFilePath ConfigurationFile;
+```
+
+You can also support multiple file suffixes.
+```c++
+UPROPERTY(
+	EditAnywhere, BlueprintReadWrite, Category="Configuration",
+	Meta=(FilePathFilter="Configuration files (*.json; *.ini)|*.json; *.ini"))
+FFilePath ConfigurationFile;
+```
+
+
+# References
+
+- 1: [_Unreal Engine C++ Complete Guide_ by Tom Looman @ https://www.tomlooman.com/ 2023](https://www.tomlooman.com/unreal-engine-cpp-guide/#C_Syntax_Symbols)
+
