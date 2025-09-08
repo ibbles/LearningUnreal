@@ -13,11 +13,23 @@ Print Text or Print String.
 
 # Logging From C++
 
+Logging is done with the `UE_LOG` macros.
+It has the following general pattern:
+```c++
+UE_LOG(<CATEGORY>, <VERBOSITY>, TEXT("<MESSAGE>")[, <VALUE>]...);
+```
+where
+- `<CATEGORY>` is one of the registered logging categories. See below.
+- `<VERBOSITY>` is one of `Display`, `Log`, `Warning`, `Error`, `Fatal`.
+- `<MESSAGE>` is the message to print to the log. Can contain `printf` style `%` format specifiers.
+- `<VALUE>` is a value whose type matches the corresponding `%` format specifier in `<MESSAGE>`.
+
+For example:
 ```cpp
 UE_LOG(LogTemp, Warning, TEXT("Some data: %d."), MyInt);
 ```
 
-TODO Write about adding a project-specific log category to replace `LogTemp`.
+You can create your own [[Log Category]], to replace `LogTemp` for application-specific log messages.
 
 
 # Logging In Shipping Builds
