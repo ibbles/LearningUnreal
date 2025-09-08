@@ -1,6 +1,3 @@
-
-
-
 Unreal Insights is a performance profiler used to identify bottlenecks and help optimize a target application for better performance.
 Collects, analyzes, and visualizes data emitted by the engine.
 Data can be recorded remotely to minimize the impact of the collection.
@@ -27,6 +24,9 @@ Here are a few additional flags I'm not sure what they do:
 ```
 -NetTrace=1 -trace=net,loadtime,frame,file,log -statnamedevents
 ```
+
+You should see a red circle at the bottom of the Unreal Editor and next to a Trace drop-down meny.
+From the drop-down meny select Open Live Session.
 
 
 ## Frontend and session management
