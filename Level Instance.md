@@ -1,4 +1,4 @@
-Another variant it [[Packed Level Actor]].
+Another variant is [[Packed Level Actor]].
 Use Level Instance when the content needs to change in response to game logic.
 Use [[Packed Level Actor]] when the content is fixed, unchanging.
 
