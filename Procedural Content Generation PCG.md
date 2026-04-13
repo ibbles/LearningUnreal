@@ -452,7 +452,14 @@ This means that when those points are fed into a Spawn Static Mesh node it will 
 
 ## Control Mesh Spawning With Actor Tags
 
-[(2)](https://youtu.be/TbNZ4GKaTow?t=980)l
+[[Actor Tag]]s added to the [[Actor]]s from which the [[Level Instance]] and PCG Data Asset is created will show up as attributes on the points [(2)](https://youtu.be/TbNZ4GKaTow?t=980).
+This can be combined with filtering in the PCG Graph to create randomized variation.
+For example, add more "clutter meshes" than is necessary to the [[Level Instance]] and in the PCG Graph use filtering to only keep some fraction of them.
+The tag is not a string, it becomes a typed attribute.
+By default a boolean that is true for [[Actor]]s that have the tag and false for [[Actor]]s that does not.
+By adding a `:` to the name we separate a name from a value.
+For example: `Intensity:0.25`.
+This [[Actor Tag]] will set the attribute Intensity to the value 0.25 for the point that is created for that [[Actor]].
 
 # Hierarchical PCG
 
