@@ -1,6 +1,15 @@
+"PCG" is the name of the procedural content generation framework in Unreal Engine [(2)](https://youtu.be/TbNZ4GKaTow?t=89).
+Released experimental with Unreal Engine 5.2 and the Electric Dreams sample [(3)](https://www.unrealengine.com/electric-dreams-environment) in 2023 [(2)](https://youtu.be/TbNZ4GKaTow?t=238).
+Released production ready with Unreal Engine 5.7 in 2025 [(2)](https://youtu.be/TbNZ4GKaTow?t=395)
 A tool to programmatically generate [[Asset]] instances,
 using point sources, called samplers, and filtering to position them and spawners to create them.
 The generation is implemented using [[Visual Script]].
+It is also a tool to make tools to build worlds [(2)](https://youtu.be/TbNZ4GKaTow?t=103).
+Integrates with a bunch of other systems in Unreal Engine [(2)](https://youtu.be/TbNZ4GKaTow?t=112).
+Such as Instanced Actors, [[Geometry Script]], (add more here.)
+Works both at edit time and runtime [(2)](https://youtu.be/TbNZ4GKaTow?t=139).
+
+A good way to learn and discover what can be done in PCG is to study one of the existing PCG graphs included in the engine and sample projects, such as the Electric Dreams sample [(3)](https://www.unrealengine.com/electric-dreams-environment).
 
 PCG is implemented as a [[Plugin]], enabled at [[Top Menu Bar]] > Edit > Plugins > Procedural Content Generation Framework (PCG).
 There is also a utility plugin name Procedural Content Generation Framework (PCG) Geometry Script Interop.
@@ -13,6 +22,16 @@ They are used to pass points between PCG graphs.
 Useful when having a hierarchy of PCGs, the parent can read the output points of the children.
 See _Hierarchical PCG_ below.
 
+# Typical Workflow
+
+Typical PCG Workflow[(2)](https://youtu.be/TbNZ4GKaTow?t=470):
+- Create a PCG Graph.
+- Use the PCG Graph in a PCG Component to create a PCG Volume.
+- Generate.
+
+Drag a PCG Graph from the [[Content Browser]] to the [[Level Viewport]] to create a new [[Actor]] with a PCG Component [(2)](https://youtu.be/TbNZ4GKaTow?t=487).
+
+
 # Create A PCG Graph
 
 A PCG Graph is an [[Asset]] in the [[Content Browser]].
@@ -21,7 +40,21 @@ PCG Graph [[Asset]]s often has a name starting with `PCG_`.
 To add an instance of the PCG Graph to the [[Level]] drag it from the [[Content Browser]] to the [[Level Viewport]].
 This creates a PCG Volume [[Actor]] instance.
 
-A good way to learn and discover what can be done in PCG is to study one of the existing PCG graphs included in the engine and sample projects.
+In the PCG Graph we [(2)](https://youtu.be/TbNZ4GKaTow?t=496):
+- Get, create, or load data.
+	- Often sample something, such as a [[Spline Component]], [[Static Mesh Component]], or [[Landscape]].
+- Process the data into a data set.
+	- Filter, 
+- Perform metadata operations.
+	- Transform, bounds.
+- Generate artifacts.
+	- Such as spawning [[Static Mesh]]es.
+
+
+# Example PCG Graph
+
+Here is an example PCG Graph that spawns tress on the parts of a [[Landscape]] that is painted with the Grass layer [(2)](https://youtu.be/TbNZ4GKaTow?t=538):
+Get Landscape Data > Surface Sampler > Filter Attribute Elements (Grass) > Transform Points (jitter, rotate, scale) > Static Mesh Spawner (`SM_Tree`).
 
 
 # PCG Graph Editor
@@ -43,25 +76,55 @@ so it is helpful to keep one in view while editing.
 Nodes can be temporarily disabled, i.e. toggle evaluation, by hitting E on the keyboard.
 This is useful on Spawner nodes for hiding the thing they spawn, making it easier to see what is going on when working with points earlier in the network.
 
+# PCG Graph Parameters
+
+Our PCG Graph can expose parameter to users of the graph [(2)](https://youtu.be/TbNZ4GKaTow?t=743).
+For example, a PCG Graph may contain a Transform Points node that randomly scales the points and the minimum and maximum scale can be parameters.
+Parameters are added in the Graph Parameter panel [(2)](https://youtu.be/TbNZ4GKaTow?t=751).
+Drag a parameter to an input pin on a graph node to pass the parameter's value into the node.
+For example, into the Scale Min and Scale Max input pins of a Transform Points node.
+
+The parameters can be set in the [[Details Panel]] when selecting a PCG Component instance in the [[Level Viewport]], under PCG > Instance > Parameter Overrides.
+
+The parameters can also be set in a PCG Graph Instance [(2)](https://youtu.be/TbNZ4GKaTow?t=773).
+Content Browser > PCG Graph > right-click > Create PCG Graph Instance.
+The PCG Graph Instance is edited like a data-only Blueprint, meaning the asset editor is basically just a [[Details Panel]] where the Parameter Overrides are available.
+We we can create a bunch of variants of our main PCG Graph for different purposes.
+For example Small Rocks with small Scale Min and Scale Max, and Large Rocks with large Scale Min and Scale Max.
+
+
 ## Keyboard shortcuts
 
 - E: Toggle evaluation of the selected node.
 	- Node becomes grayed out.
-- D: Toggle debugging rendering of point output of the selected node.
+- D: Toggle debugging rendering of point output of the selected node [(2)](https://youtu.be/TbNZ4GKaTow?t=690).
+	- Can also be enabled with [[Details Panel]] > Debug > Debug [(2)](https://youtu.be/TbNZ4GKaTow?t=699).
 	- Node gets a teal icon in the top-left corner.
-- A: Inspect. The node's output is listed in the Inspect panel.
+	- This will spawn [[Static Mesh]]es where that node's output points are [(2)](https://youtu.be/TbNZ4GKaTow?t=701).
+	- The spawned meshes are displayed in the [[Level Editor]].
+	- There is also a Debug node. Not sure what that does.
+- A: Inspect. The node's output is listed in the Inspect panel [(2)](https://youtu.be/TbNZ4GKaTow?t=570).
+	- The Inspect panel is a big table.
+	- (Is the Inspect panel named Attributes panel now?)
 	- The node gets yellow icon.
 
 # Point
 
 A point is the fundamental unit of information in PCG.
 Most nodes create, manipulate, or consume points.
+A point set is a collection of points.
+A point set carries a bunch of data, one element per point.
+The data comes in two variants:
+- Properties: Mandatory data, all points have this.
+- Attributes / metadata: Extra data the graph have added to the points.
 
 ## Properties
 
-A point has a set of mandatory data, called Properties.
+A point has a set of mandatory data, called Properties [(2)](https://youtu.be/TbNZ4GKaTow?t=570).
 The Properties are:
-- Transform.
+- Position.
+- Rotation.
+- Scale
 - Density.
 - Bounds Min.
 - Bounds Max.
@@ -69,6 +132,9 @@ The Properties are:
 - Steepness.
 	- Don't know what this is. Density gradient across the bounds?
 - Seed.
+
+In the Attributes panel the properties are prefixed with a `$` [(2)](https://youtu.be/TbNZ4GKaTow?t=607).
+So we have `$Position` and `$Scale` rather than just Position and Scale.
 
 A point has a scale, which is used by Static Mesh Spawner to set the scale of the spawned Static Mesh Instance.
 
@@ -102,10 +168,15 @@ To add an attribute to a set of points you need a PCG Point Data.
 (Not sure what that is yet, or how to get one.)
 The Mutable Metadata node will give you the metadata for the point data.
 The metadata contains the attributes.
-The Create (Vector|String|...) Attribute node will create a new attribute of type Vector.
+The Create (Vector|String|...) Attribute node will create a new attribute of type Vector|String|....
 This can be done from the Execute With Context of a _Blueprint Extension_,
 before calling Iteration Loop to actually populate the newly created attributes.
 In Iteration Loop Body use Set (Vector|String|...) Attribute to set the attribute for a particular particle.
+
+There is a special name for the last attribute to be modified that can be used when configuring a node: `@Last` [(2)](https://youtu.be/TbNZ4GKaTow?t=627), [(2)](https://youtu.be/TbNZ4GKaTow?t=658).
+A node's [[Details Panel]] > Target Attribute can be set to `@Last` instead of an explicitly named attribute.
+The top of the Attributes panel display which attribute is named by `@Last` for the currently selected node.
+
 
 # Point Samplers
 
@@ -187,6 +258,12 @@ The effect is that we start with a set of point, split them in two sets based on
 
 ## Spatial Noise
 
+(
+Not sure what this actually does.
+Move points?
+Spawn points?
+)
+
 Can be set to one of several modes with [[Details Panel]] > Settings > Mode.
 - Perlin 2D
 - Caustic 2D
@@ -261,6 +338,7 @@ For example, the Static Mesh Spawner outputs [[Static Mesh]]es.
 
 The spawned instances are placed relative to the owning PCG Volume.
 Or maybe not, maybe it is in world space.
+Maybe there is a setting for this.
 
 The scale of the spawned thing is determined by the scale of the point given to the Spawner.
 
@@ -333,13 +411,48 @@ The output from Get Spline Data can be passed to Spline Sampler to generate poin
 
 ## Get Landscape Data
 
+Get Landscape Data is a node that produces something Landscape-related.
+(
+Not entirely sure what.
+)
+The output of the Get Landscape Data node can be passed to a Surface Sampler node to get points on the [[Landscape]] surface.
+The points sampled from a [[Landscape]] will be given attributes for the weights of the [[Landscape Layer]]s [(2)](https://youtu.be/TbNZ4GKaTow?t=673).
+
 Combine with a Projection node to move the point to the Landscape surface.
 The [_Procedural Content Generation Tools in UE5: Overview and Roadmap | Unreal Fest 2023_ 40:00](https://dev.epicgames.com/community/learning/talks-and-demos/M7DW/unreal-engine-procedural-content-generation-tools-in-ue5-overview-and-roadmap-unreal-fest-2023) presentation combined this with a BP PCGE Preserve Local Z node.
 I don't know if this node is included or a custom Blueprint Extension part of the demo project only.
 
+
 ## World Ray Hit Query
 
 Don't know yet.
+A ray cast, I assume.
+
+
+# PCG Mode
+
+The PCG Mode is a way to interact with the PCG system directly in the [[Level Viewport]] [(2)](https://youtu.be/TbNZ4GKaTow?t=834).
+For example, we can draw splines directly on a [[Landscape]] and make that create a road along that spline.
+
+
+# Level Instance
+
+A [[Level Instance]] is a collection of [[Actor]]s stored as an [[Asset]].
+A PCG Graph can spawn [[Level Instance]]s. [(2)](https://youtu.be/TbNZ4GKaTow?t=893).
+For example, an artist can create a [[Level Instance]] containing a tree with some rocks and ferns at the base, each of these being a [[Static Mesh Actor]].
+This is done by adding a bunch of [[Static Mesh Actor]]s to the [[Level Viewport]] by dragging in [[Static Mesh Asset]]s from the [[Content Browser]], selecting all the [[Actor]]s that should be included in the [[Level Instance]], right-click any of those [[Actor]]s and select Level > Create Level Instance.
+
+In order for PCG to be able to spawn the [[Level Instance]] we must create a PCG  Data Asset from it.
+This is done with [[Content Browser]] > [[Level Instance]] > right-click > Asset Actions > Create PCG Asset From Level(s) [(2)](https://youtu.be/TbNZ4GKaTow?t=928).
+This data asset contains all the [[Static Mesh Actor]] transforms as points with attributes for the [[Static Mesh]] to spawn [(2)](https://youtu.be/TbNZ4GKaTow?t=931).
+The [[Level Instance]] PCG Asset data is loaded with the Load PCG Data Asset node, which has [[Details Panel]] > Data > Asset which can be set to a PCG Data Asset.
+The output of the Load PCG Data Asset node is the points that describe the [[Level Instance]].
+Using the Copy Points node we can take a set of input points, sampled from whatever, and replace each of the input points with the set of points loaded by the Load PCG Data Asset node.
+This means that when those points are fed into a Spawn Static Mesh node it will not spawn just one [[Static Mesh]] per sampled point, it will spawn all the meshes that was stored in the [[Level Instance]].
+
+## Control Mesh Spawning With Actor Tags
+
+[(2)](https://youtu.be/TbNZ4GKaTow?t=980)l
 
 # Hierarchical PCG
 
@@ -526,4 +639,6 @@ We can however create helper functions, i.e. a subgraph for the actual logic and
 
 # References
 
-- [_Introduction to PCG Workflows in Unreal Engine 5 | Unreal Fest 2023_ by Epic Games @ youtube.com 2023](https://www.youtube.com/live/LMQDCEiLaQY)
+- 1: [_Introduction to PCG Workflows in Unreal Engine 5 | Unreal Fest 2023_ by Epic Games @ youtube.com 2023](https://www.youtube.com/live/LMQDCEiLaQY)
+- 2: [_PCG: Introduction, Use Cases, and Production Best Practices | Unreal Fest Stockholm 2025_ by Matt Oztalay, Unreal Engine @ youtube.com](https://www.youtube.com/watch?v=TbNZ4GKaTow)
+- 3: [_Electric Dreams Environment Sample Project_ by Epic Games @ unrealengine.com](https://www.unrealengine.com/electric-dreams-environment)
