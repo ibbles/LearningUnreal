@@ -435,12 +435,13 @@ The PCG Mode is a way to interact with the PCG system directly in the [[Level Vi
 For example, we can draw splines directly on a [[Landscape]] and make that create a road along that spline.
 
 
-# Level Instance
+# Spawn Level Instance
 
 A [[Level Instance]] is a collection of [[Actor]]s stored as an [[Asset]].
 A PCG Graph can spawn [[Level Instance]]s. [(2)](https://youtu.be/TbNZ4GKaTow?t=893).
 For example, an artist can create a [[Level Instance]] containing a tree with some rocks and ferns at the base, each of these being a [[Static Mesh Actor]].
 This is done by adding a bunch of [[Static Mesh Actor]]s to the [[Level Viewport]] by dragging in [[Static Mesh Asset]]s from the [[Content Browser]], selecting all the [[Actor]]s that should be included in the [[Level Instance]], right-click any of those [[Actor]]s and select Level > Create Level Instance.
+This creates a [[Level Instance]] [[Asset]] in the [[Content Browser]].
 
 In order for PCG to be able to spawn the [[Level Instance]] we must create a PCG  Data Asset from it.
 This is done with [[Content Browser]] > [[Level Instance]] > right-click > Asset Actions > Create PCG Asset From Level(s) [(2)](https://youtu.be/TbNZ4GKaTow?t=928).
@@ -449,6 +450,9 @@ The [[Level Instance]] PCG Asset data is loaded with the Load PCG Data Asset nod
 The output of the Load PCG Data Asset node is the points that describe the [[Level Instance]].
 Using the Copy Points node we can take a set of input points, sampled from whatever, and replace each of the input points with the set of points loaded by the Load PCG Data Asset node.
 This means that when those points are fed into a Spawn Static Mesh node it will not spawn just one [[Static Mesh]] per sampled point, it will spawn all the meshes that was stored in the [[Level Instance]].
+For this to work we must set Static Mesh Spawner > [[Details Panel]] > Mesh Selector > Mesh Selector Type to PCG Mesh Selector By Attribute.
+This setting makes the Static Mesh Spawner read the per-point attribute that has a [[Static Mesh Asset]] reference, the attribute read from the [[Level Instance]] PCG Data Asset by the Load PCG Data Asset Node, the attribute that was defined by the Static Meshes that we added to the [[Level Instance]] that the PCG Data Asset was created from.
+That attribute is named `Mesh`.
 
 ## Control Mesh Spawning With Actor Tags
 
