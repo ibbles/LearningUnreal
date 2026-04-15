@@ -32,6 +32,13 @@ Typical PCG Workflow[(2)](https://youtu.be/TbNZ4GKaTow?t=470):
 Drag a PCG Graph from the [[Content Browser]] to the [[Level Viewport]] to create a new [[Actor]] with a PCG Component [(2)](https://youtu.be/TbNZ4GKaTow?t=487).
 
 
+# Mental Model
+
+A PCG Graph consists of nodes connected to form a directed graph.
+The graph typically flows from left to right, with data generation on the left side and side effects, such as spawning, on the right side.
+A node has inputs and outputs, which is how data is communicated between the nodes.
+The data communicated between nodes is often a point cloud but can also be other things.
+
 # Create A PCG Graph
 
 A PCG Graph is an [[Asset]] in the [[Content Browser]].
@@ -435,6 +442,301 @@ The PCG Mode is a way to interact with the PCG system directly in the [[Level Vi
 For example, we can draw splines directly on a [[Landscape]] and make that create a road along that spline.
 
 
+# Extending PCG With C++
+
+We can extend the PCG system by adding our own custom nodes that run our own custom C++ code.
+The C++ code for a node consists of two parts:
+- Editor: Inherits from `UPCGSettings`.
+	- Some parts of the `UPCGSettings` subclass also exists at runtime, things like input and output definitions.
+- Runtime: Inherits from `IPCGElement`.
+	- This is what defines what the node does.
+
+The `UPCGSettings` subclass defines things like the name of the node and what inputs and outputs it has.
+The `IPCGElement` subclass defines the operation of the node.
+
+
+## Engine Classes
+
+The main work of a PCG node is performed by the `ExecuteInternal` virtual member function.
+It receives a `FPCGContext` parameter.
+The `FPCGContext` instance provides access to the `UPCGSettings` subclass instance, ways to access the input data, and ways to define the output data.
+The `FPCGContext` type has a `FPCGDataCollection` member named `InputData`.
+This is how the `ExecuteInternal` member function get access to the inputs to the node, as configured by the user in the PCG Graph.
+`FPCGDataCollection` contains, or at least gives access to, a set of `TArray<FPCGTaggedData>`.
+An `FPCGTaggedData` carries information such as pin name and tags, but the central bit is a `UPCGData` instance.
+`UPCGData` is an abstract class that has a whole bunch of subclasses.
+The most commonly used are:
+- `UPCGPointData`: A point cloud.
+- `UPCGSpatialData`: Base class of `UPCGPointData`, and a few other `UPCGData` subclasses.
+- `UPCGPrimitiveData`: Pointer to a Primitive Component.
+- `UPCGParamData`: Not sure. `EPCGDataType` calls this _Attribute Set_.
+- And many, many more.
+
+So:
+`FPCGContext` > `FPCGDataCollection` > `FPCGTaggedData` > `UPCGData`.
+
+- `FPCGContext`: The input when a node is executed. Holds per-execution state. Has `InputData` and `OutputData`.
+- `FPCGDataCollection`: Container for `FPCGTaggedData`.
+- `FPCGTaggedData`: Container for `UPCGData`.
+- `UPCGData`: Base class for a bunch of data storage types.
+
+Input to a node is delivered on a pin of that node.
+Each pin is configured to receive data of a particular type, i.e. of some `UPCGData` subclass.
+The node can control this by overriding the the `UPCGSettings::InputPinProperties` and `UPCGSettings::OutputPinProperties` virtual member functions.
+Each input and output pin described by `/(In)|(Out)/putPinProperties` has a `EPCGDataType` member, which is en enum that has an enum literal for each subclass of `UPCGData`.
+A central consideration when creating a new PCG node is how many input and output pins it should have, and what `EPCGDataType` should be set to for those pins.
+
+
+### `UPCGContext`
+
+The state for a particular execution of a particular node.
+Has `InputData` and `OutputData`, which are both `FPCGDataCollection`.
+Through `InputData` we can access the data passed to each input pin in the PCG Graph.
+Through `OutputData` we can write data that should be passed out through each output pin in the PCG Graph.
+Gives access to the corresponding `UPCGSettings` instance with `GetInputSettings<T>` where `T` is your `UPCGSettings` subclass type.
+
+
+### `UPCGDataCollection`
+
+A bag of inputs or outputs, stored in the form of `FPCGTaggedData` instances.
+There are multiple ways to get at particular `FPCGTaggedData` instances from within a `ExecuteInternal` implementation.
+- `GetAllInputs`: Get the complete set of `FPGCTaggedData` instances.
+- `GetAllSpatialInputs`: Collect `FPCGTaggedData` instances that have a `Data` member that can be cast to `UPCGSpatialData`.
+- `GetInputsByPin`: Collect `FPCGTaggedData` instances that have a given pin name.
+	- The PCG Graph allows multiple wires to connect to the same input pin.
+- `GetSpatialInputsByPin`: Similar to `GetInputsByPin`, but only collect `FPCGTaggedData` instances that have a `Data` member that can be cast to `UPCGSpatialData`.
+- `GetTaggedInputs`: Collect `FPCGTaggedData` instances that have a `Data` member that have a given tag and can be cast to `UPCGSpatialData`.
+- `GetAllSettings`: Collect `FPCGTaggedData` instances that have a `Data` member that can be cast to `UPCGSettings`.
+	- This one is weird to me. `UPCGSettings` is used to describe PCG nodes. Why would be need to pass such data between PCG nodes?
+- `GetAllParams`: Collect `FPCGTaggedData` instances that have a `Data` member that can be cast to `UPCGParamData`.
+	- `UPCGParamData` is sometimes called _Attribute Set_.
+- `GetTaggedParams`: Collect `FPCGTaggedData` instances that have a `Data` member that have the given tag and can be cast to `UPCGParamData`.
+- `GetParamsByPin`: Similar to `GetInputsByPin`, but only collect `FPCGTaggedData` instances that have a `Data` member that can be cast to `UPCGParamData`.
+- `GetTaggedTypedInputs<PCGDataType>`: Collect `FPCGTaggedData` instances that have a `Data` member that have the given tag and can be cast to `PCGDataType`.
+
+I'm not sure why some member functions have `Inputs` in their name.
+There doesn't seem to be anything input-specific with them.
+They read from the same `TaggedData` member container as the non-input member functions.
+
+Also not sure why the member functions are named with `Input` since the `UPCGDataCollection` may be the `OutputData` member in a `UPCGContext`.
+Is it weird to say `Context->OutputData.GetAllInputs()`?
+Does that return inputs or outputs?
+
+
+### `FPCGTaggedData`
+
+One routed payload, i.e. the data that is being communicated along one wire in the PCG Graph.
+
+Member variables:
+- `UPCGData* Data`: The data that is being communicated. There are many subclasses of `UPCGData` for different kinds of data.
+	- Actually stored with some indirection. For this analysis that doesn't matter much.
+- `FName Pin`: The name of the pin the wire is attached to.
+- `TSet<FString> Tags`: Tags associated with the data.
+	- Not sure how these tags are set or used.
+
+
+### `UPCGData`
+
+Class hierarchy describing the payload associated with an `FPCGTaggedData` instance.
+The most commonly used subclasses are:
+- `UPCGPointData`: A point cloud.
+- `UPCGSpatialData`: Base class of `UPCGPointData`, and a few other `UPCGData` subclasses.
+- `UPCGPrimitiveData`: Pointer to a Primitive Component.
+- `UPCGParamData`: Not sure. `EPCGDataType` calls this _Attribute Set_.
+- And many, many more.
+
+
+#### `UPCGPointData`
+
+A collection of many points.
+When you sample e.g. a [[Landscape]] to scatter rocks and trees and whatnot on it using the Static Mesh Spawner node then the `UPCGData` type carrying those sampled points is a `UPCGPointData` instance.
+
+The individual points are stored as an `TArray<FPCGPoint>`.
+Each point carries a fixed set of attributes:
+- Transformation
+- Density
+- Bounds/(Min)|(Max)/
+- Color
+- Steepness
+- Seed
+
+Call `UPCGPointData::GetPoints`, or `GetPoint`, to get access to the individual point data.
+Use `GetMutablePoints` or `SetPoints` to modify the point data.
+Not sure under what circumstances we are allowed to modify the point data.
+Can any `IPCGElement` subclass's `ExecuteInternal` do that at any time?
+
+I think additional attributes, i.e. metadata, can be stored in an `UPCGPointData`, but I'm not sure how.
+Probably in the `UPCGMetadata Metadata` member variable.
+See _`UPCGParamData`_ below for instructions for how to access the metadata.
+
+
+#### `UPCGParamData`
+
+Sometimes called an attribute set.
+A metadata table where each attribute is a column and there is a row for each "thing" in the table.
+For example, the Get Actor Data node outputs this type of data when Data Retrieval Settings > Mode is set to Get Components Reference.
+Then each found Component becomes a row in the table and the columns are e.g. the Soft Object Path for each Component.
+
+`UPCGParamData` doesn't store much data in itself.
+Instead it makes use of the inherited `UPCGMetadata UPCGData::Metadata` member variable container.
+
+`UPCGMetadata` stores attributes as a list of (name, type) pairs.
+`UPCGMetadata` stores entries (The rows in the table analogy.) in some way,  not sure how yet.
+The entries are accessed using keys.
+Each entry contains one value for each attribute.
+To continue the Get Actor Data example:
+- The output of the Get Actor Data node is Attribute Set, which really means `UPCGParamData`.
+- The `UPCGMetadata` container in that `UPCGParamData` instance contains a column named Component Reference.
+- The Component Reference column has type Soft Object Path.
+- Each Component found in the Actor produces one entry in the `UPCGMetadata` table, and thus one Soft Object Path value associated with the Component Reference attribute.
+
+Unreal Engine provides accessor helpers to access the metadata attribute data.
+- `PCGAttributgeAccessorHelpers::CreateConstAccessor`: Not sure how to use this still.
+- `CreateConstKeys`: Not sure how to use this still.
+- `FPCGAttributePropertyInputSelector`: Used to identify an attribute to operate on.
+- `PCGAttributeAccessorHelpers::ExtractAllValues`: Get the entire table column for an attribute.
+
+Example that reads the Soft Object Paths stored under the Component Reference attribute created by a Get Actor Data node in Get Components Reference mode:
+```cpp
+bool FMyPCGNodeElement::ExecuteInternal(FPCGContext* Context) const
+{
+	// Loop over all param-holding inputs.
+	for (const PCGTaggedData& ParamInput : Context->InputData.GetAllParams())
+	{
+		// Get the param from the current input.
+		const UPCGParamData* ParamData = Cast<UPCGParamData>(ParamInput.Data);
+
+		// Create and configure a selector that selects the Component Reference attribute.
+		// I'm not sure how to identify the attribute names in general.
+		FPCGAttributePropertyInputSelector Selector;
+		Selector.SetAttributeName(PCGAddComponentConstants::ComponentReferenceAttribute);
+
+		// Local container for the Component Reference attribute data.
+		TArray<FSoftObjectPath> ComponentRefs;
+
+		// Extract the Component References from the attribute set into the local container.
+		PCGAttributeAccessorHelpers::ExtractAllValues<FSoftObjectPath>(
+	       ParamData, Selector, ComponentRefs, Context,
+	       EPCGAttributeAccessorFlags::AllowBroadcastAndConstructible, // Don't know what this is.
+	       /*bQuiet*/ true);
+
+	    for (const FSoftObjectPath& ComponentPath : ComponentRefs)
+	    {
+		    // Do whatever work needs to be done with 'ComponentPath'.
+	    }
+	}
+}
+```
+
+Not sure what to do if we need to access multiple attributes at the same time.
+Multiple local `TArray`s and multiple calls to `ExtractAllValues`?
+Is there another helper function better suited for that case?
+
+#### `UPCGPrimitiveData`
+
+TODO Write something here.
+
+#### `UPCGSpatialData`
+
+TODO Write something here.
+
+#### /
+
+An `ExecuteInternal` that should be able to handle many types of input can be written as follows:
+```cpp
+bool FMyPCGNodeElement::ExecuteInternal(UPCGContext* Context)
+{
+	for (const FPCGTaggedData& Input : Context->InputData.GetAllInputs())
+	{
+		if (const UPCGPointData* PointData = Cast<UPCGPointData>(Input.Data))
+		{
+			// Handle a point cloud.
+		}
+		else if (const UPCGParamData* ParamData = Cast<UPCGParamData>(Input.Data))
+		{
+			// Handle an attribute set.
+		}
+		else if (const UPCGPrimitiveData* PrimitiveData = Cast<UPCGPrimitiveData>(Input.Data))
+		{
+			// Handle a Primitive Component.
+		}
+		else if (const UPCGSpatialData* SpatialData = Cast<UPCGSpatialData>(Input.Data))
+		{
+			// Handle spatial data.
+		}
+	}
+}
+```
+
+## `UPCGSettings` Subclass
+
+Controls how the nodes fit into a PCG Graph and how it is displayed in the PCG Graph editor.
+Things such as node title and tooltip text.
+Defines what input and output pins the node should have, by overriding `UPCGSettings::InputPinProperties` and `UPCGSettings::OutputPinProperties`.
+Creates the runtime / worker representation, i.e. creates an instances of an `IPCGElement` subclass.
+
+`UPCGSettings` describe what types of input each pin should allow:
+- Point data.
+- Param data.
+- Spatial data.
+
+## `IPCGElement` Subclass
+
+Defines what the node does by overriding the `IPCGElement::ExecuteInternal` virtual member function.
+
+
+## Writing Output
+
+
+## Managing Caching
+
+Nodes that keep data entirely within the PCG Graph are usually not a source of problems related to caching.
+Nodes that modify the world can complicate things.
+If possible, use the built-in spawner nodes that create Components in the PCG Actor, such as the Static Mesh Spawner node, these are managed by the PCG Framework.
+I don't know what to to properly manage caching when a custom PCG node creates new objects directly in the world.
+
+## Managing Side Effects
+
+By side effects I mean things like calling into a third-party library from a `FPCGElement::ExecuteInternal` overriding member function and mutating state within that third-party library.
+I don't know how to track / undo such side effects as the PCG Graph is partially re-evaluated.
+I think you're on your own on this one.
+`ExecutionLoopMode` may be relevant to look into.
+
+## Design Considerations
+
+Consider what type of node you are creating:
+- What kind of operation should the node do?
+	- Generate new data from the world state.
+	- Modify incoming data.
+	- Filter / group incoming data.
+	- Generate new data from incoming data.
+	- New data elements, or add new attributes to the existing elements?
+	- Is the output type the same as the input type?
+- What kind of data will the node receive?
+	- Point.
+	- Param / attribute set
+	- Primitive
+	- Spatial
+- Pass-through / router.
+	- Forwards whole `FPCGTaggedData` items.
+	- Example: Filter By Tag.
+- Point processor.
+	- Input is point data.
+	- Output is point data.
+	- Filters, modifies, or generates points based on the input and settings.
+		- By _settings_ I mean [[Property]]s with the `PCG_Override` [[Meta Property Specifier]] on the `UPCGSettings` subclass.
+	- Example: Density filter.
+- Param-data processor.
+	- Input is attribute sets.
+	- Output is attribute sets.
+	- Operates per metadata entry.
+	- Example: TODO Find an example.
+- Spatial converter / query.
+	- Input may be spatial or Actor / Component derived data.
+	- Converts or samples it into something else.
+	- I'm not sure what this is. The Surface Sampler node, perhaps.
+
+
 # Spawn Level Instance
 
 A [[Level Instance]] is a collection of [[Actor]]s stored as an [[Asset]].
@@ -651,5 +953,7 @@ We can however create helper functions, i.e. a subgraph for the actual logic and
 # References
 
 - 1: [_Introduction to PCG Workflows in Unreal Engine 5 | Unreal Fest 2023_ by Epic Games @ youtube.com 2023](https://www.youtube.com/live/LMQDCEiLaQY)
-- 2: [_PCG: Introduction, Use Cases, and Production Best Practices | Unreal Fest Stockholm 2025_ by Matt Oztalay, Unreal Engine @ youtube.com](https://www.youtube.com/watch?v=TbNZ4GKaTow)
+- 2: [_PCG: Introduction, Use Cases, and Production Best Practices | Unreal Fest Stockholm 2025_ by Matt Oztalay, Unreal Engine @ youtube.com 2025](https://www.youtube.com/watch?v=TbNZ4GKaTow)
 - 3: [_Electric Dreams Environment Sample Project_ by Epic Games @ unrealengine.com](https://www.unrealengine.com/electric-dreams-environment)
+- 4: [_A Tech Artists Guide to PCG_ by Chris Murphy, SheDoesArtStuff @ dev.epicgames.com/community 2024](https://dev.epicgames.com/community/learning/knowledge-base/KP2D/unreal-engine-a-tech-artists-guide-to-pcg)
+
