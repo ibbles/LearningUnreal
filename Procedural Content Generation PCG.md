@@ -34,6 +34,8 @@ Drag a PCG Graph from the [[Content Browser]] to the [[Level Viewport]] to creat
 
 # Mental Model
 
+PCG is a point scatterer combined with an object spawner [(5)](https://youtu.be/Uc8TGLIeNT0?t=137).
+There is a part of the PCG graph that creates [(5)](https://youtu.be/Uc8TGLIeNT0?t=171) or samples points, there is a part that manipulates those points, and there is a part that spawns something at those points.
 A PCG Graph consists of nodes connected to form a directed graph.
 The graph typically flows from left to right, with data generation on the left side and side effects, such as spawning, on the right side.
 A node has inputs and outputs, which is how data is communicated between the nodes.
@@ -42,10 +44,11 @@ The data communicated between nodes is often a point cloud but can also be other
 # Create A PCG Graph
 
 A PCG Graph is an [[Asset]] in the [[Content Browser]].
-Create with [[Content Browser]] > right-click > PCG > PCG Graph.
-PCG Graph [[Asset]]s often has a name starting with `PCG_`.
-To add an instance of the PCG Graph to the [[Level]] drag it from the [[Content Browser]] to the [[Level Viewport]].
+Create with [[Content Browser]] > right-click > PCG > PCG Graph [(5)](https://youtu.be/Uc8TGLIeNT0?t=53).
+PCG Graph [[Asset]]s often has a name starting with `PCG_` [(5)](https://youtu.be/Uc8TGLIeNT0?t=66).
+To add an instance of the PCG Graph to the [[Level]] drag it from the [[Content Browser]] to the [[Level Viewport]] [(5)](https://youtu.be/Uc8TGLIeNT0?t=69).
 This creates a PCG Volume [[Actor]] instance.
+This [[Actor]] by default has a non-unit scale, which can lead to unexpected behavior [(5)](https://youtu.be/Uc8TGLIeNT0?t=82).
 
 In the PCG Graph we [(2)](https://youtu.be/TbNZ4GKaTow?t=496):
 - Get, create, or load data.
@@ -67,7 +70,7 @@ Get Landscape Data > Surface Sampler > Filter Attribute Elements (Grass) > Trans
 # PCG Graph Editor
 
 The PCG Graph is a [[Visual Script]].
-It is edited in the PCG Graph Editor.
+It is edited in the PCG Graph Editor [(5)](https://youtu.be/Uc8TGLIeNT0?t=101).
 Has a Palette panel with all the nodes that can be used.
 Has a [[Details Panel]] showing the settings of the currently selected node,
 or the PCG Graph itself if no node is selected.
@@ -82,22 +85,6 @@ so it is helpful to keep one in view while editing.
 
 Nodes can be temporarily disabled, i.e. toggle evaluation, by hitting E on the keyboard.
 This is useful on Spawner nodes for hiding the thing they spawn, making it easier to see what is going on when working with points earlier in the network.
-
-# PCG Graph Parameters
-
-Our PCG Graph can expose parameter to users of the graph [(2)](https://youtu.be/TbNZ4GKaTow?t=743).
-For example, a PCG Graph may contain a Transform Points node that randomly scales the points and the minimum and maximum scale can be parameters.
-Parameters are added in the Graph Parameter panel [(2)](https://youtu.be/TbNZ4GKaTow?t=751).
-Drag a parameter to an input pin on a graph node to pass the parameter's value into the node.
-For example, into the Scale Min and Scale Max input pins of a Transform Points node.
-
-The parameters can be set in the [[Details Panel]] when selecting a PCG Component instance in the [[Level Viewport]], under PCG > Instance > Parameter Overrides.
-
-The parameters can also be set in a PCG Graph Instance [(2)](https://youtu.be/TbNZ4GKaTow?t=773).
-Content Browser > PCG Graph > right-click > Create PCG Graph Instance.
-The PCG Graph Instance is edited like a data-only Blueprint, meaning the asset editor is basically just a [[Details Panel]] where the Parameter Overrides are available.
-We we can create a bunch of variants of our main PCG Graph for different purposes.
-For example Small Rocks with small Scale Min and Scale Max, and Large Rocks with large Scale Min and Scale Max.
 
 
 ## Keyboard shortcuts
@@ -115,6 +102,51 @@ For example Small Rocks with small Scale Min and Scale Max, and Large Rocks with
 	- (Is the Inspect panel named Attributes panel now?)
 	- The node gets yellow icon.
 
+
+# Nodes
+
+The PCG Graph consists of nodes.
+A node can produce, manipulate, or consume data.
+In PCG that data is often points, but other types are possible.
+The nodes have input and output pins.
+Wires are used to connect the output pins of one node to the input pins of another node.
+This is how data is communicated between nodes.
+The type of data a pin accepts is shown using the pin's icon and color.
+- Points: Three blue circles stacked vertically [(5)](https://youtu.be/Uc8TGLIeNT0?t=187).
+- Any / Wildcard: Three gray circles stacked vertically [(5)](https://youtu.be/Uc8TGLIeNT0?t=353).
+- Orange horizontal ellipse with shorter bar under it: Attribute descriptor [(5)]().
+
+It is common that a node operates on a subset of the (per-particle) data, or fields, passed to it.
+For example, a node may manipulate only the position property of a point.
+It is also possible that a node reads from one field of the data but write to another.
+For example, a node may read the Z coordinate and write to the Static Mesh attribute creating a setup where we have one type of meshes at the lower sections of a high-rise building and another type of meshes at the higher sections.
+
+
+## Input Source And Output Target
+
+Some nodes allow you to configure which fields should be read and written.
+In these cases it is common that the field to read is configured by setting Input Source in the Details panel, and the field to write by setting Output Target.
+Click the + button to get a list of suggestions [(https://youtu.be/Uc8TGLIeNT0?t=454)](5), though this list is incomplete.
+You can enter any name for Output Target, if the field doesn't exist yet then a new attribute with that name is created [(5)](https://youtu.be/Uc8TGLIeNT0?t=516).
+
+Use dot-notation to access nested members.
+For example, `$Position.Z` will give you the Z coordinate of each point's position [(5)](https://youtu.be/Uc8TGLIeNT0?t=847).
+Rotations have `Roll`, `Pitch`, and `Yaw`.
+
+There are special keywords that can be used for Input Source and Output Target:
+- `@Last`: The field most recently accessed [(5)](https://youtu.be/Uc8TGLIeNT0?t=430), often (always?) by the preceding node.
+	- For example, if the preceding node as an Add Attribute node that an attribute called Complexity then an Attribute Noise node using `@Last` for Input Source will add noise to the Complexity attribute.
+	- What if an input pin has multiple wires? Is @Last tracked per node on the other side of the input wire?
+- `@Source`: Use the input field also as the output [(5)](https://youtu.be/Uc8TGLIeNT0?t=492).
+	- Used when you want to manipulate a field.
+	- By setting Output Target to `@Source` you only need to modify Input Source to change which field to modify.
+	- There is no risk of, for example, accidentally setting Density to a modified Scale since changing the Input Source from Scale to Density will also, automatically, change Output Target in the same way.
+
+There is a special name for the last attribute to be modified that can be used when configuring a node: `@Last` [(2)](https://youtu.be/TbNZ4GKaTow?t=627), [(2)](https://youtu.be/TbNZ4GKaTow?t=658).
+A node's [[Details Panel]] > Target Attribute can be set to `@Last` instead of an explicitly named attribute.
+The top of the Attributes panel display which attribute is named by `@Last` for the currently selected node.
+
+
 # Point
 
 A point is the fundamental unit of information in PCG.
@@ -124,6 +156,8 @@ A point set carries a bunch of data, one element per point.
 The data comes in two variants:
 - Properties: Mandatory data, all points have this.
 - Attributes / metadata: Extra data the graph have added to the points.
+
+Collectively the properties and attributes are called fields.
 
 ## Properties
 
@@ -159,9 +193,14 @@ We pass it points and in the [[Details Panel]] we set a normal.
 Filtering is done with the Density Filter node.
 It has a range of density values and a toggle for either accepting or rejecting points within that range.
 
+
 ## Attributes / Metadata
 
 A point has a set of optional data, called attributes or metadata.
+An attribute is like a variable on a point that we as PCG Graph designers can add.
+An attribute is added to a point set with the Add Attribute node [(5)](https://youtu.be/Uc8TGLIeNT0?t=252).
+For more details see the _Add Attribute_ section below.
+
 A PCG graph that transform points must take care to always propagate the attributes or else they are lost.
 The Copy Point has a Copy Metadata boolean input.
 (
@@ -169,21 +208,68 @@ How does one propagate attributes in general?
 Does the Transform Point node copy the attributes?
 )
 
-For example, a point can carry a [[Material]] and a [[Static Mesh]].
+For example, a point can carry a [[Material]] and a [[Static Mesh]] by adding attributes of those types.
 
-To add an attribute to a set of points you need a PCG Point Data.
-(Not sure what that is yet, or how to get one.)
 The Mutable Metadata node will give you the metadata for the point data.
 The metadata contains the attributes.
+
+A Point Data can be converted to an Attribute Set with the Point To Attribute Set node [(5)](https://youtu.be/Uc8TGLIeNT0?t=545).
+Point To Attribute Set returns an attribute set with one entry per point.
+It strips away the properties and leaves just the attributes.
+
+
+## Add Attribute 
+
+Attributes are added to a point data with the Add Attribute node.
+With an Add Attribute node selected can can configure the attribute to be created from the [[Details Panel]].
+- Output Target: The name of the new attribute
+- Type: The data type for the new attribute, such as Double or Vector.
+- Value: The value to assign to the new attribute.
+
 The Create (Vector|String|...) Attribute node will create a new attribute of type Vector|String|....
 This can be done from the Execute With Context of a _Blueprint Extension_,
 before calling Iteration Loop to actually populate the newly created attributes.
 In Iteration Loop Body use Set (Vector|String|...) Attribute to set the attribute for a particular particle.
 
-There is a special name for the last attribute to be modified that can be used when configuring a node: `@Last` [(2)](https://youtu.be/TbNZ4GKaTow?t=627), [(2)](https://youtu.be/TbNZ4GKaTow?t=658).
-A node's [[Details Panel]] > Target Attribute can be set to `@Last` instead of an explicitly named attribute.
-The top of the Attributes panel display which attribute is named by `@Last` for the currently selected node.
 
+## Debugging Attributes
+
+By selecting a node and hitting the A key we bind that node to the Attributes panel [(5)](https://youtu.be/Uc8TGLIeNT0?t=198).
+The node is marked with a yellow circle in the top-left corner to indicate that this is the node selected for inspection.
+The Attributes panel is a grid view with one row per particle and one column per field, i.e. property or attribute.
+The columns that display a property has a title prefixed with `$`.
+The columns that display an attribute has no prefix on the title.
+
+
+# Something About Multiple Sets Of Points In A Point Set
+
+A node can output multiple sets of points on the same pin [(5)](https://youtu.be/Uc8TGLIeNT0?t=1446).
+That is, a wire can carry more than a single set of points.
+When enabling the Attribute inspector, the D keyboard shortcut, the Attributes panel may not display all points output by the node.
+The Attributes panel will display one set of points at the time.
+At the top of the Attributes panel there is a drop-down where we can select which set of points we want to have listed [(5)](https://youtu.be/Uc8TGLIeNT0?t=1495).
+In contrast, when enabling the Debug flag for a node we will get debug rendering for all points in all data sets.
+
+One example of a node that output sets of sets of points instead of all points in a single set is the Get Actor Data node.
+It creates one set of sets of points for each [[Actor]] data was read from.
+Is has [[Details Panel]] > Data Retrieval Settings > Merge Simple Data that can be enabled to merge all sets of points into a single set of points [(5)](https://youtu.be/Uc8TGLIeNT0?t=1520).
+(
+I don't know what types of data would not be considered "simple data" and thus not merged when enabling this setting.
+)
+
+The Merge Points node takes a set of sets of points and merges them to a single set of points.
+
+
+# Creating Points
+
+PCG has a bunch of nodes for creating points[(5)](https://youtu.be/Uc8TGLIeNT0?t=171).
+Many of them are found under the Spatial category in the PCG Graph > right-click menu.
+Examples:
+- Create Points
+- Create Points Grid
+- Create Points Sphere
+
+A node input or output pin that accepts point data is colored blue.
 
 # Point Samplers
 
@@ -193,7 +279,7 @@ Points are generated by Samplers.
 - Spline Sampler: Generate points along a [[Spline Component]].
 
 
-## Mesh Sampler
+# Mesh Sampler
 
 Requires the Procedural Content Generation Framework (PCG) Geometry Script Interop plugin to be enabled.
 
@@ -224,7 +310,11 @@ Output of the Spline Sampler node is a set of points.
 
 ## Transform Points
 
+A node that modifies point transformations [(5)](https://youtu.be/Uc8TGLIeNT0?t=1178).
 Translate, rotate, and scale points, with some randomness.
+For each attribute we can set a minimum and maximum value to randomize between.
+Set Rotation Min to 0.0 and Rotation Max to 360 to get points that are rotated in any direction.
+
 A point's scale is used by Static Mesh Spawner to set the scale of the spawned Static Mesh Instance.
 
 
@@ -307,8 +397,9 @@ Don't know what happens if the two sets don't have the same number of points.
 
 ## Attribute Noise
 
-Apply noise to a particular point attribute.
-Have a set of operators that can be applied between the source attribute value and the noise value:
+Apply noise to a particular point attribute [(5)](https://youtu.be/Uc8TGLIeNT0?t=394).
+Have a set of operators that can be applied between the source attribute value and the noise value [(5)](https://youtu.be/Uc8TGLIeNT0?t=506):
+- Set
 - Minimum
 - Maximum
 - Add
@@ -338,8 +429,8 @@ Don't know yet.
 
 # Spawners
 
-The purpose of a PCG graph is to instantiate things, i.e. to spawn them.
-A Spawner node takes a set of points as input and generates a set of instances as output.
+The purpose of a PCG graph is (often?) to instantiate things, i.e. to spawn them.
+A Spawner node takes a set of points as input and generates a set of instances as output [(5)](https://youtu.be/Uc8TGLIeNT0?t=1040).
 Different types of spawners have different types of outputs.
 For example, the Static Mesh Spawner outputs [[Static Mesh]]es.
 
@@ -351,8 +442,15 @@ The scale of the spawned thing is determined by the scale of the point given to 
 
 ## Static Mesh Spawner
 
-Spawns a [[Static Mesh]] at the input points.
+Spawns a [[Static Mesh]] at the input points [(5)](https://youtu.be/Uc8TGLIeNT0?t=1147).
+Can select between a collection of multiple meshes.
+The list of meshes to chose between is configured at [[Details Panel]] > Mesh Selector > Mesh Entries.
+
 The mesh to spawn is selected in different ways depending on what [[Details Panel]] > Settings > Mesh Selector Type is set to.
+- PCG Mesh Selector Weighted: For each point pick a single [[Static Mesh]] from the Mesh Entries list. Higher weight means higher likelihood of being picked.
+- PCG Mesh Selector By Attribute: Reads a Static Mesh attribute from the point to select which mesh to spawn [(5)](https://youtu.be/Uc8TGLIeNT0?t=1645).
+	- [[Details Panel]] > Mesh Selector > Template Descriptor can be used to tweak the [[Static Mesh]] settings of the spawned meshes.
+
 
 ### PCG Mesh Selector Weighted
 
@@ -372,8 +470,18 @@ Used when creating a _Configurable PCG Level Instance_.
 
 ## Spawn Actor
 
-Spawn an [[Actor]] for every input point.
+Spawn an [[Actor]] for every input point [(5)](https://youtu.be/Uc8TGLIeNT0?t=1047).
 Has [[Details Panel]] > Settings > Template Actor Class which is the [[Actor]] type to spawn.
+To modify the [[Property]]s of the instances of the Template Actor Class, tick [[Details Panel]] > Settings > Allow Template Actor Editing [(5)](https://youtu.be/Uc8TGLIeNT0?t=1089).
+This will show the [[Details Panel]] > Settings > Template Actor category, which is populated with the [[Property]]s of the selected [[Actor Class]].
+It is also possible to use a parameter to configure the Template Actor, but I don't know how yet.
+
+Each spawned [[Actor]] is placed in a folder in the [[Outliner]] with a name based on the name of the PCG Graph that spawned them [(5)](https://youtu.be/Uc8TGLIeNT0?t=1076).
+Unless the Spawn Actor node has had it's Attach Options changed [(5)](https://youtu.be/Uc8TGLIeNT0?t=1134).
+An [[Actor]] spawned by a PCG can be modified, e.g. moved, in the level, but this is discouraged since any edits we make will be undone the next time the PCG Graph is reevaluated and all the [[Actor]]s are recreated [(5)](https://youtu.be/Uc8TGLIeNT0?t=1076).
+
+We can remove all the spawned [[Actor]]s from the level by selecting the PCG Graph [[Actor]] instance and click [[Details Panel]] > PCG > Cleanup [(5)](https://youtu.be/Uc8TGLIeNT0?t=1081).
+
 After spawning the Spawn Actor node can call functions on the newly created instance by adding the names of the functions to call to [[Details Panel]] > Settings > Post Spawn Function Names.
 
 Has [[Details Panel]] > Settings > Actor Overrides.
@@ -383,22 +491,46 @@ What happens with that data later?
 Where does it takes the data from? Metadata > Attributes?
 
 
+# Parameters
+
+Our PCG Graph can expose parameter to users of the graph [(2)](https://youtu.be/TbNZ4GKaTow?t=743), [(5)](https://youtu.be/Uc8TGLIeNT0?t=932).
+For example, a PCG Graph may contain a Transform Points node that randomly scales the points and the minimum and maximum scale can be parameters.
+Parameters are added in the Graph Parameter panel [(2)](https://youtu.be/TbNZ4GKaTow?t=751), [(5)](https://youtu.be/Uc8TGLIeNT0?t=939) by clicking the + button.
+Double-click a parameter's name to rename it.
+Click on the colored icon to the left of the name to select a type for the parameter.
+right-click on the colored icon to chose if the parameter should be a single value or a container.
+Drag a parameter to an input pin on a graph node to pass the parameter's value into the node.
+For example, into the Scale Min and Scale Max input pins of a Transform Points node.
+Or right-click in the graph and search for the parameter's name, it will show up in the Graph Parameters category.
+
+Parameters are attributes in the graph [(5)](https://youtu.be/Uc8TGLIeNT0?t=955).
+
+The parameters can be set in the [[Details Panel]] when selecting a PCG Component instance in the [[Level Viewport]], under PCG > Instance > Parameter Overrides.
+Tick the checkbox to enable editing of the value input box.
+
+The parameters can also be set in a PCG Graph Instance [(2)](https://youtu.be/TbNZ4GKaTow?t=773).
+Content Browser > PCG Graph > right-click > Create PCG Graph Instance.
+The PCG Graph Instance is edited like a data-only Blueprint, meaning the asset editor is basically just a [[Details Panel]] where the Parameter Overrides are available.
+We we can create a bunch of variants of our main PCG Graph for different purposes.
+For example Small Rocks with small Scale Min and Scale Max, and Large Rocks with large Scale Min and Scale Max.
+
+
 # World Inspection
 
 PCG contains a bunch of nodes for inspecting the world.
 
 ## Get Actor Data
 
-Get information about [[Actor]]s in the [[Level]].
+A node that is used to get information about an [[Actor]] or multiple [[Actor]]s in the [[Level]] [(5)](https://youtu.be/Uc8TGLIeNT0?t=1364).
 Which [[Actor]] or [[Actor]]s is controlled with [[Details Panel]] > Settings > Actor Filter.
 By default it inspects itself, the PCG Volume [[Actor]].
 Can also be set to All World Actors.
-In this mode we set Actor Selection to By Tag.
-This is the [[Actor Tag]] that will be put on the [[Actor]]s we want to get data from.
+In this mode we can filter either by class or by [[Actor Tag]] by setting Actor Selection.
+The Must Overlap Self setting is used to limit the set of [[Actor]]s to those overlapping the PCG Actor's [[Box Collision]].
 
 [[Details Panel]] > Settings > Mode controls what in the [[Actor]] the node gets data for.
 - Parse Actor Components: Get data for all [[Actor Component]]s in the [[Actor]].
-- Get Single Point: Get the world location of the [[Actor]].
+- Get Single Point: Get the world location of the [[Actor]], including bounds.
 - Get Data From Property: Don't know.
 - Get Data From PCG Component: Don't know.
 - Get Data From PCG Component Or Parse Components: Don't know.
@@ -841,9 +973,29 @@ Points that the nested PCG graph pass to the output node will be available in th
 
 # Debugging
 
-Right-click a node, not sure which nodes support this and select Debug.
-A teal icon will appear on the node and gray points will appear in the [[Level Viewport]].
+## Debug Render Points In The Level Viewport
+
+Right-click a node (not sure which nodes support this) and select Debug, or hit the D key [(5)](https://youtu.be/Uc8TGLIeNT0?t=804).
+A teal icon will appear on the node and gray points or cubes will appear in the [[Level Viewport]].
 There are the output points of the node.
+
+The debug visualization in the [[Level Viewport]] can be configured.
+Select a node in the PCG Graph and in the [[Details Panel]] find the Debug category.
+The Enabled checkbox controls whether the node is doing anything or not.
+A disabled node passes its inputs to the outputs unchanged.
+(
+How does this work if the inputs and outputs pins have different types?
+Or if there are multiple pins, what gets passed where?
+)
+
+Tick the Debug checkbox to enable debug rendering in the [[Level Viewport]].
+This is the same as the the D keyboard shortcut.
+
+To change the size that the points are rendered with, change Scale Method to Absolute which will cause a Point Scale property to appear.
+This is the scale of the [[Static Mesh]] rendered in the [[Level Viewport]].
+
+
+## Inspect
 
 Select an instance in the debug object drop-down menu in the tool bar.
 Any node > right-click > Inspect.
@@ -992,4 +1144,7 @@ We can however create helper functions, i.e. a subgraph for the actual logic and
 - 2: [_PCG: Introduction, Use Cases, and Production Best Practices | Unreal Fest Stockholm 2025_ by Matt Oztalay, Unreal Engine @ youtube.com 2025](https://www.youtube.com/watch?v=TbNZ4GKaTow)
 - 3: [_Electric Dreams Environment Sample Project_ by Epic Games @ unrealengine.com](https://www.unrealengine.com/electric-dreams-environment)
 - 4: [_A Tech Artists Guide to PCG_ by Chris Murphy, SheDoesArtStuff @ dev.epicgames.com/community 2024](https://dev.epicgames.com/community/learning/knowledge-base/KP2D/unreal-engine-a-tech-artists-guide-to-pcg)
+	- TODO Watch this one.
+- 5: [_Starting Out With PCG? Watch This First to Understand the Basics!_ by Procedural Minds @ youtube.com 2025](https://www.youtube.com/watch?v=Uc8TGLIeNT0)
+- 
 
