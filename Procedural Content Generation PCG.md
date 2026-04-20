@@ -97,9 +97,8 @@ This is useful on Spawner nodes for hiding the thing they spawn, making it easie
 	- This will spawn [[Static Mesh]]es where that node's output points are [(2)](https://youtu.be/TbNZ4GKaTow?t=701).
 	- The spawned meshes are displayed in the [[Level Editor]].
 	- There is also a Debug node. Not sure what that does.
-- A: Inspect. The node's output is listed in the Inspect panel [(2)](https://youtu.be/TbNZ4GKaTow?t=570).
-	- The Inspect panel is a big table.
-	- (Is the Inspect panel named Attributes panel now?)
+- A: Inspect. The node's output is listed in the Attributes panel [(2)](https://youtu.be/TbNZ4GKaTow?t=570).
+	- The Attributes panel is a big table.
 	- The node gets yellow icon.
 
 
@@ -158,6 +157,10 @@ The data comes in two variants:
 - Attributes / metadata: Extra data the graph have added to the points.
 
 Collectively the properties and attributes are called fields.
+Each field has a type, such as Integer, Double, Vector, etc.
+
+You can think of the properties as members of a `struct FPCGPoint` type and and the attributes as additional data that is stored elsewhere and the `FPCGPoint` struct contains a dynamic list of handles / references / indices into that additional data.
+
 
 ## Properties
 
@@ -220,10 +223,10 @@ It strips away the properties and leaves just the attributes.
 
 ## Add Attribute 
 
-Attributes are added to a point data with the Add Attribute node.
+Attributes are added to a point data with the Add Attribute node [(6)](https://youtu.be/zEOQk5907Vs?t=393).
 With an Add Attribute node selected can can configure the attribute to be created from the [[Details Panel]].
-- Output Target: The name of the new attribute
-- Type: The data type for the new attribute, such as Double or Vector.
+- Output Target: The name of the new attribute [(6)](https://youtu.be/zEOQk5907Vs?t=447).
+- Type: The data type for the new attribute, such as Double or Vector [(6)](https://youtu.be/zEOQk5907Vs?t=505).
 - Value: The value to assign to the new attribute.
 
 The Create (Vector|String|...) Attribute node will create a new attribute of type Vector|String|....
@@ -232,13 +235,18 @@ before calling Iteration Loop to actually populate the newly created attributes.
 In Iteration Loop Body use Set (Vector|String|...) Attribute to set the attribute for a particular particle.
 
 
-## Debugging Attributes
+## Debugging Attributes / Attributes Panel
 
-By selecting a node and hitting the A key we bind that node to the Attributes panel [(5)](https://youtu.be/Uc8TGLIeNT0?t=198).
+By selecting a node and hitting the A key we bind that node to the Attributes panel [(5)](https://youtu.be/Uc8TGLIeNT0?t=198), [(6)](https://youtu.be/zEOQk5907Vs?t=122).
 The node is marked with a yellow circle in the top-left corner to indicate that this is the node selected for inspection.
 The Attributes panel is a grid view with one row per particle and one column per field, i.e. property or attribute.
 The columns that display a property has a title prefixed with `$`.
 The columns that display an attribute has no prefix on the title.
+
+For the Attributes panel to work it must be tied to a PCG Component instance in the [[Outliner]].
+The Debug Object panel display a list of PCG Component instances we can chose between.
+[[World Partition]] make this a bit more complicated.
+
 
 
 # Something About Multiple Sets Of Points In A Point Set
@@ -498,7 +506,7 @@ For example, a PCG Graph may contain a Transform Points node that randomly scale
 Parameters are added in the Graph Parameter panel [(2)](https://youtu.be/TbNZ4GKaTow?t=751), [(5)](https://youtu.be/Uc8TGLIeNT0?t=939) by clicking the + button.
 Double-click a parameter's name to rename it.
 Click on the colored icon to the left of the name to select a type for the parameter.
-right-click on the colored icon to chose if the parameter should be a single value or a container.
+Right-click on the colored icon to chose if the parameter should be a single value or a container [(6)](https://youtu.be/zEOQk5907Vs?t=976).
 Drag a parameter to an input pin on a graph node to pass the parameter's value into the node.
 For example, into the Scale Min and Scale Max input pins of a Transform Points node.
 Or right-click in the graph and search for the parameter's name, it will show up in the Graph Parameters category.
@@ -1146,5 +1154,5 @@ We can however create helper functions, i.e. a subgraph for the actual logic and
 - 4: [_A Tech Artists Guide to PCG_ by Chris Murphy, SheDoesArtStuff @ dev.epicgames.com/community 2024](https://dev.epicgames.com/community/learning/knowledge-base/KP2D/unreal-engine-a-tech-artists-guide-to-pcg)
 	- TODO Watch this one.
 - 5: [_Starting Out With PCG? Watch This First to Understand the Basics!_ by Procedural Minds @ youtube.com 2025](https://www.youtube.com/watch?v=Uc8TGLIeNT0)
-- 
+- 6: [_PCG Attributes Explained: The Most Powerful PCG Skill in Unreal Engine 5_ by Aziel Arts @ youtube.com 2025](https://www.youtube.com/watch?v=zEOQk5907Vs)
 
