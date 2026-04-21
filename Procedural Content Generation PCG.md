@@ -419,6 +419,11 @@ The output can be different from the input.
 For example, we can take the Z coordinate, multiply by some noise value, and then write to density.
 Then we get high density at the top and low density at the bottom of the point cloud.
 
+## Match And Set Attributes
+
+[(6)](https://youtu.be/zEOQk5907Vs?t=1214) (well that explained pretty much nothing...).
+
+
 ## Normal To Density
 
 Modifies the densities of the incoming points so that those that have a normal aligned with the normal set in the Normal To Density node's [[Details Panel]] get a high density,
@@ -522,6 +527,10 @@ The PCG Graph Instance is edited like a data-only Blueprint, meaning the asset e
 We we can create a bunch of variants of our main PCG Graph for different purposes.
 For example Small Rocks with small Scale Min and Scale Max, and Large Rocks with large Scale Min and Scale Max.
 
+## Get Actor Property
+
+An alternative to explicitly passing parameters to the PCG Graph is to have the PCG Graph get the data it needs from the owning Actor [(6)](https://youtu.be/zEOQk5907Vs?t=1587).
+This is done using the _Get Actor Property_ node, which is described below.
 
 # World Inspection
 
@@ -545,6 +554,16 @@ The Must Overlap Self setting is used to limit the set of [[Actor]]s to those ov
 
 The output of Get Actor Data can be connected to a Points input pin.
 A To Point node will be created.
+
+
+## Get Actor Property
+
+An alternative to explicitly passing parameters to the PCG Graph is to have the PCG Graph get the data it needs from the owning Actor [(6)](https://youtu.be/zEOQk5907Vs?t=1587).
+On, for example, a  [[Blueprint Class]] add a [[Blueprint Variable]] and a PCG Component.
+The PCG Graph run by that PCG Component will have access to the variables in the owning Blueprint instance through the Get Actor Property node.
+
+In the Get Actor Property's [[Details Panel]] set Property Name to the name of the [[Property]] or [[Blueprint Variable]] to read [(6)](https://youtu.be/zEOQk5907Vs?t=1617).
+And set Actor Filter to Self, which means look in the [[Actor]] that owns the PCG Component.
 
 
 ## Get Spline Data
@@ -1011,6 +1030,11 @@ A yellow icon will appear on the node.
 A table of points i shown in the Inspect panel.
 The number of points is shown in the top-right corner of the Inspect panel.
 
+
+## Visualize Attribute
+
+The Visualize Attribute node writes an attribute's value as text for each point at that point's location in the [[Level Viewport]]  [(6)](https://youtu.be/zEOQk5907Vs?t=1757).
+In the [[Details Panel]], set Attribute Source to the name of the attribute to visualize.
 
 # PCG And World Partition
 
