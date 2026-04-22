@@ -1,16 +1,21 @@
 Debug(Game|Editor?), Development, Shipping.
 
+
 The following is based on this [Unreal Source Discord discussion](https://discord.com/channels/187217643009212416/375022233875382274/1274458435634729111).
 
 There is `~/.config/Unreal Engine/UnrealBuildTool/BuildConfiguration.xml` with some build configuration settings.
 In some cases it may also use `~/UnrealEngine/Engine/Saved/UnrealBuildTool/`, not sure.
+Some say [(1)](https://unrealcommunity.wiki/linux-quickstart-faqs-8f7980) the path is `~/.config/Epic/UnrealBuildTool/BuildConfiguration.xml`.
 
-Mine currently has
+Mine currently has:
 ```xml
 <?xml version="1.0" encoding="utf-8" ?>
 <Configuration xmlns="https://www.unrealengine.com/BuildConfiguration">
 </Configuration>
 ```
+
+
+# Project File Generator
 
 We can set a project file generator.
 ```xml
@@ -27,21 +32,25 @@ Use `+` to have multiple generators:
 <Format>Make+Rider</Format>
 ```
 
-I've seen suggestion to make it
+
+# Better LLDB Debugging
+
+I've seen suggestion add the following to improve debugging with LLDB, i.e. on Linux:
 ```xml
-<BuildConfiguration>
-	<bTuneDebugInfoForLLDB>true</bTuneDebugInfoForLLDB>
-	<bDisableDumpSyms>true</bDisableDumpSyms>
-</BuildConfiguration>
+<Configuration xmlns="https://www.unrealengine.com/BuildConfiguration">
+	<BuildConfiguration>
+		<bTuneDebugInfoForLLDB>true</bTuneDebugInfoForLLDB>
+		<bDisableDumpSyms>true</bDisableDumpSyms>
+	</BuildConfiguration>
+</Configuration>
 ```
 
-for debugging with LDDB with
+along with the following in `~/.lldbinit`:
 ```
 settings set symbols.load-on-demand true
 settings set target.preload-symbols false
 settings set plugin.jit-loader.gdb.enable off
 ```
-in `~/.lldbinit`.
 
 See [[Debug C++ Code]].
 
@@ -54,7 +63,12 @@ AdditionalCompilerArguments = " -glldb ";    // added for Rider (better formated
 in `.Builds.cs`.
 Not sure why, or when we would want to do that.
 
+
+# Unreal Build Accelerator
+
 If you are having compiler errors on generated header files, `.generated.h`, and you are on Unreal Engine 5.5, which introduced [[ISPC]], then try disabling [[Unreal Build Accelerator]], UBA.
+It is sometimes good to disable the Unreal Build Accelerator [(1)](https://unrealcommunity.wiki/linux-quickstart-faqs-8f7980).
+It can cause packaging errors with `.generated.h` files.
 
 ```xml
 <?xml version="1.0" encoding="utf-8" ?> 
@@ -67,22 +81,17 @@ If you are having compiler errors on generated header files, `.generated.h`, and
 ```
 
 
-Another example:
+
+# Reduce Number Of Compiler Processes
+
 ```xml
 <?xml version="1.0" encoding="utf-8" ?>
 <Configuration xmlns="https://www.unrealengine.com/BuildConfiguration">
     <ParallelExecutor>
         <ProcessorCountMultiplier>2</ProcessorCountMultiplier>
     </ParallelExecutor>
-
-    <BuildConfiguration>
-        <bTuneDebugInfoForLLDB>true</bTuneDebugInfoForLLDB>
-        <bDisableDumpSyms>true</bDisableDumpSyms>
-    </BuildConfiguration>
 </Configuration>
 ```
-
-Is this a variant / combination of the ones above?
 
 
 
