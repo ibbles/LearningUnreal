@@ -66,6 +66,26 @@ If you are having compiler errors on generated header files, `.generated.h`, and
 </Configuration>
 ```
 
+
+Another example:
+```xml
+<?xml version="1.0" encoding="utf-8" ?>
+<Configuration xmlns="https://www.unrealengine.com/BuildConfiguration">
+    <ParallelExecutor>
+        <ProcessorCountMultiplier>2</ProcessorCountMultiplier>
+    </ParallelExecutor>
+
+    <BuildConfiguration>
+        <bTuneDebugInfoForLLDB>true</bTuneDebugInfoForLLDB>
+        <bDisableDumpSyms>true</bDisableDumpSyms>
+    </BuildConfiguration>
+</Configuration>
+```
+
+Is this a variant / combination of the ones above?
+
+
+
 # References
 
 - [_Rider Unreal Engine_ by JetBrains @ blog.jetbrains.com](https://blog.jetbrains.com/dotnet/2021/12/16/rider-unreal-engine-linux/)
