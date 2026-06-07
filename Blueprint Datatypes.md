@@ -44,6 +44,8 @@ Class References can be in an array.
 A variable that can have any type.
 There isn't a whole lot one can do with a Wildcard, but can can pass them to a Select node.
 
+To create your own wildcard pins, see [[Blueprint Wildcard Pin]].
+
 
 # Array
 
