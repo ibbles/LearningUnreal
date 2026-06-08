@@ -1,5 +1,16 @@
 Unreal has some trouble with Wayland, at least in the Unreal 5.5 to 5.7 time frame.
 
+# Discord, New→Old
+
+[Brick Frog @ discord.com](https://discord.com/channels/187217643009212416/375022233875382274/1513416568594501762)
+> the caveat with KDE x11 is the KDE maintainers are not touching the x11 package anymore (supposedly) so that's now a community of a community thing for support if "something goes wrong"
+>    
+> I've been on 26.04 on two machines since release but just using xubuntu-desktop with light-dm on top of upgraded Ubuntu LTS packages and not fresh installs. My laptop was on 25.10 before installing the updates and it needs wiped...it can't suspend anymore and return without rebooting. The desktop from 24.04 works fine.
+
+[nande @ discord.com](https://discord.com/channels/187217643009212416/375022233875382274/1513407408322641960)
+> i don't remember the specifics, but there's a package something like x11-session that provise that. an x11 session. like frog said, yo ucan't use it with gnome because they dropped it. but kde has'nt dropped x11 support yet. i plan on moving to 26 soon .
+
+
 [Brick Frog @ discord.com](https://discord.com/channels/187217643009212416/375022233875382274/1513100787683819540):
 > You have two primary options with Ubuntu 26.04 - attempt to use XWayland for things, which may or may not work well for you; or install a separate DE
 >
